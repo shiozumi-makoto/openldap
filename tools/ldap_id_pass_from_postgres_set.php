@@ -171,14 +171,17 @@ $target_column_all = '
 $baseSql = "
 SELECT 
     j.*,
+    x.*,
     p.login_id,
     p.passwd_id,
     p.level_id,
     p.entry,
     p.srv01, p.srv02, p.srv03, p.srv04, p.srv05,
     p.samba_id
-FROM public.\"情報個人\" AS j
-JOIN public.passwd_tnas AS p
+ FROM public.\"情報個人\" AS j
+ JOIN public.\"情報個人メール拡張\" AS x
+  ON j.cmp_id = x.cmp_id AND j.user_id = x.user_id
+ JOIN public.passwd_tnas AS p
   ON j.cmp_id = p.cmp_id AND j.user_id = p.user_id
 ";
 
@@ -214,6 +217,10 @@ echo "DB: fetch target rows …\n";
 $rows = $pdo->query($sql)->fetchAll();
 echo "[INFO] DB rows (pre-filter): " . count($rows) . "\n";
 echo "[INFO] DB rows (post-filter): " . count($rows) . "\n";
+
+
+//print_r($rows[0]);
+//exit;
 
 
 $domain_sid = LdapUtil::inferDomainSid($ds, $baseDn);
@@ -353,6 +360,10 @@ foreach ($rows as $r) {
 	// 並び順の決定ロジック（お好みで）
 	// 例: 指定がなければ 9999、社員は 1000、役員は 10 など…
 	$displayOrderInt = ($mid === '' ? '0' : $mid);
+	$displayNameOrder = mb_convert_kana($seiKana.$meiKana, 'C', 'UTF-8');
+
+//echo $displayNameOrder;
+//exit;
 
     $uidNumber = calc_uid_number($cmp, $uidn);
     $gidNumber = calc_gid_number($cmp);
@@ -416,8 +427,36 @@ foreach ($rows as $r) {
 	     if ($dom !== '') $mailAddrs[] = sprintf('%s@%s', $login, $dom);
 	}
 	$mailAddrs = array_values(array_unique($mailAddrs));
+
+	$mailAlternateAddress = [
+		$r['携帯メール'], 							// makoto.shiozumi@docomo.ne.jp
+		$r['自宅メール'],							// shiozumi.makoto@gmail.com
+		$r['電子メールアドレスLDAP登録'],			// shiozumi@e-smile.ne.jp
+		$r['電子メールアドレスお名前ドットコム'],	// shiozumi@esmile-hd.jp
+		$r['電子メールアドレス自社サーバー']		// shiozumi-makoto@esmile-holdings.com
+	];
+
+	// 空要素を削除（null, 空文字, 0文字など）
+	$mailAlternateAddress = array_filter($mailAlternateAddress, function($v) {
+    	return isset($v) && $v !== '';
+	});
+
+	// （必要なら添字を振り直す）
+	$mailAlternateAddress = array_values($mailAlternateAddress);
+
+//	print_r($mailAlternateAddress);
 //	print_r($mailAddrs);
 //	exit;
+
+/*
+	[電子メールアドレス] => shiozumi@e-smile.ne.jp
+    [携帯メール] => makoto.shiozumi@docomo.ne.jp
+    [自宅メール] => shiozumi.makoto@gmail.com
+    [電子メールアドレスLDAP登録] => shiozumi@e-smile.ne.jp
+    [電子メールアドレスお名前ドットコム] => shiozumi@esmile-hd.jp
+    [電子メールアドレス自社サーバー] => shiozumi-makoto@esmile-holdings.com
+*/
+
 
 /*
 echo $cn."\n";
@@ -507,12 +546,19 @@ exit;
                 'sambaAcctFlags' 		=> '[U          ]',
                 'sambaPwdLastSet'		=> $pwdLastSet,
                 'sambaPrimaryGroupSID'  => $sambaPrimaryGroupSID,
-		        'displayOrderInt'       => (string)$displayOrderInt
+		        'displayOrderInt'       => (string)$displayOrderInt,
+		        'displayNameOrder'      => (string)$displayNameOrder,
+		        'mailAlternateAddress'  => $mailAlternateAddress,
             ], $DBG);
+
             if ($mods && $APPLY && !@ldap_modify($ds, $dn, $mods)) {
                 log_ldap_error($ERR_LOG, $cmp, $uidn, $login, 'modify', $dn, $ds);
             }
-
+/*
+			echo "<pre>";
+			print_r($mods);
+			exit;
+*/
 //				print_r($entry['attrs']);
 //				print_r($mods);
 //				echo "update!! ------------------------------------------------------------- $empType password = $pwd = $displayOrderInt \n";
@@ -542,6 +588,8 @@ exit;
                 'sambaPwdLastSet'		=> $pwdLastSet,
                 'sambaPrimaryGroupSID'  => $sambaPrimaryGroupSID,
 		        'displayOrderInt'       => (string)$displayOrderInt,
+		        'displayNameOrder'      => (string)$displayNameOrder,
+		        'mailAlternateAddress'  => $mailAlternateAddress,
             ];	
 
 
@@ -558,6 +606,9 @@ exit;
 //				exit;
 
         }
+
+//		print_r($mailAlternateAddress);
+
     }
 
     // HOME 整備

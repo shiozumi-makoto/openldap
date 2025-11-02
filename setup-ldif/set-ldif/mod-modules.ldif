@@ -1,0 +1,13 @@
+dn: cn=module{0},cn=config
+changetype: modify
+# mdb は静的なので、モジュールの二重ロードを削除
+delete: olcModuleLoad
+olcModuleLoad: {0}back_mdb.la
+-
+# 必要モジュールを追加
+add: olcModuleLoad
+olcModuleLoad: back_ldap.la
+olcModuleLoad: rwm.la
+olcModuleLoad: syncprov.la
+olcModuleLoad: sssvlv.la
+olcModuleLoad: ppolicy.la

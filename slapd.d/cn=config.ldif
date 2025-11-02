@@ -1,5 +1,5 @@
 # AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
-# CRC32 96697d67
+# CRC32 b20d5743
 dn: cn=config
 objectClass: olcGlobal
 cn: config
@@ -38,9 +38,9 @@ olcTLSProtocolMin: 0.0
 olcToolThreads: 1
 olcWriteTimeout: 0
 structuralObjectClass: olcGlobal
-entryUUID: a0bbe558-4bd4-1040-90c1-45ef2fcf7a17
+entryUUID: 0efee610-4c15-1040-8d01-e34e22dcb487
 creatorsName: cn=config
-createTimestamp: 20251102011138Z
+createTimestamp: 20251102085251Z
 olcTLSCertificateFile: /usr/local/etc/openldap/certs/server_happy_sha256.crt
 olcTLSCertificateKeyFile: /usr/local/etc/openldap/certs/server_happy_sha256.ke
  y
@@ -50,6 +50,6 @@ olcServerID: 2  ldap://ovs-002.e-smile.local
 olcServerID: 24 ldap://ovs-024.e-smile.local
 olcServerID: 25 ldap://ovs-025.e-smile.local
 olcServerID: 26 ldap://ovs-026.e-smile.local
-entryCSN: 20251102014425.425279Z#000000#000#000000
+entryCSN: 20251102090719.973333Z#000000#000#000000
 modifiersName: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
-modifyTimestamp: 20251102014425Z
+modifyTimestamp: 20251102090719Z

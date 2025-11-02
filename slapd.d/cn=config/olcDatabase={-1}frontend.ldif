@@ -1,5 +1,5 @@
 # AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
-# CRC32 73a5d757
+# CRC32 37d3fb68
 dn: olcDatabase={-1}frontend
 objectClass: olcDatabaseConfig
 objectClass: olcFrontendConfig
@@ -14,9 +14,9 @@ olcSchemaDN: cn=Subschema
 olcSyncUseSubentry: FALSE
 olcMonitoring: FALSE
 structuralObjectClass: olcDatabaseConfig
-entryUUID: a0bc1e42-4bd4-1040-90cb-45ef2fcf7a17
+entryUUID: 0eff116c-4c15-1040-8d0b-e34e22dcb487
 creatorsName: cn=config
-createTimestamp: 20251102011138Z
-entryCSN: 20251102011138.630026Z#000000#000#000000
+createTimestamp: 20251102085251Z
+entryCSN: 20251102085251.409210Z#000000#000#000000
 modifiersName: cn=config
-modifyTimestamp: 20251102011138Z
+modifyTimestamp: 20251102085251Z

@@ -1,5 +1,5 @@
 # AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
-# CRC32 05ee1c3e
+# CRC32 1a1ac37e
 dn: olcDatabase={1}mdb
 objectClass: olcDatabaseConfig
 objectClass: olcMdbConfig
@@ -35,9 +35,9 @@ olcDbSearchStack: 16
 olcDbMaxEntrySize: 0
 olcDbRtxnSize: 10000
 structuralObjectClass: olcMdbConfig
-entryUUID: a0bc204a-4bd4-1040-90cd-45ef2fcf7a17
+entryUUID: 0eff1360-4c15-1040-8d0d-e34e22dcb487
 creatorsName: cn=config
-createTimestamp: 20251102011138Z
+createTimestamp: 20251102085251Z
 olcSyncrepl: {0}rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
  e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
  e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
@@ -55,6 +55,6 @@ olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
  e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
  1 interval=00:00:05:00
 olcMultiProvider: TRUE
-entryCSN: 20251102014431.655743Z#000000#00c#000000
+entryCSN: 20251102090724.829857Z#000000#00c#000000
 modifiersName: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
-modifyTimestamp: 20251102014431Z
+modifyTimestamp: 20251102090724Z

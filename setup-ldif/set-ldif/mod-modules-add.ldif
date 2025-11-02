@@ -1,0 +1,17 @@
+dn: cn=module{0},cn=config
+changetype: modify
+add: olcModuleLoad
+olcModuleLoad: back_ldap.la
+-
+add: olcModuleLoad
+olcModuleLoad: rwm.la
+-
+add: olcModuleLoad
+olcModuleLoad: syncprov.la
+-
+add: olcModuleLoad
+olcModuleLoad: sssvlv.la
+-
+add: olcModuleLoad
+olcModuleLoad: ppolicy.la
+

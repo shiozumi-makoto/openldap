@@ -1,5 +1,5 @@
 # AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
-# CRC32 092136ea
+# CRC32 571f82a8
 dn: olcOverlay={0}syncprov
 objectClass: olcOverlayConfig
 objectClass: olcSyncProvConfig
@@ -7,9 +7,9 @@ olcOverlay: {0}syncprov
 olcSpCheckpoint: 100 10
 olcSpSessionlog: 1000
 structuralObjectClass: olcSyncProvConfig
-entryUUID: 81d4e494-4bdb-1040-9d2f-ddd7d5f361d5
+entryUUID: 10b091c8-4c17-1040-8f94-fb19dc9787bc
 creatorsName: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
-createTimestamp: 20251102020053Z
-entryCSN: 20251102020053.261593Z#000000#00c#000000
+createTimestamp: 20251102090713Z
+entryCSN: 20251102090713.244779Z#000000#000#000000
 modifiersName: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
-modifyTimestamp: 20251102020053Z
+modifyTimestamp: 20251102090713Z
