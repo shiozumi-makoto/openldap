@@ -1,0 +1,7 @@
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcDbMaxSize
+olcDbMaxSize: 68719476736
+-
+replace: olcDbMaxReaders
+olcDbMaxReaders: 1024

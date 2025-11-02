@@ -1,0 +1,158 @@
+
+mkdir -p /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/
+mkdir -p /etc/pki/tls/ssl_esmile_hd_jp/CA/
+
+chmod -R 750 /etc/pki/tls/ssl_esmile_hd_jp/
+chown -R root.ldap /etc/pki/tls/ssl_esmile_hd_jp/
+
+scp /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.crt root@ovs-012:/etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/
+scp /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.key root@ovs-012:/etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/
+scp /etc/pki/tls/ssl_esmile_hd_jp/CA/cacert.crt root@ovs-012:/etc/pki/tls/ssl_esmile_hd_jp/CA/
+
+
+
+SSLCertificateFile     /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.crt
+SSLCertificateKeyFile  /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.key
+SSLCACertificateFile   /etc/pki/tls/ssl_esmile_hd_jp/CA/cacert.crt
+
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCACertificateFile=*)" dn olcTLSCACertificateFile
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateFile=*)" dn olcTLSCertificateFile
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateKeyFile=*)" dn olcTLSCertificateKeyFile
+
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCACertificateFile=*)" dn olcTLSCACertificateFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCACertificateFile: /etc/pki/tls/ssl_ovs_026/CA/cacert.crt
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateKeyFile=*)" dn olcTLSCertificateKeyFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCertificateKeyFile: /etc/pki/tls/ssl_ovs_026/ovs026_server_sha256/server_ovs026_sha256.key
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateFile=*)" dn olcTLSCertificateFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCertificateFile:: L2V0Yy9wa2kvdGxzL3NzbF9vdnNfMDI2L292czAyNl9zZXJ2ZXJfc2
+ hhMjU2L3NlcnZlcl9vdnMwMjZfc2hhMjU2LmNydCAgIA==
+
+
+mkdir -p /usr/local/etc/openldap/certs/
+chown ldap. /usr/local/etc/openldap/certs/
+chmod 775 /usr/local/etc/openldap/certs/
+
+ls -la /usr/local/etc/openldap/certs/
+çáåv 16
+drwx------ 2 ldap ldap   86  7åé  5 13:23 .
+drwxr-xr-x 8 root root 4096  9åé 16 04:39 ..
+-rwxr-xr-x 1 ldap ldap 1440  7åé  5 13:23 cacert.crt
+-rwxr-xr-x 1 ldap ldap 1651  7åé  5 13:23 server_happy_sha256.crt
+-rwxr-xr-x 1 ldap ldap 1704  7åé  5 13:23 server_happy_sha256.key
+
+
+
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCACertificateFile=*)" dn olcTLSCACertificateFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCACertificateFile: /usr/local/etc/openldap/certs/cacert.crt
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateFile=*)" dn olcTLSCertificateFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCertificateFile: /usr/local/etc/openldap/certs/server_happy_sha256.crt
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateKeyFile=*)" dn olcTLSCertificateKeyFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCertificateKeyFile: /usr/local/etc/openldap/certs/server_happy_sha256.key
+
+
+[root@ovs-024 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCACertificateFile=*)" dn olcTLSCACertificateFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCACertificateFile: /etc/pki/tls/ssl_esmile_hd_jp/CA/cacert.crt
+
+[root@ovs-024 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateFile=*)" dn olcTLSCertificateFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCertificateFile: /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.crt
+
+[root@ovs-024 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateKeyFile=*)" dn olcTLSCertificateKeyFile
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcTLSCertificateKeyFile: /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.key
+
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f tls-settings.ldif
+
+
+# -------------
+# 	ovs-026
+# -------------
+
+scp /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.crt root@ovs-026:/usr/local/etc/openldap/certs/
+scp /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.key root@ovs-026:/usr/local/etc/openldap/certs/
+scp /etc/pki/tls/ssl_esmile_hd_jp/CA/cacert.crt root@ovs-026:/usr/local/etc/openldap/certs/
+
+chmod -R 750 /usr/local/etc/openldap/certs/
+chown -R root.ldap /usr/local/etc/openldap/certs/
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f tls-settings.ldif
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" dn olcTLSCACertificateFile olcTLSCertificateFile olcTLSCertificateKeyFile
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCACertificateFile=*)" dn olcTLSCACertificateFile
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateFile=*)" dn olcTLSCertificateFile
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcTLSCertificateKeyFile=*)" dn olcTLSCertificateKeyFile
+
+ldapsearch -x -H ldaps://ovs-024.e-smile.local   -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001"
+ldapsearch -x -H ldaps://ovs-025.e-smile.local   -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001"
+ldapsearch -x -H ldaps://ovs-026.e-smile.local   -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001"
+
+
+# -------------
+# 	ovs-024
+# -------------
+
+scp /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.crt root@ovs-024:/usr/local/etc/openldap/certs/
+scp /etc/pki/tls/ssl_esmile_hd_jp/happy_server_sha256/server_happy_sha256.key root@ovs-024:/usr/local/etc/openldap/certs/
+scp /etc/pki/tls/ssl_esmile_hd_jp/CA/cacert.crt root@ovs-024:/usr/local/etc/openldap/certs/
+
+chmod -R 750 /usr/local/etc/openldap/certs/
+chown -R root.ldap /usr/local/etc/openldap/certs/
+
+
+
+
+ldapsearch -x -H ldap://ovs-025.e-smile.local -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001" dn
+ldapsearch -x -H ldap://ovs-012.e-smile.local -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001" dn
+ldapsearch -x -H ldaps://ovs-012.e-smile.local -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001" dn
+
+
+# ìΩñºåüçıÇÃó·
+ldapsearch -LLL -x -H ldap://ovs-012.e-smile.local -ZZ -b "dc=e-smile,dc=ne,dc=jp" "(uid=1-001)" dn
+
+# ä»à’BindÇÃó·Åiä«óùDNÅj
+ldapsearch -LLL -H ldap://ovs-012.e-smile.local -ZZ -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' -b "ou=People,dc=e-smile,dc=ne,dc=jp" "(uid=1-001)" dn

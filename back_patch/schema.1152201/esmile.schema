@@ -1,0 +1,89 @@
+#---------------------------------------------------------------
+# ESMILE GROUP directory schema items
+#
+# OID Base is 1.3.6.1.4.1.31954.
+#---------------------------------------------------------------
+# システム使用許可
+attributetype ( 1.3.6.1.4.1.31954.2.1.1
+  NAME 'esysAccess'
+  DESC 'access e-smile systems enable or not'
+  EQUALITY booleanMatch
+  SINGLE-VALUE
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 )
+
+# 入社日
+attributetype ( 1.3.6.1.4.1.31954.2.1.2 NAME ( 'hireDate' ) SUP name)
+
+# 退社日
+attributetype ( 1.3.6.1.4.1.31954.2.1.3 NAME ( 'fireDate' ) SUP name)
+
+# 性別 (M:男 F:女)
+attributetype ( 1.3.6.1.4.1.31954.2.1.4 NAME ( 'sex' ) SUP name)
+
+# 誕生日
+attributetype ( 1.3.6.1.4.1.31954.2.1.5 NAME ( 'birthDate' ) SUP name)
+
+# 姓カナ
+attributetype ( 1.3.6.1.4.1.31954.2.1.6 NAME ( 'snKana' ) SUP name)
+
+# 名カナ
+attributetype ( 1.3.6.1.4.1.31954.2.1.7 NAME ( 'gnKana' ) SUP name)
+
+# 携帯メール
+attributetype ( 1.3.6.1.4.1.31954.2.1.8
+  NAME ( 'mailMobile' )
+  DESC 'Mobile Mail'
+  EQUALITY caseIgnoreIA5Match
+  SUBSTR caseIgnoreIA5SubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+
+# 自宅メール
+attributetype ( 1.3.6.1.4.1.31954.2.1.9
+  NAME ( 'mailHome' )
+  DESC 'Home Mail'
+  EQUALITY caseIgnoreIA5Match
+  SUBSTR caseIgnoreIA5SubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+
+# 社員スキルレベル
+attributetype ( 1.3.6.1.4.1.31954.2.1.10
+  NAME 'employeeLevel'
+  DESC 'employee skill level (temporary)'
+  EQUALITY numericStringMatch
+  SINGLE-VALUE
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.36 )
+
+# ゲーム系社員？ add 20090217
+attributetype ( 1.3.6.1.4.1.31954.2.1.11
+  NAME 'isGame'
+  DESC 'is Game?'
+  EQUALITY booleanMatch
+  SINGLE-VALUE
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 )
+
+# マネージャー？(管理者) add 20090221
+attributetype ( 1.3.6.1.4.1.31954.2.1.12
+  NAME 'isManager'
+  DESC 'is Manager?'
+  EQUALITY booleanMatch
+  SINGLE-VALUE
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 )
+
+# 内勤社員？ add 20090402
+attributetype ( 1.3.6.1.4.1.31954.2.1.13
+  NAME 'isInternal'
+  DESC ''
+  EQUALITY booleanMatch
+  SINGLE-VALUE
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 )
+
+# 社会保険加入日 add 20090515
+attributetype ( 1.3.6.1.4.1.31954.2.1.14 NAME ( 'insuranceDate' ) SUP name)
+
+# イースマイル社員オブジェクト
+objectClass ( 1.3.6.1.4.1.31954.2.2.1 NAME 'esmilePerson'
+  DESC 'ESMILE GROUP Person'
+  SUP ( inetOrgPerson )
+  MUST ( uid $ cn )
+  MAY ( esysAccess $ hireDate $ fireDate $ sex $ birthDate $ snKana $ gnKana $ mailMobile $ mailHome $ employeeLevel $ isGame $ isManager $ isInternal $ insuranceDate ) )
+

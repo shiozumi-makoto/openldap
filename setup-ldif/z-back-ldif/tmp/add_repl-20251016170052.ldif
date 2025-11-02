@@ -1,0 +1,5 @@
+dn: cn=repl-20251016170052,ou=Tests,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: organizationalRole
+cn: repl-20251016170052
+description: replication smoke test created at 2025-10-16 17:00:52 on ovs-012

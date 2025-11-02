@@ -1,0 +1,428 @@
+# -------------------------------------------------------------------------------------------- 2025.11.2
+#
+# --------------------------------------------------------------------------------------------
+
+[root@ovs-012 set-ldif]# ls -la
+合計 528
+drwxrwsr-x 2 shiozumi shiozumi   4096 10月 17 02:54 .
+drwxrwsr-x 5 shiozumi shiozumi     80 10月 27 02:50 ..
+-rw-rw-r-- 1 root     shiozumi    532 10月 17 03:05 acl.ldif
+-rw-rw-r-- 1 root     shiozumi    570 10月 17 02:54 acl_replace.ldif
+-rw-rw-r-- 1 root     shiozumi    183 10月 16 15:44 add_syncprov_ovs012.ldif
+-rw-rw-r-- 1 root     shiozumi 301210 10月 16 14:30 all_people.ldif
+-rw-rw-r-- 1 root     shiozumi 190370 10月 16 14:30 all_users.ldif
+-rw-rw-r-- 1 root     shiozumi   1550 10月 16 14:24 set-init.ldif
+-rw-rw-r-- 1 root     shiozumi    368 10月 16 14:45 set-ldaps-cert.ldif
+-rw-rw-r-- 1 root     shiozumi    253 10月 16 14:24 set-olcAccess.ldif
+-rw-rw-r-- 1 root     shiozumi    121 10月 16 14:24 set-rootpw.ldif
+-rw-rw-r-- 1 root     shiozumi    112 10月 16 14:39 set-users.ldif
+-rw-rw-r-- 1 root     shiozumi    280 10月 16 15:06 set_serverid_ovs012.ldif
+-rw-rw-r-- 1 root     shiozumi   1137 10月 16 15:09 set_syncrepl_ovs012.ldif
+
+[root@ovs-012 set-ldif]# pwd
+/usr/local/etc/openldap/setup-ldif/set-ldif
+
+LDIF=/usr/local/etc/openldap/setup-ldif/set-ldif
+echo "$LDIF"
+ls -la $LDIF
+
+ldapadd    -Y EXTERNAL -H ldapi:/// -f ${LDIF}/add_syncprov_ovs012.ldif
+ldapmodify -Y EXTERNAL -H ldapi:/// -f ${LDIF}/set_serverid_ovs012.ldif
+ldapmodify -Y EXTERNAL -H ldapi:/// -f ${LDIF}/set_syncrepl_ovs012.ldif
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" olcServerID
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={1}mdb,cn=config" olcSyncrepl olcMultiProvider
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcOverlay=syncprov)" dn olcSpCheckpoint olcSpSessionlog
+
+
+# --------------------------------------------------------------------------------------------
+dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+olcSpCheckpoint: 100 10
+olcSpSessionlog: 1000	<-------------- ここを、合わせた！
+# --------------------------------------------------------------------------------------------
+
+./set_sessionlog_all.sh 
+./check_syncprov_all.sh
+
+
+# --------------------------------------------------------------------------------------------
+# contextCSN 確認！
+# --------------------------------------------------------------------------------------------
+[root@ovs-012 set-ldif]# for h in ovs-002 ovs-012 ovs-024 ovs-025 ovs-026; do
+  printf "%-7s " "$h"
+  ssh -o BatchMode=yes "$h" \
+    "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -s base \
+       -o ldif-wrap=no -b dc=e-smile,dc=ne,dc=jp contextCSN \
+     | awk -F': ' '/^contextCSN:/{print \$2}' \
+     | sort \
+     | tail -1"
+done
+ovs-002 SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+20251101083340.878107Z#000000#00c#000000
+ovs-012 SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+20251101083340.878107Z#000000#00c#000000
+ovs-024 SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+20251101083340.878107Z#000000#00c#000000
+ovs-025 SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+20251101083340.878107Z#000000#00c#000000
+ovs-026 SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+20251101083340.878107Z#000000#00c#000000
+[root@ovs-012 set-ldif]#
+
+
+ for h in ovs-002 ovs-012 ovs-024 ovs-025 ovs-026; do
+  echo "---- $h ----"
+  ssh -o BatchMode=yes "$h" \
+    "ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -s base \
+       -o ldif-wrap=no -b dc=e-smile,dc=ne,dc=jp contextCSN \
+     | awk -F': ' '/^contextCSN:/{print \$2}' \
+     | awk -F'#' '{printf \"ts=%s rid=%s\n\", \$1, \$3}' \
+     | sort"
+done
+---- ovs-002 ----
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+ts=20250907071021.957417Z rid=000
+ts=20250907161126.608673Z rid=001
+ts=20251023212020.653621Z rid=018
+ts=20251026175745.300727Z rid=019
+ts=20251101025311.606338Z rid=002
+ts=20251101083340.878107Z rid=00c
+---- ovs-012 ----
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+ts=20250907071021.957417Z rid=000
+ts=20250907161126.608673Z rid=001
+ts=20251023212020.653621Z rid=018
+ts=20251026175745.300727Z rid=019
+ts=20251101025311.606338Z rid=002
+ts=20251101083340.878107Z rid=00c
+---- ovs-024 ----
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+ts=20250907071021.957417Z rid=000
+ts=20250907161126.608673Z rid=001
+ts=20251023212020.653621Z rid=018
+ts=20251026175745.300727Z rid=019
+ts=20251101025311.606338Z rid=002
+ts=20251101083340.878107Z rid=00c
+---- ovs-025 ----
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+ts=20250907071021.957417Z rid=000
+ts=20250907161126.608673Z rid=001
+ts=20251023212020.653621Z rid=018
+ts=20251026175745.300727Z rid=019
+ts=20251101025311.606338Z rid=002
+ts=20251101083340.878107Z rid=00c
+---- ovs-026 ----
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+ts=20250907071021.957417Z rid=000
+ts=20250907161126.608673Z rid=001
+ts=20251023212020.653621Z rid=018
+ts=20251026175745.300727Z rid=019
+ts=20251101025311.606338Z rid=002
+ts=20251101083340.878107Z rid=00c
+[root@ovs-012 set-ldif]#
+
+
+
+
+
+
+# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
+#	13.a レプリケーション初期化！
+# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f set_serverid_ovs012.ldif
+
+# --------------------------------------------------------------------------------------------
+#	set_serverid_ovs012.ldif
+# --------------------------------------------------------------------------------------------
+dn: cn=config
+changetype: modify
+replace: olcServerID
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" olcServerID
+
+[root@ovs-012 tools]# ldapmodify -Y EXTERNAL -H ldapi:/// -f set_serverid_ovs012.ldif
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+modifying entry "cn=config"
+
+[root@ovs-012 tools]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" olcServerID
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+
+dn: cn=module{0},cn=config
+
+dn: cn=schema,cn=config
+
+dn: cn={0}core,cn=schema,cn=config
+
+dn: cn={1}cosine,cn=schema,cn=config
+
+dn: cn={2}inetorgperson,cn=schema,cn=config
+
+dn: cn={3}nis,cn=schema,cn=config
+
+dn: cn={4}esmile,cn=schema,cn=config
+
+dn: cn={5}samba,cn=schema,cn=config
+
+dn: olcDatabase={-1}frontend,cn=config
+
+dn: olcDatabase={0}config,cn=config
+
+dn: olcDatabase={1}mdb,cn=config
+
+dn: olcDatabase={2}monitor,cn=config
+
+
+[root@ovs-025 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={2}mdb,cn=config" olcSyncrepl olcMultiProvider
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSyncrepl: {0}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {1}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {2}rid=012 provider=ldap://ovs-012.e-smile.local bindmethod=simpl
+ e binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 5" timeout=1
+  interval=00:00:01:00
+olcSyncrepl: {3}rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcMultiProvider: TRUE
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+
+[root@ovs-012 certs]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={1}mdb,cn=config" olcSyncrepl olcMultiProvider
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+
+
+[root@ovs-025 openldap]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config '(olcDatabase= mdb )' dn olcSuffix
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSuffix: dc=e-smile,dc=ne,dc=jp
+
+
+# --------------------------------------------------------------------------------------------
+# ファイル名：set_syncrepl_ovs012.ldif
+# --------------------------------------------------------------------------------------------
+
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+add: olcSyncrepl
+olcSyncrepl: {0}rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=1 interval=00:00:05:00
+olcSyncrepl: {1}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=1 interval=00:00:05:00
+olcSyncrepl: {2}rid=025 provider=ldap://ovs-025.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=1 interval=00:00:05:00
+olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=1 interval=00:00:05:00
+-
+add: olcMultiProvider
+olcMultiProvider: TRUE
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f set_syncrepl_ovs012.ldif
+
+
+[root@ovs-012 tools]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={1}mdb,cn=config" olcSyncrepl olcMultiProvider
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcSyncrepl: {0}rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {1}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {2}rid=025 provider=ldap://ovs-025.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcMultiProvider: TRUE
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+[root@ovs-012 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config '(olcDatabase= mdb )' dn olcSuffix
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcSuffix: dc=e-smile,dc=ne,dc=jp
+
+
+[OK] Completed on ovs-012
+[root@ovs-012 tmp]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config olcServerID
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={1}mdb,cn=config" olcSyncrepl olcMultiProvider
+
+
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcSyncrepl: {0}rid=001 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
+ e binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {1}rid=025 provider=ldap://ovs-025.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 5" timeout=1
+  interval=00:00:01:00
+olcSyncrepl: {2}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcMultiProvider: TRUE
+
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config
+
+---------------------------------------------------------------------------------------------------------------
+# /usr/local/etc/openldap/tmp/monitor-csn.sh
+
+HOSTS=(ovs-024 ovs-025 ovs-026 ovs-002 ovs-012)
+for h in "${HOSTS[@]}"; do
+  echo "== $h ==";
+  ldapsearch -LLL -x -H ldap://$h \
+    -D 'cn=Admin,dc=e-smile,dc=ne,dc=jp' -y /root/.ldap-pass \
+    -b 'dc=e-smile,dc=ne,dc=jp' -s base -e manageDSAit contextCSN; echo;
+done
+
+== ovs-024 ==
+dn: dc=e-smile,dc=ne,dc=jp
+contextCSN: 20250907071021.957417Z#000000#000#000000
+contextCSN: 20250907161126.608673Z#000000#001#000000
+contextCSN: 20250907160055.929157Z#000000#002#000000
+contextCSN: 20251010204023.982309Z#000000#00c#000000
+contextCSN: 20251003193617.788495Z#000000#018#000000
+contextCSN: 20251015175028.107025Z#000000#019#000000
+
+
+== ovs-025 ==
+dn: dc=e-smile,dc=ne,dc=jp
+contextCSN: 20250907071021.957417Z#000000#000#000000
+contextCSN: 20250907161126.608673Z#000000#001#000000
+contextCSN: 20250907160055.929157Z#000000#002#000000
+contextCSN: 20251010204023.982309Z#000000#00c#000000
+contextCSN: 20251003193617.788495Z#000000#018#000000
+contextCSN: 20251015175028.107025Z#000000#019#000000
+
+
+== ovs-026 ==
+dn: dc=e-smile,dc=ne,dc=jp
+contextCSN: 20250907071021.957417Z#000000#000#000000
+contextCSN: 20250907161126.608673Z#000000#001#000000
+contextCSN: 20250907160055.929157Z#000000#002#000000
+contextCSN: 20251010204023.982309Z#000000#00c#000000
+contextCSN: 20251003193617.788495Z#000000#018#000000
+contextCSN: 20251015175028.107025Z#000000#019#000000
+
+
+== ovs-002 ==
+dn: dc=e-smile,dc=ne,dc=jp
+contextCSN: 20250907071021.957417Z#000000#000#000000
+contextCSN: 20250907161126.608673Z#000000#001#000000
+contextCSN: 20250907160055.929157Z#000000#002#000000
+contextCSN: 20251010204023.982309Z#000000#00c#000000
+contextCSN: 20251003193617.788495Z#000000#018#000000
+contextCSN: 20251015175028.107025Z#000000#019#000000
+
+
+== ovs-012 ==
+dn: dc=e-smile,dc=ne,dc=jp
+contextCSN: 20250907071021.957417Z#000000#000#000000
+contextCSN: 20250907161126.608673Z#000000#001#000000
+contextCSN: 20250907160055.929157Z#000000#002#000000
+contextCSN: 20251010204023.982309Z#000000#00c#000000
+contextCSN: 20251003193617.788495Z#000000#018#000000
+contextCSN: 20251015175028.107025Z#000000#019#000000
+
+
+---------------------------------------------------------------------------------------------------------------
+[root@ovs-025 tmp]# ldapsearch -LLL -x -H ldap://ovs-024 \
+  -D 'cn=Admin,dc=e-smile,dc=ne,dc=jp' -y /root/.ldap-pass \
+  -b "cn=Database 2,cn=Databases,cn=Monitor" "(cn=Consumer *)" + \
+  syncreplCookie contextCSN \
+| awk '
+  /^dn: cn=Consumer/ {print "\n" $0}
+  /^syncreplCookie:/ {print}
+  /^contextCSN:/ {print}
+'
+
+dn: cn=Consumer 026,cn=Database 2,cn=Databases,cn=Monitor
+
+dn: cn=Consumer 001,cn=Database 2,cn=Databases,cn=Monitor
+
+dn: cn=Consumer 012,cn=Database 2,cn=Databases,cn=Monitor
+
+dn: cn=Consumer 002,cn=Database 2,cn=Databases,cn=Monitor

@@ -1,0 +1,22 @@
+dn: cn=emMailAux,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: emMailAux
+olcAttributeTypes: ( 1.3.6.1.4.1.55555.1.1
+  NAME 'mailAlternateAddress'
+  DESC 'Additional email addresses for a person'
+  EQUALITY caseIgnoreIA5Match
+  SUBSTR caseIgnoreIA5SubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+olcAttributeTypes: ( 1.3.6.1.4.1.55555.1.3
+  NAME 'displayNameOrder'
+  DESC 'Sortable display name for address book'
+  EQUALITY caseIgnoreMatch
+  ORDERING caseIgnoreOrderingMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+olcObjectClasses: ( 1.3.6.1.4.1.55555.1.2
+  NAME 'emMailAux'
+  DESC 'Aux class to hold alternate email addresses'
+  SUP top
+  AUXILIARY
+  MAY ( mailAlternateAddress $ displayNameOrder $ displayOrderInt ) )

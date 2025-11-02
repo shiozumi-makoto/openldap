@@ -1,0 +1,81 @@
+<?php
+/**
+ * Tools\Ldap\CliUtil
+ * 汎用 CLI オプションパーサ
+ * 
+ * @package Tools\Ldap
+ * @example
+ *   $opt = CliUtil::args($argv);
+ *   if ($opt['confirm']) echo "確認あり\n";
+ *   if ($opt['group'])   echo "group={$opt['group']}\n";
+
+ * esmile-dev = 2001;
+ * kindalae-dev = 2003;
+
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+dn: cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+dn: cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+dn: cn=boj-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+dn: cn=e_game-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+dn: cn=solt-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+dn: cn=social-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+
+*/
+
+namespace Tools\Lib;
+
+final class CliUtil
+{
+    /** @var array<string,int> LDAPグループ名 → gidNumber 対応表 */
+    public static array $groupMap = [];
+
+    /** 初期化処理：グループマップ登録 */
+    public static function init(): void
+    {
+        // ★ グループと gidNumber の対応（固定表）
+        self::$groupMap = [
+            'users'       => 100,
+            'esmile-dev'  => 2001,
+            'nicori-dev'  => 2002,
+            'kindaka-dev' => 2003,
+            'boj-dev'     => 2005,
+            'e_game-dev'  => 2009,
+            'solt-dev'    => 2010,
+            'social-dev'  => 2012,
+        ];
+    }
+
+    /**
+     * CLI引数をパースして、--key / --key=value の両方に対応
+     *
+     * 例:
+     *   php script.php --confirm --group=users --list
+     */
+    public static function args(array $argv): array
+    {
+        $res = [];
+        foreach ($argv as $arg) {
+            if (!str_starts_with($arg, '--')) continue;
+            $arg = substr($arg, 2);
+            if (str_contains($arg, '=')) {
+                [$key, $val] = explode('=', $arg, 2);
+                $res[$key] = $val;
+            } else {
+                $res[$arg] = true;
+            }
+        }
+        return $res;
+    }
+
+    /** グループ名から gidNumber を取得（見つからない場合は null） */
+    public static function gidByGroup(string $group): ?int
+    {
+
+		echo $group;
+		print_r(self::$groupMap);
+		exit;
+
+        return self::$groupMap[$group] ?? null;
+    }
+}

@@ -1,0 +1,8 @@
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: sambaNTPassword
+sambaNTPassword: D5EC50C26E64961D9A26E6E602A906A3
+-
+replace: sambaPwdLastSet
+sambaPwdLastSet: 1738123456
+

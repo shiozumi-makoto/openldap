@@ -1,0 +1,15 @@
+dn: cn=social-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+delete: memberUid
+memberUid: -
+-
+delete: memberUid
+memberUid: -2
+-
+
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+delete: memberUid
+memberUid: -3
+-
+

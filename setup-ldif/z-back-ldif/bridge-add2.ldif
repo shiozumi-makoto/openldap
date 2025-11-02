@@ -1,0 +1,6 @@
+# ./tmp/bridge-add2.ldif
+dn: uid=10-260,ou=Temp,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+add: description
+description: BRIDGE-TEST-2
+

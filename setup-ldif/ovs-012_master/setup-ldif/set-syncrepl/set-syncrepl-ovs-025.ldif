@@ -1,0 +1,10 @@
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+replace: olcMirrorMode
+olcMirrorMode: TRUE
+-
+replace: olcSyncrepl
+olcSyncrepl: rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="__REPL_PASS__" searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 network-timeout=5 schemachecking=on scope=sub attrs="*,+"
+olcSyncrepl: rid=012 provider=ldap://ovs-012.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="__REPL_PASS__" searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 network-timeout=5 schemachecking=on scope=sub attrs="*,+"
+olcSyncrepl: rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="__REPL_PASS__" searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 network-timeout=5 schemachecking=on scope=sub attrs="*,+"
+olcSyncrepl: rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="__REPL_PASS__" searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 network-timeout=5 schemachecking=on scope=sub attrs="*,+"

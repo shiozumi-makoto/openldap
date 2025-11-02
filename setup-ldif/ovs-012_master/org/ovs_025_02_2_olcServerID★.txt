@@ -1,0 +1,108 @@
+# ======================================================================
+#	slapd.conf への設定が分からないので、ここで、吐き出す！
+# ======================================================================
+
+slaptest -u -v -f slapd.conf
+
+# ---------------------------
+#	エラーは、ここで確認
+# ---------------------------
+http://arinux.jugem.jp/?eid=42
+
+slaptest -f slapd.conf -F slapd.d
+
+# ======================================================================
+#	ServerIDの設定
+# ======================================================================
+
+cat ./ldif/02_2_olcServerID.ldif
+
+dn: cn=config
+changetype: modify
+replace: olcServerID
+olcServerID: 1 ldap://ovs-025/
+olcServerID: 2 ldap://ovs-024/
+
+
+ldapadd -Y EXTERNAL -H ldapi:// -f ./ldif/02_2_olcServerID.ldif
+
+# ======================================================================
+#	設定の確認！
+# ======================================================================
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "olcServerID"
+
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 1 ldap://ovs-025/
+olcServerID: 2 ldap://ovs-024/
+
+dn: cn=schema,cn=config
+dn: cn={0}core,cn=schema,cn=config
+dn: cn={1}cosine,cn=schema,cn=config
+dn: cn={2}inetorgperson,cn=schema,cn=config
+dn: cn={3}nis,cn=schema,cn=config
+dn: cn={4}esmile,cn=schema,cn=config
+dn: olcDatabase={-1}frontend,cn=config
+dn: olcDatabase={0}config,cn=config
+dn: olcDatabase={1}monitor,cn=config
+dn: olcDatabase={2}mdb,cn=config
+
+
+dn: cn=schema,cn=config
+
+dn: cn={0}core,cn=schema,cn=config
+dn: cn={1}cosine,cn=schema,cn=config
+dn: cn={2}inetorgperson,cn=schema,cn=config
+dn: cn={3}nis,cn=schema,cn=config
+dn: cn={4}esmile,cn=schema,cn=config
+dn: cn={5}samba,cn=schema,cn=config
+dn: olcDatabase={-1}frontend,cn=config
+dn: olcDatabase={0}config,cn=config
+dn: olcDatabase={1}mdb,cn=config
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config
+dn: olcDatabase={2}monitor,cn=config
+s
+
+SASL SSF: 0
+dn: cn=config
+olcServerID: 1 ldap://ovs-025/
+olcServerID: 2 ldap://ovs-024/
+
+dn: cn=schema,cn=config
+dn: cn={0}core,cn=schema,cn=config
+dn: cn={1}cosine,cn=schema,cn=config
+dn: cn={2}inetorgperson,cn=schema,cn=config
+dn: cn={3}nis,cn=schema,cn=config
+dn: cn={4}esmile,cn=schema,cn=config
+dn: cn={5}samba,cn=schema,cn=config
+dn: olcDatabase={-1}frontend,cn=config
+dn: olcDatabase={0}config,cn=config
+dn: olcDatabase={1}monitor,cn=config
+dn: olcDatabase={2}mdb,cn=config
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+
+
+[root@ovs-002 tools]#  ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "olcServerID"
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 1 ldap://ovs-002/
+olcServerID: 2 ldap://ovs-012/
+
+dn: cn=schema,cn=config
+dn: cn={0}core,cn=schema,cn=config
+dn: cn={1}cosine,cn=schema,cn=config
+dn: cn={2}inetorgperson,cn=schema,cn=config
+dn: cn={3}nis,cn=schema,cn=config
+dn: cn={4}esmile,cn=schema,cn=config
+dn: cn={5}samba,cn=schema,cn=config
+dn: olcDatabase={-1}frontend,cn=config
+dn: olcDatabase={0}config,cn=config
+dn: olcDatabase={1}mdb,cn=config
+dn: olcDatabase={2}monitor,cn=config
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config

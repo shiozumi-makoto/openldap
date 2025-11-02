@@ -1,0 +1,57 @@
+#
+#
+#
+ldapsearch -x -H ldap://ovs-025.e-smile.local -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001" dn
+ldapsearch -x -H ldap://ovs-012.e-smile.local -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001" dn
+ldapsearch -x -H ldaps://ovs-012.e-smile.local -b "dc=e-smile,dc=ne,dc=jp" "uid=1-001" dn
+
+# 匿名検索の例
+ldapsearch -LLL -x -H ldap://ovs-012.e-smile.local -ZZ -b "dc=e-smile,dc=ne,dc=jp" "(uid=1-001)" dn
+
+# 簡易Bindの例（管理DN）
+ldapsearch -LLL -H ldap://ovs-012.e-smile.local -ZZ -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' -b "ou=People,dc=e-smile,dc=ne,dc=jp" "(uid=1-001)" dn
+
+
+#
+#
+#
+result: 13 Confidentiality required」が出るのは、ovs-012 の slapd 側設定に「通信は TLS 必須」ポリシーが入っているためです。
+この制約を外して、他サーバ（ovs-025 など）と同様に ldap://（平文接続）も許可 するには、olcSecurity または olcLocalSSF の設定を調整します。
+
+ldapsearch -LLL -Q -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi/ -b "cn=config"
+
+#
+#
+#
+ldapsearch -LLL -Q -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi/ -b "cn=config" "(olcSecurity=*)" olcSecurity
+
+ldapsearch -LLL -Q -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcSecurity=*)" olcSecurity
+ldapsearch -LLL -Q -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcSecurity=*)" olcSecurity
+ldapsearch -LLL -Q -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcAccess=*)" dn olcAccess
+ldapsearch -LLL -Q -Y EXTERNAL -H ldapi:/// -b "cn=config" "(olcDatabase=*)" dn olcSuffix olcAccess
+ldapsearch -LLL -Q -Y EXTERNAL -H ldapi:/// -b "cn=config"   olcLocalSSF olcRequires
+
+systemctl status slapd2610.service
+
+#
+#
+#
+
+
+
+ ls -l /var/run/ldapi /usr/local/var/run/ldapi 2>/dev/null
+srwxrwxrwx 1 root root 0 10月 16 05:07 /usr/local/var/run/ldapi
+
+ps -ef | grep '[s]lapd'
+ldap      242347       1  2 05:07 ?        00:00:06 /usr/local/openldap-2.6.10/libexec/slapd -F /usr/local/etc/openldap/slapd.d -h ldap://ovs-012.e-smile.local ldap://127.0.0.1 ldaps:/// ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi -u ldap -g ldap
+
+[root@ovs-012 php]# ldapsearch -LLL -Q -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi \
+  -s base -b "" namingContexts supportedSASLMechanisms
+dn:
+namingContexts: dc=e-smile,dc=ne,dc=jp
+supportedSASLMechanisms: GSS-SPNEGO
+supportedSASLMechanisms: GSSAPI
+supportedSASLMechanisms: EXTERNAL
+supportedSASLMechanisms: LOGIN
+supportedSASLMechanisms: PLAIN
+

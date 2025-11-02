@@ -1,0 +1,575 @@
+
+=== START ACCOUNT UPDATE! (SAMBA+LDAP) ===
+
+/usr/local/etc/openldap/tools/temp.sh [実行shell]
+
+★★★★★★[STEP1] ユーザ本体の同期（HOME/LDAP upsert）
+  php ldap_id_pass_from_postgres_set.php --ldap --ldapi
+
+=== LDAP connection summary ===
+ Mode      : ldapi
+ URI       : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+ Status    : ? bind success (anonymous)
+ Protocol  : v3
+===============================
+
+=== START add-home(+LDAP) ===
+HOST      : ovs-012.e-smile.local
+HOME_ROOT : /ovs012_home
+SKEL      : /etc/skel
+MODE      : 0750 (488)
+CONFIRM   : NO  (dry-run)
+LDAP      : enabled
+log file  : ldap_uid_errors.log
+local uid : 0
+----------------------------------------------
+ldap_host : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+ldap_base : dc=e-smile,dc=ne,dc=jp
+ldap_user : -
+ldap_pass : ********
+----------------------------------------------
+
+DB: fetch target rows …
+[INFO] DB rows (pre-filter): 250
+[INFO] DB rows (post-filter): 250
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[INFO] Domain SID: S-1-5-21-3566765955-3362818161-2431109675
+Up!  [  1] [01-001] [[31madm-cls 1[0m ] [shiozumi-makoto     ] [CON] 更新 [Mak......] [塩住誠]
+Up!  [  2] [02-001] [[91merr-cls 99[0m] [shiozumi-makoto2    ] [CON] 更新 [WDX......] [塩住誠]
+Up!  [  3] [03-001] [[91merr-cls 99[0m] [shiozumi-makoto3    ] [CON] 更新 [C37......] [塩住誠]
+Up!  [  4] [03-156] [[32ment-cls 20[0m] [kurabayashi-akira   ] [CON] 更新 [4dm......] [倉林明]
+Up!  [  5] [03-207] [[32ment-cls 20[0m] [watanabe-toshihiro  ] [CON] 更新 [fel......] [渡邉敏浩]
+Up!  [  6] [03-245] [[32ment-cls 20[0m] [fukuyasu-hideaki    ] [CON] 更新 [oFR......] [福安秀明]
+Up!  [  7] [03-303] [[35mmgr-cls 5[0m ] [katsu-shino         ] [CON] 更新 [E7y......] [勝し乃]
+Up!  [  8] [03-321] [[36mmgs-cls 10[0m] [takebayashi-yumiko  ] [CON] 更新 [gR8......] [竹林由美子]
+Up!  [  9] [03-329] [[34mdir-cls 3[0m ] [yamaguchi-tomohisa  ] [CON] 更新 [Y2s......] [山口智久]
+Up!  [ 10] [03-330] [[32ment-cls 20[0m] [koyama-hiroki       ] [CON] 更新 [29L......] [小山大樹]
+Up!  [ 11] [03-342] [[32ment-cls 20[0m] [ushigome-norio      ] [CON] 更新 [e90......] [牛込紀雄]
+Up!  [ 12] [03-347] [[32ment-cls 20[0m] [saitou-jun          ] [CON] 更新 [7Fv......] [齊藤純]
+Up!  [ 13] [03-348] [[32ment-cls 20[0m] [yamazaki-akinori    ] [CON] 更新 [f5q......] [山崎明典]
+Up!  [ 14] [03-362] [[32ment-cls 20[0m] [nemoto-osamu        ] [CON] 更新 [auB......] [根本修]
+Up!  [ 15] [03-363] [[32ment-cls 20[0m] [akashio-hiroki      ] [CON] 更新 [tnC......] [赤塩寛規]
+Up!  [ 16] [03-365] [[32ment-cls 20[0m] [takeuchi-tomokazu   ] [CON] 更新 [I37......] [武内友和]
+Up!  [ 17] [03-366] [[32ment-cls 20[0m] [nakamura-toshihiko  ] [CON] 更新 [Sg7......] [中村俊彦]
+Up!  [ 18] [03-367] [[32ment-cls 20[0m] [iizawa-kensuke      ] [CON] 更新 [35G......] [飯澤研介]
+Up!  [ 19] [03-410] [[32ment-cls 20[0m] [yamasaki-ryouhei    ] [CON] 更新 [bK5......] [山崎良平]
+Up!  [ 20] [03-412] [[32ment-cls 20[0m] [nakajima-shin       ] [CON] 更新 [UqO......] [中島伸]
+Up!  [ 21] [05-100] [[36mmgs-cls 10[0m] [hirukawa-makoto     ] [CON] 更新 [pZ3......] [比留川真]
+Up!  [ 22] [05-101] [[34mdir-cls 3[0m ] [takahashi-ryouya2   ] [CON] 更新 [HZy......] [髙橋怜也]
+Up!  [ 23] [05-102] [[35mmgr-cls 5[0m ] [sano-yukiharu       ] [CON] 更新 [N0C......] [佐野幸晴]
+Up!  [ 24] [05-103] [[36mmgs-cls 10[0m] [yanagisawa-yurika   ] [CON] 更新 [rnY......] [柳澤百合香]
+Up!  [ 25] [09-102] [[32ment-cls 20[0m] [nishizawa-takuya    ] [CON] 更新 [fZQ......] [西沢卓也]
+Up!  [ 26] [09-103] [[32ment-cls 20[0m] [abe-ryou            ] [CON] 更新 [DF4......] [阿部亮]
+Up!  [ 27] [09-104] [[32ment-cls 20[0m] [suzuki-daisuke      ] [CON] 更新 [THo......] [鈴木大介]
+Up!  [ 28] [09-106] [[32ment-cls 20[0m] [tamai-akihiko       ] [CON] 更新 [NZL......] [玉井明彦]
+Up!  [ 29] [09-118] [[36mmgs-cls 8[0m ] [oonuki-atsushi      ] [CON] 更新 [U8j......] [大貫厚]
+Up!  [ 30] [09-119] [[32ment-cls 20[0m] [horikawa-yuudai     ] [CON] 更新 [9dF......] [堀川雄大]
+Up!  [ 31] [09-157] [[32ment-cls 20[0m] [hirose-masaya       ] [CON] 更新 [91i......] [廣瀬允耶]
+Up!  [ 32] [09-164] [[32ment-cls 20[0m] [fujii-hibiki        ] [CON] 更新 [Mj6......] [藤井響]
+Up!  [ 33] [09-174] [[32ment-cls 20[0m] [nakano-atsushi      ] [CON] 更新 [yxc......] [中野篤志]
+Up!  [ 34] [09-229] [[32ment-cls 20[0m] [sugawara-naoki      ] [CON] 更新 [452......] [菅原直記]
+Up!  [ 35] [09-232] [[32ment-cls 20[0m] [namiki-hiroyuki     ] [CON] 更新 [98Q......] [並木裕幸]
+Up!  [ 36] [09-266] [[32ment-cls 20[0m] [yamada-masayuki     ] [CON] 更新 [G6f......] [山田真之]
+Up!  [ 37] [09-270] [[36mmgs-cls 10[0m] [maruyama-ikumi      ] [CON] 更新 [yKN......] [丸山郁美]
+Up!  [ 38] [09-271] [[32ment-cls 20[0m] [itou-yutaka         ] [CON] 更新 [Rlq......] [伊藤豊]
+Up!  [ 39] [09-293] [[32ment-cls 20[0m] [sasaki-yuusuke      ] [CON] 更新 [4Vm......] [佐々木佑輔]
+Up!  [ 40] [09-306] [[32ment-cls 20[0m] [takeda-nobutaka     ] [CON] 更新 [Apu......] [武田信孝]
+Up!  [ 41] [09-328] [[32ment-cls 20[0m] [satou-takahiro      ] [CON] 更新 [6M7......] [佐藤貴洋]
+Up!  [ 42] [09-340] [[32ment-cls 20[0m] [yamagishi-hiroaki   ] [CON] 更新 [C80......] [山岸浩明]
+Up!  [ 43] [09-361] [[32ment-cls 20[0m] [kakumoto-yuuki      ] [CON] 更新 [1E3......] [角本祐希]
+Up!  [ 44] [09-363] [[32ment-cls 20[0m] [sekimoto-takahito   ] [CON] 更新 [1Xv......] [関本隆人]
+Up!  [ 45] [09-387] [[32ment-cls 20[0m] [nagano-naoki        ] [CON] 更新 [6y2......] [永野直樹]
+Up!  [ 46] [09-413] [[32ment-cls 20[0m] [namimatsu-teruyuki  ] [CON] 更新 [yk6......] [並松輝行]
+Up!  [ 47] [09-416] [[32ment-cls 20[0m] [fukushima-yuuya     ] [CON] 更新 [tDG......] [福島友弥]
+Up!  [ 48] [09-419] [[32ment-cls 20[0m] [kaneko-hitomi       ] [CON] 更新 [vBJ......] [金子ひとみ]
+Up!  [ 49] [09-420] [[32ment-cls 20[0m] [nakamura-keita      ] [CON] 更新 [0kY......] [中村慶太]
+Up!  [ 50] [09-427] [[32ment-cls 20[0m] [matsushita-futoshi  ] [CON] 更新 [Di6......] [松下太志]
+Up!  [ 51] [09-438] [[32ment-cls 20[0m] [kanemoto-masaki     ] [CON] 更新 [8EY......] [金本正樹]
+Up!  [ 52] [09-441] [[32ment-cls 20[0m] [esashika-akio       ] [CON] 更新 [By6......] [江刺家晋保]
+Up!  [ 53] [09-447] [[32ment-cls 20[0m] [saitou-tomohisa     ] [CON] 更新 [kAq......] [斎藤友久]
+Up!  [ 54] [09-449] [[32ment-cls 20[0m] [sakaguchi-keiji     ] [CON] 更新 [1jC......] [坂口恵二]
+Up!  [ 55] [09-468] [[36mmgs-cls 10[0m] [takano-jun          ] [CON] 更新 [8p2......] [高野淳]
+Up!  [ 56] [09-472] [[35mmgr-cls 5[0m ] [iwai-yasumichi      ] [CON] 更新 [i2K......] [岩井泰道]
+Up!  [ 57] [09-477] [[32ment-cls 20[0m] [gouda-naoki         ] [CON] 更新 [668......] [合田直樹]
+Up!  [ 58] [09-482] [[35mmgr-cls 5[0m ] [gotou-satomi        ] [CON] 更新 [f3Y......] [後藤智美]
+Up!  [ 59] [09-513] [[32ment-cls 20[0m] [sugimoto-tatsuya    ] [CON] 更新 [jYe......] [杉本達哉]
+Up!  [ 60] [09-519] [[32ment-cls 20[0m] [kubota-shion        ] [CON] 更新 [7wO......] [久保田志音]
+Up!  [ 61] [09-527] [[32ment-cls 20[0m] [takabatake-hideto   ] [CON] 更新 [PX8......] [髙畠秀人]
+Up!  [ 62] [09-528] [[32ment-cls 20[0m] [akiba-yuuichi       ] [CON] 更新 [B45......] [秋葉祐一]
+Up!  [ 63] [09-529] [[32ment-cls 20[0m] [tanaka-motoaki      ] [CON] 更新 [oX4......] [田中基晃]
+Up!  [ 64] [09-531] [[32ment-cls 20[0m] [hobo-hoshihito      ] [CON] 更新 [ZtD......] [保母星仁]
+Up!  [ 65] [09-532] [[32ment-cls 20[0m] [nagayama-osamu      ] [CON] 更新 [6l9......] [永山治夢]
+Up!  [ 66] [09-533] [[32ment-cls 20[0m] [sakamoto-katsuyuki  ] [CON] 更新 [6Ol......] [坂本克幸]
+Up!  [ 67] [09-536] [[32ment-cls 20[0m] [kurokawa-ryou       ] [CON] 更新 [ze4......] [黒川凌]
+Up!  [ 68] [09-537] [[32ment-cls 20[0m] [sukegawa-kaede      ] [CON] 更新 [Ndo......] [助川楓]
+Up!  [ 69] [09-538] [[32ment-cls 20[0m] [azumaya-ryouta      ] [CON] 更新 [IKw......] [東谷良太]
+Up!  [ 70] [09-542] [[32ment-cls 20[0m] [akiyoshi-yuuya      ] [CON] 更新 [rWX......] [秋吉佑哉]
+Up!  [ 71] [09-543] [[32ment-cls 20[0m] [harada-hitoshi      ] [CON] 更新 [Oho......] [原田仁志]
+Up!  [ 72] [09-544] [[32ment-cls 20[0m] [ookawara-chiaki     ] [CON] 更新 [7w3......] [大河原千晶]
+Up!  [ 73] [09-546] [[32ment-cls 20[0m] [saitou-rui          ] [CON] 更新 [5H4......] [斉藤塁]
+Up!  [ 74] [09-553] [[32ment-cls 20[0m] [shumuta-tomoya      ] [CON] 更新 [izw......] [朱牟田朋也]
+Up!  [ 75] [09-556] [[32ment-cls 20[0m] [fujimoto-asami      ] [CON] 更新 [e93......] [藤本麻美]
+Up!  [ 76] [09-557] [[32ment-cls 20[0m] [nishizawa-satoshi   ] [CON] 更新 [5fT......] [西澤智]
+Up!  [ 77] [09-558] [[32ment-cls 20[0m] [yanagisawa-ayuna    ] [CON] 更新 [0pd......] [柳沢歩奈]
+Up!  [ 78] [09-559] [[32ment-cls 20[0m] [segoshi-miyuki      ] [CON] 更新 [Z27......] [瀬越美由紀]
+Up!  [ 79] [09-560] [[32ment-cls 20[0m] [iwanaga-reina       ] [CON] 更新 [LZv......] [岩永怜奈]
+Up!  [ 80] [09-562] [[32ment-cls 20[0m] [taniguchi-kazuki    ] [CON] 更新 [743......] [谷口和希]
+Up!  [ 81] [09-566] [[32ment-cls 20[0m] [kobayashi-shouhei   ] [CON] 更新 [4T7......] [小林将兵]
+Up!  [ 82] [09-571] [[32ment-cls 20[0m] [munaoka-haruka      ] [CON] 更新 [zL9......] [宗岡春佳]
+Up!  [ 83] [09-575] [[32ment-cls 20[0m] [yamazaki-saika      ] [CON] 更新 [2y0......] [山崎彩夏]
+Up!  [ 84] [09-577] [[32ment-cls 20[0m] [sakai-mao           ] [CON] 更新 [sP7......] [坂井真緒]
+Up!  [ 85] [09-578] [[32ment-cls 20[0m] [shibuya-mikiko      ] [CON] 更新 [ds5......] [澁谷美紀子]
+Up!  [ 86] [09-579] [[32ment-cls 20[0m] [kishimoto-ryouya    ] [CON] 更新 [Xvq......] [岸本凌弥]
+Up!  [ 87] [09-581] [[32ment-cls 20[0m] [kinoshita-ryouta    ] [CON] 更新 [57G......] [木下凌汰]
+Up!  [ 88] [09-582] [[32ment-cls 20[0m] [komatsu-sairi       ] [CON] 更新 [tp0......] [小松彩里]
+Up!  [ 89] [09-583] [[32ment-cls 20[0m] [tajima-haruna       ] [CON] 更新 [9aZ......] [田島遥奈]
+Up!  [ 90] [09-586] [[32ment-cls 20[0m] [iijima-ryou         ] [CON] 更新 [20W......] [飯嶋凌]
+Up!  [ 91] [09-587] [[32ment-cls 20[0m] [oota-kaho           ] [CON] 更新 [k35......] [太田夏帆]
+Up!  [ 92] [09-588] [[32ment-cls 20[0m] [miyagawa-satsuki    ] [CON] 更新 [sqg......] [宮川颯葵]
+Up!  [ 93] [09-589] [[32ment-cls 20[0m] [shouji-yuuta        ] [CON] 更新 [48Q......] [庄子優太]
+Up!  [ 94] [09-590] [[32ment-cls 20[0m] [saitou-ren          ] [CON] 更新 [26u......] [齊藤廉]
+Up!  [ 95] [09-591] [[32ment-cls 20[0m] [koshikawa-ren       ] [CON] 更新 [51o......] [越川廉]
+Up!  [ 96] [09-592] [[32ment-cls 20[0m] [hiraga-daisuke      ] [CON] 更新 [o56......] [平賀大輔]
+Up!  [ 97] [09-593] [[32ment-cls 20[0m] [shiraki-hasumi      ] [CON] 更新 [Uh2......] [白木芙実]
+Up!  [ 98] [09-594] [[32ment-cls 20[0m] [kobayashi-takehiro  ] [CON] 更新 [036......] [小林岳宙]
+Up!  [ 99] [09-595] [[32ment-cls 20[0m] [haruta-haruki       ] [CON] 更新 [4z6......] [春田陽貴]
+Up!  [100] [09-596] [[32ment-cls 20[0m] [kaneshiro-marina    ] [CON] 更新 [6qq......] [金城まりな]
+Up!  [101] [09-597] [[32ment-cls 20[0m] [itou-keigo          ] [CON] 更新 [hNx......] [伊東慶悟]
+Up!  [102] [09-599] [[32ment-cls 20[0m] [yamamura-riku       ] [CON] 更新 [Kh1......] [山村陸]
+Up!  [103] [09-601] [[32ment-cls 20[0m] [tokiwa-moe          ] [CON] 更新 [U73......] [常盤萌]
+Up!  [104] [09-602] [[32ment-cls 20[0m] [hoshitani-taiki     ] [CON] 更新 [cDV......] [星谷大喜]
+Up!  [105] [09-603] [[32ment-cls 20[0m] [souryou-tatsuya     ] [CON] 更新 [0ay......] [總領辰哉]
+Up!  [106] [09-604] [[32ment-cls 20[0m] [takeuchi-yuuta      ] [CON] 更新 [oOH......] [竹内佑汰]
+Up!  [107] [09-605] [[32ment-cls 20[0m] [nakamura-suzuka     ] [CON] 更新 [y5U......] [仲村涼香]
+Up!  [108] [09-606] [[32ment-cls 20[0m] [oonishi-keitarou    ] [CON] 更新 [4Ug......] [大西桂太郎]
+Up!  [109] [09-607] [[32ment-cls 20[0m] [kikuchi-miki        ] [CON] 更新 [8Zt......] [菊池美輝]
+Up!  [110] [09-608] [[32ment-cls 20[0m] [furukawa-kouki      ] [CON] 更新 [Fkj......] [古川倖己]
+Up!  [111] [09-609] [[32ment-cls 20[0m] [yamaoka-eiki        ] [CON] 更新 [OEE......] [山岡永輝]
+Up!  [112] [09-610] [[32ment-cls 20[0m] [kou-kazunari        ] [CON] 更新 [s5C......] [高和成]
+Up!  [113] [09-611] [[32ment-cls 20[0m] [kaneko-ryouta       ] [CON] 更新 [KhH......] [金子遼太]
+Up!  [114] [09-612] [[32ment-cls 20[0m] [wakui-daiki         ] [CON] 更新 [37v......] [涌井大輝]
+Up!  [115] [09-613] [[32ment-cls 20[0m] [yamanaka-rui        ] [CON] 更新 [lN6......] [山中琉生]
+Up!  [116] [10-101] [[34mdir-cls 4[0m ] [hiraku-kingo        ] [CON] 更新 [4B7......] [平工欽悟]
+Up!  [117] [10-104] [[36mmgs-cls 10[0m] [kanamori-akihiro    ] [CON] 更新 [mbG......] [金森章宏]
+Up!  [118] [10-107] [[32ment-cls 20[0m] [katagiri-kousuke    ] [CON] 更新 [554......] [片桐康祐]
+Up!  [119] [10-110] [[32ment-cls 20[0m] [kudou-yuuki         ] [CON] 更新 [R55......] [工藤祐毅]
+Up!  [120] [10-113] [[36mmgs-cls 10[0m] [shiraishi-tatsuya   ] [CON] 更新 [5p3......] [白石達也]
+Up!  [121] [10-117] [[32ment-cls 20[0m] [ooyama-takayuki     ] [CON] 更新 [dT9......] [大山貴之]
+Up!  [122] [10-118] [[32ment-cls 20[0m] [yanagisawa-masamichi] [CON] 更新 [709......] [柳沢真理]
+Up!  [123] [10-119] [[32ment-cls 20[0m] [tanaka-hiroyuki     ] [CON] 更新 [B1Y......] [田中裕之]
+Up!  [124] [10-130] [[32ment-cls 20[0m] [shimoyama-hikaru    ] [CON] 更新 [umT......] [下山輝]
+Up!  [125] [10-131] [[32ment-cls 20[0m] [asahara-yuuki       ] [CON] 更新 [88B......] [朝原優樹]
+Up!  [126] [10-132] [[36mmgs-cls 10[0m] [takehara-shouhei    ] [CON] 更新 [9YM......] [竹原昇平]
+Up!  [127] [10-136] [[36mmgs-cls 10[0m] [morita-taichi       ] [CON] 更新 [U5y......] [森田太一]
+Up!  [128] [10-145] [[36mmgs-cls 10[0m] [komatsubara-kazuki  ] [CON] 更新 [jF6......] [小松原一騎]
+Up!  [129] [10-149] [[32ment-cls 20[0m] [yamanishi-toshihiro ] [CON] 更新 [4y1......] [山西俊弘]
+Up!  [130] [10-154] [[32ment-cls 20[0m] [masuda-keisuke      ] [CON] 更新 [083......] [増田敬介]
+Up!  [131] [10-155] [[32ment-cls 20[0m] [taniguchi-yoshiki   ] [CON] 更新 [RxL......] [谷口義貴]
+Up!  [132] [10-156] [[32ment-cls 20[0m] [yokota-shouhei      ] [CON] 更新 [5JL......] [横田将平]
+Up!  [133] [10-157] [[32ment-cls 20[0m] [ishii-takayasu      ] [CON] 更新 [aOh......] [石井崇康]
+Up!  [134] [10-160] [[32ment-cls 20[0m] [okada-takuya        ] [CON] 更新 [yMX......] [岡田拓也]
+Up!  [135] [10-161] [[32ment-cls 20[0m] [mizuno-hideaki      ] [CON] 更新 [mzR......] [水野秀昭]
+Up!  [136] [10-167] [[36mmgs-cls 10[0m] [sobajima-ryouya     ] [CON] 更新 [202......] [傍嶋凌弥]
+Up!  [137] [10-170] [[32ment-cls 20[0m] [mochizuki-hiroe     ] [CON] 更新 [F14......] [望月宏恵]
+Up!  [138] [10-171] [[32ment-cls 20[0m] [kondou-aya          ] [CON] 更新 [RJy......] [近藤彩]
+Up!  [139] [10-172] [[32ment-cls 20[0m] [nishimura-yuuta     ] [CON] 更新 [CSr......] [西村佑太]
+Up!  [140] [10-174] [[32ment-cls 20[0m] [ueki-mayuka         ] [CON] 更新 [33P......] [植木真優香]
+Up!  [141] [10-176] [[32ment-cls 20[0m] [itou-yuuya          ] [CON] 更新 [WfB......] [伊藤裕哉]
+Up!  [142] [10-179] [[32ment-cls 20[0m] [katsumata-kaede     ] [CON] 更新 [Z57......] [勝又楓]
+Up!  [143] [10-182] [[32ment-cls 20[0m] [iwaide-takumi       ] [CON] 更新 [qjG......] [岩出卓巳]
+Up!  [144] [10-184] [[36mmgs-cls 10[0m] [kamiyama-yuri       ] [CON] 更新 [Mav......] [神山結莉]
+Up!  [145] [10-190] [[32ment-cls 20[0m] [kamada-shuu         ] [CON] 更新 [6a0......] [鎌田就]
+Up!  [146] [10-191] [[32ment-cls 20[0m] [nakamura-yuuki      ] [CON] 更新 [Y7X......] [中村優希]
+Up!  [147] [10-192] [[32ment-cls 20[0m] [kojima-keitarou     ] [CON] 更新 [Zzs......] [小島慶太郎]
+Up!  [148] [10-193] [[32ment-cls 20[0m] [abiru-masashi       ] [CON] 更新 [UAT......] [阿比留雅士]
+Up!  [149] [10-194] [[32ment-cls 20[0m] [komuta-kazuki       ] [CON] 更新 [Igk......] [小牟田和輝]
+Up!  [150] [10-195] [[32ment-cls 20[0m] [uehara-kei          ] [CON] 更新 [C65......] [上原渓]
+Up!  [151] [10-196] [[32ment-cls 20[0m] [kubo-yuuki          ] [CON] 更新 [dAf......] [久保友季]
+Up!  [152] [10-201] [[32ment-cls 20[0m] [ishii-megumi        ] [CON] 更新 [27a......] [石井恵美]
+Up!  [153] [10-206] [[32ment-cls 20[0m] [naitou-takato       ] [CON] 更新 [Cxy......] [内藤貴人]
+Up!  [154] [10-207] [[32ment-cls 20[0m] [maruyama-takahiro   ] [CON] 更新 [968......] [丸山隆宏]
+Up!  [155] [10-209] [[32ment-cls 20[0m] [yamauchi-kentarou   ] [CON] 更新 [89m......] [山内健太郎]
+Up!  [156] [10-210] [[32ment-cls 20[0m] [tsukahara-mizuki    ] [CON] 更新 [5Kz......] [塚原美月]
+Up!  [157] [10-214] [[32ment-cls 20[0m] [sakaguchi-miki      ] [CON] 更新 [UqL......] [坂口美紀]
+Up!  [158] [10-216] [[32ment-cls 20[0m] [kondou-kana         ] [CON] 更新 [eC3......] [近藤加菜]
+Up!  [159] [10-219] [[32ment-cls 20[0m] [yamasaki-ryousuke   ] [CON] 更新 [YO8......] [山崎亮輔]
+Up!  [160] [10-220] [[32ment-cls 20[0m] [shimizu-yuudai      ] [CON] 更新 [sO6......] [清水裕大]
+Up!  [161] [10-223] [[32ment-cls 20[0m] [yano-chinhyon       ] [CON] 更新 [2Ia......] [矢野辰現]
+Up!  [162] [10-224] [[32ment-cls 20[0m] [yamamoto-ryuuhei    ] [CON] 更新 [79a......] [山本竜平]
+Up!  [163] [10-225] [[32ment-cls 20[0m] [komamura-ami        ] [CON] 更新 [P0i......] [駒村亜美]
+Up!  [164] [10-226] [[32ment-cls 20[0m] [yokoyama-ryou       ] [CON] 更新 [C7n......] [横山諒]
+Up!  [165] [10-228] [[32ment-cls 20[0m] [ishikawa-tatsuya    ] [CON] 更新 [X94......] [石川達也]
+Up!  [166] [10-229] [[32ment-cls 20[0m] [nagao-momoka        ] [CON] 更新 [rA8......] [長尾桃佳]
+Up!  [167] [10-230] [[32ment-cls 20[0m] [ichikura-honatsu    ] [CON] 更新 [VSp......] [市倉帆夏]
+Up!  [168] [10-233] [[32ment-cls 20[0m] [mori-yuuki          ] [CON] 更新 [4kz......] [森祐樹]
+Up!  [169] [10-234] [[32ment-cls 20[0m] [takezawa-shuuma     ] [CON] 更新 [Qj4......] [竹澤秀磨]
+Up!  [170] [10-236] [[32ment-cls 20[0m] [sugata-momoyo       ] [CON] 更新 [RUl......] [菅田桃代]
+Up!  [171] [10-239] [[32ment-cls 20[0m] [munehiro-ayami      ] [CON] 更新 [Mh3......] [宗廣彩未]
+Up!  [172] [10-240] [[32ment-cls 20[0m] [baba-yuutarou       ] [CON] 更新 [uPJ......] [馬場雄太郎]
+Up!  [173] [10-241] [[32ment-cls 20[0m] [shiraeda-tomoki     ] [CON] 更新 [c47......] [白枝友紀]
+Up!  [174] [10-242] [[32ment-cls 20[0m] [takeda-saaya        ] [CON] 更新 [Yvs......] [武田紗采]
+Up!  [175] [10-243] [[32ment-cls 20[0m] [saitou-masaki       ] [CON] 更新 [mC2......] [齋藤真輝]
+Up!  [176] [10-244] [[32ment-cls 20[0m] [yamashita-reika     ] [CON] 更新 [vkz......] [山下嶺華]
+Up!  [177] [10-245] [[32ment-cls 20[0m] [matsuoka-shuri      ] [CON] 更新 [s6s......] [松岡朱理]
+Up!  [178] [10-247] [[32ment-cls 20[0m] [kimura-riku         ] [CON] 更新 [FYu......] [木村陸]
+Up!  [179] [10-248] [[32ment-cls 20[0m] [fujiwara-naoya      ] [CON] 更新 [9Ap......] [藤原奈緒耶]
+Up!  [180] [10-250] [[32ment-cls 20[0m] [adachi-kaito        ] [CON] 更新 [00p......] [足立海人]
+Up!  [181] [10-252] [[32ment-cls 20[0m] [yoshida-chihiro     ] [CON] 更新 [i9u......] [吉田千浩]
+Up!  [182] [10-253] [[32ment-cls 20[0m] [tsurumi-masayuki    ] [CON] 更新 [6Ba......] [鶴見昌之]
+Up!  [183] [10-254] [[32ment-cls 20[0m] [nitta-ruka          ] [CON] 更新 [oQK......] [新田留楓]
+Up!  [184] [10-255] [[32ment-cls 20[0m] [hashimoto-daiki     ] [CON] 更新 [4Y0......] [橋本大輝]
+Up!  [185] [10-256] [[32ment-cls 20[0m] [parii-yuan          ] [CON] 更新 [uGr......] [パリィ勇行]
+Up!  [186] [10-258] [[32ment-cls 20[0m] [kobayashi-ayuki     ] [CON] 更新 [55b......] [小林歩希]
+Up!  [187] [10-259] [[32ment-cls 20[0m] [nakamura-katsumi    ] [CON] 更新 [E7p......] [中村克己]
+Up!  [188] [10-261] [[32ment-cls 20[0m] [kouno-atsuki        ] [CON] 更新 [SLH......] [河野敦貴]
+Up!  [189] [10-263] [[32ment-cls 20[0m] [nakagawa-miyu       ] [CON] 更新 [G05......] [中川美優]
+Up!  [190] [10-264] [[32ment-cls 20[0m] [suzuki-masato       ] [CON] 更新 [5RA......] [鈴木柾登]
+Up!  [191] [10-265] [[32ment-cls 20[0m] [onodera-tatsuki     ] [CON] 更新 [03V......] [小野寺立樹]
+Up!  [192] [10-266] [[32ment-cls 20[0m] [asakawa-kazutoshi   ] [CON] 更新 [948......] [浅川和俊]
+Up!  [193] [10-267] [[32ment-cls 20[0m] [murakami-yori       ] [CON] 更新 [c0F......] [村上和]
+Up!  [194] [10-268] [[32ment-cls 20[0m] [uehara-akimasa      ] [CON] 更新 [iq9......] [上原彰将]
+Up!  [195] [10-269] [[32ment-cls 20[0m] [kuramochi-mitsuki   ] [CON] 更新 [Mpl......] [倉持光希]
+Up!  [196] [10-270] [[32ment-cls 20[0m] [ibushi-tessei       ] [CON] 更新 [0X3......] [飯伏哲世]
+Up!  [197] [10-271] [[32ment-cls 20[0m] [yokoyama-souma      ] [CON] 更新 [Cqs......] [横山颯真]
+Up!  [198] [10-272] [[32ment-cls 20[0m] [momodomi-hiroya     ] [CON] 更新 [4Bb......] [百冨央弥]
+Up!  [199] [10-273] [[32ment-cls 20[0m] [shiono-mizuki       ] [CON] 更新 [O0r......] [塩野美月]
+Up!  [200] [10-274] [[32ment-cls 20[0m] [yamamoto-tatsuyoshi ] [CON] 更新 [2z7......] [山本竜義]
+Up!  [201] [10-275] [[32ment-cls 20[0m] [tsutsumi-yuuki      ] [CON] 更新 [W18......] [堤勇樹]
+Up!  [202] [10-276] [[36mmgs-cls 10[0m] [tsuruoka-taichi     ] [CON] 更新 [4X3......] [鶴岡太一]
+Up!  [203] [10-277] [[32ment-cls 20[0m] [iwata-yuushirou     ] [CON] 更新 [lzy......] [岩田湧士郎]
+Up!  [204] [10-278] [[32ment-cls 20[0m] [ooishi-satsuki      ] [CON] 更新 [JQt......] [大石颯樹]
+Up!  [205] [10-279] [[32ment-cls 20[0m] [noda-takemichi      ] [CON] 更新 [933......] [野田武道]
+Up!  [206] [10-280] [[32ment-cls 20[0m] [hara-chika          ] [CON] 更新 [576......] [原千加]
+Up!  [207] [12-106] [[32ment-cls 20[0m] [kiya-kazuki         ] [CON] 更新 [t3U......] [木谷一輝]
+Up!  [208] [12-108] [[32ment-cls 20[0m] [kojima-michito      ] [CON] 更新 [76T......] [小島道人]
+Up!  [209] [12-112] [[32ment-cls 20[0m] [yamano-yuusuke      ] [CON] 更新 [Tnd......] [山野友輔]
+Up!  [210] [12-119] [[32ment-cls 20[0m] [tsuji-muneharu      ] [CON] 更新 [5Ba......] [辻宗治]
+Up!  [211] [12-122] [[32ment-cls 20[0m] [aoki-shunichi       ] [CON] 更新 [c4Q......] [青木俊一]
+Up!  [212] [12-126] [[32ment-cls 20[0m] [katayama-serika     ] [CON] 更新 [TR6......] [片山芹香]
+Up!  [213] [12-128] [[32ment-cls 20[0m] [chikaarashi-kanae   ] [CON] 更新 [M4h......] [近嵐香奈絵]
+Up!  [214] [12-136] [[32ment-cls 20[0m] [saitou-sayaka       ] [CON] 更新 [Y9k......] [齋藤冴也花]
+Up!  [215] [12-141] [[32ment-cls 20[0m] [mizumoto-makito     ] [CON] 更新 [T7g......] [水本真規人]
+Up!  [216] [12-143] [[32ment-cls 20[0m] [yasumura-yasuaki    ] [CON] 更新 [d39......] [安村康陽]
+Up!  [217] [12-145] [[32ment-cls 20[0m] [minakawa-kazuya     ] [CON] 更新 [kdX......] [皆川和弥]
+Up!  [218] [12-151] [[32ment-cls 20[0m] [yoshida-naoto       ] [CON] 更新 [TCN......] [吉田尚人]
+Up!  [219] [12-154] [[32ment-cls 20[0m] [matsui-yuuki        ] [CON] 更新 [17L......] [松井勇樹]
+Up!  [220] [12-155] [[32ment-cls 20[0m] [imaizumi-takayoshi  ] [CON] 更新 [HRe......] [今泉貴富]
+Up!  [221] [12-157] [[32ment-cls 20[0m] [masuno-sana         ] [CON] 更新 [8Oe......] [増野彩奈]
+Up!  [222] [12-163] [[32ment-cls 20[0m] [akiyama-ryou        ] [CON] 更新 [PPf......] [秋山亮]
+Up!  [223] [12-165] [[32ment-cls 20[0m] [inoue-saki          ] [CON] 更新 [UO7......] [井上紗輝]
+Up!  [224] [12-167] [[36mmgs-cls 10[0m] [suzuki-yoshimi      ] [CON] 更新 [Yp3......] [鈴木祥美]
+Up!  [225] [12-168] [[36mmgs-cls 10[0m] [ooshita-shuuhei2    ] [CON] 更新 [u8F......] [大下周平]
+Up!  [226] [12-170] [[36mmgs-cls 10[0m] [sakurai-asuka       ] [CON] 更新 [a4Q......] [櫻井あすか]
+Up!  [227] [12-171] [[32ment-cls 20[0m] [kanamori-sana       ] [CON] 更新 [XNl......] [金森沙那]
+Up!  [228] [12-177] [[36mmgs-cls 9[0m ] [marukawa-kumiko     ] [CON] 更新 [Y8i......] [丸川久美子]
+Up!  [229] [12-184] [[32ment-cls 20[0m] [umeno-taiki         ] [CON] 更新 [c32......] [梅野太揮]
+Up!  [230] [12-185] [[32ment-cls 20[0m] [saitou-tomonao      ] [CON] 更新 [A4T......] [齋藤幹真]
+Up!  [231] [12-186] [[32ment-cls 20[0m] [takeda-shun         ] [CON] 更新 [7Cs......] [武田瞬]
+Up!  [232] [12-187] [[32ment-cls 20[0m] [maeda-takahiro      ] [CON] 更新 [8ea......] [前田隆裕]
+Up!  [233] [12-188] [[32ment-cls 20[0m] [makiyo-shunya       ] [CON] 更新 [O6E......] [真清隼也]
+Up!  [234] [12-189] [[32ment-cls 20[0m] [noguchi-yasuhito    ] [CON] 更新 [0JF......] [野口康仁]
+Up!  [235] [12-190] [[32ment-cls 20[0m] [suzuki-reo          ] [CON] 更新 [76S......] [鈴木玲央]
+Up!  [236] [12-191] [[32ment-cls 20[0m] [kuroda-yuuya        ] [CON] 更新 [X87......] [黒田優矢]
+Up!  [237] [12-192] [[35mmgr-cls 5[0m ] [takinishi-yuri      ] [CON] 更新 [$6B......] [滝西友里]
+Up!  [238] [12-196] [[32ment-cls 20[0m] [ueda-tomohiro       ] [CON] 更新 [NbH......] [植田智博]
+Up!  [239] [12-197] [[32ment-cls 20[0m] [okumura-nagi        ] [CON] 更新 [YD0......] [奥村凪]
+Up!  [240] [12-198] [[32ment-cls 20[0m] [takahashi-shinichi  ] [CON] 更新 [c7N......] [髙橋真一]
+Up!  [241] [12-199] [[32ment-cls 20[0m] [kojima-kyouhei      ] [CON] 更新 [R9w......] [小島喬平]
+Up!  [242] [12-200] [[32ment-cls 20[0m] [ogawa-hikaru        ] [CON] 更新 [y28......] [小川光琉]
+Up!  [243] [12-202] [[32ment-cls 20[0m] [kadowaki-shuusei    ] [CON] 更新 [823......] [門脇柊星]
+Up!  [244] [12-203] [[32ment-cls 20[0m] [nagai-yuusei        ] [CON] 更新 [Wc3......] [永井悠成]
+Up!  [245] [12-204] [[32ment-cls 20[0m] [onodera-kai         ] [CON] 更新 [xPB......] [小野寺海勇]
+Up!  [246] [12-205] [[36mmgs-cls 10[0m] [kinase-miku         ] [CON] 更新 [Pgr......] [木名瀬未空]
+Up!  [247] [12-206] [[32ment-cls 20[0m] [oono-sora           ] [CON] 更新 [AGP......] [大野蒼空]
+Up!  [248] [12-207] [[32ment-cls 20[0m] [kitani-sora         ] [CON] 更新 [FsL......] [木谷宙]
+Up!  [249] [12-208] [[32ment-cls 20[0m] [nakabayashi-yuugo   ] [CON] 更新 [SLa......] [中林優吾]
+Up!  [250] [12-209] [[32ment-cls 20[0m] [inagaki-wanoka      ] [CON] 更新 [nvE......] [稲垣和乃華]
+
+LDAP 更新対象: 250 件
+[INFO] SQL OK: passwd_tnas.samba_id 補完 => 0 件
+
+★ 完了: LDAP/HOME 同期 (DRY-RUN) / 対象 250 件
+★ 例: 検索確認
+  ldapsearch -x -H ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w ******** -b "ou=People,dc=e-smile,dc=ne,dc=jp" "(uid=*)" dn
+=== DONE ===
+★★★★★★[STEP2] 役職クラスの posixGroup を事前整備（存在しなければ作成・gid整合）
+★★★★★★[STEP3] memberUid 同期（users / 開発系 / クラス群）
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : users
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS users  want(121): GameOver,a_onuki,a_sakurai,abe,aka_hoshi,akiba-yuichi,akiyama-ryo,akiyoshi-yuya,asada-tomomi,azumaya-ryota,baba-yutaro,bllody-crow,fujii-satoru,fukushima-yuya,fukuyasu,fulieru,furukawa-koki,goda-naoki,goto,hbkhapoo,hirosemasaya,horikawa,iijima-ryo,iizawa,ito-keigo,ito-yutaka,ito-yuya,iwata-yushiro,k_marukawa,kadowaki-shusei,kakui-ayami,kakumoto-yuki,kamada-shu,kaneko-ryota,kanzaki-suguru,katagiri-kosuke,katsu,kinoshita-ryota,kishimoto-ryoya,kiya,ko-kazunari,kobayashi-shohei,kojima-keitaro,kojima-kyohei,kondo-kana,kudo-yuki,kuroda-yuya,m_hirukawa,matsui-yuki,matushita-futoshi,mizushita,mori-yuki,morita,nagai-yusei,nagano-naoki-1980,naito-takato,nakabayashi-yugo,nakamura,nakamura-yuki,nakano,nakayama-hisashi,namiki,namimatu-teruyuki,nemoto,nishimura-yuta,nishizawa,obara-aya,oishi-satsuki,okawara-chiaki,onishi-keitaro,ono-sora,ota-kaho,oyama-takayuki,parry-ewan-mathias,s_ohshita,saito-jyun,saito-masaki,saito-ren,saito-rui,saito-sayaka,saito-tomohisa,saito-tomonao,sano-hitomi,sasaki-yusuke,sato-takahiro,shiina-noriyuki,shimada-yuma,shimizu-yudai,shiozumi,shoji-yuta,sobajima-ryoya,soryo-tatsuya,sugawara,suzuki,t-yamada,takagai-motoaki,takahashi,takebayashi,takehara-shohei,takeuchi,takeuchi-yuta,takezawa-shuma,takinishi_yuri,tan-jiaindon,teramura-takuya,testuser,to-koshun,tsutsumi-yuki,umehara-yuma,y-sano,y_iwai,y_suzuki,yamaguchi,yamamoto-ryuhei,yamanishi,yamano-yusuke,yamasaki-ryohei,yamasaki-ryosuke,yamauchi-kentaro,yokota-shohei ...
+[LIST] CLS users  have(0):
+[SUMMARY:CLS users  ] add=121 del=0 [applied]
+
+=== memberUid 結果 ===
+  合計: 121, 新規追加: 121, 登録済: 121, ？: 0
+
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : esmile-dev
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : nicori-dev
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : kindaka-dev
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : boj-dev
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : e_game-dev
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : solt-dev
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : social-dev
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : adm-cls
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS adm-cls  want(0):
+[LIST] CLS adm-cls  have(0):
+[SUMMARY:CLS adm-cls] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : dir-cls
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS dir-cls  want(0):
+[LIST] CLS dir-cls  have(0):
+[SUMMARY:CLS dir-cls] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : mgr-cls
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS mgr-cls  want(0):
+[LIST] CLS mgr-cls  have(0):
+[SUMMARY:CLS mgr-cls] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : mgs-cls
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS mgs-cls  want(0):
+[LIST] CLS mgs-cls  have(0):
+[SUMMARY:CLS mgs-cls] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : stf-cls
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS stf-cls  want(0):
+[LIST] CLS stf-cls  have(0):
+[SUMMARY:CLS stf-cls] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : ent-cls
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS ent-cls  want(0):
+[LIST] CLS ent-cls  have(0):
+[SUMMARY:CLS ent-cls] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : tmp-cls
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS tmp-cls  want(0):
+[LIST] CLS tmp-cls  have(0):
+[SUMMARY:CLS tmp-cls] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : err-cls
+----------------------------------------------
+[INFO] People OU: ou=People,dc=e-smile,dc=ne,dc=jp（自動検出）
+[LIST] CLS err-cls  want(500): 1-001,1-001-mobile,1-394,1-403,1-403-mobile,1-460,1-460-mobile,1-523,1-523-mobile,1-611,1-612,1-613,1-614,1-615,1-616,1-617,1-618,1-619,1-620,1-621,1-622,1-623,1-624,1-999,10-101,10-101-mobile,10-104,10-104-mobile,10-107,10-107-mobile,10-110,10-110-mobile,10-113,10-113-mobile,10-117,10-117-mobile,10-118,10-118-mobile,10-119,10-119-mobile,10-130,10-130-mobile,10-131,10-131-mobile,10-132,10-132-mobile,10-136,10-136-mobile,10-145,10-145-mobile,10-149,10-149-mobile,10-154,10-154-mobile,10-155,10-155-mobile,10-156,10-156-mobile,10-157,10-157-mobile,10-160,10-160-mobile,10-161,10-161-mobile,10-167,10-167-mobile,10-170,10-170-mobile,10-171,10-171-mobile,10-172,10-172-mobile,10-174,10-174-mobile,10-176,10-176-mobile,10-179,10-179-mobile,10-182,10-182-mobile,10-184,10-184-mobile,10-190,10-190-mobile,10-191,10-191-mobile,10-192,10-192-mobile,10-193,10-193-mobile,10-194,10-195,10-196,10-201,10-206,10-207,10-209,10-210,10-214,10-216,10-219,10-220,10-223,10-224,10-225,10-226,10-228,10-229,10-230,10-233,10-234,10-236,10-239,10-240,10-241,10-242,10-243,10-244,10-245,10-247 ...
+[LIST] CLS err-cls  have(0):
+[SUMMARY:CLS err-cls] add=500 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+★★★★★★[STEP4] Samba groupmap 同期（idempotent）
+[36m[INFO] 開始: 2025-10-22 17:22:24[0m
+[36m[INFO] モード: APPLY | 対象: ALL[0m
+[90m[DBG] URI=ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi BASE_DN=dc=e-smile,dc=ne,dc=jp GROUPS_DN=ou=Groups,dc=e-smile,dc=ne,dc=jp[0m
+[36m[INFO] RID ルール: users=1008, *-dev=(gid-1000), cls={adm:1009,dir:1010,mgr:1011,mgs:1012,stf:1013,ent:1014,tmp:1015,err:1016}[0m
+[90m[DBG] DomainSID: S-1-5-21-3566765955-3362818161-2431109675[0m
+[32m[OK] OK（整合済）: cn=users[0m
+[32m[OK] OK（整合済）: cn=esmile-dev[0m
+[32m[OK] OK（整合済）: cn=nicori-dev[0m
+[32m[OK] OK（整合済）: cn=kindaka-dev[0m
+[32m[OK] OK（整合済）: cn=boj-dev[0m
+[32m[OK] OK（整合済）: cn=e_game-dev[0m
+[32m[OK] OK（整合済）: cn=solt-dev[0m
+[32m[OK] OK（整合済）: cn=social-dev[0m
+[32m[OK] OK（整合済）: cn=adm-cls[0m
+[32m[OK] OK（整合済）: cn=dir-cls[0m
+[32m[OK] OK（整合済）: cn=mgr-cls[0m
+[32m[OK] OK（整合済）: cn=mgs-cls[0m
+[32m[OK] OK（整合済）: cn=stf-cls[0m
+[32m[OK] OK（整合済）: cn=ent-cls[0m
+[32m[OK] OK（整合済）: cn=tmp-cls[0m
+[32m[OK] OK（整合済）: cn=err-cls[0m
+[36m[INFO] 完了: total=16 ok=16 added=0 updated=0 skip(no-posix)=0 skip(ng)=0[0m
+
+esmile-dev (S-1-5-21-3566765955-3362818161-2431109675-1001) -> esmile-dev
+nicori-dev (S-1-5-21-3566765955-3362818161-2431109675-1002) -> nicori-dev
+kindaka-dev (S-1-5-21-3566765955-3362818161-2431109675-1003) -> kindaka-dev
+boj-dev (S-1-5-21-3566765955-3362818161-2431109675-1005) -> boj-dev
+e_game-dev (S-1-5-21-3566765955-3362818161-2431109675-1009) -> e_game-dev
+solt-dev (S-1-5-21-3566765955-3362818161-2431109675-1010) -> solt-dev
+social-dev (S-1-5-21-3566765955-3362818161-2431109675-1012) -> social-dev
+users (S-1-5-21-3566765955-3362818161-2431109675-1008) -> users
+Administrator Class (1–2) / 管理者階層 (S-1-5-21-3566765955-3362818161-2431109675-1009) -> adm-cls
+Director Class (3–4) / 取締役階層 (S-1-5-21-3566765955-3362818161-2431109675-1010) -> dir-cls
+Manager Class (5) / 部門長 (S-1-5-21-3566765955-3362818161-2431109675-1011) -> mgr-cls
+Sub-Manager Class (6–14) / 課長・監督職 (S-1-5-21-3566765955-3362818161-2431109675-1012) -> mgs-cls
+Staff Class (15–19) / 主任・一般社員 (S-1-5-21-3566765955-3362818161-2431109675-1013) -> stf-cls
+Entry Class (20) / 新入社員 (S-1-5-21-3566765955-3362818161-2431109675-1014) -> ent-cls
+Temporary Class (21–98) / 派遣・退職者 (S-1-5-21-3566765955-3362818161-2431109675-1015) -> tmp-cls
+Error Class (99) / 例外処理・未定義ID用 (S-1-5-21-3566765955-3362818161-2431109675-1016) -> err-cls
+
+★★★★★★[STEP5] 不要ホームの整理
+  php prune_home_dirs.php --ldapi
+
+=== START prune-home ===
+HOME_ROOT : /ovs012_home
+ARCHIVE   : /ovs012_home/_archive
+OLDER THAN: 30 days
+CONFIRM   : NO  (dry-run)
+----------------------------------------------
+
+
+★ 完了: unlink=0 archive=0 delete=0 skip_recent=0 (DRY-RUN)
+=== DONE ===
+=== DONE ACCOUNT UPDATE! ===

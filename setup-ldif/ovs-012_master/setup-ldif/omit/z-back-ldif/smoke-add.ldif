@@ -1,0 +1,6 @@
+# ./tmp/smoke-add.ldif
+dn: uid=10-260,ou=Temp,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+add: description
+description: SYNC-CHECK-2025-09-07
+

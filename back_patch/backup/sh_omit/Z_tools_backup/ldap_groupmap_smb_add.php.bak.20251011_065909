@@ -1,0 +1,209 @@
+#!/usr/bin/php
+<?php
+declare(strict_types=1);
+
+/**
+ * posixGroup を走査し、Samba に groupmap を反映するツール。
+ *
+ * 接続仕様（他ツールと統一）:
+ *   - 環境変数 LDAP_URL / LDAP_URI を優先
+ *     * ldapi://%2Fvar%2Frun%2Fldapi → SASL/EXTERNAL（パスワード不要）
+ *     * ldap://host → StartTLS を必須化してから bind
+ *     * ldaps://host → そのまま bind
+ *   - BIND_DN / BIND_PW を使用（ldapi/EXTERNAL時は未使用）
+ *
+ * 実行仕様:
+ *   php ldap_groupmap_smb_add.php [--confirm]
+ *     --confirm が無い場合は読み取りのみ（dry-run）。net 実行はしない。
+ *
+ * 参照環境変数:
+ *   LDAP_URL / LDAP_URI
+ *   BASE_DN / LDAP_BASE_DN               例: dc=e-smile,dc=ne,dc=jp
+ *   GROUPS_OU                            例: ou=Groups,${BASE_DN}
+ *   BIND_DN / BIND_PW
+ *   DOM_SID_PREFIX                       （任意）S-1-5-21-... 形式。指定時は net groupmap add に sid= を付与
+ */
+
+function envv(string $key, ?string $alt = null, ?string $def = null): ?string {
+    $v = getenv($key);
+    if ($v !== false && $v !== '') return $v;
+    if ($alt) {
+        $v = getenv($alt);
+        if ($v !== false && $v !== '') return $v;
+    }
+    return $def;
+}
+function is_ldapi(string $uri): bool { return str_starts_with($uri, 'ldapi://'); }
+function is_ldaps(string $uri): bool { return str_starts_with($uri, 'ldaps://'); }
+function is_ldap_plain(string $uri): bool { return str_starts_with($uri, 'ldap://'); }
+
+function ldap_connect_secure(): \LDAP\Connection {
+    $uri = envv('LDAP_URL', 'LDAP_URI', 'ldaps://ovs-012.e-smile.local');
+    $ds = ldap_connect($uri);
+    if (!$ds) throw new RuntimeException("ldap_connect failed: $uri");
+    ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+    ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+
+    if (is_ldapi($uri)) {
+        if (!@ldap_sasl_bind($ds, NULL, NULL, 'EXTERNAL')) {
+            throw new RuntimeException('SASL EXTERNAL bind failed: '.ldap_error($ds));
+        }
+        return $ds;
+    }
+    if (is_ldap_plain($uri)) {
+        if (!@ldap_start_tls($ds)) {
+            throw new RuntimeException('StartTLS failed: '.ldap_error($ds));
+        }
+    }
+    return $ds; // ldaps:// はそのまま
+}
+
+function maybe_simple_bind(\LDAP\Connection $ds): void {
+    $uri = envv('LDAP_URL','LDAP_URI','');
+    if (is_ldapi($uri)) return; // EXTERNAL 済
+    $bindDn = envv('BIND_DN', null, 'cn=Admin,dc=e-smile,dc=ne,dc=jp');
+    $bindPw = envv('BIND_PW', 'LDAP_ADMIN_PW', '');
+    if ($bindDn === '' || $bindPw === '') {
+        throw new RuntimeException('BIND_DN/BIND_PW is required for non-ldapi connections.');
+    }
+    if (!@ldap_bind($ds, $bindDn, $bindPw)) {
+        throw new RuntimeException('simple bind failed: '.ldap_error($ds));
+    }
+}
+
+function log_line(string $m): void { fwrite(STDOUT, $m.(str_ends_with($m,"\n")?'':"\n")); }
+
+/** 既存 groupmap 一覧を取得（ntgroup -> details の簡易マップ） */
+function get_groupmap_existing(): array {
+    $out = [];
+    $cmd = ['net','groupmap','list'];
+    $des = [1=>['pipe','w'], 2=>['pipe','w']];
+    $p = proc_open($cmd, [0=>['pipe','r']]+$des, $pipes);
+    if (!\is_resource($p)) return $out;
+    fclose($pipes[0]);
+    $stdout = stream_get_contents($pipes[1]); fclose($pipes[1]);
+    $stderr = stream_get_contents($pipes[2]); fclose($pipes[2]);
+    proc_close($p);
+    if ($stdout) {
+        foreach (explode("\n", $stdout) as $line) {
+            // 例: "Domain Admins (S-1-5-21-xxx-xxx-xxx-512) -> Domain group"
+            if (!trim($line)) continue;
+            if (preg_match('/^(.+?)\s+\(S-1-5-[^)]+\)\s+->\s+(.+)$/', $line, $m)) {
+                $out[trim($m[1])] = $line;
+            } else {
+                // SIDなし表示の行にも一応対応
+                $parts = explode('->', $line, 2);
+                $out[trim($parts[0])] = $line;
+            }
+        }
+    }
+    return $out;
+}
+
+/** LDAP から posixGroup の cn を収集 */
+function fetch_posix_groups(\LDAP\Connection $ds, string $groupsDn): array {
+    $attrs = ['cn','gidNumber'];
+    $sr = @ldap_search($ds, $groupsDn, '(objectClass=posixGroup)', $attrs);
+    if ($sr === false) throw new RuntimeException('search groups failed: '.ldap_error($ds));
+    $entries = ldap_get_entries($ds, $sr);
+    $list = [];
+    for ($i=0; $i < $entries['count']; $i++) {
+        $e = $entries[$i];
+        if (empty($e['cn'][0])) continue;
+        $list[] = [
+            'dn' => $e['dn'],
+            'cn' => $e['cn'][0],
+            'gidNumber' => $e['gidnumber'][0] ?? null,
+        ];
+    }
+    return $list;
+}
+
+/** 実際に net groupmap add を叩く（--confirm 時のみ） */
+function do_groupmap_add(string $cn, ?string $unixGroup, ?string $sidPrefix, bool $confirm): array {
+    $result = ['cn'=>$cn, 'done'=>false, 'cmd'=>null, 'rc'=>null, 'out'=>null, 'err'=>null];
+
+    // 代表的には「ntgroup=CN unixgroup=CN type=domain」。SIDがあるなら付与。
+    $cmd = ['net','groupmap','add','ntgroup='.$cn];
+    if ($unixGroup && $unixGroup !== '') $cmd[] = 'unixgroup='.$unixGroup;
+    $cmd[] = 'type=domain';
+    if ($sidPrefix && preg_match('#^S-1-5-21-(\d+)-(\d+)-(\d+)$#', $sidPrefix)) {
+        // RID は明示しない（Samba が自動採番）。sid= を付けると RID 必須になる版もありうるため省略。
+        // どうしても指定したい場合は "sid=S-1-5-21-...-<RID>" を組み立てて渡す。
+    }
+    $result['cmd'] = implode(' ', array_map('escapeshellarg', $cmd));
+
+    if (!$confirm) return $result; // ドライラン
+
+    $des = [1=>['pipe','w'], 2=>['pipe','w']];
+    $p = proc_open($cmd, [0=>['pipe','r']]+$des, $pipes);
+    if (!\is_resource($p)) {
+        $result['err'] = 'proc_open failed';
+        return $result;
+    }
+    fclose($pipes[0]);
+    $stdout = stream_get_contents($pipes[1]); fclose($pipes[1]);
+    $stderr = stream_get_contents($pipes[2]); fclose($pipes[2]);
+    $rc = proc_close($p);
+
+    $result['out'] = $stdout;
+    $result['err'] = $stderr;
+    $result['rc']  = $rc;
+    $result['done'] = ($rc === 0);
+    return $result;
+}
+
+/* ==== メイン ==== */
+$confirm  = in_array('--confirm', $argv, true);
+$baseDn   = envv('BASE_DN','LDAP_BASE_DN','dc=e-smile,dc=ne,dc=jp');
+$groupsDn = envv('GROUPS_OU', null, "ou=Groups,{$baseDn}");
+$uri      = envv('LDAP_URL','LDAP_URI','');
+$domSid   = envv('DOM_SID_PREFIX', null, null);
+$haveNet  = function_exists('shell_exec') && trim((string)@shell_exec('command -v net')) !== '';
+
+log_line("=== groupmap START ===");
+log_line(sprintf("HOST=%s GROUPS_DN=%s CONFIRM=%s HAVE_NET=%s",
+    gethostname(), $groupsDn, $confirm ? 'YES' : 'NO', $haveNet ? 'YES' : 'NO'));
+
+if (!$haveNet) {
+    log_line("[SKIP] 'net' command not found; skipping groupmap");
+    exit(0);
+}
+
+try {
+    $ds = ldap_connect_secure();
+    maybe_simple_bind($ds);
+
+    $existing = get_groupmap_existing();
+    $groups   = fetch_posix_groups($ds, $groupsDn);
+
+    $addPlan = 0; $ok=0; $keep=0; $err=0;
+    foreach ($groups as $g) {
+        $cn = $g['cn'];
+        if (isset($existing[$cn])) { $keep++; continue; }
+
+        $addPlan++;
+        $res = do_groupmap_add($cn, $cn, $domSid, $confirm);
+        if ($confirm) {
+            if ($res['done']) { $ok++; }
+            else {
+                $err++;
+                log_line(sprintf("[ERR ] groupmap add ntgroup=%s : rc=%s out=%s err=%s",
+                    $cn, var_export($res['rc'],true), trim((string)$res['out']), trim((string)$res['err'])));
+            }
+        } else {
+            // DRY-RUN: 実行内容の表示のみ
+            log_line("[DRY] ".$res['cmd']);
+        }
+    }
+
+    $summary = sprintf("SUMMARY: planned=%d ok=%d keep=%d err=%d (uri=%s)", $addPlan, $ok, $keep, $err, $uri);
+    log_line($summary);
+    log_line("=== groupmap DONE ===");
+    exit($err ? 2 : 0);
+
+} catch (Throwable $e) {
+    log_line("[ERROR] ".$e->getMessage());
+    exit(1);
+}
+

@@ -1,0 +1,376 @@
+CPPFLAGS="-I/usr/local/include" LDFLAGS="-L/usr/local/lib" \
+./configure --prefix=/usr/local \
+  --enable-ldap \
+  --enable-slapd \
+  --with-tls \
+  --enable-modules \
+  --enable-dynamic \
+  --enable-overlays \
+  --enable-crypt \
+  --with-cyrus-sasl \
+  --enable-rwm \
+  --enable-syncprov
+
+
+CPPFLAGS="-I/usr/local/include" LDFLAGS="-L/usr/local/lib" ./configure
+
+
+./configure --prefix=/usr/local --enable-ldap --enable-slapd --with-tls --enable-modules --enable-dynamic --enable-overlays --enable-crypt --with-cyrus-sasl --enable-rwm --enable-syncprov
+make -j$(nproc)
+make install
+
+#--------------------------------
+# 1. DBディレクトリ初期化
+#--------------------------------
+rm -rf /usr/local/var/openldap-data
+mkdir /usr/local/var/openldap-data
+chown -R ldap:ldap /usr/local/var/openldap-data
+chmod -R 700 /usr/local/var/openldap-data
+
+#--------------------------------
+# 2. slapd.d（cn=config構成）も初期化
+#--------------------------------
+systemctl stop slapd
+rm -rf /usr/local/etc/openldap/slapd.d
+mkdir /usr/local/etc/openldap/slapd.d
+chown -R ldap:ldap /usr/local/etc/openldap/slapd.d
+chmod -R 700 /usr/local/etc/openldap/slapd.d
+
+#--------------------------------
+# 3. データ投入（slapd.conf を使って LDIFを読み込む）
+#--------------------------------
+# slapadd -f /usr/local/etc/openldap/slapd.conf -l /path/to/init.ldif
+# slapadd -f /usr/local/etc/openldap/slapd.conf -l /usr/local/etc/openldap/tools/set-init.ldif
+
+#--------------------------------
+# 4. slapd.conf から slapd.d 構成を生成
+#--------------------------------
+slaptest -u -v -f /usr/local/etc/openldap/slapd.conf
+slaptest -f /usr/local/etc/openldap/slapd.conf -F /usr/local/etc/openldap/slapd.d
+
+#--------------------------------
+# 5. 権限の再確認（念押し）
+#--------------------------------
+chown -R ldap:ldap /usr/local/var/openldap-data
+chmod -R 700 /usr/local/var/openldap-data
+chown -R ldap:ldap /usr/local/etc/openldap/slapd.d
+chmod -R 700 /usr/local/etc/openldap/slapd.d
+
+
+#--------------------------------
+# 6
+#--------------------------------
+systemctl daemon-reexec
+systemctl daemon-reload
+systemctl restart slapd
+
+
+#--------------------------------
+# People, Users
+#--------------------------------
+ldapsearch -x -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "ou=People,dc=e-smile,dc=ne,dc=jp" -s base
+ldapsearch -x -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "ou=Users,dc=e-smile,dc=ne,dc=jp" -s base
+
+#--------------------------------
+# People, Users
+#--------------------------------
+ldapsearch -Y EXTERNAL -H ldapi:/// -b "ou=People,dc=e-smile,dc=ne,dc=jp"
+ldapsearch -Y EXTERNAL -H ldapi:/// -b "uid=1-001,ou=People,dc=e-smile,dc=ne,dc=jp"
+ldapsearch -Y EXTERNAL -H ldapi:/// -b "ou=People,dc=e-smile,dc=ne,dc=jp" "uid=12-151"
+ldapsearch -Y EXTERNAL -H ldapi:/// -b "ou=People,dc=e-smile,dc=ne,dc=jp" "uid=12-151-mobile"
+
+#--------------------------------
+# 7
+#--------------------------------
+ldapadd -x -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -f /usr/local/etc/openldap/tools/set-init.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/tools/set-olcAccess.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/tools/set-rootpw.ldif
+
+###  ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/tools/set-shiozumi.ldif
+#--------------------------------
+# 8
+#--------------------------------
+php ldap_id_pass_from_postgres.php
+php ldap_groupmap_add.php
+php ldap_memberuid_auto.php	
+
+
+#--------------------------------
+# 9
+#	[root@ovs-012 openldap]# ldapsearch -Y EXTERNAL -H ldapi:/// -b "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp"
+#--------------------------------
+# shiozumi, Users, e-smile.ne.jp
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6KqgIOWhqeS9jw==
+sn:: 5aGp5L2P
+givenName:: 6Kqg
+displayName:: 5aGp5L2P6Kqg
+uidNumber: 10001
+gidNumber: 2001
+homeDirectory: /home/01-001-shiozumi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MWI0MDVxNXRLYVdTU0diZmtmSVR3SUVISmdCMVlCMmc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-10001
+sambaNTPassword: D5EC50C26E64961D9A26E6E602A906A3
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2001
+
+
+#--------------------------------
+# 10
+#	[root@ovs-012 openldap]# ldapsearch -Y EXTERNAL -H ldapi:/// -b "uid=1-001,ou=People,dc=e-smile,dc=ne,dc=jp"
+#--------------------------------
+
+# 1-001, People, e-smile.ne.jp
+dn: uid=1-001,ou=People,dc=e-smile,dc=ne,dc=jp
+uid: 1-001
+cn:: MS0wMDEg5aGp5L2P6Kqg
+objectClass: esmilePerson
+esysAccess: TRUE
+hireDate: 2000-07-13
+employeeType:: 44OX44Op44Oz44OK44O8
+isGame: TRUE
+isManager: TRUE
+isInternal: TRUE
+userPassword:: e1NTSEF9M3ljWHdPcEJTNU9sZUxjWUVveC9kaDJEczl0YVV2cnc=
+employeeNumber: 1-001
+sn:: 5aGp5L2P
+sn:: 44K344Kq44K644Of
+givenName:: 6Kqg
+givenName:: 44Oe44Kz44OI
+o:: 44Kk44O844K544Oe44Kk44OrSEQ=
+ou:: 56S+6ZW3
+mail: shiozumi@e-smile.ne.jp
+mailMobile: shiozumi.makoto@gmail.com
+mailHome: shiozumi@esmile-hd.jp
+homePhone: 03-5645-1766
+mobile: 090-8742-6598
+postalCode: 103-0016
+homePostalAddress:: 5p2x5Lqs6YO9IOS4reWkruWMuiDml6XmnKzmqYvlsI/ntrLnlLoxOC0z
+birthDate: 1966-06-06
+sex: M
+employeeLevel: 99
+
+
+#--------------------------------
+# 11
+# データーを、挿入する。
+#--------------------------------
+
+ldapsearch -x -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "ou=Users,dc=e-smile,dc=ne,dc=jp" > all_users.ldif
+ldapadd -x -c -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -f all_users.ldif
+
+ldapsearch -x -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "ou=People,dc=e-smile,dc=ne,dc=jp" > all_people.ldif
+ldapadd -x -c -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -f all_people.ldif
+
+#--------------------------------
+# 12 x.509 証明書
+#	ssl_esmile_ne_jp
+#--------------------------------
+SSLCertificateFile		/etc/pki/tls/ssl_esmile_ne_jp/happy_server_sha256/server_happy_sha256.crt
+SSLCertificateKeyFile	/etc/pki/tls/ssl_esmile_ne_jp/happy_server_sha256/server_happy_sha256.key
+SSLCACertificateFile	/etc/pki/tls/ssl_esmile_ne_jp/CA/cacert.crt
+
+scp root@192.168.61.25:/etc/pki/tls/ssl_esmile_ne_jp/happy_server_sha256/server_happy_sha256.crt .
+scp root@192.168.61.25:/etc/pki/tls/ssl_esmile_ne_jp/happy_server_sha256/server_happy_sha256.key .
+scp root@192.168.61.25:/etc/pki/tls/ssl_esmile_ne_jp/CA/cacert.crt .
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f set-ldaps-cert.ldif
+ldapsearch -Y EXTERNAL -H ldapi:/// -b "cn=config" -LLL 'cn=config' olcTLSCertificateFile olcTLSCertificateKeyFile olcTLSCACertificateFile
+
+
+# --------------------------------------------------------------------------------------------
+#	12 slapd の設定
+# --------------------------------------------------------------------------------------------
+vi /lib/systemd/system/slapd.service
+
+ExecStart=/usr/local/libexec/slapd -h "ldap:/// ldapi:/// ldaps:///"	★ ldaps:/// を追加！
+
+systemctl daemon-reload
+systemctl restart slapd.service
+systemctl status slapd.service
+
+
+/usr/local/libexec/slapd -u ldap -g ldap -F /usr/local/etc/openldap/slapd.d -h "ldap:/// ldapi:/// ldaps:///"
+
+ldapsearch -H ldaps://ldap.e-smile.local -x -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "dc=e-smile,dc=ne,dc=jp"
+
+/etc/openldap/ldap.conf 
+
+TLS_REQCERT allow
+TLS_CACERT /etc/openldap/certs/ca.crt
+
+
+
+[root@ovs-012 openldap]# openssl s_client -connect 127.0.0.1:636
+Connecting to 127.0.0.1
+CONNECTED(00000003)
+Can't use SSL_get_servername
+depth=1 C=JP, ST=Tokyo, O=E-SMILE HD Co.,Ltd., OU=Admin, CN=ESMILE GROUP CA, emailAddress=shiozumi@esmile-hd.com
+verify error:num=19:self-signed certificate in certificate chain
+verify return:1
+depth=1 C=JP, ST=Tokyo, O=E-SMILE HD Co.,Ltd., OU=Admin, CN=ESMILE GROUP CA, emailAddress=shiozumi@esmile-hd.com
+verify return:1
+depth=0 C=JP, ST=Tokyo, L=Chuo-ku Nihonbashi Koami-cho, O=E-SMILE HD Co.,Ltd., OU=web-admin, CN=happy.e-smile.ne.jp, emailAddress=shiozumi@esmile-hd.com
+verify return:1
+---
+Certificate chain
+ 0 s:C=JP, ST=Tokyo, L=Chuo-ku Nihonbashi Koami-cho, O=E-SMILE HD Co.,Ltd., OU=web-admin, CN=happy.e-smile.ne.jp, emailAddress=shiozumi@esmile-hd.com
+   i:C=JP, ST=Tokyo, O=E-SMILE HD Co.,Ltd., OU=Admin, CN=ESMILE GROUP CA, emailAddress=shiozumi@esmile-hd.com
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Feb  9 13:23:17 2024 GMT; NotAfter: Jun 27 13:23:17 2051 GMT
+ 1 s:C=JP, ST=Tokyo, O=E-SMILE HD Co.,Ltd., OU=Admin, CN=ESMILE GROUP CA, emailAddress=shiozumi@esmile-hd.com
+   i:C=JP, ST=Tokyo, O=E-SMILE HD Co.,Ltd., OU=Admin, CN=ESMILE GROUP CA, emailAddress=shiozumi@esmile-hd.com
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Feb  9 13:20:16 2024 GMT; NotAfter: Feb  6 13:20:16 2034 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEljCCA36gAwIBAgIUJD60C9DalikpQ0Ul6mM5Eb9YflswDQYJKoZIhvcNAQEL
+BQAwgYwxCzAJBgNVBAYTAkpQMQ4wDAYDVQQIDAVUb2t5bzEcMBoGA1UECgwTRS1T
+TUlMRSBIRCBDby4sTHRkLjEOMAwGA1UECwwFQWRtaW4xGDAWBgNVBAMMD0VTTUlM
+RSBHUk9VUCBDQTElMCMGCSqGSIb3DQEJARYWc2hpb3p1bWlAZXNtaWxlLWhkLmNv
+bTAgFw0yNDAyMDkxMzIzMTdaGA8yMDUxMDYyNzEzMjMxN1owgbsxCzAJBgNVBAYT
+AkpQMQ4wDAYDVQQIDAVUb2t5bzElMCMGA1UEBwwcQ2h1by1rdSBOaWhvbmJhc2hp
+IEtvYW1pLWNobzEcMBoGA1UECgwTRS1TTUlMRSBIRCBDby4sTHRkLjESMBAGA1UE
+CwwJd2ViLWFkbWluMRwwGgYDVQQDDBNoYXBweS5lLXNtaWxlLm5lLmpwMSUwIwYJ
+KoZIhvcNAQkBFhZzaGlvenVtaUBlc21pbGUtaGQuY29tMIIBIjANBgkqhkiG9w0B
+AQEFAAOCAQ8AMIIBCgKCAQEAtyoMvOLmub/jQyWvLGqiKUOlbCKiXIqiz4iLeUNW
+idALGUx4HXFLLqBgaAR8Zd6nPKnX0tgbp8xZvnwNV3NRo1L8jpfRwdK97K+xT9Y7
+h2iQjcXzaHwb8Zs+XrSscGuZ1e/klhrzZB58ur+duZiYC1xxodCmtsg/4FJSQ84l
+++eXJHAVubw04621a9EqBhK/zPZc6kba4Jtvd0dAoIX+9fOX6np46kNXq7ZSar4F
+T116xGnUTOK+DPqaPvWuT5P36KlULerGJYmucpk5MmF27yZEMVgm8tKC8DCsfpwj
+1WEvx/xXV6ynaq5H4LNGhHlebhHqyVepmXoA0NPQ2TP9/wIDAQABo4G8MIG5MAkG
+A1UdEwQCMAAwEQYJYIZIAYb4QgEBBAQDAgZAMCwGCWCGSAGG+EIBDQQfFh1PcGVu
+U1NMIEdlbmVyYXRlZCBDZXJ0aWZpY2F0ZTAdBgNVHQ4EFgQUkHodFz/j47prOix2
+mavkC/WpT3owHwYDVR0jBBgwFoAUJ2GUgZRZk6FhaXMRj6zILvTVwcgwKwYDVR0R
+BCQwIoIPKi5lLXNtaWxlLm5lLmpwgg8qLmUtc21pbGUubG9jYWwwDQYJKoZIhvcN
+AQELBQADggEBAE4HDUNk80ilUqa5pzywSM9b/EhZ8t2YuA0BeJVKemDrdc9Y7eW+
++9d8G3HjfzEcNLjsqc2KX7KoGc6UceEeJoS9EWssjfKzIuUP82XZ2TwJk/WChIFl
+1isBeFbpPw9vVqAQywKAaFpHyA4iOjUfyt+Yq99wqACQ3lwUG4jx2QBLFWCmdNWt
+3QeQN/ixrOnK4kLghJPbEPlRu3E3ljNbKjD7dJkSdABlXoHGERhxhIUbs+pteOAV
+OxofRoQAxONdMYiQRQxzmSG6cTcUpSQtxA1PrdNSksR6USImXXJEja3zL9w/sNu/
+lMz+Akt2W4vMyq1hwjD7fhXBKTstvd88hxE=
+-----END CERTIFICATE-----
+subject=C=JP, ST=Tokyo, L=Chuo-ku Nihonbashi Koami-cho, O=E-SMILE HD Co.,Ltd., OU=web-admin, CN=happy.e-smile.ne.jp, emailAddress=shiozumi@esmile-hd.com
+issuer=C=JP, ST=Tokyo, O=E-SMILE HD Co.,Ltd., OU=Admin, CN=ESMILE GROUP CA, emailAddress=shiozumi@esmile-hd.com
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Peer Temp Key: X25519, 253 bits
+---
+SSL handshake has read 2762 bytes and written 385 bytes
+Verification error: self-signed certificate in certificate chain
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 19 (self-signed certificate in certificate chain)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: C7732AB632B3486A13E22A10F62A5E1D5D490124F052B109F5F91B22C63A3B68
+    Session-ID-ctx:
+    Resumption PSK: 547B77CC8D137EB6B52E52902FA4A42F2EDBB63BC5C02CBC05AA37538985D627CFAE1AD2C7766F2A85DC8D2CF987C288
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 04 92 9e 58 07 85 20 ab-c6 ce 8b b4 00 fb ae a5   ...X.. .........
+    0010 - bb 5a 0a a3 ca 26 7e f2-fe 41 62 7b ef a9 9a 9f   .Z...&~..Ab{....
+    0020 - e6 64 42 25 2c c2 c1 ee-6b b0 79 f0 73 46 ab 37   .dB%,...k.y.sF.7
+    0030 - fe 23 76 b2 77 11 7b 1d-e7 ed bb 18 eb ec d5 8d   .#v.w.{.........
+    0040 - fb 71 8b 31 94 0e 3d 22-dc 4a 8d cf f1 8e 86 5e   .q.1..=".J.....^
+    0050 - e1 e6 56 ea 62 4c 50 b5-f9 ec b0 e0 c7 04 bc 95   ..V.bLP.........
+    0060 - 22 cd 3c 6f d5 6a ab ea-99 e9 96 6b f1 64 23 d7   ".<o.j.....k.d#.
+    0070 - fc 18 c3 1a 52 cf 9d b2-56 04 38 21 46 a9 1d a9   ....R...V.8!F...
+    0080 - 12 fe 0e 5d 44 f8 3d d1-32 a6 a4 88 86 38 4b a5   ...]D.=.2....8K.
+    0090 - 5c 0e ac f9 57 bd f1 0c-86 62 f8 4a b1 a4 57 30   \...W....b.J..W0
+    00a0 - 22 73 e1 cb 8f 66 68 ef-4e c6 72 b5 15 55 aa f5   "s...fh.N.r..U..
+    00b0 - 57 7a 77 29 b0 f6 11 04-da 6b f5 77 f8 ba a0 25   Wzw).....k.w...%
+    00c0 - d5 b8 3c 3c 18 2a 13 d4-96 89 d3 59 76 5b 9a 9d   ..<<.*.....Yv[..
+
+    Start Time: 1751690268
+    Timeout   : 7200 (sec)
+    Verify return code: 19 (self-signed certificate in certificate chain)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 35D666C4BC6D61B22F2AE38E7038797DA374D556D52EE26FFE958DD8F201A2DD
+    Session-ID-ctx:
+    Resumption PSK: 2A8C46B045CB90D8E95D2D9FCBF37122845065366629B2C973E63989EE6241977DF61B89A0864024C6883A96E66A2687
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 04 92 9e 58 07 85 20 ab-c6 ce 8b b4 00 fb ae a5   ...X.. .........
+    0010 - d2 a4 29 31 a5 8e 1c ac-7d 01 ca f1 a1 ef 45 d0   ..)1....}.....E.
+    0020 - 35 1f e0 18 df b2 6c 3d-15 d9 12 b3 da 2b 2f 43   5.....l=.....+/C
+    0030 - 22 18 c6 cd 94 28 46 52-24 37 1f 8c 1e 44 0e d0   "....(FR$7...D..
+    0040 - 07 05 ba 04 5f 3f 5b 26-71 75 79 be 48 a0 5a bf   ...._?[&quy.H.Z.
+    0050 - e5 c1 6e 06 4d 9a ff 06-53 45 ba 84 81 5e 3c d8   ..n.M...SE...^<.
+    0060 - 9e bf 69 c9 11 ae 36 6f-ef 72 c7 fd 82 2f d7 b8   ..i...6o.r.../..
+    0070 - 37 ae 2f 08 05 49 19 f4-8f 68 a7 2d fc b5 08 d3   7./..I...h.-....
+    0080 - 64 4c 77 9e 99 fc c3 77-1e 90 7a 59 0e 0e 18 a5   dLw....w..zY....
+    0090 - f1 04 87 95 db a5 48 95-da c3 c1 7f 65 c9 a9 e1   ......H.....e...
+    00a0 - 0a f1 01 08 54 d4 f0 e3-c3 26 b1 be 07 81 2f 15   ....T....&..../.
+    00b0 - 6d 70 be 52 4c 5e 08 e7-d8 13 10 ad e9 90 20 ad   mp.RL^........ .
+    00c0 - 17 63 09 b3 0b e8 31 96-ae 88 42 c9 63 5a dd 68   .c....1...B.cZ.h
+
+    Start Time: 1751690268
+    Timeout   : 7200 (sec)
+    Verify return code: 19 (self-signed certificate in certificate chain)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+
+
+
+# --------------------------------------------------------------------------------------------
+#	13 レプリケーション
+# --------------------------------------------------------------------------------------------
+
+[root@ovs-012 temp]# ldapsearch -LLL -x -s base -b "dc=e-smile,dc=ne,dc=jp" contextCSN
+dn: dc=e-smile,dc=ne,dc=jp
+contextCSN: 20250707053838.426587Z#000000#001#000000
+contextCSN: 20250707053814.889448Z#000000#002#000000
+
+[root@ovs-002 temp]# ldapsearch -LLL -x -s base -b "dc=e-smile,dc=ne,dc=jp" contextCSN
+dn: dc=e-smile,dc=ne,dc=jp
+contextCSN: 20250707053838.426587Z#000000#001#000000
+
+
+dn: cn=config
+olcServerID: 1 ldap://ovs-002/
+olcServerID: 2 ldap://ovs-012/
+
+
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+add: olcSyncrepl
+olcSyncrepl: {0}rid=002 provider=ldap://ovs-012.e-smile.local bindmethod=simple binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=1 interval=00:00:05:00
+olcSyncrepl: {0}rid=001 provider=ldap://ovs-012.e-smile.local bindmethod=simple binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=1 interval=00:00:05:00

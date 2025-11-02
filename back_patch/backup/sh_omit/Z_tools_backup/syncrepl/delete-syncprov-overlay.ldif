@@ -1,0 +1,2 @@
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config
+changetype: delete

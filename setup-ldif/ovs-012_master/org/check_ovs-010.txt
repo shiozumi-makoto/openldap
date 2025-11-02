@@ -1,0 +1,17 @@
+ldapsearch -x -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi-makoto)" uid uidNumber gidNumber sambaSID | sed -n '1,80p'
+
+ldapsearch -x -b "cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp" memberUid \
+> | awk '/^memberUid: /{print $2}' | grep -v '-' && echo "? ハイフン無しあり" || echo "OK: none"
+OK: none
+
+root@ovs-010 tools# for g in esmile-dev nicori-dev kindaka-dev boj-dev e_game-dev solt-dev social-dev users; do
+>   c=$(ldapsearch -x -b "cn=$g,ou=Groups,dc=e-smile,dc=ne,dc=jp" memberUid | awk '/^memberUid:/{n++} END{print n+0}')
+>   printf "%-12s : %d\n" "$g" "$c"
+> done
+
+ldapsearch -x -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(sambaSID=*)" cn sambaSID \
+> | awk '/^cn:/{cn=$2}/^sambaSID:/{sid=$2;print cn, sid}' | grep -v '^$' \
+> | awk '$2 !~ /^S-1-5-21-3566765955-3362818161-2431109675-/{print "?", $0} END{if(NR>0)print "チェック完了"}'
+
+
+net groupmap list | head -n 50

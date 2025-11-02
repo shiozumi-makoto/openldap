@@ -1,0 +1,767 @@
+
+# --------------------------------------
+#	設定ファイル複製
+# --------------------------------------
+
+scp /usr/local/etc/openldap/slapd.conf root@192.168.61.11:/usr/local/etc/openldap/
+scp /usr/local/etc/openldap/schema/esmile.schema root@192.168.61.11:/usr/local/etc/openldap/schema/
+scp /usr/local/etc/openldap/schema/samba.schema  root@192.168.61.11:/usr/local/etc/openldap/schema/
+scp /etc/systemd/system/slapd262.service root@192.168.61.11:/etc/systemd/system/
+scp /root/base.ldif root@192.168.61.11:/root/
+
+# --------------------------------------
+#	コンフィグテスト
+# --------------------------------------
+
+mkdir /usr/local/etc/openldap/slapd.d
+chown -R ldap:ldap /usr/local/etc/openldap/slapd.d
+
+slaptest -f /usr/local/etc/openldap/slapd.conf -u -F /usr/local/etc/openldap/slapd.d
+config file testing succeeded
+
+# --------------------------------------
+#	本番作成
+# --------------------------------------
+
+mkdir -p /usr/local/var/openldap-data /usr/local/var/run
+chown -R ldap:ldap /usr/local/var
+chmod 700 /usr/local/var/openldap-data
+
+# --------------------------------------
+# 1) DB/ラン用ディレクトリを作成
+# --------------------------------------
+mkdir -p /usr/local/var/openldap-data /usr/local/var/run
+chown -R ldap:ldap /usr/local/var
+chmod 700 /usr/local/var/openldap-data
+
+# --------------------------------------
+# 2) （back_mdb が組み込みなら）moduleload を一時コメントアウト
+#   /usr/local/libexec/openldap に back_mdb.la が無い場合のみ実施
+# --------------------------------------
+
+sed -i 's/^[[:space:]]*moduleload[[:space:]]*back_mdb\.la/# moduleload back_mdb.la (built-in)/' \
+  /usr/local/etc/openldap/slapd.conf
+
+# --------------------------------------
+# 3) slapd.d を作り直し（-u無しで実生成）
+# --------------------------------------
+
+rm -rf /usr/local/etc/openldap/slapd.d
+mkdir  /usr/local/etc/openldap/slapd.d
+
+slaptest -f /usr/local/etc/openldap/slapd.conf -F /usr/local/etc/openldap/slapd.d
+chown -R ldap:ldap /usr/local/etc/openldap/slapd.d
+
+
+# --------------------------------------
+#	エラーがでるので、まずは、一回起動して、mdb を作成
+# --------------------------------------
+
+mdb_db_open: database "dc=e-smile,dc=ne,dc=jp" cannot be opened: No such file or directory (2). Restore from backup!
+backend_startup_one (type=mdb, suffix="dc=e-smile,dc=ne,dc=jp"): bi_db_open failed! (2)
+slap_startup failed (test would succeed using the -u switch)
+
+# ------------------------------------------
+# 1) だれが 389 を掴んでいるか確認
+# ------------------------------------------
+pgrep -a slapd
+ss -ltnp | grep :389
+ss -ltnp | grep :636          # 使っていれば
+ss -lxnp | grep ldapi         # ldapi ソケットの実体も確認
+
+# ------------------------------------------
+#	起動していたら、止める
+# ------------------------------------------
+systemctl stop slapd.service 2>/dev/null || true      # RPMのslapd
+systemctl stop slapd262.service 2>/dev/null || true   # 自前の2.6.2（動いていれば止める）
+pkill -9 slapd 2>/dev/null || true                    # 念のため全kill
+
+rm -f /var/run/openldap/slapd.pid /var/run/openldap/ldapi
+rm -f /usr/local/var/run/slapd.pid /usr/local/var/run/ldapi
+
+
+# ------------------------------------------
+#	ovs-009,010,011 の起動！
+# ------------------------------------------
+/usr/local/libexec/slapd -F /usr/local/etc/openldap/slapd.d -h "ldap://ovs-009.e-smile.local ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi" -u ldap -g ldap -d 256
+/usr/local/libexec/slapd -F /usr/local/etc/openldap/slapd.d -h "ldap://ovs-010.e-smile.local ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi" -u ldap -g ldap -d 256
+/usr/local/libexec/slapd -F /usr/local/etc/openldap/slapd.d -h "ldap://ovs-011.e-smile.local ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi" -u ldap -g ldap -d 256
+
+
+# ------------------------------------------
+# data.mdb lock.mdb ができれば、OK！
+# ------------------------------------------
+
+ls -la /usr/local/var/openldap-data
+
+-rw------- 1 ldap ldap 61440  9月 13 15:49 data.mdb
+-rw------- 1 ldap ldap  8192  9月 13 15:50 lock.mdb
+
+
+# ------------------------------------------
+#
+# ------------------------------------------
+vi /etc/systemd/system/slapd262.service
+
+
+[root@ovs-010 openldap-data]# cat /etc/systemd/system/slapd262.service
+[Unit]
+Description=OpenLDAP 2.6.2 (local build) on ovs-010
+After=network.target
+
+[Service]
+Type=forking
+# User/Group は指定しない（root で 389 に bind してから落とす）
+
+ExecStartPre=/usr/bin/mkdir -p /usr/local/var/run
+ExecStartPre=/usr/bin/chown ldap:ldap /usr/local/var/run
+ExecStart=/usr/local/libexec/slapd \
+  -u ldap -g ldap \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h "ldap://ovs-010.e-smile.local ldap://127.0.0.1 ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi"
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+
+# 任意のチューニング
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+
+
+# ------------------------------------------
+# slapd262.service で、起動
+# ------------------------------------------
+
+systemctl daemon-reload
+systemctl start slapd262.service
+
+
+# ------------------------------------------
+# /root/base.ldif 設定
+# ------------------------------------------
+
+dn: dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: e-smile
+dc: e-smile
+
+dn: cn=Admin,dc=e-smile,dc=ne,dc=jp
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: Admin
+description: Directory Manager
+userPassword: {SSHA}tHF3yiAsbxM/cCNuDb4blmIKcNU5QRGj
+
+slapadd -n 1 -F /usr/local/etc/openldap/slapd.d -l /root/base.ldif
+slapadd -n 2 -F /usr/local/etc/openldap/slapd.d -l /root/base.ldif
+
+# ------------------------------------------
+#	2つあれば、OK！
+# ------------------------------------------
+ldapsearch -LLL -x -H ldap://127.0.0.1 -b "dc=e-smile,dc=ne,dc=jp" dn
+
+dn: dc=e-smile,dc=ne,dc=jp
+
+dn: cn=Admin,dc=e-smile,dc=ne,dc=jp
+
+# ------------------------------------------
+#	コンフィグが読めれば	OK！
+# ------------------------------------------
+ldapsearch -LLL -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi -b cn=config dn
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+
+dn: cn=schema,cn=config
+
+dn: cn={0}core,cn=schema,cn=config
+
+dn: cn={1}cosine,cn=schema,cn=config
+
+dn: cn={2}inetorgperson,cn=schema,cn=config
+
+dn: cn={3}nis,cn=schema,cn=config
+
+dn: cn={4}esmile,cn=schema,cn=config
+
+dn: cn={5}samba,cn=schema,cn=config
+
+dn: olcDatabase={-1}frontend,cn=config
+
+dn: olcDatabase={0}config,cn=config
+
+dn: olcDatabase={1}monitor,cn=config
+
+dn: olcDatabase={2}mdb,cn=config
+
+
+
+[root@ovs-009 openldap]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+
+dn: cn=schema,cn=config
+
+dn: cn={0}core,cn=schema,cn=config
+
+dn: cn={1}cosine,cn=schema,cn=config
+
+dn: cn={2}inetorgperson,cn=schema,cn=config
+
+dn: cn={3}nis,cn=schema,cn=config
+
+dn: cn={4}esmile,cn=schema,cn=config
+
+dn: cn={5}samba,cn=schema,cn=config
+
+dn: olcDatabase={-1}frontend,cn=config
+
+dn: olcDatabase={0}config,cn=config
+
+dn: olcDatabase={1}monitor,cn=config
+
+dn: olcDatabase={2}mdb,cn=config
+
+
+[root@ovs-009 openldap]# ldapsearch -LLL -x -H ldap://127.0.0.1 -b "dc=e-smile,dc=ne,dc=jp" dn
+dn: dc=e-smile,dc=ne,dc=jp
+
+dn: cn=Admin,dc=e-smile,dc=ne,dc=jp
+
+
+
+[root@ovs-025 schema]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0	
+dn: cn=config
+
+dn: cn=schema,cn=config
+
+dn: cn={0}core,cn=schema,cn=config
+
+dn: cn={1}cosine,cn=schema,cn=config
+
+dn: cn={2}inetorgperson,cn=schema,cn=config
+
+dn: cn={3}nis,cn=schema,cn=config
+
+dn: cn={4}esmile,cn=schema,cn=config
+
+dn: cn={5}samba,cn=schema,cn=config
+
+dn: olcDatabase={-1}frontend,cn=config
+
+dn: olcDatabase={0}config,cn=config
+
+dn: olcDatabase={1}monitor,cn=config
+
+dn: olcDatabase={2}mdb,cn=config
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+
+
+[root@ovs-025 schema]# ldapsearch -LLL -x -H ldap://127.0.0.1 -b "dc=e-smile,dc=ne,dc=jp" dn | more
+dn: dc=e-smile,dc=ne,dc=jp
+
+dn: ou=Temp,dc=e-smile,dc=ne,dc=jp
+
+dn: cn=Admin,dc=e-smile,dc=ne,dc=jp
+
+dn: ou=Users,dc=e-smile,dc=ne,dc=jp
+
+dn: cn=Common,dc=e-smile,dc=ne,dc=jp
+
+dn: ou=Groups,dc=e-smile,dc=ne,dc=jp
+
+dn: ou=People,dc=e-smile,dc=ne,dc=jp
+
+dn: cn=Manager,dc=e-smile,dc=ne,dc=jp
+
+dn: sambaDomainName=E-SMILE,dc=e-smile,dc=ne,dc=jp
+
+dn: sambaDomainName=OVS-012,dc=e-smile,dc=ne,dc=jp
+
+
+# ------------------------------------ ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+#	３種類あり！
+# ------------------------------------
+
+1) 2.6.2 専用
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config olcPidFile olcArgsFile
+
+2) 2.6.10 専用
+ldapsearch -LLL -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi -b cn=config olcPidFile olcArgsFile
+
+3) 2.6.10 専用(省略刑)
+ldapsearch -LLL -Y EXTERNAL -b cn=config dn | head
+
+※）ldapi:/// 省略刑は、環境変数設定！LDAPURI= .bashrc source ~/.bashrc
+
+export LDAPURI='ldapi://%2Fusr%2Flocal%2Fopenldap-2.6.10%2Fvar%2Frun%2Fldapi'
+
+echo $LDAPURI
+
+※）$LDAPURI => .bachrc に登録してある！
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fopenldap-2.6.10%2Fvar%2Frun%2Fldapi -b cn=config olcPidFile olcArgsFile
+
+
+
+# ------------------------------------
+#	補足
+# ------------------------------------
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fopenldap-2.6.10%2Fvar%2Frun%2Fldapi -b cn=config dn | head
+ldapsearch -LLL -Y EXTERNAL -b cn=config dn | head
+[root@ovs-012 ~]# echo $LDAPURI
+ldapi://%2Fusr%2Flocal%2Fopenldap-2.6.10%2Fvar%2Frun%2Fldapi
+
+
+# ----------------------------------
+#	2.4 -> 2.6.2
+# ----------------------------------
+
+systemctl stop slapd.service
+systemctl disable slapd.service
+
+systemctl daemon-reexec
+systemctl enable --now slapd262.service
+
+systemctl start slapd262.service
+systemctl status slapd262.service
+pgrep -a slapd
+
+# ----------------------------------
+#	2.6.2 -> 2.4 
+# ----------------------------------
+
+systemctl stop slapd262.service
+systemctl disable slapd262.service
+
+systemctl daemon-reexec
+systemctl enable --now slapd.service
+
+systemctl start slapd.service
+systemctl status slapd.service
+pgrep -a slapd
+
+
+# ----------------------------------
+#	2.6.2 -> 2.4 
+# ----------------------------------
+
+systemctl stop slapd2610.service
+systemctl disable slapd2610.service
+
+systemctl daemon-reexec
+systemctl enable --now slapd.service
+
+systemctl start slapd.service
+systemctl status slapd.service
+pgrep -a slapd
+
+
+# ----------------------------------
+#	2.6.2 -> 2.6.10
+# ----------------------------------
+systemctl daemon-reload
+
+systemctl stop slapd.service
+systemctl disable slapd.service
+
+systemctl daemon-reexec
+systemctl enable --now slapd2610.service
+
+systemctl start slapd2610.service
+systemctl status slapd2610.service
+pgrep -a slapd
+
+
+
+# ----------------------------------
+# systemd は 複数のディレクトリを階層的に参照して、
+# ----------------------------------
+/usr/lib/systemd/system/slapd.service
+/etc/systemd/system/slapd2610.service
+
+/usr/lib/systemd/system/ 	 → デフォルト（パッケージ提供）
+/etc/systemd/system/		 → 管理者が上書き／独自追加
+
+
+[root@ovs-012 src]# systemctl list-unit-files | grep -E 'slapd|slapd2610'
+
+UNIT FILE                                     STATE           PRESET
+-------------------------------------------------------------------------
+slapd.service                                 enabled         disabled
+slapd2610.service                             enabled         disabled
+
+
+# ----------------------------------
+#	slapd.service を更新したら！
+# ----------------------------------
+
+systemctl daemon-reload
+
+確認ポイント（どちらの方法でも）
+
+# どこに ldapi が出来ているか（片方だけ存在すればOK）
+ls -l /usr/local/openldap-2.6.10/var/run/ldapi /usr/local/var/run/ldapi /var/run/openldap/ldapi 2>/dev/null
+
+# ポート掴んでいるか
+ss -ltnp | grep -E ':(389|636)\b' || true
+
+# 動作テスト
+ldapsearch -LLL -x -H ldap://127.0.0.1 -b '' -s base namingContexts
+ldapsearch -LLL -Y EXTERNAL -b cn=config dn | head
+
+kill 3108918
+# 念のため
+pkill slapd || true
+
+
+-------------------------------------------------------------------------
+4) 切り分けに最強：フォアグラウンド起動
+-------------------------------------------------------------------------
+
+/usr/local/openldap-2.6.10/libexec/slapd \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h "ldap://ovs-002.e-smile.local ldap://127.0.0.1 ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi" \
+  -d 256
+
+/usr/local/openldap-2.6.10/libexec/slapd \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h "ldap://ovs-002.e-smile.local ldap://127.0.0.1 ldapi://%2Fusr%2Flocal%2Fopenldap-2.6.10%2Fvar%2Frun%2Fldapi" \
+  -d 256
+
+/usr/local/openldap-2.6.10/libexec/slapd \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h "ldap://ovs-026.e-smile.local ldap://127.0.0.1 ldapi://%2Fusr%2Flocal%2Fopenldap-2.6.10%2Fvar%2Frun%2Fldapi" \
+  -d 256
+
+
+/usr/local/openldap-2.6.10/libexec/slapd \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h "ldap://ovs-026.e-smile.local ldap://127.0.0.1 ldapi:///" \
+  -d 256
+
+
+-------------------------------------------------------------------------
+	slapd.d のアクセス権利
+-------------------------------------------------------------------------
+
+chown -R ldap:ldap /usr/local/etc/openldap/slapd.d
+chmod 700 /usr/local/etc/openldap/slapd.d
+chmod 700 /usr/local/etc/openldap/slapd.d/cn=config
+chmod 600 /usr/local/etc/openldap/slapd.d/*.ldif
+chown -R ldap:ldap /usr/local/var/openldap-data
+chown -R ldap:ldap /usr/local/var/run
+
+
+chown -R ldap:ldap /usr/local/etc/openldap/slapd.d
+chmod -R 750 /usr/local/etc/openldap/slapd.d
+chown -R ldap:ldap /usr/local/var/openldap-data
+chmod -R 750 /usr/local/var/openldap-data
+chown -R ldap:ldap /usr/local/var/run
+chmod 755 /usr/local/var/run
+
+systemctl stop slapd2610.service
+rm -f /usr/local/var/run/slapd.pid /usr/local/var/run/ldapi
+
+systemctl start slapd2610.service
+systemctl status --no-pager -l slapd2610.service
+
+[root@ovs-026 var]# su -s /bin/bash ldap -c "/usr/local/openldap-2.6.10/libexec/slapd \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h 'ldap://127.0.0.1 ldapi:///' -d 256"
+
+
+/usr/local/openldap-2.6.10/libexec/slapd \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h "ldap://ovs-024.e-smile.local ldap://127.0.0.1 ldapi:///" \
+  -u ldap -g ldap -d 256
+
+
+/usr/local/libexec/slapd \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h "ldap://ovs-024.e-smile.local ldap://127.0.0.1 ldapi:///" \
+  -u ldap -g ldap -d 256
+
+/usr/local/libexec/slapd \
+  -F /usr/local/etc/openldap/slapd.d \
+  -h "ldap://ovs-025.e-smile.local ldap://127.0.0.1 ldapi:///" \
+  -u ldap -g ldap -d 256
+
+
+-------------------------------------------------------------------------
+TLS: error:8000000D:system library::Permission denied
+/etc/pki/tls/ssl_ovs_026/ovs026_server_sha256/server_ovs026_sha256.key'.
+-------------------------------------------------------------------------
+
+ls -l /etc/pki/tls/ssl_ovs_026/ovs026_server_sha256/server_ovs026_sha256.key
+namei -mo /etc/pki/tls/ssl_ovs_026/ovs026_server_sha256/server_ovs026_sha256.key
+
+# 鍵ファイルのグループを ldap に
+chgrp ldap /etc/pki/tls/ssl_ovs_026/ovs026_server_sha256/server_ovs026_sha256.key
+
+# 鍵は 640（所有者rw・グループr）
+chmod 640 /etc/pki/tls/ssl_ovs_026/ovs026_server_sha256/server_ovs026_sha256.key
+
+# ディレクトリは辿れるように 750 以上（実行xが重要）
+chmod 750 /etc/pki/tls/ssl_ovs_026
+chmod 750 /etc/pki/tls/ssl_ovs_026/ovs026_server_sha256
+
+
+-------------------------------------------------------------------------
+TLS: could not load verify locations (file:`/etc/pki/tls/ssl_ovs_026/CA/cacert.crt',dir:`').
+-------------------------------------------------------------------------
+
+# CAファイルの実体確認
+ls -l /etc/pki/tls/ssl_ovs_026/CA/cacert.crt
+
+# ディレクトリを辿れるようにグループを ldap に変更して 750 のまま維持
+chgrp ldap /etc/pki/tls/ssl_ovs_026
+chgrp ldap /etc/pki/tls/ssl_ovs_026/ovs026_server_sha256
+chgrp ldap /etc/pki/tls/ssl_ovs_026/CA
+
+# CAファイルは ldap が読めるように
+chgrp ldap /etc/pki/tls/ssl_ovs_026/CA/cacert.crt
+chmod 640  /etc/pki/tls/ssl_ovs_026/CA/cacert.crt
+
+# 念のため辿り権（x）が付いているか確認
+chmod 750  /etc/pki/tls/ssl_ovs_026
+chmod 750  /etc/pki/tls/ssl_ovs_026/ovs026_server_sha256
+chmod 750  /etc/pki/tls/ssl_ovs_026/CA
+
+# ldap で読めるかワンショットテスト
+sudo -u ldap cat /etc/pki/tls/ssl_ovs_026/CA/cacert.crt > /dev/null
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+
+
+ldapadd -x -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -W -f /root/add_ou.ldif
+
+ldapadd -Y EXTERNAL -H ldapi:/// -f /root/add_syncprov.ldif
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={2}mdb,cn=config" dn
+
+
+dn: cn=config
+changetype: modify
+add: olcServerID
+olcServerID: 9 ldap://ovs-009.e-smile.local
+olcServerID: 10 ldap://ovs-010.e-smile.local
+olcServerID: 11 ldap://ovs-011.e-smile.local
+
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+add: olcSyncrepl
+olcSyncrepl: rid=010
+  provider=ldap://ovs-010.e-smile.local
+  binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp"
+  bindmethod=simple
+  credentials=es0356525566
+  searchbase="dc=e-smile,dc=ne,dc=jp"
+  type=refreshAndPersist
+  retry="5 5 300 +"
+  timeout=1
+  network-timeout=3
+  keepalive=60:3:10
+  schemachecking=on
+-
+add: olcSyncrepl
+olcSyncrepl: rid=011
+  provider=ldap://ovs-011.e-smile.local
+  binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp"
+  bindmethod=simple
+  credentials=es0356525566
+  searchbase="dc=e-smile,dc=ne,dc=jp"
+  type=refreshAndPersist
+  retry="5 5 300 +"
+  timeout=1
+  network-timeout=3
+  keepalive=60:3:10
+  schemachecking=on
+
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+add: olcSyncrepl
+olcSyncrepl: rid=009
+  provider=ldap://ovs-009.e-smile.local
+  binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp"
+  bindmethod=simple
+  credentials=es0356525566
+  searchbase="dc=e-smile,dc=ne,dc=jp"
+  type=refreshAndPersist
+  retry="5 5 300 +"
+  timeout=1
+  network-timeout=3
+  keepalive=60:3:10
+  schemachecking=on
+-
+add: olcSyncrepl
+olcSyncrepl: rid=011
+  provider=ldap://ovs-011.e-smile.local
+  binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp"
+  bindmethod=simple
+  credentials=es0356525566
+  searchbase="dc=e-smile,dc=ne,dc=jp"
+  type=refreshAndPersist
+  retry="5 5 300 +"
+  timeout=1
+  network-timeout=3
+  keepalive=60:3:10
+  schemachecking=on
+
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+add: olcSyncrepl
+olcSyncrepl: rid=009
+  provider=ldap://ovs-009.e-smile.local
+  binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp"
+  bindmethod=simple
+  credentials=es0356525566
+  searchbase="dc=e-smile,dc=ne,dc=jp"
+  type=refreshAndPersist
+  retry="5 5 300 +"
+  timeout=1
+  network-timeout=3
+  keepalive=60:3:10
+  schemachecking=on
+-
+add: olcSyncrepl
+olcSyncrepl: rid=010
+  provider=ldap://ovs-010.e-smile.local
+  binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp"
+  bindmethod=simple
+  credentials=es0356525566
+  searchbase="dc=e-smile,dc=ne,dc=jp"
+  type=refreshAndPersist
+  retry="5 5 300 +"
+  timeout=1
+  network-timeout=3
+  keepalive=60:3:10
+  schemachecking=on
+
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f /root/add_serverid.ldif
+ldapmodify -Y EXTERNAL -H ldapi:/// -f /root/add_syncrepl_009.ldif
+ldapmodify -Y EXTERNAL -H ldapi:/// -f /root/add_syncrepl_010.ldif
+ldapmodify -Y EXTERNAL -H ldapi:/// -f /root/add_syncrepl_011.ldif
+
+ldapsearch -LLL -x -H ldap://ovs-009.e-smile.local -s base -b "dc=e-smile,dc=ne,dc=jp" contextCSN
+ldapsearch -LLL -x -H ldap://ovs-010.e-smile.local -s base -b "dc=e-smile,dc=ne,dc=jp" contextCSN
+ldapsearch -LLL -x -H ldap://ovs-011.e-smile.local -s base -b "dc=e-smile,dc=ne,dc=jp" contextCSN
+
+
+
+
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHNRaMXxevg14kxDWj3zVaq97BqDS79koiJeJg/390Q2 root@ovs-002.e-smile.local
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDfI1EnGgx68dobcuvkkC7v1ZqzKstAs1ezn/nRTFVAY root@ovs-009.e-smile.local
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGY2gRsFBgCL/UD3FUTR85BZSuQVI901tFPIKF2e1kMT root@ovs-010.e-smile.local
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKVqUltUz1gVvT2DDVJCfhLXcoHPKcaFEJRPfuUfjCW root@ovs-011.e-smile.local
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRrpPHnImcljunmAcnryJgoQ4/j6+jRYV4kxiKhit/0 root@ovs-012.e-smile.local
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP/kEFaFYKL+mWJisnpznVLA1t32lDebakcWlZYEQzQ2 root@ovs-024.e-smile.local
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIesuMg5HCH57CbYk3/T0H2HtDrcw76M6RyOR9v++x55 root@ovs-025.e-smile.local
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEYVGO27qna5Qj4vVcPXtzWl1K57PMEsS3D4HyVmzA3p root@ovs-026.e-smile.local
+
+
+ldapsearch -LLL -x -H ldap://127.0.0.1 -b "ou=Temp,dc=e-smile,dc=ne,dc=jp"
+ldapsearch -LLL -x -H ldap://127.0.0.1 -b "ou=People,dc=e-smile,dc=ne,dc=jp"
+ldapsearch -LLL -x -H ldap://127.0.0.1 -b "ou=Users,dc=e-smile,dc=ne,dc=jp"
+ldapsearch -LLL -x -H ldap://127.0.0.1 -b "ou=Groups,dc=e-smile,dc=ne,dc=jp"
+
+ldapsearch -LLL -x -H ldap://127.0.0.1   -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "ou=People,dc=e-smile,dc=ne,dc=jp" "*"
+ldapsearch -LLL -x -H ldap://127.0.0.1   -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "ou=Temp,dc=e-smile,dc=ne,dc=jp" "*"
+ldapsearch -LLL -x -H ldap://127.0.0.1   -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "*"
+ldapsearch -LLL -x -H ldap://127.0.0.1   -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w es0356525566 -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "*"
+
+
+
+
+
+cat >/root/limits-unlimited.ldif <<'LDIF'
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+add: olcLimits
+olcLimits: dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" size=unlimited time=unlimited
+LDIF
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f /root/limits-unlimited.ldif
+
+
+
+
+# ------------------------------------
+#	バージョン確認方法
+# ------------------------------------
+
+
+[root@ovs-011 src]# ldapsearch -LLL -Y EXTERNAL -b cn=config dn
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+
+dn: cn=schema,cn=config
+
+dn: cn={0}core,cn=schema,cn=config
+
+dn: cn={1}cosine,cn=schema,cn=config
+
+dn: cn={2}inetorgperson,cn=schema,cn=config
+
+dn: cn={3}nis,cn=schema,cn=config
+
+dn: cn={4}esmile,cn=schema,cn=config
+
+dn: cn={5}samba,cn=schema,cn=config
+
+dn: olcDatabase={-1}frontend,cn=config
+
+dn: olcDatabase={0}config,cn=config
+
+dn: olcDatabase={1}monitor,cn=config
+
+dn: olcDatabase={2}mdb,cn=config
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+
+ldapsearch -LLL -Y EXTERNAL -b "cn=Monitor" "(objectClass=*)" | grep -i version
+ldapsearch -LLL -Y EXTERNAL -b "cn=Monitor" monitoredInfo | grep -m1 '^monitoredInfo: OpenLDAP' | sed 's/^monitoredInfo: //'
+
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+OpenLDAP: slapd 2.6.10 (Sep 17 2025 22:47:38)
+
+[root@ovs-011 src]# ps -ef | grep [s]lapd
+ldap     26767     1  0  9月17 ?      00:01:32 /usr/local/openldap-2.6.10/libexec/slapd -F /usr/local/etc/openldap/slapd.d -h ldap://ovs-011.e-smile.local ldap://127.0.0.1 ldapi:/// ldaps:/// -u ldap -g ldap
+
+
+[root@ovs-011 src]# /usr/local/openldap-2.6.10/libexec/slapd -VV
+@(#) $OpenLDAP: slapd 2.6.10 (Sep 17 2025 22:47:38) $
+        root@ovs-011.e-smile.local:/usr/local/src/openldap-2.6.10/servers/slapd
+
+
+
+ldapsearch -LLL -x -H ldap://127.0.0.1 -b "ou=Temp,dc=e-smile,dc=ne,dc=jp" dn
+
+ldapsearch -LLL -x -H ldap://127.0.0.1 \
+  -b "ou=Temp,dc=e-smile,dc=ne,dc=jp" dn | \
+  grep '^dn:' | awk '{print $2}' | \
+  xargs -I {} ldapdelete -x -H ldap://127.0.0.1 \
+    -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' "{}"
+

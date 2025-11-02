@@ -1,0 +1,14 @@
+﻿
+さらに ovs-002 で /ovs012_home を SMB 共有（Windows へも配布したい時）
+
+./mount_ovs012_home.sh --with-smbconf --share-ovs012-home --confirm
+
+
+
+
+
+nameserver 192.168.61.1
+nameserver 2400:4050:5f21:cf02::1
+# 注記: libc リゾルバーは ３つ以上のネームサーバーをサポートできません。
+# 以下の一覧にあるネームサーバーは認識されないかも知れません。
+nameserver 8.8.8.8

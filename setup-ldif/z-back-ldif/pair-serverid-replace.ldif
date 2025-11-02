@@ -1,0 +1,5 @@
+dn: cn=config
+changetype: modify
+replace: olcServerID
+olcServerID: 1 ldap://ovs-012.e-smile.local
+olcServerID: 2 ldap://ovs-002.e-smile.local

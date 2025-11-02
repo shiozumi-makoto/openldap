@@ -1,0 +1,12 @@
+﻿
+mail <= "電子メールアドレス" character varying(50) COLLATE pg_catalog."default",
+
+telephoneNumber <= "電話番号" character varying(16) COLLATE pg_catalog."default",
+
+mobile <=    "携帯電話" character varying(16) COLLATE pg_catalog."default",
+
+postalAddress <= 
+    "国または地域" character varying(20) COLLATE pg_catalog."default",
+    "都道府県" character varying(20) COLLATE pg_catalog."default",
+    "市区町村" character varying(50) COLLATE pg_catalog."default",
+    "番地" character varying(50) COLLATE pg_catalog."default",

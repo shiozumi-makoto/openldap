@@ -1,0 +1,152 @@
+
+# ======================================================================
+#	サーバー同期の設定の投入
+# ======================================================================
+
+dn: olcOverlay=syncprov,olcDatabase={2}mdb,cn=config
+changetype: add
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+
+# ======================================================================
+#	サーバー同期の設定の投入
+# ======================================================================
+
+[root@ovs-025 ldif]# cat 04_olcSyncRepl_master.ldif
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+replace: olcSyncRepl
+
+olcSyncRepl: rid=001
+  provider=ldap://ovs-025.e-smile.local
+  bindmethod=simple
+  binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp"
+  credentials=es0356525566
+  searchbase="dc=e-smile,dc=ne,dc=jp"
+  type=refreshAndPersist
+  retry="30 5 300 3"
+  timeout=1
+  interval=00:00:05:00
+
+olcSyncRepl: rid=002
+  provider=ldap://ovs-024.e-smile.local
+  bindmethod=simple
+  binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp"
+  credentials=es0356525566
+  searchbase="dc=e-smile,dc=ne,dc=jp"
+  type=refreshAndPersist
+  retry="30 5 300 3"
+  timeout=1
+  interval=00:00:05:00
+
+dn: olcDatabase={2}mdb,cn=config
+changetype: modify
+add: olcMirrorMode
+olcMirrorMode: TRUE
+
+
+# ======================================================================
+#	確認
+# ======================================================================
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f  04_olcSyncRepl_1st.ldif
+ldapmodify -Y EXTERNAL -H ldapi:/// -f  04_olcSyncRepl_master.ldif
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "olcSyncRepl"
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "olcMirrorMode"
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "olcMultiProvider"
+
+
+#
+# ======================================================================
+#	確認１
+# ======================================================================
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "olcOverlay={1}syncprov"
+
+# ======================================================================
+#	確認２
+# ======================================================================
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "olcOverlay"
+
+# ======================================================================
+#	確認３
+# ======================================================================
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" "olcDatabase={2}mdb"
+
+
+
+# ======================================================================
+#	同期確認
+# ======================================================================
+
+
+# -------------------------
+# ovs-010
+# -------------------------
+vi ./ldap_work/1-001-add.ldif
+
+dn: uid=1-001,ou=People,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: postalcode
+postalcode: 012-0123
+-
+replace: homePhone
+homePhone: 03-1111-2222
+
+# -------------------------
+# ovs-010 実行
+# -------------------------
+ldapmodify -D uid=1-001,ou=People,dc=e-smile,dc=ne,dc=jp -w makoto06 -f ./ldap_work/1-001-add.ldif
+ldapmodify -D uid=1-001,ou=People,dc=e-smile,dc=ne,dc=jp -w makoto06 -f A-001-add.ldif
+ldapsearch -x -LLL -H ldap:/// -b "ou=People,dc=e-smile,dc=ne,dc=jp" "uid=1-001"
+ldapsearch -x -LLL -H ldap:/// -b "ou=People,dc=e-smile,dc=ne,dc=jp" "uid=A-001"
+
+
+
+
+
+
+# -------------------------
+# ovs-009
+# -------------------------
+vi ./ldap_work/1-001-add_2.ldif
+
+[root@ovs-009 openldap]# cat ./ldap_work/1-001-add_2.ldif
+dn: uid=1-001,ou=People,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: postalcode
+postalcode: 103-0016
+-
+replace: homePhone
+homePhone: 03-5652-5566
+
+
+# -------------------------
+# ovs-009 実行
+# -------------------------
+
+ldapmodify -D uid=1-001,ou=People,dc=e-smile,dc=ne,dc=jp  -w makoto06230123 -f ./ldap_work/1-001-add_2.ldif
+ldapsearch -x -LLL -H ldap:/// -b "ou=People,dc=e-smile,dc=ne,dc=jp" "uid=1-001"
+
+
+# -------------------------
+#
+# -------------------------
+
+systemctl restart slapd.service
+systemctl status slapd.service
+
+ldapsearch -x -LLL -H ldap://ovs-009.e-smile.local/ -b "ou=People,dc=e-smile,dc=ne,dc=jp" "uid=1-001"
+ldapsearch -x -LLL -H ldap://ovs-009/ -b "ou=People,dc=e-smile,dc=ne,dc=jp" "uid=1-001"
+
+# -------------------------
+#
+# -------------------------
+
+ldapmodify -Y EXTERNAL -H ldapi:/// -f ./ldap_work/03_olcServerID.ldif
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "cn=config" | more
+
+

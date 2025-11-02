@@ -1,0 +1,1330 @@
+
+# ----------------------------------------------------
+#	shiozumi が、更新されないので、別設定！
+#
+#
+# /usr/local/etc/openldap/tools/ldap_id_pass_from_postgres_set.php srv04 srv04 srv05
+#
+# ----------------------------------------------------
+
+set_ldap_samba_password.sh
+
+
+[root@ovs-025 tools]# ./check_samba_sid_all.sh
+=== Samba SID 一覧確認 (2025-10-09 15:10:28) ===
+ホスト名             | Local SID                                    | Domain SID
+---------------------+---------------------------------------------+---------------------------------------------
+ovs-025               | S-1-5-21-1131644523-3367784460-4058559141   | N/A
+ovs-024               | S-1-5-21-2370043446-3547542527-3741507501   | N/A
+ovs-026               | S-1-5-21-2966666385-3697510440-216532902    | N/A
+ovs-002               | S-1-5-21-3566765955-3362818161-2431109675   | N/A
+ovs-012               | S-1-5-21-3566765955-3362818161-2431109675   | N/A
+------------------------------------------------------------
+
+
+ldapsearch -x \
+  -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566' \
+  -b "uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp" \
+  sambaSID sambaPrimaryGroupSID
+
+
+# extended LDIF
+#
+# LDAPv3
+# base <uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp> with scope subtree
+# filter: (objectclass=*)
+# requesting: sambaSID sambaPrimaryGroupSID
+#
+
+# shiozumi-makoto, Users, e-smile.ne.jp
+dn: uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-10001
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2001
+
+
+ldapsearch -x \
+  -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566' \
+  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" \
+  "(sambaSID=S-1-5-21-3566765955-3362818161-2431109675-2001)" \
+  dn cn gidNumber
+
+
+ldapsearch -x \
+  -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566' \
+  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" \
+  "(|(memberUid=shiozumi-makoto)(uniqueMember=uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp))" \
+  dn cn sambaSID
+
+
+ldapsearch -x \
+  -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566' \
+  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" \
+  "(sambaSID=S-1-5-21-3566765955-3362818161-2431109675-2001)" \
+  dn cn gidNumber
+
+# extended LDIF
+#
+# LDAPv3
+# base <ou=Groups,dc=e-smile,dc=ne,dc=jp> with scope subtree
+# filter: (sambaSID=S-1-5-21-3566765955-3362818161-2431109675-2001)
+# requesting: dn cn gidNumber
+#
+
+# extended LDIF
+#
+# LDAPv3
+# base <ou=Groups,dc=e-smile,dc=ne,dc=jp> with scope subtree
+# filter: (|(memberUid=shiozumi-makoto)(uniqueMember=uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp))
+# requesting: dn cn sambaSID
+#
+
+ldapsearch -x \
+  -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" dn cn gidNumber
+
+
+
+# users, Groups, e-smile.ne.jp
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+cn: users
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-1008
+
+# esmile-dev, Groups, e-smile.ne.jp
+dn: cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+cn: esmile-dev
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-1001
+
+# kindaka-dev, Groups, e-smile.ne.jp
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+cn: kindaka-dev
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-1003
+
+# search result
+search: 2
+result: 0 Success
+
+
+ldapsearch -x \
+  -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" \
+  "(sambaSID=S-1-5-21-3566765955-3362818161-2431109675-*)" \
+  dn cn gidNumber
+
+
+
+
+
+
+# ↑で得た SID を smbldap.conf に書き込む（例のSIDで置換してください）
+
+SID_REAL='S-1-5-21-1131644523-3367784460-4058559141'
+sudo sed -i -E "s|^sid=.*$|sid=\"${SID_REAL}\"|" /etc/smbldap-tools/smbldap.conf
+
+sudo sed -i -E \
+  -e 's|^workgroup=.*$|workgroup="OVS-025"|' \
+  -e 's|^sambaDomain=.*$|sambaDomain="OVS-025"|' \
+  /etc/smbldap-tools/smbldap.conf
+
+
+ 1071  ldapsearch -x -b "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" sambaNTPassword
+ 1072  smbldap-passwd
+ 1073  yum install smbldap-tools
+ 1074  which smbldap-passwd
+ 1075  cat /etc/smbldap-tools/smbldap.conf
+ 1076  cat /etc/smbldap-tools/smbldap_bind.conf
+ 1077  ldapsearch -x -b "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp"   sambaNTPassword userPassword
+ 1078  history
+
+
+NEWPW='Makoto87426598'
+
+python3 - <<'PY' "$NEWPW"
+import sys, struct
+
+# --- minimal MD4 (RFC1320) ---
+def _F(x,y,z): return ((x & y) | (~x & z)) & 0xFFFFFFFF
+def _G(x,y,z): return ((x & y) | (x & z) | (y & z)) & 0xFFFFFFFF
+def _H(x,y,z): return (x ^ y ^ z) & 0xFFFFFFFF
+def _rol(v, s): return ((v << s) | (v >> (32 - s))) & 0xFFFFFFFF
+def md4(data: bytes) -> bytes:
+    # init
+    A, B, C, D = 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476
+    # padding
+    orig_len_bits = (len(data) * 8) & 0xFFFFFFFFFFFFFFFF
+    data += b"\x80"
+    while (len(data) % 64) != 56:
+        data += b"\x00"
+    data += struct.pack("<Q", orig_len_bits)
+    # process
+    for i in range(0, len(data), 64):
+        X = list(struct.unpack("<16I", data[i:i+64]))
+        AA, BB, CC, DD = A, B, C, D
+
+        # round 1
+        S = [3,7,11,19]
+        A = _rol((A + _F(B,C,D) + X[0]) & 0xFFFFFFFF,  S[0])
+        D = _rol((D + _F(A,B,C) + X[1]) & 0xFFFFFFFF,  S[1])
+        C = _rol((C + _F(D,A,B) + X[2]) & 0xFFFFFFFF,  S[2])
+        B = _rol((B + _F(C,D,A) + X[3]) & 0xFFFFFFFF,  S[3])
+        A = _rol((A + _F(B,C,D) + X[4]) & 0xFFFFFFFF,  S[0])
+        D = _rol((D + _F(A,B,C) + X[5]) & 0xFFFFFFFF,  S[1])
+        C = _rol((C + _F(D,A,B) + X[6]) & 0xFFFFFFFF,  S[2])
+        B = _rol((B + _F(C,D,A) + X[7]) & 0xFFFFFFFF,  S[3])
+        A = _rol((A + _F(B,C,D) + X[8]) & 0xFFFFFFFF,  S[0])
+        D = _rol((D + _F(A,B,C) + X[9]) & 0xFFFFFFFF,  S[1])
+        C = _rol((C + _F(D,A,B) + X[10]) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _F(C,D,A) + X[11]) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _F(B,C,D) + X[12]) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _F(A,B,C) + X[13]) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _F(D,A,B) + X[14]) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _F(C,D,A) + X[15]) & 0xFFFFFFFF, S[3])
+
+        # round 2
+        S = [3,5,9,13]
+        A = _rol((A + _G(B,C,D) + X[0]  + 0x5A827999) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _G(A,B,C) + X[4]  + 0x5A827999) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _G(D,A,B) + X[8]  + 0x5A827999) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _G(C,D,A) + X[12] + 0x5A827999) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _G(B,C,D) + X[1]  + 0x5A827999) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _G(A,B,C) + X[5]  + 0x5A827999) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _G(D,A,B) + X[9]  + 0x5A827999) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _G(C,D,A) + X[13] + 0x5A827999) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _G(B,C,D) + X[2]  + 0x5A827999) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _G(A,B,C) + X[6]  + 0x5A827999) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _G(D,A,B) + X[10] + 0x5A827999) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _G(C,D,A) + X[14] + 0x5A827999) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _G(B,C,D) + X[3]  + 0x5A827999) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _G(A,B,C) + X[7]  + 0x5A827999) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _G(D,A,B) + X[11] + 0x5A827999) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _G(C,D,A) + X[15] + 0x5A827999) & 0xFFFFFFFF, S[3])
+
+        # round 3
+        S = [3,9,11,15]
+        A = _rol((A + _H(B,C,D) + X[0]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _H(A,B,C) + X[8]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _H(D,A,B) + X[4]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _H(C,D,A) + X[12] + 0x6ED9EBA1) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _H(B,C,D) + X[2]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _H(A,B,C) + X[10] + 0x6ED9EBA1) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _H(D,A,B) + X[6]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _H(C,D,A) + X[14] + 0x6ED9EBA1) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _H(B,C,D) + X[1]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _H(A,B,C) + X[9]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _H(D,A,B) + X[5]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _H(C,D,A) + X[13] + 0x6ED9EBA1) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _H(B,C,D) + X[3]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _H(A,B,C) + X[11] + 0x6ED9EBA1) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _H(D,A,B) + X[7]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _H(C,D,A) + X[15] + 0x6ED9EBA1) & 0xFFFFFFFF, S[3])
+
+        A = (A + AA) & 0xFFFFFFFF
+        B = (B + BB) & 0xFFFFFFFF
+        C = (C + CC) & 0xFFFFFFFF
+        D = (D + DD) & 0xFFFFFFFF
+
+    return struct.pack("<4I", A, B, C, D)
+
+# NT Hash = MD4( UTF-16LE(password) )
+pw_utf16 = sys.argv[1].encode('utf-16le')
+nthash = md4(pw_utf16).hex().upper()
+print(nthash)
+PY
+
+
+NTHASH='D5EC50C26E64961D9A26E6E602A906A3'
+cat <<EOF | ldapmodify -x \
+  -H ldap://127.0.0.1 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566'
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: sambaNTPassword
+sambaNTPassword: ${NTHASH}
+EOF
+
+
+# SSHAハッシュ生成例
+
+slappasswd -h {SSHA} -s Makoto87426598
+
+cat <<EOF | ldapmodify -x \
+  -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566'
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: userPassword
+userPassword: {SSHA}Y9dHhp75sZosrVqOfBP9ywUKQm92ZLrN
+EOF
+
+
+ldapwhoami -x \
+  -H ldap://192.168.61.12 \
+  -D "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" \
+  -w 'Makoto87426598'
+
+
+
+
+
+ldapwhoami -x \
+  -H ldap://192.168.61.25 \
+  -D "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" \
+  -w 'Makoto87426598'
+
+
+
+
+
+
+NTHASH='D5EC50C26E64961D9A26E6E602A906A3'
+cat <<EOF | ldapmodify -x \
+  -H ldap://127.0.0.1 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566'
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: sambaNTPassword
+sambaNTPassword: ${NTHASH}
+EOF
+
+
+
+
+
+
+
+
+
+ldapsearch -x -LLL -H ldap://192.168.61.10   -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi*)" uid gidNumber
+dn: uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto
+gidNumber: 2001
+
+dn: uid=shiozumi-makoto2,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto2
+gidNumber: 2002
+
+dn: uid=shiozumi-makoto3,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto3
+gidNumber: 2003
+
+
+ldapsearch -x -LLL -H ldap://192.168.61.10   -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(memberUid=shiozumi*)" uid gidNumber
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 100
+
+dn: cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2001
+
+dn: cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2002
+
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2003
+
+
+
+# --------------------------------------
+#	shiozumi が、余計なのであろう！
+# --------------------------------------
+
+ldapsearch -x -LLL -H ldap://192.168.61.12  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi*)" uid gidNumber
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi
+gidNumber: 1000
+
+dn: uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto
+gidNumber: 2001
+
+dn: uid=shiozumi-makoto2,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto2
+gidNumber: 2002
+
+dn: uid=shiozumi-makoto3,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto3
+gidNumber: 2003
+
+
+
+ldapsearch -x -LLL -H ldap://192.168.61.12   -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(memberUid=shiozumi*)" uid gidNumber
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 100
+
+dn: cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2001
+
+dn: cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2002
+
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2003
+
+
+
+[root@ovs-012 ~]# ldapsearch -x -LLL -H ldap://192.168.61.10  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi)" uid gidNumber
+[root@ovs-012 ~]# ldapsearch -x -LLL -H ldap://192.168.61.10  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(memberUid=shiozumi)" uid gidNumber
+
+
+
+[root@ovs-012 ~]# ldapsearch -x -LLL -H ldap://192.168.61.12   -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(memberUid=shiozumi)" uid gidNumber
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 100
+
+[root@ovs-012 ~]# ldapsearch -x -LLL -H ldap://192.168.61.12  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi)" uid gidNumber
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi
+gidNumber: 1000
+
+
+
+pass: Makoto87426598
+
+
+ldappasswd -x -H ldap://192.168.61.12 \
+  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" -s "Makoto87426598"
+
+
+php -r '
+function ntlm_hash($password) {
+    $utf16 = mb_convert_encoding($password, "UTF-16LE");
+    return strtoupper(bin2hex(hash("md4", $utf16, true)));
+}
+echo ntlm_hash("Makoto87426598"), "\n";
+'
+
+
+passwd:: D5EC50C26E64961D9A26E6E602A906A3
+
+
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: sambaNTPassword
+sambaNTPassword: D5EC50C26E64961D9A26E6E602A906A3
+-
+replace: sambaPwdLastSet
+sambaPwdLastSet: 1738123456
+
+
+ldapmodify -x -H ldap://192.168.61.12 \
+  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -f reset_shiozumi.ldif
+
+
+
+[root@ovs-012 tools]#
+
+ldapsearch -x -LLL -H ldap://192.168.61.12 \
+  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -b "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" uid userPassword sambaNTPassword sambaPwdLastSet
+
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi
+userPassword:: e1NTSEF9VUdwbmZmTVpuS2R6azV0UTl5VFlYNzJhQW1JQkdQZGE=
+sambaNTPassword: D5EC50C26E64961D9A26E6E602A906A3
+sambaPwdLastSet: 1738123456
+
+
+
+
+[homes]
+        comment = Home Directories
+        create mask = 0700
+        directory mask = 0700
+        force user = %U
+        inherit acls = Yes
+        read only = No
+        valid users = %S %D%w%S
+
+
+[Users]
+        comment = Solt,Social,Systems [192.168.62.13:TNAS-3F-4TB]
+        create mask = 0664
+        directory mask = 02775
+        force group = users
+        path = /mnt/raid0/Users
+        read only = No
+        valid users = @esmile-dev @kindaka-dev @boj-dev @e_gamne-dev @solt-dev @social-dev shiozumi
+
+
+[Users_game]
+        comment = Games [192.168.62.10]
+        create mask = 0664
+        directory mask = 02775
+        force group = users
+        path = /mnt/raid1/Users_game
+        read only = No
+        valid users = @esmile-dev @kindaka-dev @boj-dev @e_gamne-dev @solt-dev @social-dev shiozumi
+
+
+
+
+
+[root@ovs-012 tools]#
+
+
+ldapsearch -x   -H ldap://192.168.61.12   -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Groups,dc=e-smile,dc=ne,dc=jp"   "(sambaSID=S-1-5-21-3566765955-3362818161-2431109675-*)"
+
+# extended LDIF
+#
+# LDAPv3
+# base <ou=Groups,dc=e-smile,dc=ne,dc=jp> with scope subtree
+# filter: (sambaSID=S-1-5-21-3566765955-3362818161-2431109675-*)
+# requesting: ALL
+#
+
+# users, Groups, e-smile.ne.jp
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+cn: users
+gidNumber: 100
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+memberUid: abe-ryou
+memberUid: abiru-masashi
+memberUid: adachi-kaito
+memberUid: akashio-hiroki
+memberUid: akiba-yuuichi
+memberUid: akiyama-ryou
+memberUid: akiyoshi-yuuya
+memberUid: aoki-shunichi
+memberUid: asahara-yuuki
+memberUid: asakawa-kazutoshi
+memberUid: azumaya-ryouta
+memberUid: baba-yuutarou
+memberUid: chikaarashi-kanae
+memberUid: esashika-akio
+memberUid: fujii-hibiki
+memberUid: fujimoto-asami
+memberUid: fujiwara-naoya
+memberUid: fukushima-yuuya
+memberUid: fukuyasu-hideaki
+memberUid: furukawa-kouki
+memberUid: gotou-satomi
+memberUid: gouda-naoki
+memberUid: hara-chika
+memberUid: harada-hitoshi
+memberUid: haruta-haruki
+memberUid: hashimoto-daiki
+memberUid: hiraga-daisuke
+memberUid: hiraku-kingo
+memberUid: hirose-masaya
+memberUid: hirukawa-makoto
+memberUid: hobo-hoshihito
+memberUid: horikawa-yuudai
+memberUid: hoshitani-taiki
+memberUid: ibushi-tessei
+memberUid: ichikura-honatsu
+memberUid: iijima-ryou
+memberUid: iizawa-kensuke
+memberUid: imaizumi-takayoshi
+memberUid: inagaki-wanoka
+memberUid: inoue-saki
+memberUid: ishii-megumi
+memberUid: ishii-takayasu
+memberUid: ishikawa-tatsuya
+memberUid: itou-keigo
+memberUid: itou-yutaka
+memberUid: itou-yuuya
+memberUid: iwai-yasumichi
+memberUid: iwaide-takumi
+memberUid: iwanaga-reina
+memberUid: iwata-yuushirou
+memberUid: kadowaki-shuusei
+memberUid: kakumoto-yuuki
+memberUid: kamada-shuu
+memberUid: kamiyama-yuri
+memberUid: kanamori-akihiro
+memberUid: kanamori-sana
+memberUid: kaneko-hitomi
+memberUid: kaneko-ryouta
+memberUid: kanemoto-masaki
+memberUid: kaneshiro-marina
+memberUid: katagiri-kousuke
+memberUid: katayama-serika
+memberUid: katsu-shino
+memberUid: katsumata-kaede
+memberUid: kikuchi-miki
+memberUid: kimura-riku
+memberUid: kinase-miku
+memberUid: kinoshita-ryouta
+memberUid: kishimoto-ryouya
+memberUid: kitani-sora
+memberUid: kiya-kazuki
+memberUid: kobayashi-ayuki
+memberUid: kobayashi-shouhei
+memberUid: kobayashi-takehiro
+memberUid: kojima-keitarou
+memberUid: kojima-kyouhei
+memberUid: kojima-michito
+memberUid: komamura-ami
+memberUid: komatsu-sairi
+memberUid: komatsubara-kazuki
+memberUid: komuta-kazuki
+memberUid: kondou-aya
+memberUid: kondou-kana
+memberUid: koshikawa-ren
+memberUid: kou-kazunari
+memberUid: kouno-atsuki
+memberUid: koyama-hiroki
+memberUid: kubo-yuuki
+memberUid: kubota-shion
+memberUid: kudou-yuuki
+memberUid: kurabayashi-akira
+memberUid: kuramochi-mitsuki
+memberUid: kuroda-yuuya
+memberUid: kurokawa-ryou
+memberUid: maeda-takahiro
+memberUid: makiyo-shunya
+memberUid: marukawa-kumiko
+memberUid: maruyama-ikumi
+memberUid: maruyama-takahiro
+memberUid: masuda-keisuke
+memberUid: masuno-sana
+memberUid: matsui-yuuki
+memberUid: matsuoka-shuri
+memberUid: matsushita-futoshi
+memberUid: minakawa-kazuya
+memberUid: miyagawa-satsuki
+memberUid: mizumoto-makito
+memberUid: mizuno-hideaki
+memberUid: mochizuki-hiroe
+memberUid: momodomi-hiroya
+memberUid: mori-yuuki
+memberUid: morita-taichi
+memberUid: munaoka-haruka
+memberUid: munehiro-ayami
+memberUid: murakami-yori
+memberUid: nagai-yuusei
+memberUid: nagano-naoki
+memberUid: nagao-momoka
+memberUid: nagayama-osamu
+memberUid: naitou-takato
+memberUid: nakabayashi-yuugo
+memberUid: nakagawa-miyu
+memberUid: nakajima-shin
+memberUid: nakamura-katsumi
+memberUid: nakamura-keita
+memberUid: nakamura-suzuka
+memberUid: nakamura-toshihiko
+memberUid: nakamura-yuuki
+memberUid: nakano-atsushi
+memberUid: namiki-hiroyuki
+memberUid: namimatsu-teruyuki
+memberUid: nemoto-osamu
+memberUid: nishimura-yuuta
+memberUid: nishizawa-satoshi
+memberUid: nishizawa-takuya
+memberUid: nitta-ruka
+memberUid: noda-takemichi
+memberUid: noguchi-yasuhito
+memberUid: ogawa-hikaru
+memberUid: okada-takuya
+memberUid: okumura-nagi
+memberUid: onodera-kai
+memberUid: onodera-tatsuki
+memberUid: ooishi-satsuki
+memberUid: ookawara-chiaki
+memberUid: oonishi-keitarou
+memberUid: oono-sora
+memberUid: oonuki-atsushi
+memberUid: ooshita-shuuhei
+memberUid: ooshita-shuuhei2
+memberUid: oota-kaho
+memberUid: ooyama-takayuki
+memberUid: parii-yuan
+memberUid: saitou-jun
+memberUid: saitou-masaki
+memberUid: saitou-ren
+memberUid: saitou-rui
+memberUid: saitou-sayaka
+memberUid: saitou-tomohisa
+memberUid: saitou-tomonao
+memberUid: sakaguchi-keiji
+memberUid: sakaguchi-miki
+memberUid: sakai-mao
+memberUid: sakamoto-katsuyuki
+memberUid: sakurai-asuka
+memberUid: sano-yukiharu
+memberUid: sasaki-yuusuke
+memberUid: satou-takahiro
+memberUid: segoshi-miyuki
+memberUid: sekimoto-takahito
+memberUid: shibuya-mikiko
+memberUid: shimizu-yuudai
+memberUid: shimoyama-hikaru
+memberUid: shiono-mizuki
+memberUid: shiozumi
+memberUid: shiozumi-makoto
+memberUid: shiozumi-makoto2
+memberUid: shiozumi-makoto3
+memberUid: shiraeda-tomoki
+memberUid: shiraishi-tatsuya
+memberUid: shiraki-hasumi
+memberUid: shouji-yuuta
+memberUid: shumuta-tomoya
+memberUid: sobajima-ryouya
+memberUid: souryou-tatsuya
+memberUid: sugata-momoyo
+memberUid: sugawara-naoki
+memberUid: sugimoto-tatsuya
+memberUid: sukegawa-kaede
+memberUid: suzuki-daisuke
+memberUid: suzuki-masato
+memberUid: suzuki-reo
+memberUid: suzuki-yoshimi
+memberUid: tajima-haruna
+memberUid: takabatake-hideto
+memberUid: takahashi-ryouya
+memberUid: takahashi-ryouya2
+memberUid: takahashi-shinichi
+memberUid: takano-jun
+memberUid: takebayashi-yumiko
+memberUid: takeda-nobutaka
+memberUid: takeda-saaya
+memberUid: takeda-shun
+memberUid: takehara-shouhei
+memberUid: takeuchi-tomokazu
+memberUid: takeuchi-yuuta
+memberUid: takezawa-shuuma
+memberUid: takinishi-yuri
+memberUid: tamai-akihiko
+memberUid: tanaka-hiroyuki
+memberUid: tanaka-motoaki
+memberUid: taniguchi-kazuki
+memberUid: taniguchi-yoshiki
+memberUid: tokiwa-moe
+memberUid: tsuji-muneharu
+memberUid: tsukahara-mizuki
+memberUid: tsurumi-masayuki
+memberUid: tsuruoka-taichi
+memberUid: tsutsumi-yuuki
+memberUid: ueda-tomohiro
+memberUid: uehara-akimasa
+memberUid: uehara-kei
+memberUid: ueki-mayuka
+memberUid: umeno-taiki
+memberUid: ushigome-norio
+memberUid: wakui-daiki
+memberUid: watanabe-toshihiro
+memberUid: yamada-masayuki
+memberUid: yamagishi-hiroaki
+memberUid: yamaguchi-tomohisa
+memberUid: yamamoto-ryuuhei
+memberUid: yamamoto-tatsuyoshi
+memberUid: yamamura-riku
+memberUid: yamanaka-rui
+memberUid: yamanishi-toshihiro
+memberUid: yamano-yuusuke
+memberUid: yamaoka-eiki
+memberUid: yamasaki-ryouhei
+memberUid: yamasaki-ryousuke
+memberUid: yamashita-reika
+memberUid: yamauchi-kentarou
+memberUid: yamazaki-akinori
+memberUid: yamazaki-saika
+memberUid: yanagisawa-ayuna
+memberUid: yanagisawa-masamichi
+memberUid: yanagisawa-yurika
+memberUid: yano-chinhyon
+memberUid: yasumura-yasuaki
+memberUid: yokota-shouhei
+memberUid: yokoyama-ryou
+memberUid: yokoyama-souma
+memberUid: yoshida-chihiro
+memberUid: yoshida-naoto
+memberUid: abe
+memberUid: akahoshi
+memberUid: akiba-yuichi
+memberUid: akiyama-ryo
+memberUid: akiyoshi-yuya
+memberUid: aonuki
+memberUid: asakurai
+memberUid: azumaya-ryota
+memberUid: baba-yutaro
+memberUid: bllody-crow
+memberUid: fukushima-yuya
+memberUid: fukuyasu
+memberUid: fulieru
+memberUid: furukawa-koki
+memberUid: gameover
+memberUid: goda-naoki
+memberUid: goto
+memberUid: hbkhapoo
+memberUid: hirosemasaya
+memberUid: horikawa
+memberUid: iijima-ryo
+memberUid: iizawa
+memberUid: ito-keigo
+memberUid: ito-yutaka
+memberUid: ito-yuya
+memberUid: iwata-yushiro
+memberUid: kadowaki-shusei
+memberUid: kakui-ayami
+memberUid: kakumoto-yuki
+memberUid: kamada-shu
+memberUid: kaneko-ryota
+memberUid: katagiri-kosuke
+memberUid: katsu
+memberUid: kinoshita-ryota
+memberUid: kishimoto-ryoya
+memberUid: kiya
+memberUid: kmarukawa
+memberUid: ko-kazunari
+memberUid: kobayashi-shohei
+memberUid: kojima-keitaro
+memberUid: kojima-kyohei
+memberUid: kondo-kana
+memberUid: kudo-yuki
+memberUid: kuroda-yuya
+memberUid: matsui-yuki
+memberUid: matushita-futoshi
+memberUid: mhirukawa
+memberUid: mori-yuki
+memberUid: morita
+memberUid: nagai-yusei
+memberUid: nagano-naoki-1980
+memberUid: naito-takato
+memberUid: nakabayashi-yugo
+memberUid: nakamura
+memberUid: nakamura-yuki
+memberUid: nakano
+memberUid: namiki
+memberUid: namimatu-teruyuki
+memberUid: nemoto
+memberUid: nishimura-yuta
+memberUid: nishizawa
+memberUid: obara-aya
+memberUid: oishi-satsuki
+memberUid: okawara-chiaki
+memberUid: onishi-keitaro
+memberUid: ono-sora
+memberUid: ota-kaho
+memberUid: oyama-takayuki
+memberUid: parry-ewan-mathias
+memberUid: saito-jyun
+memberUid: saito-masaki
+memberUid: saito-ren
+memberUid: saito-rui
+memberUid: saito-sayaka
+memberUid: saito-tomohisa
+memberUid: saito-tomonao
+memberUid: sasaki-yusuke
+memberUid: sato-takahiro
+memberUid: shimizu-yudai
+memberUid: shoji-yuta
+memberUid: sobajima-ryoya
+memberUid: sohshita
+memberUid: soryo-tatsuya
+memberUid: sugawara
+memberUid: suzuki
+memberUid: takahashi
+memberUid: takebayashi
+memberUid: takehara-shohei
+memberUid: takeuchi
+memberUid: takeuchi-yuta
+memberUid: takezawa-shuma
+memberUid: takinishiyuri
+memberUid: tsutsumi-yuki
+memberUid: yamada-masayuki-3780
+memberUid: yamaguchi
+memberUid: yamamoto-ryuhei
+memberUid: yamanishi
+memberUid: yamano-yusuke
+memberUid: yamasaki-ryohei
+memberUid: yamasaki-ryosuke
+memberUid: yamauchi-kentaro
+memberUid: yiwai
+memberUid: yokota-shohei
+memberUid: ysuzuki
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-2008
+sambaGroupType: 2
+displayName: users
+description: Domain Unix group
+
+# boj-dev, Groups, e-smile.ne.jp
+dn: cn=boj-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: boj-dev
+gidNumber: 2005
+memberUid: hirukawa-makoto
+memberUid: yanagisawa-yurika
+memberUid: sano-yukiharu
+memberUid: takahashi-ryouya2
+memberUid: takahashi-ryouya
+memberUid: mhirukawa
+memberUid: takahashi
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-2004
+sambaGroupType: 2
+displayName: boj-dev
+description: Domain Unix group
+
+# solt-dev, Groups, e-smile.ne.jp
+dn: cn=solt-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: solt-dev
+gidNumber: 2010
+memberUid: katagiri-kousuke
+memberUid: kudou-yuuki
+memberUid: ooyama-takayuki
+memberUid: takehara-shouhei
+memberUid: morita-taichi
+memberUid: yamanishi-toshihiro
+memberUid: yokota-shouhei
+memberUid: sobajima-ryouya
+memberUid: kondou-aya
+memberUid: nishimura-yuuta
+memberUid: itou-yuuya
+memberUid: kamada-shuu
+memberUid: nakamura-yuuki
+memberUid: kojima-keitarou
+memberUid: naitou-takato
+memberUid: yamauchi-kentarou
+memberUid: kondou-kana
+memberUid: yamasaki-ryousuke
+memberUid: shimizu-yuudai
+memberUid: yamamoto-ryuuhei
+memberUid: mori-yuuki
+memberUid: takezawa-shuuma
+memberUid: munehiro-ayami
+memberUid: baba-yuutarou
+memberUid: saitou-masaki
+memberUid: tsutsumi-yuuki
+memberUid: iwata-yuushirou
+memberUid: ooishi-satsuki
+memberUid: hiraku-kingo
+memberUid: kanamori-akihiro
+memberUid: shiraishi-tatsuya
+memberUid: yanagisawa-masamichi
+memberUid: tanaka-hiroyuki
+memberUid: shimoyama-hikaru
+memberUid: asahara-yuuki
+memberUid: komatsubara-kazuki
+memberUid: masuda-keisuke
+memberUid: taniguchi-yoshiki
+memberUid: ishii-takayasu
+memberUid: okada-takuya
+memberUid: mizuno-hideaki
+memberUid: mochizuki-hiroe
+memberUid: ueki-mayuka
+memberUid: katsumata-kaede
+memberUid: iwaide-takumi
+memberUid: kamiyama-yuri
+memberUid: abiru-masashi
+memberUid: komuta-kazuki
+memberUid: uehara-kei
+memberUid: kubo-yuuki
+memberUid: ishii-megumi
+memberUid: maruyama-takahiro
+memberUid: tsukahara-mizuki
+memberUid: sakaguchi-miki
+memberUid: yano-chinhyon
+memberUid: komamura-ami
+memberUid: yokoyama-ryou
+memberUid: ishikawa-tatsuya
+memberUid: nagao-momoka
+memberUid: ichikura-honatsu
+memberUid: sugata-momoyo
+memberUid: shiraeda-tomoki
+memberUid: takeda-saaya
+memberUid: yamashita-reika
+memberUid: matsuoka-shuri
+memberUid: kimura-riku
+memberUid: fujiwara-naoya
+memberUid: adachi-kaito
+memberUid: yoshida-chihiro
+memberUid: tsurumi-masayuki
+memberUid: hashimoto-daiki
+memberUid: kobayashi-ayuki
+memberUid: nakamura-katsumi
+memberUid: kouno-atsuki
+memberUid: nakagawa-miyu
+memberUid: suzuki-masato
+memberUid: onodera-tatsuki
+memberUid: asakawa-kazutoshi
+memberUid: murakami-yori
+memberUid: uehara-akimasa
+memberUid: kuramochi-mitsuki
+memberUid: yokoyama-souma
+memberUid: momodomi-hiroya
+memberUid: shiono-mizuki
+memberUid: yamamoto-tatsuyoshi
+memberUid: tsuruoka-taichi
+memberUid: noda-takemichi
+memberUid: hara-chika
+memberUid: nitta-ruka
+memberUid: ibushi-tessei
+memberUid: parii-yuan
+memberUid: katagiri-kosuke
+memberUid: kudo-yuki
+memberUid: oyama-takayuki
+memberUid: takehara-shohei
+memberUid: morita
+memberUid: yamanishi
+memberUid: yokota-shohei
+memberUid: sobajima-ryoya
+memberUid: obara-aya
+memberUid: nishimura-yuta
+memberUid: ito-yuya
+memberUid: kamada-shu
+memberUid: nakamura-yuki
+memberUid: kojima-keitaro
+memberUid: naito-takato
+memberUid: yamauchi-kentaro
+memberUid: kondo-kana
+memberUid: yamasaki-ryosuke
+memberUid: shimizu-yudai
+memberUid: yamamoto-ryuhei
+memberUid: mori-yuki
+memberUid: takezawa-shuma
+memberUid: kakui-ayami
+memberUid: baba-yutaro
+memberUid: saito-masaki
+memberUid: parry-ewan-mathias
+memberUid: tsutsumi-yuki
+memberUid: iwata-yushiro
+memberUid: oishi-satsuki
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-2006
+sambaGroupType: 2
+displayName: solt-dev
+description: Domain Unix group
+
+# e_game-dev, Groups, e-smile.ne.jp
+dn: cn=e_game-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: e_game-dev
+gidNumber: 2009
+memberUid: nishizawa-takuya
+memberUid: abe-ryou
+memberUid: suzuki-daisuke
+memberUid: tamai-akihiko
+memberUid: oonuki-atsushi
+memberUid: horikawa-yuudai
+memberUid: hirose-masaya
+memberUid: fujii-hibiki
+memberUid: nakano-atsushi
+memberUid: sugawara-naoki
+memberUid: namiki-hiroyuki
+memberUid: yamada-masayuki
+memberUid: itou-yutaka
+memberUid: sasaki-yuusuke
+memberUid: satou-takahiro
+memberUid: kakumoto-yuuki
+memberUid: nagano-naoki
+memberUid: namimatsu-teruyuki
+memberUid: fukushima-yuuya
+memberUid: matsushita-futoshi
+memberUid: saitou-tomohisa
+memberUid: iwai-yasumichi
+memberUid: gouda-naoki
+memberUid: gotou-satomi
+memberUid: akiba-yuuichi
+memberUid: azumaya-ryouta
+memberUid: akiyoshi-yuuya
+memberUid: ookawara-chiaki
+memberUid: saitou-rui
+memberUid: kobayashi-shouhei
+memberUid: kishimoto-ryouya
+memberUid: kinoshita-ryouta
+memberUid: iijima-ryou
+memberUid: oota-kaho
+memberUid: shouji-yuuta
+memberUid: saitou-ren
+memberUid: itou-keigo
+memberUid: souryou-tatsuya
+memberUid: takeuchi-yuuta
+memberUid: oonishi-keitarou
+memberUid: furukawa-kouki
+memberUid: kou-kazunari
+memberUid: kaneko-ryouta
+memberUid: maruyama-ikumi
+memberUid: takeda-nobutaka
+memberUid: yamagishi-hiroaki
+memberUid: sekimoto-takahito
+memberUid: kaneko-hitomi
+memberUid: nakamura-keita
+memberUid: kanemoto-masaki
+memberUid: esashika-akio
+memberUid: sakaguchi-keiji
+memberUid: takano-jun
+memberUid: sugimoto-tatsuya
+memberUid: kubota-shion
+memberUid: takabatake-hideto
+memberUid: tanaka-motoaki
+memberUid: hobo-hoshihito
+memberUid: nagayama-osamu
+memberUid: sakamoto-katsuyuki
+memberUid: kurokawa-ryou
+memberUid: sukegawa-kaede
+memberUid: harada-hitoshi
+memberUid: shumuta-tomoya
+memberUid: fujimoto-asami
+memberUid: nishizawa-satoshi
+memberUid: yanagisawa-ayuna
+memberUid: segoshi-miyuki
+memberUid: iwanaga-reina
+memberUid: taniguchi-kazuki
+memberUid: munaoka-haruka
+memberUid: yamazaki-saika
+memberUid: sakai-mao
+memberUid: shibuya-mikiko
+memberUid: komatsu-sairi
+memberUid: tajima-haruna
+memberUid: miyagawa-satsuki
+memberUid: koshikawa-ren
+memberUid: hiraga-daisuke
+memberUid: shiraki-hasumi
+memberUid: kobayashi-takehiro
+memberUid: haruta-haruki
+memberUid: kaneshiro-marina
+memberUid: yamamura-riku
+memberUid: tokiwa-moe
+memberUid: hoshitani-taiki
+memberUid: nakamura-suzuka
+memberUid: kikuchi-miki
+memberUid: yamaoka-eiki
+memberUid: wakui-daiki
+memberUid: yamanaka-rui
+memberUid: nishizawa
+memberUid: abe
+memberUid: suzuki
+memberUid: gameover
+memberUid: aonuki
+memberUid: horikawa
+memberUid: hirosemasaya
+memberUid: hbkhapoo
+memberUid: nakano
+memberUid: sugawara
+memberUid: namiki
+memberUid: yamada-masayuki-3780
+memberUid: ito-yutaka
+memberUid: sasaki-yusuke
+memberUid: sato-takahiro
+memberUid: kakumoto-yuki
+memberUid: nagano-naoki-1980
+memberUid: namimatu-teruyuki
+memberUid: fukushima-yuya
+memberUid: matushita-futoshi
+memberUid: saito-tomohisa
+memberUid: yiwai
+memberUid: goda-naoki
+memberUid: goto
+memberUid: akiba-yuichi
+memberUid: azumaya-ryota
+memberUid: akiyoshi-yuya
+memberUid: okawara-chiaki
+memberUid: saito-rui
+memberUid: kobayashi-shohei
+memberUid: kishimoto-ryoya
+memberUid: kinoshita-ryota
+memberUid: iijima-ryo
+memberUid: ota-kaho
+memberUid: shoji-yuta
+memberUid: saito-ren
+memberUid: ito-keigo
+memberUid: soryo-tatsuya
+memberUid: takeuchi-yuta
+memberUid: onishi-keitaro
+memberUid: furukawa-koki
+memberUid: ko-kazunari
+memberUid: kaneko-ryota
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-2005
+sambaGroupType: 2
+displayName: e_game-dev
+description: Domain Unix group
+
+# esmile-dev, Groups, e-smile.ne.jp
+dn: cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: esmile-dev
+gidNumber: 2001
+memberUid: shiozumi-makoto
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-2001
+sambaGroupType: 2
+displayName: esmile-dev
+description: Domain Unix group
+
+# nicori-dev, Groups, e-smile.ne.jp
+dn: cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: nicori-dev
+gidNumber: 2002
+memberUid: shiozumi-makoto2
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-2002
+sambaGroupType: 2
+displayName: nicori-dev
+description: Domain Unix group
+
+# social-dev, Groups, e-smile.ne.jp
+dn: cn=social-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: social-dev
+gidNumber: 2012
+memberUid: kiya-kazuki
+memberUid: yamano-yuusuke
+memberUid: saitou-sayaka
+memberUid: matsui-yuuki
+memberUid: akiyama-ryou
+memberUid: suzuki-yoshimi
+memberUid: sakurai-asuka
+memberUid: marukawa-kumiko
+memberUid: saitou-tomonao
+memberUid: kuroda-yuuya
+memberUid: takinishi-yuri
+memberUid: kojima-kyouhei
+memberUid: kadowaki-shuusei
+memberUid: nagai-yuusei
+memberUid: oono-sora
+memberUid: nakabayashi-yuugo
+memberUid: kojima-michito
+memberUid: tsuji-muneharu
+memberUid: aoki-shunichi
+memberUid: katayama-serika
+memberUid: chikaarashi-kanae
+memberUid: mizumoto-makito
+memberUid: yasumura-yasuaki
+memberUid: minakawa-kazuya
+memberUid: yoshida-naoto
+memberUid: imaizumi-takayoshi
+memberUid: masuno-sana
+memberUid: inoue-saki
+memberUid: kanamori-sana
+memberUid: umeno-taiki
+memberUid: takeda-shun
+memberUid: maeda-takahiro
+memberUid: makiyo-shunya
+memberUid: noguchi-yasuhito
+memberUid: suzuki-reo
+memberUid: ueda-tomohiro
+memberUid: okumura-nagi
+memberUid: takahashi-shinichi
+memberUid: ogawa-hikaru
+memberUid: onodera-kai
+memberUid: kinase-miku
+memberUid: kitani-sora
+memberUid: inagaki-wanoka
+memberUid: -
+memberUid: -2
+memberUid: ooshita-shuuhei2
+memberUid: ooshita-shuuhei
+memberUid: kiya
+memberUid: yamano-yusuke
+memberUid: saito-sayaka
+memberUid: matsui-yuki
+memberUid: akiyama-ryo
+memberUid: ysuzuki
+memberUid: sohshita
+memberUid: asakurai
+memberUid: kmarukawa
+memberUid: saito-tomonao
+memberUid: kuroda-yuya
+memberUid: takinishiyuri
+memberUid: kojima-kyohei
+memberUid: kadowaki-shusei
+memberUid: nagai-yusei
+memberUid: ono-sora
+memberUid: nakabayashi-yugo
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-2007
+sambaGroupType: 2
+displayName: social-dev
+description: Domain Unix group
+
+# kindaka-dev, Groups, e-smile.ne.jp
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+objectClass: sambaGroupMapping
+cn: kindaka-dev
+gidNumber: 2003
+memberUid: shiozumi-makoto
+memberUid: kurabayashi-akira
+memberUid: watanabe-toshihiro
+memberUid: fukuyasu-hideaki
+memberUid: katsu-shino
+memberUid: takebayashi-yumiko
+memberUid: yamaguchi-tomohisa
+memberUid: saitou-jun
+memberUid: nemoto-osamu
+memberUid: akashio-hiroki
+memberUid: takeuchi-tomokazu
+memberUid: nakamura-toshihiko
+memberUid: iizawa-kensuke
+memberUid: yamasaki-ryouhei
+memberUid: koyama-hiroki
+memberUid: ushigome-norio
+memberUid: yamazaki-akinori
+memberUid: nakajima-shin
+memberUid: shiozumi-makoto3
+memberUid: -3
+memberUid: shiozumi
+memberUid: fulieru
+memberUid: bllody-crow
+memberUid: fukuyasu
+memberUid: katsu
+memberUid: takebayashi
+memberUid: yamaguchi
+memberUid: saito-jyun
+memberUid: nemoto
+memberUid: akahoshi
+memberUid: takeuchi
+memberUid: nakamura
+memberUid: iizawa
+memberUid: yamasaki-ryohei
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+sambaGroupType: 2
+displayName: kindaka-dev
+description: Domain Unix group
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 9
+# numEntries: 8
+[root@ovs-012 tools]#
+
+
+ldapmodify -x -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -f fix_bad_memberuid.ldif
+
+
+
+uid=yamada-masayuki-378,ou=Users,dc=e-smile,dc=ne,dc=jp
+
+
+
+ldapdelete -x -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  "uid=yamada-masayuki-3780,ou=Users,dc=e-smile,dc=ne,dc=jp"
+
+
+
+9-472
+iwai-yasumichi
+iwaiyasumichi123
+

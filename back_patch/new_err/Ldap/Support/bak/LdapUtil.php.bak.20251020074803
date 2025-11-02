@@ -1,0 +1,239 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+/**
+ * ldap_groupmap_sync.php
+ *  - ou=Groups の posixGroup に対して、Samba の sambaGroupMapping を付与/整合
+ *  - BIZ_MAP（事業系）/ DEF（職位クラス系）の両方に対応
+ *  - LdapUtil($ds, ...) シグネチャに準拠（inferDomainSid / collectGidRidPairs / inferRidFormula / ensureGroupMapping）
+ *  - RIDは既存 (gid,rid) から整数一次式 rid=a*gid+b を厳密推定。不可なら既存最大+1
+ *
+ * 使い方:
+ *   php ldap_groupmap_sync.php --biz --verbose              # 事業系だけ DRY-RUN
+ *   php ldap_groupmap_sync.php --level --confirm            # 職位クラスだけ 本適用
+ *   php ldap_groupmap_sync.php --all --confirm --group=stf-cls
+ *
+ * 接続:
+ *   既定URI: ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi (SASL/EXTERNAL)
+ *   例: php ... --uri='ldaps://ovs-012.e-smile.local' --bind-dn='cn=admin,dc=...' --bind-pw='***'
+ */
+
+ini_set('memory_limit', '512M');
+date_default_timezone_set('Asia/Tokyo');
+
+// ===== 共通ライブラリ・オートローダ =====
+// require_once __DIR__ . '/autoload.php';
+// require_once __DIR__ . '/inc/ldap_cli_uri_switch.inc.php';
+
+use Tools\Ldap\Support\GroupDef;
+use Tools\Ldap\Support\LdapUtil;
+
+// ====== CLI ======
+$args = getopt('', [
+    'biz', 'level', 'all',
+    'group:',
+    'confirm', 'verbose',
+    'uri:',
+    'base-dn:',
+    'bind-dn:', 'bind-pw:',
+]);
+
+$MODE_BIZ   = isset($args['biz']);
+$MODE_LEVEL = isset($args['level']);
+$MODE_ALL   = isset($args['all']) || (!$MODE_BIZ && !$MODE_LEVEL);
+$TARGET_ONE = $args['group'] ?? null;
+$CONFIRM    = isset($args['confirm']);
+$VERBOSE    = isset($args['verbose']);
+
+$URI     = $args['uri']     ?? getenv('LDAP_URI') ?: 'ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi';
+$BASE_DN = $args['base-dn'] ?? getenv('LDAP_BASE_DN') ?: getenv('BASE_DN') ?: 'dc=e-smile,dc=ne,dc=jp';
+$BIND_DN = $args['bind-dn'] ?? getenv('BIND_DN') ?: null;
+$BIND_PW = $args['bind-pw'] ?? getenv('BIND_PW') ?: null;
+$GROUPS_DN = 'ou=Groups,' . $BASE_DN;
+
+$log = function (string $lvl, string $msg) use ($VERBOSE) {
+    static $colors = [
+        'INFO' => "\033[36m", 'OK' => "\033[32m", 'ADD' => "\033[92m",
+        'UPD'  => "\033[33m", 'SKIP'=> "\033[90m", 'ERR' => "\033[31m", 'DBG'=>"\033[90m"
+    ];
+    if ($lvl === 'DBG' && !$VERBOSE) return;
+    $c = $colors[$lvl] ?? "";
+    $r = $c ? "\033[0m" : "";
+    fwrite(STDOUT, "{$c}[{$lvl}] {$msg}{$r}\n");
+};
+
+// ====== LDAP コネクション（php-ldap ネイティブ） ======
+function ldap_open_bind(string $uri, ?string $bindDn, ?string $bindPw, callable $log) {
+    $ds = @ldap_connect($uri);
+    if (!$ds) {
+        $log('ERR', "ldap_connect 失敗: {$uri}");
+        exit(2);
+    }
+    ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+    ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+
+    // ldapi + SASL/EXTERNAL 優先（bindDn未指定の場合）
+    if (stripos($uri, 'ldapi://') === 0 && !$bindDn) {
+        if (!@ldap_sasl_bind($ds, null, '', 'EXTERNAL')) {
+            $log('ERR', "SASL/EXTERNAL bind 失敗: ".ldap_error($ds));
+            exit(2);
+        }
+        return $ds;
+    }
+
+    // simple bind or anonymous
+    if ($bindDn) {
+        if (!@ldap_bind($ds, $bindDn, (string)$bindPw)) {
+            $log('ERR', "Simple bind 失敗: ".ldap_error($ds)." (DN={$bindDn})");
+            exit(2);
+        }
+    } else {
+        if (!@ldap_bind($ds)) {
+            $log('ERR', "Anonymous bind 失敗: ".ldap_error($ds));
+            exit(2);
+        }
+    }
+    return $ds;
+}
+
+$log('INFO', "開始: ".date('Y-m-d H:i:s'));
+$log('INFO', "モード: ".($CONFIRM?'APPLY':'DRY-RUN')." | 対象: ".($MODE_BIZ?'BIZ':($MODE_LEVEL?'LEVEL':'ALL')));
+$log('DBG',  "URI={$URI} BASE_DN={$BASE_DN} GROUPS_DN={$GROUPS_DN}");
+$ds = ldap_open_bind($URI, $BIND_DN, $BIND_PW, $log);
+
+// ====== 定義セット ======
+$defsBiz = [];
+$defsLevel = [];
+if (is_array(GroupDef::BIZ_MAP ?? null)) {
+    foreach (GroupDef::BIZ_MAP as $name => $gid) {
+        $defsBiz[] = ['name'=>(string)$name, 'gid'=>(int)$gid, 'display'=>(string)$name];
+    }
+}
+if (is_array(GroupDef::DEF ?? null)) {
+    foreach (GroupDef::DEF as $row) {
+        if (!isset($row['name'],$row['gid'])) continue;
+        $defsLevel[] = [
+            'name'=>(string)$row['name'],
+            'gid'=>(int)$row['gid'],
+            'display'=>(string)($row['display'] ?? $row['name']),
+        ];
+    }
+}
+$targets = [];
+if ($MODE_BIZ)   $targets = array_merge($targets, $defsBiz);
+if ($MODE_LEVEL) $targets = array_merge($targets, $defsLevel);
+if ($MODE_ALL)   $targets = array_merge($defsBiz, $defsLevel);
+
+if ($TARGET_ONE) {
+    $targets = array_values(array_filter($targets, fn($r) => $r['name'] === $TARGET_ONE));
+    if (!$targets) { $log('ERR', "定義に見つからないグループ: {$TARGET_ONE}"); exit(3); }
+}
+if (!$targets) { $log('SKIP', "対象が空です。終了します。"); exit(0); }
+
+// ====== Domain SID / RID 規則 ======
+$domSid = LdapUtil::inferDomainSid($ds, $BASE_DN);
+if ($domSid) $log('DBG', "DomainSID: {$domSid}");
+else         $log('SKIP', "DomainSID が検出できません（新規付与時は sambaSID を空で実行可）");
+
+// 既存 (gid,rid) と RID リスト
+$pairs = []; $ridList = [];
+if ($domSid) {
+    [$pairs, $ridList] = LdapUtil::collectGidRidPairs($ds, $GROUPS_DN, $domSid);
+}
+[$a,$b] = LdapUtil::inferRidFormula($pairs);
+if ($a !== null && $b !== null) {
+    $log('INFO', "RID 規則: rid = {$a} * gid + {$b}");
+} else {
+    $maxRid = $ridList ? max($ridList) : 1000;
+    $log('INFO', "RID 規則なし → 既存最大 + 1 で採番開始 (maxRid={$maxRid})");
+}
+
+// ====== メイン処理 ======
+$stats = ['total'=>0,'ok'=>0,'added'=>0,'updated'=>0,'skip_no_posix'=>0,'skip_ng'=>0];
+
+foreach ($targets as $t) {
+    $stats['total']++;
+    $cn       = $t['name'];
+    $wantGid  = (int)$t['gid'];
+    $wantDisp = (string)$t['display'];
+    $dn = "cn={$cn},{$GROUPS_DN}";
+
+    // posixGroup 存在 & gid 確認
+    $es = LdapUtil::readEntries($ds, $GROUPS_DN, "(cn={$cn})",
+            ['dn','objectClass','gidNumber','sambaSID','displayName','sambaGroupType']);
+    if (!$es) {
+        $log('SKIP', "存在しないためSKIP: {$dn}");
+        $stats['skip_no_posix']++; continue;
+    }
+    $e = $es[0];
+    $classes = array_map('strtolower', $e['objectclass'] ?? []);
+    $hasPosix = in_array('posixgroup', $classes, true);
+    $hasMap   = in_array('sambagroupmapping', $classes, true);
+    $curGid   = isset($e['gidnumber'][0]) ? (int)$e['gidnumber'][0] : null;
+    $curSid   = $e['sambasid'][0] ?? null;
+    $curDisp  = $e['displayname'][0] ?? null;
+    $curType  = isset($e['sambagrouptype'][0]) ? (int)$e['sambagrouptype'][0] : null;
+
+    if (!$hasPosix) {
+        $log('SKIP', "posixGroup でないためSKIP: {$dn}");
+        $stats['skip_no_posix']++; continue;
+    }
+    if ($curGid !== $wantGid) {
+        $log('SKIP', "gid 不一致: cn={$cn} want={$wantGid} actual=".($curGid===null?'NULL':$curGid));
+        $stats['skip_ng']++; continue;
+    }
+
+    if ($hasMap) {
+        // 差分（displayName / type=2）だけ整合
+        $need = [];
+        if ($curDisp !== $wantDisp) $need['displayName'] = $wantDisp;
+        if ((int)($curType ?? 0) !== 2) $need['sambaGroupType'] = '2';
+
+        if ($need) {
+            if (!$CONFIRM) {
+                $log('DBG', "PLAN-UPDATE: cn={$cn} ".json_encode($need, JSON_UNESCAPED_UNICODE));
+            } else {
+                // 置換（失敗はSKIPにする）
+                $ok = @ldap_mod_replace($ds, $dn, $need);
+                if (!$ok) {
+                    $log('ERR', "UPDATE失敗: {$dn} -> ".ldap_error($ds));
+                    $stats['skip_ng']++; continue;
+                }
+                $log('UPD', "UPDATE: cn={$cn} (".implode(',', array_keys($need)).")");
+            }
+            $stats['updated']++;
+        } else {
+            $log('OK', "OK: cn={$cn}（整合済）");
+            $stats['ok']++;
+        }
+        continue;
+    }
+
+    // 新規付与
+    // RID 計算
+    if ($a !== null && $b !== null) {
+        $rid = (int)($a * $wantGid + $b);
+    } else {
+        $ridList[] = ($ridList ? max($ridList) : 1000) + 1;
+        $rid = end($ridList);
+    }
+    $sid = $domSid ? "{$domSid}-{$rid}" : ''; // domSid 不明なら空のままでも ensureGroupMapping が段階適用
+
+    // 追加（LdapUtil の段階適用に委譲）
+    LdapUtil::ensureGroupMapping(
+        $ds, $dn, $sid, $wantDisp, '2', $CONFIRM,
+        fn($m) => $log('ADD', $m),
+        fn($m) => $log('SKIP',$m)
+    );
+    if ($CONFIRM) $stats['added']++;
+    else          $log('DBG', "PLAN-ADD: cn={$cn} gid={$wantGid} rid={$rid} sid=".($sid ?: 'NULL'));
+}
+
+// ====== サマリ ======
+$log('INFO', sprintf(
+    "完了: total=%d ok=%d added=%d updated=%d skip(no-posix)=%d skip(ng)=%d",
+    $stats['total'], $stats['ok'], $stats['added'], $stats['updated'],
+    $stats['skip_no_posix'], $stats['skip_ng']
+));
+exit(0);

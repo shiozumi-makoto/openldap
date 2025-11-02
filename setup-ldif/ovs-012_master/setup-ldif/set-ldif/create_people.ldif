@@ -1,0 +1,6 @@
+dn: ou=People,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+description: People container
+

@@ -1,0 +1,6 @@
+dn: olcDatabase={2}monitor,cn=config
+changetype: modify
+add: olcAccess
+olcAccess: {0}to dn.subtree="cn=Monitor"
+  by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" read
+  by * none

@@ -1,0 +1,11 @@
+dn: cn=config
+changetype: modify
+replace: olcTLSCACertificateFile
+olcTLSCACertificateFile: /usr/local/etc/openldap/certs/cacert.crt
+-
+replace: olcTLSCertificateFile
+olcTLSCertificateFile: /usr/local/etc/openldap/certs/server_happy_sha256.crt
+-
+replace: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: /usr/local/etc/openldap/certs/server_happy_sha256.key
+

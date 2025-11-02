@@ -1,0 +1,104 @@
+﻿
+olcAccess: {0}to attrs=userPassword,shadowLastChange,shadowWarning,sambaNTPassword,sambaPwdLastSet
+olcAccess: {0}to attrs=userPassword,shadowLastChange,shadowWarning,sambaNTPassword,sambaPwdLastSet 
+
+ by self write
+ by anonymous auth
+ by * auth
+
+
+ by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
+  by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage 
+  by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write 
+ by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write
+  by self write 
+  by anonymous auth 
+  by * auth
+
+
+[DN] olcDatabase={1}mdb,cn=config
+dn: olcDatabase={1}mdb,cn=config
+
+olcAccess: {0}to attrs=userPassword,shadowLastChange,shadowWarning,sambaNTPassword,sambaPwdLastSet 
+  by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage 
+  by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write 
+  by self write 
+  by anonymous auth 
+  by * auth
+
+olcAccess: {1}to dn.base="" by * read
+olcAccess: {2}to * by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" write
+  by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write
+  by self write by * read
+
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+
+
+[DN] olcDatabase={1}mdb,cn=config
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcAccess: {0}to attrs=userPassword,shadowLastChange,shadowWarning,sambaNTPassword,sambaPwdLastSet by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write by self write by anonymous auth by * auth
+olcAccess: {1}to dn.base="" by * read
+olcAccess: {2}to * by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" write by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write by self write by * read
+
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config
+
+
+
+
+root@ovs-012 tools]# ssh ovs-012 '
+  DN=$(ldapsearch -LLL -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi \
+        -b cn=config "(&(objectClass=olcMdbConfig)(olcSuffix=dc=e-smile,dc=ne,dc=jp))" dn -o ldif-wrap=no \
+        | awk "/^dn: /{print substr(\$0,5)}" | head -n1);
+  echo "[DN] $DN";
+  ldapsearch -LLL -Y EXTERNAL -H ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi -b "$DN" olcAccess -o ldif-wrap=no
+'
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+[DN] olcDatabase={1}mdb,cn=config
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcAccess: {0}to attrs=userPassword,shadowLastChange,shadowWarning,sambaNTPassword,sambaPwdLastSet by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write by self write by anonymous auth by * auth
+olcAccess: {1}to dn.base="" by * read
+olcAccess: {2}to * by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" write by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write by self write by * read
+
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config
+
+
+
+olcAccess: {0}to attrs=userPassword,shadowLastChange,shadowWarning,sambaNTPassword,sambaPwdLastSet
+ by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
+ by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write
+ by self write
+ by anonymous auth
+ by * auth
+
+olcAccess: {1}to dn.base=""
+ by * read
+
+olcAccess: {2}to * 
+ by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" write
+ by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write
+ by self write 
+ by * read
+
+
+olcAccess: {0}to attrs=userPassword,shadowLastChange,shadowWarning,sambaNTPassword,sambaPwdLastSet
+ by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage  -- EXTERNAL でフルアクセス
+ by dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" write -- 管理者アカウントで、書き込み可能
+ by self write -- 自分のアカウントで、書き込み可能
+ by anonymous auth -- 匿名アクセスで、認証可能
+ by * auth -- その他は、？
+
+
+
+
+

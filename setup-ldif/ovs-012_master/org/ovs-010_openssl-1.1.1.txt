@@ -1,0 +1,204 @@
+
+2. 必要パッケージの準備
+
+CentOS7 には古い autoconf / make しか入っていないので、最低限の開発ツールを揃えてください。
+
+yum groupinstall -y "Development Tools"
+yum install -y gcc make libtool autoconf automake \
+               cyrus-sasl-devel openssl-devel \
+               libdb-devel
+
+
+解決：OpenSSL 1.1.1 を別名インストールして参照させる（推奨）
+
+CentOS7 には openssl11 / openssl11-devel（EPEL）が用意されています。これを入れて、ビルド時にパスを明示すればOKです。
+
+
+cd /usr/local/src
+wget https://www.openssl.org/source/openssl-1.1.1w.tar.gz
+tar xvf openssl-1.1.1w.tar.gz
+cd openssl-1.1.1w
+
+
+# /opt/openssl-1.1.1 にインストールする例
+./config --prefix=/opt/openssl-1.1.1 --openssldir=/opt/openssl-1.1.1 shared zlib
+
+make -j$(nproc)
+make test   # （任意）テスト実行
+make install
+make install_sw
+
+
+[root@ovs-010 openldap-OPENLDAP_REL_ENG_2_6_2]# echo "/opt/openssl-1.1.1/lib" > /etc/ld.so.conf.d/openssl-1.1.1.conf
+[root@ovs-010 openldap-OPENLDAP_REL_ENG_2_6_2]# ldconfig
+[root@ovs-010 openldap-OPENLDAP_REL_ENG_2_6_2]# /opt/openssl-1.1.1/bin/openssl version -a
+OpenSSL 1.1.1w  11 Sep 2023
+built on: Fri Sep 12 11:02:11 2025 UTC
+platform: linux-x86_64
+options:  bn(64,64) rc4(16x,int) des(int) idea(int) blowfish(ptr)
+compiler: gcc -fPIC -pthread -m64 -Wa,--noexecstack -Wall -O3 -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_CPUID_OBJ -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DKECCAK1600_ASM -DRC4_ASM -DMD5_ASM -DAESNI_ASM -DVPAES_ASM -DGHASH_ASM -DECP_NISTZ256_ASM -DX25519_ASM -DPOLY1305_ASM -DZLIB -DNDEBUG
+OPENSSLDIR: "/opt/openssl-1.1.1"
+ENGINESDIR: "/opt/openssl-1.1.1/lib/engines-1.1"
+Seeding source: os-specific
+
+
+./configure --with-tls=openssl --enable-crypt --with-cyrus-sasl --enable-rwm --enable-syncprov
+
+/opt/openssl-1.1/include/openssl
+/opt/openssl-1.1/lib/
+/opt/openssl-1.1/bin/openssl
+
+# ------------------------------------
+#	2.6.10 をインストール
+#
+#	ovs-009,010,011
+#
+# ------------------------------------
+
+export OPENSSL_PREFIX=/opt/openssl-1.1.1
+export CPPFLAGS="-I$OPENSSL_PREFIX/include"
+export LDFLAGS="-L$OPENSSL_PREFIX/lib -Wl,-rpath,$OPENSSL_PREFIX/lib"
+
+cd /usr/local/src/openldap-2.6.10
+make distclean >/dev/null 2>&1 || true
+rm -f config.cache
+
+CPPFLAGS="-I/opt/openssl-1.1/include" \
+LDFLAGS="-L/opt/openssl-1.1/lib -Wl,-rpath,/opt/openssl-1.1/lib" \
+./configure --prefix=/usr/local/openldap-2.6.10 --with-tls=openssl --with-cyrus-sasl --enable-crypt --enable-rwm --enable-syncprov --enable-ppolicy
+make -j"$(nproc)"
+make install
+
+
+
+
+
+# ------------------------------------
+#
+#	slapd.d のアクセス権利
+#
+# ------------------------------------
+
+chown -R ldap. /usr/local/etc/openldap/slapd.d
+chmod -R 750   /usr/local/etc/openldap/slapd.d
+chown -R ldap. /usr/local/var/openldap-data
+chmod -R 750   /usr/local/var/openldap-data
+chown -R ldap. /usr/local/var/run
+chmod -R 755   /usr/local/var/run
+chown -R ldap. /usr/local/etc/openldap/certs
+chmod -R 750   /usr/local/etc/openldap/certs
+
+ls -la /usr/local/etc/openldap/slapd.d
+ls -la /usr/local/var/openldap-data
+ls -la /usr/local/var/run
+ls -la /usr/local/etc/openldap/certs
+
+
+# ----------------------------------
+# systemd は 複数のディレクトリを階層的に参照して、
+# ----------------------------------
+/usr/lib/systemd/system/slapd.service
+/etc/systemd/system/slapd2610.service
+
+/usr/lib/systemd/system/ 	 → デフォルト（パッケージ提供）
+/etc/systemd/system/		 → 管理者が上書き／独自追加
+
+systemctl list-unit-files | grep -E 'slapd|slapd262|slapd2610'
+
+UNIT FILE                                     STATE           PRESET
+-------------------------------------------------------------------------
+slapd.service                                 enabled         disabled
+slapd2610.service                             enabled         disabled
+
+
+systemctl daemon-reload
+
+scp root@ovs-025:/etc/systemd/system/slapd2610.service /etc/systemd/system/
+
+vi /etc/systemd/system/slapd2610.service
+
+
+
+# ----------------------------------
+#	2.6.2 -> 2.6.10
+# ----------------------------------
+
+systemctl stop slapd262.service
+systemctl disable slapd262.service
+
+systemctl daemon-reexec
+systemctl enable --now slapd2610.service
+
+systemctl start slapd2610.service
+systemctl status slapd2610.service
+pgrep -a slapd
+
+# ----------------------------------
+#	2.6.10 -> 2.6.2
+# ----------------------------------
+
+systemctl stop slapd2610.service
+systemctl disable slapd2610.service
+
+systemctl daemon-reexec
+systemctl enable --now slapd262.service
+
+systemctl start slapd262.service
+systemctl status slapd262.service
+pgrep -a slapd
+
+
+# ----------------------------------
+#	ovs-024,025,026,012,002 -> 2.6.10 -> 2.6.2
+# ----------------------------------
+systemctl stop slapd.service
+systemctl disable slapd.service
+
+systemctl daemon-reexec
+systemctl enable --now slapd2610.service
+
+systemctl start slapd2610.service
+systemctl status slapd2610.service
+pgrep -a slapd
+
+
+
+● slapd2610.service - OpenLDAP 2.6.10 (local build)
+   Loaded: loaded (/etc/systemd/system/slapd2610.service; enabled; vendor preset: disabled)
+   Active: active (running) since 水 2025-09-17 23:03:22 JST; 7min ago
+  Process: 12643 ExecStart=/usr/local/openldap-2.6.10/libexec/slapd -F /usr/local/etc/openldap/slapd.d -h ldap://ovs-010.e-smile.local ldap://127.0.0.1 ldapi:/// ldaps:/// -u ldap -g ldap (code=exited, status=0/SUCCESS)
+  Process: 12640 ExecStartPre=/usr/bin/chown ldap:ldap /usr/local/openldap-2.6.10/var/run (code=exited, status=0/SUCCESS)
+  Process: 12636 ExecStartPre=/usr/bin/mkdir -p /usr/local/openldap-2.6.10/var/run (code=exited, status=0/SUCCESS)
+ Main PID: 12646 (slapd)
+   CGroup: /system.slice/slapd2610.service
+           mq12646 /usr/local/openldap-2.6.10/libexec/slapd -F /usr/local/etc/openldap/slapd.d -h ldap://ovs-010.e-smile.local ldap://127.0.0.1 ldapi:/// ldaps:/// -u ldap -g ldap
+
+ 9月 17 23:03:22 ovs-010.e-smile.local slapd[12643]: @(#) $OpenLDAP: slapd 2.6.10 (Sep 17 2025 22:32:25) $
+                                                              root@ovs-010.e-smile.local:/usr/local/src/openldap-2.6.10/servers/slapd
+
+root@ovs-010 ~# find / -name ldapi
+/run/ldapi
+find: ‘/run/user/42/gvfs’: 許可がありません
+/usr/local/openldap-2.6.10/var/run/ldapi
+
+root@ovs-010 ~# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={2}mdb,cn=config" dn
+ldap_sasl_interactive_bind: Can't contact LDAP server (-1)
+
+
+
+# --------------------------------------
+# sssvlv = mod
+# --------------------------------------
+./configure --prefix=/usr/local/openldap-2.6.10 --with-tls=openssl --with-cyrus-sasl --enable-crypt --enable-rwm --enable-syncprov --enable-ppolicy --enable-modules --enable-sssvlv=mod
+
+
+make depend
+make
+make -j$(nproc)
+make install
+
+[root@ovs-012 servers]# pwd
+/usr/local/src/openldap-2.6.10/servers
+
+cp servers/slapd/overlays/.libs/sssvlv.so /usr/lib64/openldap/
+cp servers/slapd/overlays/sssvlv.la /usr/lib64/openldap/

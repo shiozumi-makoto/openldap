@@ -1,0 +1,3 @@
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+delete: memberUid

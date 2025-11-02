@@ -1,0 +1,5564 @@
+# extended LDIF
+#
+# LDAPv3
+# base <ou=Users,dc=e-smile,dc=ne,dc=jp> with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# Users, e-smile.ne.jp
+dn: ou=Users,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: organizationalUnit
+ou: Users
+
+# abe, Users, e-smile.ne.jp
+dn: uid=abe,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: abe
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5LquIOmYv+mDqA==
+sn:: 6Zi/6YOo
+givenName:: 5Lqu
+displayName:: 6Zi/6YOo5Lqu
+uidNumber: 90103
+gidNumber: 2009
+homeDirectory: /home/09-103-abe
+loginShell: /bin/bash
+userPassword:: e1NTSEF9d08xa0ZWTmJ6Y2djenNNRzdzd251WjBWak9OVnhMRno=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90103
+sambaNTPassword: 72CD337D6DBC06AB04AA031006655DBD
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# goto, Users, e-smile.ne.jp
+dn: uid=goto,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: goto
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pm6576OIOW+jOiXpA==
+sn:: 5b6M6Jek
+givenName:: 5pm6576O
+displayName:: 5b6M6Jek5pm6576O
+uidNumber: 90482
+gidNumber: 2009
+homeDirectory: /home/09-482-goto
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WUdjTlU1Zkxkdnh2dURsaVRyWXovU1Njb00ra0dEUHU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90482
+sambaNTPassword: 96C20112A8E9A407C58F60ACDF571C0F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kiya, Users, e-smile.ne.jp
+dn: uid=kiya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kiya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5LiA6LydIOacqOiwtw==
+sn:: 5pyo6LC3
+givenName:: 5LiA6Lyd
+displayName:: 5pyo6LC35LiA6Lyd
+uidNumber: 120106
+gidNumber: 2012
+homeDirectory: /home/12-106-kiya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QWI0cFUwNVR4ODk2STU3SC9ENHBmQjRXdHhwNjN3bmM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120106
+sambaNTPassword: A164FE64EEC398F88FAD0C172ECB7AF6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# katsu, Users, e-smile.ne.jp
+dn: uid=katsu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: katsu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 44GX5LmDIOWLnQ==
+sn:: 5Yud
+givenName:: 44GX5LmD
+displayName:: 5Yud44GX5LmD
+uidNumber: 30303
+gidNumber: 2003
+homeDirectory: /home/03-303-katsu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cHMrYVU1WklWUE52NW55M1lMd01lQ2dxRjhSVTYvdkE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30303
+sambaNTPassword: 67AE559A8388BA8C6341DDAE37709E62
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# iizawa, Users, e-smile.ne.jp
+dn: uid=iizawa,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: iizawa
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56CU5LuLIOmjr+a+pA==
+sn:: 6aOv5r6k
+givenName:: 56CU5LuL
+displayName:: 6aOv5r6k56CU5LuL
+uidNumber: 30367
+gidNumber: 2003
+homeDirectory: /home/03-367-iizawa
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RzZaSjVTb3FjSzlrRHZNVDdrazAvRmphbWJpNElwbmQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30367
+sambaNTPassword: 073B86B09E98D7811B7BB3FC357824FC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# morita, Users, e-smile.ne.jp
+dn: uid=morita,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: morita
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSq5LiAIOajrueUsA==
+sn:: 5qOu55Sw
+givenName:: 5aSq5LiA
+displayName:: 5qOu55Sw5aSq5LiA
+uidNumber: 100136
+gidNumber: 2010
+homeDirectory: /home/10-136-morita
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UTlFNFBncE1mbXdJcE9Bdzlsd0NHZlE3QU8xV21XNXU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100136
+sambaNTPassword: 84705C073F3A8602B1F025DBE6719A1D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# nakano, Users, e-smile.ne.jp
+dn: uid=nakano,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakano
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56+k5b+XIOS4remHjg==
+sn:: 5Lit6YeO
+givenName:: 56+k5b+X
+displayName:: 5Lit6YeO56+k5b+X
+uidNumber: 90174
+gidNumber: 2009
+homeDirectory: /home/09-174-nakano
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UGdQbGRyZi9NcmFMS0JGQ0F4aUJNcnZXVjlEMzhXQUM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90174
+sambaNTPassword: 39462A3D781D3F7283E05BB15EDAAB8F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# namiki, Users, e-smile.ne.jp
+dn: uid=namiki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: namiki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6KOV5bm4IOS4puacqA==
+sn:: 5Lim5pyo
+givenName:: 6KOV5bm4
+displayName:: 5Lim5pyo6KOV5bm4
+uidNumber: 90232
+gidNumber: 2009
+homeDirectory: /home/09-232-namiki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cDQzQWxCWng4c1M0c2hSY0dzRmxMNVhXZ1lWRFRnZ08=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90232
+sambaNTPassword: 41A098F6854B008F198449AC085835A9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# nemoto, Users, e-smile.ne.jp
+dn: uid=nemoto,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nemoto
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L+uIOagueacrA==
+sn:: 5qC55pys
+givenName:: 5L+u
+displayName:: 5qC55pys5L+u
+uidNumber: 30362
+gidNumber: 2003
+homeDirectory: /home/03-362-nemoto
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WEp4NWhXRkdXS2QzQ1RsdjEwcktrRXNUUldmaEFVV0U=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30362
+sambaNTPassword: 18AD0C98E250329EC75D162DA5403DFB
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# suzuki, Users, e-smile.ne.jp
+dn: uid=suzuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: suzuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSn5LuLIOmItOacqA==
+sn:: 6Yi05pyo
+givenName:: 5aSn5LuL
+displayName:: 6Yi05pyo5aSn5LuL
+uidNumber: 90104
+gidNumber: 2009
+homeDirectory: /home/09-104-suzuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NUl1QmNnV2ZCOUdrdW1rcDg4WWFRUTdld0VtQWJlSUw=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90104
+sambaNTPassword: 0501429F9057E1BE2B7CB601D4F43D3B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# y-sano, Users, e-smile.ne.jp
+dn: uid=y-sano,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: y-sano
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bm45pm0IOS9kOmHjg==
+sn:: 5L2Q6YeO
+givenName:: 5bm45pm0
+displayName:: 5L2Q6YeO5bm45pm0
+uidNumber: 120181
+gidNumber: 2012
+homeDirectory: /home/12-181-y-sano
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cC9FTENBQytITXozOGpTQ3ZzTGdNZDcxTlFYbk1UdmU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120181
+sambaNTPassword: 37EAA7901047471EEFD522AA87D37C3F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# y_iwai, Users, e-smile.ne.jp
+dn: uid=y_iwai,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: y_iwai
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rOw6YGTIOWyqeS6lQ==
+sn:: 5bKp5LqV
+givenName:: 5rOw6YGT
+displayName:: 5bKp5LqV5rOw6YGT
+uidNumber: 90472
+gidNumber: 2009
+homeDirectory: /home/09-472-y_iwai
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UTBKc3F3aGoyaGVVeURSQUJjdmZ2dkZIWEU1N2pzOWY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90472
+sambaNTPassword: 42F87720F5B5643E29BB67AE5999E718
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# a_onuki, Users, e-smile.ne.jp
+dn: uid=a_onuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: a_onuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y6aIOWkp+iyqw==
+sn:: 5aSn6LKr
+givenName:: 5Y6a
+displayName:: 5aSn6LKr5Y6a
+uidNumber: 90118
+gidNumber: 2009
+homeDirectory: /home/09-118-a_onuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dDkzVWc3ZWJ2elY3aVlCNG5OdVg0bjB4bWpvL2JWMmQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90118
+sambaNTPassword: 863263DAE54265A471B99AE0F82D8FB9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# fulieru, Users, e-smile.ne.jp
+dn: uid=fulieru,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: fulieru
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5piOIOWAieaelw==
+sn:: 5YCJ5p6X
+givenName:: 5piO
+displayName:: 5YCJ5p6X5piO
+uidNumber: 30156
+gidNumber: 2003
+homeDirectory: /home/03-156-fulieru
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SXg4ZnFIbEdDZVp6Q2l5NzJzVmI0ZXB0WnNSVU1vcVE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30156
+sambaNTPassword: 99007AA6E38AC764CFF8CC21FE91EA52
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# fukuyasu, Users, e-smile.ne.jp
+dn: uid=fukuyasu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: fukuyasu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56eA5piOIOemj+WuiQ==
+sn:: 56aP5a6J
+givenName:: 56eA5piO
+displayName:: 56aP5a6J56eA5piO
+uidNumber: 30245
+gidNumber: 2003
+homeDirectory: /home/03-245-fukuyasu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9L3hLWjFZNGNFZ1VNODFkUks2djBTZ001dzVnK0VWMFA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30245
+sambaNTPassword: 2D840C1838EE39664003865870BED7A4
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# GameOver, Users, e-smile.ne.jp
+dn: uid=GameOver,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: GameOver
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5piO5b2mIOeOieS6lQ==
+sn:: 546J5LqV
+givenName:: 5piO5b2m
+displayName:: 546J5LqV5piO5b2m
+uidNumber: 90106
+gidNumber: 2009
+homeDirectory: /home/09-106-GameOver
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NDZGSlRyUGIyYlFLTmtpdk5QWGtkTEZzQmRrZ1BWeFc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90106
+sambaNTPassword: D4701C1A740645B44EEDD842421ECD4A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# hbkhapoo, Users, e-smile.ne.jp
+dn: uid=hbkhapoo,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: hbkhapoo
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Z+/IOiXpOS6lQ==
+sn:: 6Jek5LqV
+givenName:: 6Z+/
+displayName:: 6Jek5LqV6Z+/
+uidNumber: 90164
+gidNumber: 2009
+homeDirectory: /home/09-164-hbkhapoo
+loginShell: /bin/bash
+userPassword:: e1NTSEF9U1A5VENwOTNneVZJdk1EUGZJcFUxMmI0UmdzWVo5Wm4=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90164
+sambaNTPassword: 460FAAC2471D72EE6F89FD5C21AE6192
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# horikawa, Users, e-smile.ne.jp
+dn: uid=horikawa,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: horikawa
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6ZuE5aSnIOWggOW3nQ==
+sn:: 5aCA5bed
+givenName:: 6ZuE5aSn
+displayName:: 5aCA5bed6ZuE5aSn
+uidNumber: 90119
+gidNumber: 2009
+homeDirectory: /home/09-119-horikawa
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Y0M1VDZGU09SZk13bzlYSFc3Z0pwRlNacVA4KzN4Q1g=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90119
+sambaNTPassword: 73B82DD41439FA041965E1E67F7F3413
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# ito-yuya, Users, e-smile.ne.jp
+dn: uid=ito-yuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ito-yuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6KOV5ZOJIOS8iuiXpA==
+sn:: 5LyK6Jek
+givenName:: 6KOV5ZOJ
+displayName:: 5LyK6Jek6KOV5ZOJ
+uidNumber: 100176
+gidNumber: 2010
+homeDirectory: /home/10-176-ito-yuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RjE5cGNSRWRKQktwV05YSjlLWFhScFVGbmx6R0lTejA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100176
+sambaNTPassword: FDFFC4A11593D5E48301C7A995172C2C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# nakamura, Users, e-smile.ne.jp
+dn: uid=nakamura,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakamura
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L+K5b2mIOS4readkQ==
+sn:: 5Lit5p2R
+givenName:: 5L+K5b2m
+displayName:: 5Lit5p2R5L+K5b2m
+uidNumber: 30366
+gidNumber: 2003
+homeDirectory: /home/03-366-nakamura
+loginShell: /bin/bash
+userPassword:: e1NTSEF9U3dVeGFwNXFGbmJ5M2ludzZoMW9SN1pZQ1NoejdSMGM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30366
+sambaNTPassword: B13FFDA2D6F2F16E3850A92689E8A4D8
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# ono-sora, Users, e-smile.ne.jp
+dn: uid=ono-sora,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ono-sora
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6JK856m6IOWkp+mHjg==
+sn:: 5aSn6YeO
+givenName:: 6JK856m6
+displayName:: 5aSn6YeO6JK856m6
+uidNumber: 120206
+gidNumber: 2012
+homeDirectory: /home/12-206-ono-sora
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Z0tqYkkvd1dSOTlKMjdidlZwNFRKVjNLMTlFazNSZG8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120206
+sambaNTPassword: C3F0EA35ECD28CCE1AA451A103DD9B69
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# ota-kaho, Users, e-smile.ne.jp
+dn: uid=ota-kaho,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ota-kaho
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSP5biGIOWkqueUsA==
+sn:: 5aSq55Sw
+givenName:: 5aSP5biG
+displayName:: 5aSq55Sw5aSP5biG
+uidNumber: 90587
+gidNumber: 2009
+homeDirectory: /home/09-587-ota-kaho
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WVhEZVRsNmxBRVRPKzhaQTJZWCtlZnNEYWhiSjlpazE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90587
+sambaNTPassword: 48B77AF3983AB510048855333C5829BB
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# shiozumi, Users, e-smile.ne.jp
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6KqgIOWhqeS9jw==
+sn:: 5aGp5L2P
+givenName:: 6Kqg
+displayName:: 5aGp5L2P6Kqg
+uidNumber: 10001
+gidNumber: 2001
+homeDirectory: /home/01-001-shiozumi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MWI0MDVxNXRLYVdTU0diZmtmSVR3SUVISmdCMVlCMmc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-10001
+sambaNTPassword: D5EC50C26E64961D9A26E6E602A906A3
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2001
+
+# sugawara, Users, e-smile.ne.jp
+dn: uid=sugawara,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sugawara
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55u06KiYIOiPheWOnw==
+sn:: 6I+F5Y6f
+givenName:: 55u06KiY
+displayName:: 6I+F5Y6f55u06KiY
+uidNumber: 90229
+gidNumber: 2009
+homeDirectory: /home/09-229-sugawara
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bUY0S0hvYW1WYThya1IwU1NqZzd4M1FTai9tbnF1V3c=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90229
+sambaNTPassword: 20D272E1C58D636B9F5370E753633792
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# takeuchi, Users, e-smile.ne.jp
+dn: uid=takeuchi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takeuchi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y+L5ZKMIOatpuWGhQ==
+sn:: 5q2m5YaF
+givenName:: 5Y+L5ZKM
+displayName:: 5q2m5YaF5Y+L5ZKM
+uidNumber: 30365
+gidNumber: 2003
+homeDirectory: /home/03-365-takeuchi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OHhtWDRwb3F3Q0NNTWtwMFJMNzNUUWxNOWRVU2JPalQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30365
+sambaNTPassword: 50D78CB71622561110F5AB66378B94E9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# y_suzuki, Users, e-smile.ne.jp
+dn: uid=y_suzuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: y_suzuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56Wl576OIOmItOacqA==
+sn:: 6Yi05pyo
+givenName:: 56Wl576O
+displayName:: 6Yi05pyo56Wl576O
+uidNumber: 120167
+gidNumber: 2012
+homeDirectory: /home/12-167-y_suzuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NUpsSm5oSitOWUtkbkZ4bWdNWWMxemVDeXB1ZDR3L3A=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120167
+sambaNTPassword: 9EB871FFB258F1633CF319481DEE258F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# a_sakurai, Users, e-smile.ne.jp
+dn: uid=a_sakurai,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: a_sakurai
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 44GC44GZ44GLIOaru+S6lQ==
+sn:: 5qu75LqV
+givenName:: 44GC44GZ44GL
+displayName:: 5qu75LqV44GC44GZ44GL
+uidNumber: 120170
+gidNumber: 2012
+homeDirectory: /home/12-170-a_sakurai
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UHFaWDlFU1g2dXBHUXZHc0tOSldjRDNiNVNuZllKanc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120170
+sambaNTPassword: 00F949FF8B0CF25C049687AC4D3AF649
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# aka_hoshi, Users, e-smile.ne.jp
+dn: uid=aka_hoshi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: aka_hoshi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5a+b6KaPIOi1pOWhqQ==
+sn:: 6LWk5aGp
+givenName:: 5a+b6KaP
+displayName:: 6LWk5aGp5a+b6KaP
+uidNumber: 30363
+gidNumber: 2003
+homeDirectory: /home/03-363-aka_hoshi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bCt4OFhGa29TMUk5d3pkZVhsNFFkNElPVUVyQnN2UC8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30363
+sambaNTPassword: CA411C0A2C76B4617E0D804A18743952
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# ito-keigo, Users, e-smile.ne.jp
+dn: uid=ito-keigo,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ito-keigo
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5oW25oKfIOS8iuadsQ==
+sn:: 5LyK5p2x
+givenName:: 5oW25oKf
+displayName:: 5LyK5p2x5oW25oKf
+uidNumber: 90597
+gidNumber: 2009
+homeDirectory: /home/09-597-ito-keigo
+loginShell: /bin/bash
+userPassword:: e1NTSEF9K1JUdUV3T0d2cWRPcW1CS01JakhvbHE5ZHpsakZQNlI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90597
+sambaNTPassword: 27405790A791D88BD171BE9A9C65242D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# ito-seito, Users, e-smile.ne.jp
+dn: uid=ito-seito,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ito-seito
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Kqg5paXIOS8iuiXpA==
+sn:: 5LyK6Jek
+givenName:: 6Kqg5paX
+displayName:: 5LyK6Jek6Kqg5paX
+uidNumber: 120201
+gidNumber: 2012
+homeDirectory: /home/12-201-ito-seito
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UjlraFcwaGlDdGozV09sV1g1Tk1PK0JCQ2J3Zk1KVmg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120201
+sambaNTPassword: AD1AA0EF22496B82DC4FA34CE30CA716
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# kudo-yuki, Users, e-smile.ne.jp
+dn: uid=kudo-yuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kudo-yuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56WQ5q+FIOW3peiXpA==
+sn:: 5bel6Jek
+givenName:: 56WQ5q+F
+displayName:: 5bel6Jek56WQ5q+F
+uidNumber: 100110
+gidNumber: 2010
+homeDirectory: /home/10-110-kudo-yuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SWEzMHlENmc1My9jMEVPL2Vyc25Teks0WllJUkJ5V2s=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100110
+sambaNTPassword: CC0FBE3C348B607C3E6F98FC7A9DF22A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# mori-yuki, Users, e-smile.ne.jp
+dn: uid=mori-yuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: mori-yuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56WQ5qi5IOajrg==
+sn:: 5qOu
+givenName:: 56WQ5qi5
+displayName:: 5qOu56WQ5qi5
+uidNumber: 100233
+gidNumber: 2010
+homeDirectory: /home/10-233-mori-yuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NC9IVTZnN2JmcEhNaFZxQzFlLzgyWnp4SG5XYU00Q3M=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100233
+sambaNTPassword: 9512330AAEB6676752DA8241B1393858
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# nishizawa, Users, e-smile.ne.jp
+dn: uid=nishizawa,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nishizawa
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y2T5LmfIOilv+ayog==
+sn:: 6KW/5rKi
+givenName:: 5Y2T5Lmf
+displayName:: 6KW/5rKi5Y2T5Lmf
+uidNumber: 90102
+gidNumber: 2009
+homeDirectory: /home/09-102-nishizawa
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TXV0UUFWcE44Q1h2UnVOU0hIMFEyR2FhSzZOUEpzVW8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90102
+sambaNTPassword: 331D39789999F3C398D1B5B75CD11C98
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# obara-aya, Users, e-smile.ne.jp
+dn: uid=obara-aya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: obara-aya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5b2pIOi/keiXpA==
+sn:: 6L+R6Jek
+givenName:: 5b2p
+displayName:: 6L+R6Jek5b2p
+uidNumber: 100171
+gidNumber: 2010
+homeDirectory: /home/10-171-obara-aya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NVlhMzZYWlJocHJKNlBHclBnRkQwSTBhc3hTMWVScTY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100171
+sambaNTPassword: 2F875A055D197CBE9DD36C264D1952D9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# s_ohshita, Users, e-smile.ne.jp
+dn: uid=s_ohshita,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: s_ohshita
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZGo5bmzIOWkp+S4iw==
+sn:: 5aSn5LiL
+givenName:: 5ZGo5bmz
+displayName:: 5aSn5LiL5ZGo5bmz
+uidNumber: 120168
+gidNumber: 2012
+homeDirectory: /home/12-168-s_ohshita
+loginShell: /bin/bash
+userPassword:: e1NTSEF9LytjRW0zME1LWTJJKzhQczVEZ0xTa3VkbHhqcGd3eWs=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120168
+sambaNTPassword: 5AC9A5BDD48F36126DFE4C7DAE8989B4
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# saito-ren, Users, e-smile.ne.jp
+dn: uid=saito-ren,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: saito-ren
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5buJIOm9iuiXpA==
+sn:: 6b2K6Jek
+givenName:: 5buJ
+displayName:: 6b2K6Jek5buJ
+uidNumber: 90590
+gidNumber: 2009
+homeDirectory: /home/09-590-saito-ren
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eWdIWDhlZ1lmVEUwVG1kTkRZc2JUUDA0dUtESm9Ea1k=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90590
+sambaNTPassword: 3832F39C919CA1372A34AE290EC823B7
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# saito-rui, Users, e-smile.ne.jp
+dn: uid=saito-rui,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: saito-rui
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aGBIOaWieiXpA==
+sn:: 5paJ6Jek
+givenName:: 5aGB
+displayName:: 5paJ6Jek5aGB
+uidNumber: 90546
+gidNumber: 2009
+homeDirectory: /home/09-546-saito-rui
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dzdIZzBtMy9CbFMrTW9XOXhocUtMeDBSZFRHTk5GRFE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90546
+sambaNTPassword: DCD346B092342E243BC2531454C6B4D1
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# sakai-mao, Users, e-smile.ne.jp
+dn: uid=sakai-mao,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sakai-mao
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55yf57eSIOWdguS6lQ==
+sn:: 5Z2C5LqV
+givenName:: 55yf57eS
+displayName:: 5Z2C5LqV55yf57eS
+uidNumber: 90577
+gidNumber: 2009
+homeDirectory: /home/09-577-sakai-mao
+loginShell: /bin/bash
+userPassword:: e1NTSEF9enlsaDN0L1M5RjJKL0U1QzZMaWNoa1RBQUxJVytzLzU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90577
+sambaNTPassword: B4642DA5A43CF6913C165FA9AEA4907B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# takahashi, Users, e-smile.ne.jp
+dn: uid=takahashi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takahashi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5oCc5LmfIOmrmeapiw==
+sn:: 6auZ5qmL
+givenName:: 5oCc5Lmf
+displayName:: 6auZ5qmL5oCc5Lmf
+uidNumber: 50101
+gidNumber: 2005
+homeDirectory: /home/05-101-takahashi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SXJoeVdNUDFkaGpDcHBpMGNnbTZHZFJkZHpHYk0yQjU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-50101
+sambaNTPassword: 21E7E46B42370386F17BC69BD2EC9BC6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2005
+
+# yamaguchi, Users, e-smile.ne.jp
+dn: uid=yamaguchi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamaguchi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pm65LmFIOWxseWPow==
+sn:: 5bGx5Y+j
+givenName:: 5pm65LmF
+displayName:: 5bGx5Y+j5pm65LmF
+uidNumber: 30329
+gidNumber: 2003
+homeDirectory: /home/03-329-yamaguchi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9a2VvdzFIYUgvblJPenJsaFViV1h3T1dvVlNWcjlzdVY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30329
+sambaNTPassword: AE5A2461BFEBDC79532E4335589A1525
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# yamanishi, Users, e-smile.ne.jp
+dn: uid=yamanishi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamanishi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L+K5byYIOWxseilvw==
+sn:: 5bGx6KW/
+givenName:: 5L+K5byY
+displayName:: 5bGx6KW/5L+K5byY
+uidNumber: 100149
+gidNumber: 2010
+homeDirectory: /home/10-149-yamanishi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9M1hZTFFJZVBacFV5cEY3aGRPQ2tUWFlRa2VJR3ZMQWI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100149
+sambaNTPassword: 7F7DCAD52ED0C51CC9A5AA3242F5CAAD
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# goda-naoki, Users, e-smile.ne.jp
+dn: uid=goda-naoki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: goda-naoki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55u05qi5IOWQiOeUsA==
+sn:: 5ZCI55Sw
+givenName:: 55u05qi5
+displayName:: 5ZCI55Sw55u05qi5
+uidNumber: 90477
+gidNumber: 2009
+homeDirectory: /home/09-477-goda-naoki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OW5xbFk0bVpjRG5EMStDR1FSa00rQjY4OVkwRFJrb3k=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90477
+sambaNTPassword: 6F25402C63E420A996FBC152F310ED2E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# hara-chika, Users, e-smile.ne.jp
+dn: uid=hara-chika,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: hara-chika
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y2D5YqgIOWOnw==
+sn:: 5Y6f
+givenName:: 5Y2D5Yqg
+displayName:: 5Y6f5Y2D5Yqg
+uidNumber: 100280
+gidNumber: 2010
+homeDirectory: /home/10-280-hara-chika
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TTBGRHhTQzVNaGNvcjJyMFRWN0pkU2FPeG9aQ3lWKzU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100280
+sambaNTPassword: F0361677FADB6AAC75690D045A2751DB
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# iijima-ryo, Users, e-smile.ne.jp
+dn: uid=iijima-ryo,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: iijima-ryo
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YeMIOmjr+W2iw==
+sn:: 6aOv5baL
+givenName:: 5YeM
+displayName:: 6aOv5baL5YeM
+uidNumber: 90586
+gidNumber: 2009
+homeDirectory: /home/09-586-iijima-ryo
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eWxMSnYrMWN6S3NMWnpoQ3Q0SWxKdTNwOUZwVFJqb1c=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90586
+sambaNTPassword: 0BC716C44A8E9CD3F8D09460281E0C64
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# inoue-saki, Users, e-smile.ne.jp
+dn: uid=inoue-saki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: inoue-saki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 57SX6LydIOS6leS4ig==
+sn:: 5LqV5LiK
+givenName:: 57SX6Lyd
+displayName:: 5LqV5LiK57SX6Lyd
+uidNumber: 120165
+gidNumber: 2012
+homeDirectory: /home/12-165-inoue-saki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Vkk5bU42Wkk0bEJ2OFJCWmd3WCtDSk9wMVBFOVJlM1g=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120165
+sambaNTPassword: 182C7C8E8F3681BD85BEDBCF4131C331
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# ito-yutaka, Users, e-smile.ne.jp
+dn: uid=ito-yutaka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ito-yutaka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6LGKIOS8iuiXpA==
+sn:: 5LyK6Jek
+givenName:: 6LGK
+displayName:: 5LyK6Jek6LGK
+uidNumber: 90271
+gidNumber: 2009
+homeDirectory: /home/09-271-ito-yutaka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RDlESmhDNkVxY3hJUlROVmlaLzVLc1Bhc0JoZTc3N0k=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90271
+sambaNTPassword: 954F6F79D4D0D1ECBB635E10221C6EB6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# k_marukawa, Users, e-smile.ne.jp
+dn: uid=k_marukawa,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: k_marukawa
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5LmF576O5a2QIOS4uOW3nQ==
+sn:: 5Li45bed
+givenName:: 5LmF576O5a2Q
+displayName:: 5Li45bed5LmF576O5a2Q
+uidNumber: 120177
+gidNumber: 2012
+homeDirectory: /home/12-177-k_marukawa
+loginShell: /bin/bash
+userPassword:: e1NTSEF9aWpHR0tJK0NFd0pTWVV0ZFh5SkZ4cEdzNXBxclN5ZGo=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120177
+sambaNTPassword: B3C9E3608CF7E839DB5C38FCCB2688A7
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# kamada-shu, Users, e-smile.ne.jp
+dn: uid=kamada-shu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kamada-shu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bCxIOmOjOeUsA==
+sn:: 6Y6M55Sw
+givenName:: 5bCx
+displayName:: 6Y6M55Sw5bCx
+uidNumber: 100190
+gidNumber: 2010
+homeDirectory: /home/10-190-kamada-shu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RVN3cU4wdDRDSjEzRHVFaXprNDJhUFdnRWdETkVYbWo=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100190
+sambaNTPassword: F41C8823C9D15E762B2D41F13CC1ADBC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kondo-kana, Users, e-smile.ne.jp
+dn: uid=kondo-kana,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kondo-kana
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Yqg6I+cIOi/keiXpA==
+sn:: 6L+R6Jek
+givenName:: 5Yqg6I+c
+displayName:: 6L+R6Jek5Yqg6I+c
+uidNumber: 100216
+gidNumber: 2010
+homeDirectory: /home/10-216-kondo-kana
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UkZBSWZQOXYxRklVQ3hsU3pRUjRyYnFXQWFWc3BOU1g=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100216
+sambaNTPassword: A5738CD90160BC9B2D369FBBAE154A48
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kubo-yuuki, Users, e-smile.ne.jp
+dn: uid=kubo-yuuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kubo-yuuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y+L5a2jIOS5heS/nQ==
+sn:: 5LmF5L+d
+givenName:: 5Y+L5a2j
+displayName:: 5LmF5L+d5Y+L5a2j
+uidNumber: 100196
+gidNumber: 2010
+homeDirectory: /home/10-196-kubo-yuuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VDRKcHNkUDFxQnpxSDh5a01nd0ZSYjk2aDBocm9VOHA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100196
+sambaNTPassword: BD8FC24B8BB1B6F6F0518ECC585A20E3
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# m_hirukawa, Users, e-smile.ne.jp
+dn: uid=m_hirukawa,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: m_hirukawa
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55yfIOavlOeVmeW3nQ==
+sn:: 5q+U55WZ5bed
+givenName:: 55yf
+displayName:: 5q+U55WZ5bed55yf
+uidNumber: 50100
+gidNumber: 2005
+homeDirectory: /home/05-100-m_hirukawa
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bEFTV2xjWGxRaEwzSXYwaVpGbko3R1l2VnozRTRsMEo=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-50100
+sambaNTPassword: 594A9ED296067AE8062EDF68A15862D9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2005
+
+# nitta-ruka, Users, e-smile.ne.jp
+dn: uid=nitta-ruka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nitta-ruka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55WZ5qWTIOaWsOeUsA==
+sn:: 5paw55Sw
+givenName:: 55WZ5qWT
+displayName:: 5paw55Sw55WZ5qWT
+uidNumber: 100254
+gidNumber: 2010
+homeDirectory: /home/10-254-nitta-ruka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cEl4eUtBeFYxQjJybncrM1podFVvQmhnL084QzRCYUI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100254
+sambaNTPassword: B0826CFCDD3795EA47BE8C8264BF887B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# ogata-kana, Users, e-smile.ne.jp
+dn: uid=ogata-kana,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ogata-kana
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L2z5aWIIOWwvuW9og==
+sn:: 5bC+5b2i
+givenName:: 5L2z5aWI
+displayName:: 5bC+5b2i5L2z5aWI
+uidNumber: 90554
+gidNumber: 2009
+homeDirectory: /home/09-554-ogata-kana
+loginShell: /bin/bash
+userPassword:: e1NTSEF9R2V4cUVXS0VSZjFCbkp6czhHdUNhWEVCNXB4ZzdmcE0=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90554
+sambaNTPassword: 1C38E6301229DE0D284C18892FCE45FA
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# saito-jyun, Users, e-smile.ne.jp
+dn: uid=saito-jyun,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: saito-jyun
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 57SUIOm9iuiXpA==
+sn:: 6b2K6Jek
+givenName:: 57SU
+displayName:: 6b2K6Jek57SU
+uidNumber: 30347
+gidNumber: 2003
+homeDirectory: /home/03-347-saito-jyun
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VGtxdHZXUTNHckxSK21tTGVpTFdVT1ZUY0dhVE1Bem0=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30347
+sambaNTPassword: BB5205A104AF29EFBF49EE8039E88FEC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# shoji-yuta, Users, e-smile.ne.jp
+dn: uid=shoji-yuta,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shoji-yuta
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YSq5aSqIOW6hOWtkA==
+sn:: 5bqE5a2Q
+givenName:: 5YSq5aSq
+displayName:: 5bqE5a2Q5YSq5aSq
+uidNumber: 90589
+gidNumber: 2009
+homeDirectory: /home/09-589-shoji-yuta
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bkhzL0MvN1paNnlVNlJsYXUwL1RZeGQxN2NadzRqbDk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90589
+sambaNTPassword: 69442892AB752F46E839193F01416B58
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# suzuki-reo, Users, e-smile.ne.jp
+dn: uid=suzuki-reo,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: suzuki-reo
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 546y5aSuIOmItOacqA==
+sn:: 6Yi05pyo
+givenName:: 546y5aSu
+displayName:: 6Yi05pyo546y5aSu
+uidNumber: 120190
+gidNumber: 2012
+homeDirectory: /home/12-190-suzuki-reo
+loginShell: /bin/bash
+userPassword:: e1NTSEF9K2pUdUFxcjJMSmVmZnFEYUh3WlpJRU1RdlE5eEpXWWw=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120190
+sambaNTPassword: 3AFDA818561C062BA538D32B876C8E98
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# takano-jun, Users, e-smile.ne.jp
+dn: uid=takano-jun,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takano-jun
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rezIOmrmOmHjg==
+sn:: 6auY6YeO
+givenName:: 5rez
+displayName:: 6auY6YeO5rez
+uidNumber: 90468
+gidNumber: 2009
+homeDirectory: /home/09-468-takano-jun
+loginShell: /bin/bash
+userPassword:: e1NTSEF9YTFXc09OVTVhTHdTYTFNaWpiYlBYZUdZZTdWQm5qSXU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90468
+sambaNTPassword: 7EA3E25E4E780509298C3793FE7AB080
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# tokiwa-moe, Users, e-smile.ne.jp
+dn: uid=tokiwa-moe,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tokiwa-moe
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6JCMIOW4uOebpA==
+sn:: 5bi455uk
+givenName:: 6JCM
+displayName:: 5bi455uk6JCM
+uidNumber: 90601
+gidNumber: 2009
+homeDirectory: /home/09-601-tokiwa-moe
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Q1JZcXc1Rk5tdm5zU2JQVm04RXRCbnp4ODJNN1JKV2E=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90601
+sambaNTPassword: B9C73B49F0A254F201D9A5F56C951CCA
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# uehara-kei, Users, e-smile.ne.jp
+dn: uid=uehara-kei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: uehara-kei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5riTIOS4iuWOnw==
+sn:: 5LiK5Y6f
+givenName:: 5riT
+displayName:: 5LiK5Y6f5riT
+uidNumber: 100195
+gidNumber: 2010
+homeDirectory: /home/10-195-uehara-kei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Q3lYYWY0RlY3aXA5L3QvYUxpVTlUbDR6UWRDWEI4cVA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100195
+sambaNTPassword: 5EDD9060E922068170230C0C01CE2753
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# akiyama-ryo, Users, e-smile.ne.jp
+dn: uid=akiyama-ryo,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: akiyama-ryo
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5LquIOeni+WxsQ==
+sn:: 56eL5bGx
+givenName:: 5Lqu
+displayName:: 56eL5bGx5Lqu
+uidNumber: 120163
+gidNumber: 2012
+homeDirectory: /home/12-163-akiyama-ryo
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SjZJYTdXNkIySjdIMGRlTkxvRHBpTHNmZ3ZZdTByMno=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120163
+sambaNTPassword: D48A5522E83F11A45835F8CCEFDA7D82
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# baba-yutaro, Users, e-smile.ne.jp
+dn: uid=baba-yutaro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: baba-yutaro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6ZuE5aSq6YOOIOmmrOWgtA==
+sn:: 6aas5aC0
+givenName:: 6ZuE5aSq6YOO
+displayName:: 6aas5aC06ZuE5aSq6YOO
+uidNumber: 100240
+gidNumber: 2010
+homeDirectory: /home/10-240-baba-yutaro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MlhNN3VuRm0vTkgrYUZQajRlN3phWGE0cGxWc0xkZ1c=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100240
+sambaNTPassword: 8D0C0FBCA08965458496A80CD3A57158
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# bllody-crow, Users, e-smile.ne.jp
+dn: uid=bllody-crow,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: bllody-crow
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pWP5rWpIOa4oemCiQ==
+sn:: 5rih6YKJ
+givenName:: 5pWP5rWp
+displayName:: 5rih6YKJ5pWP5rWp
+uidNumber: 30207
+gidNumber: 2003
+homeDirectory: /home/03-207-bllody-crow
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RWJmNzQyemVuVjRjZUNxTkc5K3VmTHZxVVdrL1EwakY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30207
+sambaNTPassword: A8ABF3534DC279D8C0401D18FE8EBF3C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# kakui-ayami, Users, e-smile.ne.jp
+dn: uid=kakui-ayami,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kakui-ayami
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5b2p5pyqIOWul+W7ow==
+sn:: 5a6X5buj
+givenName:: 5b2p5pyq
+displayName:: 5a6X5buj5b2p5pyq
+uidNumber: 100239
+gidNumber: 2010
+homeDirectory: /home/10-239-kakui-ayami
+loginShell: /bin/bash
+userPassword:: e1NTSEF9clI1cS81MnN1MkRIOEdKZyszSjBXQjhsYTZyT05rUUE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100239
+sambaNTPassword: 3BF247349207F2206C863AE67E9F26A9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kimura-riku, Users, e-smile.ne.jp
+dn: uid=kimura-riku,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kimura-riku
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Zm4IOacqOadkQ==
+sn:: 5pyo5p2R
+givenName:: 6Zm4
+displayName:: 5pyo5p2R6Zm4
+uidNumber: 100247
+gidNumber: 2010
+homeDirectory: /home/10-247-kimura-riku
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SkVDam9lazczNVduZlN4N0NEekpIMWxLejJXQjhqYkw=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100247
+sambaNTPassword: 98783059CF41F921CE9E8A450C5679A0
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kinase-miku, Users, e-smile.ne.jp
+dn: uid=kinase-miku,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kinase-miku
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pyq56m6IOacqOWQjeeArA==
+sn:: 5pyo5ZCN54Cs
+givenName:: 5pyq56m6
+displayName:: 5pyo5ZCN54Cs5pyq56m6
+uidNumber: 120205
+gidNumber: 2012
+homeDirectory: /home/12-205-kinase-miku
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NmIzOXJmU3crR1hJeTRiRjNhUGpUaEJFU2tUWTZnTi8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120205
+sambaNTPassword: D40CAB39AEEDF3084D857C982B7C7081
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# kitani-sora, Users, e-smile.ne.jp
+dn: uid=kitani-sora,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kitani-sora
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5a6ZIOacqOiwtw==
+sn:: 5pyo6LC3
+givenName:: 5a6Z
+displayName:: 5pyo6LC35a6Z
+uidNumber: 120207
+gidNumber: 2012
+homeDirectory: /home/12-207-kitani-sora
+loginShell: /bin/bash
+userPassword:: e1NTSEF9amhqNWVpc1kwMDlNaVZNd0RKK1VJTlp0T2ppVjlxRlQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120207
+sambaNTPassword: 9BC8031C00515CABBF8E299E1A22A2F4
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# ko-kazunari, Users, e-smile.ne.jp
+dn: uid=ko-kazunari,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ko-kazunari
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZKM5oiQIOmrmA==
+sn:: 6auY
+givenName:: 5ZKM5oiQ
+displayName:: 6auY5ZKM5oiQ
+uidNumber: 90610
+gidNumber: 2009
+homeDirectory: /home/09-610-ko-kazunari
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RE5SbmVsSWNYSThESVRQWGxGakFzZUo3YSs5YXZVRTQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90610
+sambaNTPassword: 40952AFA0C0BE4AA9A9C1F327335BE7C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kuroda-yuya, Users, e-smile.ne.jp
+dn: uid=kuroda-yuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kuroda-yuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YSq55+iIOm7kueUsA==
+sn:: 6buS55Sw
+givenName:: 5YSq55+i
+displayName:: 6buS55Sw5YSq55+i
+uidNumber: 120191
+gidNumber: 2012
+homeDirectory: /home/12-191-kuroda-yuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9amg2N0pPdC8xUzRqZm1mVU1EdSsrNEVubnUvWGl3Y1A=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120191
+sambaNTPassword: 056215E81C17442826D1D4C7EED1D974
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# masuno-sana, Users, e-smile.ne.jp
+dn: uid=masuno-sana,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: masuno-sana
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5b2p5aWIIOWil+mHjg==
+sn:: 5aKX6YeO
+givenName:: 5b2p5aWI
+displayName:: 5aKX6YeO5b2p5aWI
+uidNumber: 120157
+gidNumber: 2012
+homeDirectory: /home/12-157-masuno-sana
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NUFmeE40a0hLWm02azN1cDdzc1I2aTkwQ3dJUi9kZnc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120157
+sambaNTPassword: 99546A8AF9737658D45658AB626E9C57
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# matsui-yuki, Users, e-smile.ne.jp
+dn: uid=matsui-yuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: matsui-yuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YuH5qi5IOadvuS6lQ==
+sn:: 5p2+5LqV
+givenName:: 5YuH5qi5
+displayName:: 5p2+5LqV5YuH5qi5
+uidNumber: 120154
+gidNumber: 2012
+homeDirectory: /home/12-154-matsui-yuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9aDh0ckszOXFBVXFvTDhJazRsYVVOcWJnRHNZOXdqWFM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120154
+sambaNTPassword: E0FE96D9D665139F8742B27A102866E2
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# nagai-yusei, Users, e-smile.ne.jp
+dn: uid=nagai-yusei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nagai-yusei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5oKg5oiQIOawuOS6lQ==
+sn:: 5rC45LqV
+givenName:: 5oKg5oiQ
+displayName:: 5rC45LqV5oKg5oiQ
+uidNumber: 120203
+gidNumber: 2012
+homeDirectory: /home/12-203-nagai-yusei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9clZIVk1jTEYweDh4cjB1SFkvZGlFUEZZWEk1NjZBV3o=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120203
+sambaNTPassword: C9EDD7FDDDA93988E22E48AB25834A45
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# onodera-kai, Users, e-smile.ne.jp
+dn: uid=onodera-kai,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: onodera-kai
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rW35YuHIOWwj+mHjuWvug==
+sn:: 5bCP6YeO5a+6
+givenName:: 5rW35YuH
+displayName:: 5bCP6YeO5a+65rW35YuH
+uidNumber: 120204
+gidNumber: 2012
+homeDirectory: /home/12-204-onodera-kai
+loginShell: /bin/bash
+userPassword:: e1NTSEF9YUJ6OXB4ZVpJN0w1Tno5UVc4a0JTM3A0UGdiTXRIWjA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120204
+sambaNTPassword: 09DAB347F9C4373C962A986D3AD0FD1A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# takebayashi, Users, e-smile.ne.jp
+dn: uid=takebayashi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takebayashi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55Sx576O5a2QIOerueaelw==
+sn:: 56u55p6X
+givenName:: 55Sx576O5a2Q
+displayName:: 56u55p6X55Sx576O5a2Q
+uidNumber: 30321
+gidNumber: 2003
+homeDirectory: /home/03-321-takebayashi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dFpIajFqb1Bwa3R6WERNYmJaRDF5cWMwUXozcEpWV2g=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30321
+sambaNTPassword: 4AAF1E18ED11D13ABBF070DC2187ABCB
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# takeda-shun, Users, e-smile.ne.jp
+dn: uid=takeda-shun,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takeda-shun
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 556sIOatpueUsA==
+sn:: 5q2m55Sw
+givenName:: 556s
+displayName:: 5q2m55Sw556s
+uidNumber: 120186
+gidNumber: 2012
+homeDirectory: /home/12-186-takeda-shun
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eUo1YmNjVVF4blFyVXZHU0JOdmVtam1Jbk52VFJ1TEI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120186
+sambaNTPassword: A09A13663B40BAAB291749102B8DE91B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# ueki-mayuka, Users, e-smile.ne.jp
+dn: uid=ueki-mayuka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ueki-mayuka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55yf5YSq6aaZIOakjeacqA==
+sn:: 5qSN5pyo
+givenName:: 55yf5YSq6aaZ
+displayName:: 5qSN5pyo55yf5YSq6aaZ
+uidNumber: 100174
+gidNumber: 2010
+homeDirectory: /home/10-174-ueki-mayuka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SGxuWXpTMFkxQXhkOTNlRzVJZGFZMTRNNW5MSFFrb0c=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100174
+sambaNTPassword: D6EEAC238D7C121C497B8FD04F078941
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# umeno-taiki, Users, e-smile.ne.jp
+dn: uid=umeno-taiki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: umeno-taiki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSq5o+uIOaihemHjg==
+sn:: 5qKF6YeO
+givenName:: 5aSq5o+u
+displayName:: 5qKF6YeO5aSq5o+u
+uidNumber: 120184
+gidNumber: 2012
+homeDirectory: /home/12-184-umeno-taiki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NXU2QklGTWNNa2s2N1RPOENFSUE1U2ljTXdCWkFjZ2U=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120184
+sambaNTPassword: B44ED913E2227D7AEBEC33D8DA28D9B0
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# wakui-daiki, Users, e-smile.ne.jp
+dn: uid=wakui-daiki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: wakui-daiki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSn6LydIOa2jOS6lQ==
+sn:: 5raM5LqV
+givenName:: 5aSn6Lyd
+displayName:: 5raM5LqV5aSn6Lyd
+uidNumber: 90612
+gidNumber: 2009
+homeDirectory: /home/09-612-wakui-daiki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dy8yNnJFVWp6eDBnditURVpjZGdib2R2SDVQS0ZoZzQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90612
+sambaNTPassword: 6BDE92A3194A5992DCFF30F028D7E6DD
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# adachi-kaito, Users, e-smile.ne.jp
+dn: uid=adachi-kaito,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: adachi-kaito
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rW35Lq6IOi2s+eriw==
+sn:: 6Laz56uL
+givenName:: 5rW35Lq6
+displayName:: 6Laz56uL5rW35Lq6
+uidNumber: 100250
+gidNumber: 2010
+homeDirectory: /home/10-250-adachi-kaito
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ZDNoaThuWFZqK0lSQVdxWm9NZzZTRW04eHIzbVV5QUE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100250
+sambaNTPassword: 7C26CC7D23D97E9F1BBE2D618568A165
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# akiba-yuichi, Users, e-smile.ne.jp
+dn: uid=akiba-yuichi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: akiba-yuichi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56WQ5LiAIOeni+iRiQ==
+sn:: 56eL6JGJ
+givenName:: 56WQ5LiA
+displayName:: 56eL6JGJ56WQ5LiA
+uidNumber: 90528
+gidNumber: 2009
+homeDirectory: /home/09-528-akiba-yuichi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UUJwNFk3aTRNQ2xpcGRMbTJvV0NjRmtRUHJxZGdQRjY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90528
+sambaNTPassword: B94D0395F3AE455EC615A18FBF9C8B94
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# hiraku-kingo, Users, e-smile.ne.jp
+dn: uid=hiraku-kingo,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: hiraku-kingo
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5qy95oKfIOW5s+W3pQ==
+sn:: 5bmz5bel
+givenName:: 5qy95oKf
+displayName:: 5bmz5bel5qy95oKf
+uidNumber: 100101
+gidNumber: 2010
+homeDirectory: /home/10-101-hiraku-kingo
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dGdaRjIrWW80TzV6Y1RTMytuNlZXeEZnR2JoK1JMdWs=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100101
+sambaNTPassword: 7290AF5241C726BB66351E59E3641247
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# hirosemasaya, Users, e-smile.ne.jp
+dn: uid=hirosemasaya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: hirosemasaya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YWB6IC2IOW7o+eArA==
+sn:: 5buj54Cs
+givenName:: 5YWB6IC2
+displayName:: 5buj54Cs5YWB6IC2
+uidNumber: 90157
+gidNumber: 2009
+homeDirectory: /home/09-157-hirosemasaya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9aFI2YTkwbUFiNUNhdDRVelMvek5rYW55dnJ6Z2VrcTk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90157
+sambaNTPassword: DAF84209B7F0C93510524627345BB01F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# ishii-megumi, Users, e-smile.ne.jp
+dn: uid=ishii-megumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ishii-megumi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5oG1576OIOefs+S6lQ==
+sn:: 55+z5LqV
+givenName:: 5oG1576O
+displayName:: 55+z5LqV5oG1576O
+uidNumber: 100201
+gidNumber: 2010
+homeDirectory: /home/10-201-ishii-megumi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TnU0b29JK2pramJ3ZXRvWUxXcjBqSlZOVWIvcWVRalM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100201
+sambaNTPassword: B83FCDEC3090075AEAA9DACB9F646764
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kaneko-ryota, Users, e-smile.ne.jp
+dn: uid=kaneko-ryota,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kaneko-ryota
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6YG85aSqIOmHkeWtkA==
+sn:: 6YeR5a2Q
+givenName:: 6YG85aSq
+displayName:: 6YeR5a2Q6YG85aSq
+uidNumber: 90611
+gidNumber: 2009
+homeDirectory: /home/09-611-kaneko-ryota
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RzBRcUFNTDM4YVpMZEdCcEQ1U2JYaFA3ZlRvNy9nS3A=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90611
+sambaNTPassword: BE623B39BCEA064EFE42B479C2069CD2
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kikuchi-miki, Users, e-smile.ne.jp
+dn: uid=kikuchi-miki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kikuchi-miki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 576O6LydIOiPiuaxoA==
+sn:: 6I+K5rGg
+givenName:: 576O6Lyd
+displayName:: 6I+K5rGg576O6Lyd
+uidNumber: 90607
+gidNumber: 2009
+homeDirectory: /home/09-607-kikuchi-miki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ZHV5V21WWHlmSk1LYWVzU1ZkNjZpZkxjcnlMMUtOMHY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90607
+sambaNTPassword: 5D4D724CBDFBC7489ADE256252C56019
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# komamura-ami, Users, e-smile.ne.jp
+dn: uid=komamura-ami,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: komamura-ami
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Lqc576OIOmnkuadkQ==
+sn:: 6aeS5p2R
+givenName:: 5Lqc576O
+displayName:: 6aeS5p2R5Lqc576O
+uidNumber: 100225
+gidNumber: 2010
+homeDirectory: /home/10-225-komamura-ami
+loginShell: /bin/bash
+userPassword:: e1NTSEF9akE5Y2t5ajlYd3dITjB0Zm5MNitSQnBaT0F2QTRTdms=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100225
+sambaNTPassword: CFD1640F810D771953B1F8937DEE9999
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kouno-atsuki, Users, e-smile.ne.jp
+dn: uid=kouno-atsuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kouno-atsuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pWm6LK0IOays+mHjg==
+sn:: 5rKz6YeO
+givenName:: 5pWm6LK0
+displayName:: 5rKz6YeO5pWm6LK0
+uidNumber: 100261
+gidNumber: 2010
+homeDirectory: /home/10-261-kouno-atsuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cWF1VXFhU09ZRE1GeEMrLzdlWTZJSkJSalMxeUV4RjY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100261
+sambaNTPassword: 2A6DF3FF3DB824ECDD70716F3F13345A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kubota-shion, Users, e-smile.ne.jp
+dn: uid=kubota-shion,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kubota-shion
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5b+X6Z+zIOS5heS/neeUsA==
+sn:: 5LmF5L+d55Sw
+givenName:: 5b+X6Z+z
+displayName:: 5LmF5L+d55Sw5b+X6Z+z
+uidNumber: 90519
+gidNumber: 2009
+homeDirectory: /home/09-519-kubota-shion
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UGMvVFgwZEVhWWx3ZlV0eS83YXFlNXlTUVpwMzlRTnQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90519
+sambaNTPassword: 7429A1042DF2E0C18A3C395C3A076486
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# nagao-momoka, Users, e-smile.ne.jp
+dn: uid=nagao-momoka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nagao-momoka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5qGD5L2zIOmVt+Wwvg==
+sn:: 6ZW35bC+
+givenName:: 5qGD5L2z
+displayName:: 6ZW35bC+5qGD5L2z
+uidNumber: 100229
+gidNumber: 2010
+homeDirectory: /home/10-229-nagao-momoka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eitEdGUxNjFUa3owdnl2TVVqK1JIWnh5SDY1NVhKU3c=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100229
+sambaNTPassword: 9CE12369F76896139225C7E34F939CDC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# naito-takato, Users, e-smile.ne.jp
+dn: uid=naito-takato,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: naito-takato
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6LK05Lq6IOWGheiXpA==
+sn:: 5YaF6Jek
+givenName:: 6LK05Lq6
+displayName:: 5YaF6Jek6LK05Lq6
+uidNumber: 100206
+gidNumber: 2010
+homeDirectory: /home/10-206-naito-takato
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QTJnTnorclBsZE5pRU11U05wblBVUUlmY2dnS1R4L2E=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100206
+sambaNTPassword: EDFB675C4F63B4076493EBFC33BC675E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# ogawa-hikaru, Users, e-smile.ne.jp
+dn: uid=ogawa-hikaru,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ogawa-hikaru
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YWJ55CJIOWwj+W3nQ==
+sn:: 5bCP5bed
+givenName:: 5YWJ55CJ
+displayName:: 5bCP5bed5YWJ55CJ
+uidNumber: 120200
+gidNumber: 2012
+homeDirectory: /home/12-200-ogawa-hikaru
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ejFhZmU2NEZzelFWT2RmaGUxQStSN1B6VUhkZ2RrN1c=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120200
+sambaNTPassword: 8DAD6BA2F655E17615F86C02089581A9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# okada-takuya, Users, e-smile.ne.jp
+dn: uid=okada-takuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: okada-takuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ouT5LmfIOWyoeeUsA==
+sn:: 5bKh55Sw
+givenName:: 5ouT5Lmf
+displayName:: 5bKh55Sw5ouT5Lmf
+uidNumber: 100160
+gidNumber: 2010
+homeDirectory: /home/10-160-okada-takuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MHlHUXRsZTdkaWY5U2svVTZXa2NJdStwNXgrelNZb0Q=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100160
+sambaNTPassword: 351E783E53CE57549778F441DACBEE05
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# okumura-nagi, Users, e-smile.ne.jp
+dn: uid=okumura-nagi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: okumura-nagi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YeqIOWlpeadkQ==
+sn:: 5aWl5p2R
+givenName:: 5Yeq
+displayName:: 5aWl5p2R5Yeq
+uidNumber: 120197
+gidNumber: 2012
+homeDirectory: /home/12-197-okumura-nagi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OFJyVGRXN0hibXd6ZXRYZGNlMzFkSWRXckdyV3gyVng=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120197
+sambaNTPassword: E27F8CC6B78009E3E034317FCAE22FB2
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# saito-masaki, Users, e-smile.ne.jp
+dn: uid=saito-masaki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: saito-masaki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55yf6LydIOm9i+iXpA==
+sn:: 6b2L6Jek
+givenName:: 55yf6Lyd
+displayName:: 6b2L6Jek55yf6Lyd
+uidNumber: 100243
+gidNumber: 2010
+homeDirectory: /home/10-243-saito-masaki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UlNEUFExMXk4eGVvZGRJU1NrT09Dc3lXUHp1NCsxMW8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100243
+sambaNTPassword: 15B1CCFF82C13EE6EE80D22F55238392
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# saito-sayaka, Users, e-smile.ne.jp
+dn: uid=saito-sayaka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: saito-sayaka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Ya05Lmf6IqxIOm9i+iXpA==
+sn:: 6b2L6Jek
+givenName:: 5Ya05Lmf6Iqx
+displayName:: 6b2L6Jek5Ya05Lmf6Iqx
+uidNumber: 120136
+gidNumber: 2012
+homeDirectory: /home/12-136-saito-sayaka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VnhCL05SL1JQOUYyanBGalNFQXR3VzdjMVZQQkRtREs=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120136
+sambaNTPassword: D506CE79EAA76171B126836D11BF3935
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# takeda-saaya, Users, e-smile.ne.jp
+dn: uid=takeda-saaya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takeda-saaya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 57SX6YeHIOatpueUsA==
+sn:: 5q2m55Sw
+givenName:: 57SX6YeH
+displayName:: 5q2m55Sw57SX6YeH
+uidNumber: 100242
+gidNumber: 2010
+homeDirectory: /home/10-242-takeda-saaya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QnBuVmdoTVFocjB0UmFSSXpvZGVEZmZvbXdzc28yMVc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100242
+sambaNTPassword: B0C35DD089744F405721163F199DB230
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# umehara-yuma, Users, e-smile.ne.jp
+dn: uid=umehara-yuma,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: umehara-yuma
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55Sx6IyJIOWcn+Wxiw==
+sn:: 5Zyf5bGL
+givenName:: 55Sx6IyJ
+displayName:: 5Zyf5bGL55Sx6IyJ
+uidNumber: 100178
+gidNumber: 2010
+homeDirectory: /home/10-178-umehara-yuma
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RlIvUUxMempwdWJSRjczMmlGV3lidStQeXNONkdQak4=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100178
+sambaNTPassword: 8836EF8A9462B9C24A7A38E30933ED4C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yamanaka-rui, Users, e-smile.ne.jp
+dn: uid=yamanaka-rui,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamanaka-rui
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55CJ55SfIOWxseS4rQ==
+sn:: 5bGx5Lit
+givenName:: 55CJ55Sf
+displayName:: 5bGx5Lit55CJ55Sf
+uidNumber: 90613
+gidNumber: 2009
+homeDirectory: /home/09-613-yamanaka-rui
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eDBhTVBPS2pDSUo1N2UyeE9oOTJJYmZIL2Z2VmVqNWE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90613
+sambaNTPassword: 9399CBAC594B5EE4EF917982223BE1D6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# yamaoka-eiki, Users, e-smile.ne.jp
+dn: uid=yamaoka-eiki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamaoka-eiki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rC46LydIOWxseWyoQ==
+sn:: 5bGx5bKh
+givenName:: 5rC46Lyd
+displayName:: 5bGx5bKh5rC46Lyd
+uidNumber: 90609
+gidNumber: 2009
+homeDirectory: /home/09-609-yamaoka-eiki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QVlYU3pVdjdNYmpGcHR3SG11M2JmdWpTdUZoWUhyR2g=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90609
+sambaNTPassword: 0EF85A9BF0C9C9418B956C84399905B1
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# abiru-masashi, Users, e-smile.ne.jp
+dn: uid=abiru-masashi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: abiru-masashi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6ZuF5aOrIOmYv+avlOeVmQ==
+sn:: 6Zi/5q+U55WZ
+givenName:: 6ZuF5aOr
+displayName:: 6Zi/5q+U55WZ6ZuF5aOr
+uidNumber: 100193
+gidNumber: 2010
+homeDirectory: /home/10-193-abiru-masashi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Sy9nMUE2WEdDclZQZWNTTFFEb3V3SEVYcEZ2bmQrRVA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100193
+sambaNTPassword: 25B26634370BC425E805426775E5159D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# akiyoshi-yuya, Users, e-smile.ne.jp
+dn: uid=akiyoshi-yuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: akiyoshi-yuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L2R5ZOJIOeni+WQiQ==
+sn:: 56eL5ZCJ
+givenName:: 5L2R5ZOJ
+displayName:: 56eL5ZCJ5L2R5ZOJ
+uidNumber: 90542
+gidNumber: 2009
+homeDirectory: /home/09-542-akiyoshi-yuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9STZCZlgvUzNsMks5RlF1cHV2K0NJYmYwS0k0WVF4VFA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90542
+sambaNTPassword: CEE1B6F43CB49140E1C992614859AF60
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# aoki-shunichi, Users, e-smile.ne.jp
+dn: uid=aoki-shunichi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: aoki-shunichi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L+K5LiAIOmdkuacqA==
+sn:: 6Z2S5pyo
+givenName:: 5L+K5LiA
+displayName:: 6Z2S5pyo5L+K5LiA
+uidNumber: 120122
+gidNumber: 2012
+homeDirectory: /home/12-122-aoki-shunichi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RncrdVByL1VwRGd5ZVY1TlBUM1BUd0NSSHFHVW5SVFI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120122
+sambaNTPassword: DD929988014BF10BB9AAC6D80BB7E2C6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# asahara-yuuki, Users, e-smile.ne.jp
+dn: uid=asahara-yuuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: asahara-yuuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YSq5qi5IOacneWOnw==
+sn:: 5pyd5Y6f
+givenName:: 5YSq5qi5
+displayName:: 5pyd5Y6f5YSq5qi5
+uidNumber: 100131
+gidNumber: 2010
+homeDirectory: /home/10-131-asahara-yuuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Y0JJdTZtaTFtY1F1U0xvR2tVWWdCTHlzVTBCcVF4elg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100131
+sambaNTPassword: 5C9D8C56816193179090C38845B29BFB
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# azumaya-ryota, Users, e-smile.ne.jp
+dn: uid=azumaya-ryota,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: azumaya-ryota
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Imv5aSqIOadseiwtw==
+sn:: 5p2x6LC3
+givenName:: 6Imv5aSq
+displayName:: 5p2x6LC36Imv5aSq
+uidNumber: 90538
+gidNumber: 2009
+homeDirectory: /home/09-538-azumaya-ryota
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VFFlRThqRG1SdEhJbE1PcmxHL21acHVtVXJBdEU3dDQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90538
+sambaNTPassword: 9902D475C3D29FD43B3E9E0FB9F443DC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# esashika-akio, Users, e-smile.ne.jp
+dn: uid=esashika-akio,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: esashika-akio
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pmL5L+dIOaxn+WIuuWutg==
+sn:: 5rGf5Yi65a62
+givenName:: 5pmL5L+d
+displayName:: 5rGf5Yi65a625pmL5L+d
+uidNumber: 90441
+gidNumber: 2009
+homeDirectory: /home/09-441-esashika-akio
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NnVWcXRoUitscEtIRGNoSXZKcjRaMlg1QU1RaHZDM3M=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90441
+sambaNTPassword: 798CFD62A335B4027599E693CF59C49A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# furukawa-koki, Users, e-smile.ne.jp
+dn: uid=furukawa-koki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: furukawa-koki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YCW5bexIOWPpOW3nQ==
+sn:: 5Y+k5bed
+givenName:: 5YCW5bex
+displayName:: 5Y+k5bed5YCW5bex
+uidNumber: 90608
+gidNumber: 2009
+homeDirectory: /home/09-608-furukawa-koki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ckJBRmtaT2ZCdEw3WTE2eGF0TXhsNVkzcEpKdEJqTkU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90608
+sambaNTPassword: CC0296999C6FA3ADACF821BB591657AB
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# haruta-haruki, Users, e-smile.ne.jp
+dn: uid=haruta-haruki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: haruta-haruki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Zm96LK0IOaYpeeUsA==
+sn:: 5pil55Sw
+givenName:: 6Zm96LK0
+displayName:: 5pil55Sw6Zm96LK0
+uidNumber: 90595
+gidNumber: 2009
+homeDirectory: /home/09-595-haruta-haruki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UGp4ZjhlYWhNTzk3NWVJS2h1cCtzUnY5YW9RMWNUUUU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90595
+sambaNTPassword: 006B594A10C578224E7B9008EFDF3427
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# ibushi-tessei, Users, e-smile.ne.jp
+dn: uid=ibushi-tessei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ibushi-tessei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZOy5LiWIOmjr+S8jw==
+sn:: 6aOv5LyP
+givenName:: 5ZOy5LiW
+displayName:: 6aOv5LyP5ZOy5LiW
+uidNumber: 100270
+gidNumber: 2010
+homeDirectory: /home/10-270-ibushi-tessei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9aWdkSm9KT1kwSndTWWw4dzlySkV1S1JOU1VxNi9sUVY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100270
+sambaNTPassword: 3BD6152A04640C7BBAB803B844B8C2EA
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# iwaide-takumi, Users, e-smile.ne.jp
+dn: uid=iwaide-takumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: iwaide-takumi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y2T5bezIOWyqeWHug==
+sn:: 5bKp5Ye6
+givenName:: 5Y2T5bez
+displayName:: 5bKp5Ye65Y2T5bez
+uidNumber: 100182
+gidNumber: 2010
+homeDirectory: /home/10-182-iwaide-takumi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9N0tlYlIxYlA4OXgrYUkvMFREWmloeVFyNW5GV3ZYVHQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100182
+sambaNTPassword: D768ED74136B2994E20968ECE7C957C1
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# iwanaga-reina, Users, e-smile.ne.jp
+dn: uid=iwanaga-reina,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: iwanaga-reina
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5oCc5aWIIOWyqeawuA==
+sn:: 5bKp5rC4
+givenName:: 5oCc5aWI
+displayName:: 5bKp5rC45oCc5aWI
+uidNumber: 90560
+gidNumber: 2009
+homeDirectory: /home/09-560-iwanaga-reina
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WGtNMDhUMmFBLzZPeW5UOFpXWUZmYXFTV2tudmMvWk8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90560
+sambaNTPassword: 651194BB99B488460A0969A6B29952B7
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# iwata-yushiro, Users, e-smile.ne.jp
+dn: uid=iwata-yushiro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: iwata-yushiro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rmn5aOr6YOOIOWyqeeUsA==
+sn:: 5bKp55Sw
+givenName:: 5rmn5aOr6YOO
+displayName:: 5bKp55Sw5rmn5aOr6YOO
+uidNumber: 100277
+gidNumber: 2010
+homeDirectory: /home/10-277-iwata-yushiro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WDViWWJEcWoxTUJ2U0h5KzNHUGd5Z20yN1lZVDA5RWo=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100277
+sambaNTPassword: 8E57E1E8C89F85DB2734F27E7CA4AE8C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kakumoto-yuki, Users, e-smile.ne.jp
+dn: uid=kakumoto-yuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kakumoto-yuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56WQ5biMIOinkuacrA==
+sn:: 6KeS5pys
+givenName:: 56WQ5biM
+displayName:: 6KeS5pys56WQ5biM
+uidNumber: 90361
+gidNumber: 2009
+homeDirectory: /home/09-361-kakumoto-yuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Vm81MlBHOExLUW5IVUtKWnRrM3R1SEZRUE1adDA2cTE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90361
+sambaNTPassword: 2F76A1301A177BA5D9C14BDB9E9FEB63
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kamiyama-yuri, Users, e-smile.ne.jp
+dn: uid=kamiyama-yuri,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kamiyama-yuri
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 57WQ6I6JIOelnuWxsQ==
+sn:: 56We5bGx
+givenName:: 57WQ6I6J
+displayName:: 56We5bGx57WQ6I6J
+uidNumber: 100184
+gidNumber: 2010
+homeDirectory: /home/10-184-kamiyama-yuri
+loginShell: /bin/bash
+userPassword:: e1NTSEF9L0FxQzFtM2pZTnZKVzhDUkJEZ1JaT3FKQ3RIZ0NzNEE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100184
+sambaNTPassword: 8233B10B4B00CF9B4EB9903526711849
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kanamori-sana, Users, e-smile.ne.jp
+dn: uid=kanamori-sana,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kanamori-sana
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rKZ6YKjIOmHkeajrg==
+sn:: 6YeR5qOu
+givenName:: 5rKZ6YKj
+displayName:: 6YeR5qOu5rKZ6YKj
+uidNumber: 120171
+gidNumber: 2012
+homeDirectory: /home/12-171-kanamori-sana
+loginShell: /bin/bash
+userPassword:: e1NTSEF9YkprYWVZSEJiV3pZRCtOb09FRnVFVDhkcEM5ZkJZMXg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120171
+sambaNTPassword: 1D38B59F44F7863D03E5A2D4A274E845
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# kaneko-hitomi, Users, e-smile.ne.jp
+dn: uid=kaneko-hitomi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kaneko-hitomi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 44Gy44Go44G/IOmHkeWtkA==
+sn:: 6YeR5a2Q
+givenName:: 44Gy44Go44G/
+displayName:: 6YeR5a2Q44Gy44Go44G/
+uidNumber: 90419
+gidNumber: 2009
+homeDirectory: /home/09-419-kaneko-hitomi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eXhNb1QxaW54dmJFUFhMUytqenpLTkg5K1JYLytDblU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90419
+sambaNTPassword: 10FE66BB6617DC377E4BEC8E184C06CC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kojima-kyohei, Users, e-smile.ne.jp
+dn: uid=kojima-kyohei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kojima-kyohei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Zas5bmzIOWwj+Wztg==
+sn:: 5bCP5bO2
+givenName:: 5Zas5bmz
+displayName:: 5bCP5bO25Zas5bmz
+uidNumber: 120199
+gidNumber: 2012
+homeDirectory: /home/12-199-kojima-kyohei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TjZabWhtanVZRmlaMVoxaHFXQjlLSTRSMVFDWlZGVmg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120199
+sambaNTPassword: 6BFBDD36F0EE566326D3C795F70AEEDB
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# komatsu-sairi, Users, e-smile.ne.jp
+dn: uid=komatsu-sairi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: komatsu-sairi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5b2p6YeMIOWwj+advg==
+sn:: 5bCP5p2+
+givenName:: 5b2p6YeM
+displayName:: 5bCP5p2+5b2p6YeM
+uidNumber: 90582
+gidNumber: 2009
+homeDirectory: /home/09-582-komatsu-sairi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bm1aUHlVa3FreHFaQmpCb2tVL2diZnB6MWZOZ29NdWY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90582
+sambaNTPassword: BE3570BBD7C6FBE899D95CDFD259EACC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# komuta-kazuki, Users, e-smile.ne.jp
+dn: uid=komuta-kazuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: komuta-kazuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZKM6LydIOWwj+eJn+eUsA==
+sn:: 5bCP54mf55Sw
+givenName:: 5ZKM6Lyd
+displayName:: 5bCP54mf55Sw5ZKM6Lyd
+uidNumber: 100194
+gidNumber: 2010
+homeDirectory: /home/10-194-komuta-kazuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VlRMTno3ajRNaDJXTG9EamdZZzBWL1dLWnR6bXpqLzg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100194
+sambaNTPassword: CC37DFAFD35B143972A908A21C5F9204
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# koshikawa-ren, Users, e-smile.ne.jp
+dn: uid=koshikawa-ren,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: koshikawa-ren
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5buJIOi2iuW3nQ==
+sn:: 6LaK5bed
+givenName:: 5buJ
+displayName:: 6LaK5bed5buJ
+uidNumber: 90591
+gidNumber: 2009
+homeDirectory: /home/09-591-koshikawa-ren
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dGMrL2tDajE0V0R0OStzbVl6UjFaaThkN1NxY1JjdTU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90591
+sambaNTPassword: 9BB1421C922D37180AB0D6A8C3F2853D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# koyama-hiroki, Users, e-smile.ne.jp
+dn: uid=koyama-hiroki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: koyama-hiroki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSn5qi5IOWwj+WxsQ==
+sn:: 5bCP5bGx
+givenName:: 5aSn5qi5
+displayName:: 5bCP5bGx5aSn5qi5
+uidNumber: 30330
+gidNumber: 2003
+homeDirectory: /home/03-330-koyama-hiroki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Q2FGZnRpMHoybVB2aHpWNmhEL2M5QzBYNDBqVC9hZ00=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30330
+sambaNTPassword: E2451FD7948C38E6E4B619CEE3E7781D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# kurokawa-ryou, Users, e-smile.ne.jp
+dn: uid=kurokawa-ryou,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kurokawa-ryou
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YeMIOm7kuW3nQ==
+sn:: 6buS5bed
+givenName:: 5YeM
+displayName:: 6buS5bed5YeM
+uidNumber: 90536
+gidNumber: 2009
+homeDirectory: /home/09-536-kurokawa-ryou
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RER4c3ZBdnlBQ1VXU0I5ZnVpQ2JsTWs4RXc0R2JUcTE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90536
+sambaNTPassword: A346CADEBC79F6BD08B20FDC37BD6F38
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# makiyo-shunya, Users, e-smile.ne.jp
+dn: uid=makiyo-shunya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: makiyo-shunya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Zq85LmfIOecn+a4hQ==
+sn:: 55yf5riF
+givenName:: 6Zq85Lmf
+displayName:: 55yf5riF6Zq85Lmf
+uidNumber: 120188
+gidNumber: 2012
+homeDirectory: /home/12-188-makiyo-shunya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9M2hSZlZJbUVad0hsUjZQMU9yekZ4aXZNUmJTOVJ6RWc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120188
+sambaNTPassword: DDACFB09DF5C8436E5F3124E10CAA59C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# murakami-yori, Users, e-smile.ne.jp
+dn: uid=murakami-yori,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: murakami-yori
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZKMIOadkeS4ig==
+sn:: 5p2R5LiK
+givenName:: 5ZKM
+displayName:: 5p2R5LiK5ZKM
+uidNumber: 100267
+gidNumber: 2010
+homeDirectory: /home/10-267-murakami-yori
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cFlpcVZocnBrVVpNTW5aSHJDQmpGQ1BiVURCcnpaRnA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100267
+sambaNTPassword: 1F1CFE2AA9115EAE42EA178199BFA399
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# nakagawa-miyu, Users, e-smile.ne.jp
+dn: uid=nakagawa-miyu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakagawa-miyu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 576O5YSqIOS4reW3nQ==
+sn:: 5Lit5bed
+givenName:: 576O5YSq
+displayName:: 5Lit5bed576O5YSq
+uidNumber: 100263
+gidNumber: 2010
+homeDirectory: /home/10-263-nakagawa-miyu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Z21RWHVNSlE2MDhFSG9YenNzZndzVThwQWNVM0c0M2I=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100263
+sambaNTPassword: 730F869EB54A57569C87EBFDBB397D4A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# nakajima-shin, Users, e-smile.ne.jp
+dn: uid=nakajima-shin,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakajima-shin
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Ly4IOS4reWztg==
+sn:: 5Lit5bO2
+givenName:: 5Ly4
+displayName:: 5Lit5bO25Ly4
+uidNumber: 30412
+gidNumber: 2003
+homeDirectory: /home/03-412-nakajima-shin
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OElVN0RBTmhnUFFEb2p6RlRWZnMvaUxTQW95aThmY04=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30412
+sambaNTPassword: 2C5979325B4B9E915F7F806D4F25A376
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# nakamura-yuki, Users, e-smile.ne.jp
+dn: uid=nakamura-yuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakamura-yuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YSq5biMIOS4readkQ==
+sn:: 5Lit5p2R
+givenName:: 5YSq5biM
+displayName:: 5Lit5p2R5YSq5biM
+uidNumber: 100191
+gidNumber: 2010
+homeDirectory: /home/10-191-nakamura-yuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Ujc2QWJrcWRBWEUveVFmSlc2RjhDT0JqQ25BOWxhWWE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100191
+sambaNTPassword: 5B2086DC59BEF71D540D68F6090B273D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# oishi-satsuki, Users, e-smile.ne.jp
+dn: uid=oishi-satsuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: oishi-satsuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6aKv5qi5IOWkp+efsw==
+sn:: 5aSn55+z
+givenName:: 6aKv5qi5
+displayName:: 5aSn55+z6aKv5qi5
+uidNumber: 100278
+gidNumber: 2010
+homeDirectory: /home/10-278-oishi-satsuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9c00yN3JadDMrOUlJbE4vQVZoRUFpWnduQUpUTitlaTI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100278
+sambaNTPassword: B6C630AE9B0699BF4B5377CDA98E988A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# saito-tomonao, Users, e-smile.ne.jp
+dn: uid=saito-tomonao,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: saito-tomonao
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bm555yfIOm9i+iXpA==
+sn:: 6b2L6Jek
+givenName:: 5bm555yf
+displayName:: 6b2L6Jek5bm555yf
+uidNumber: 120185
+gidNumber: 2012
+homeDirectory: /home/12-185-saito-tomonao
+loginShell: /bin/bash
+userPassword:: e1NTSEF9M0RybC9mcy9kaUxwQkhCYTh5OGJNc0o0UXE5MDVvMXU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120185
+sambaNTPassword: 329742DAE935E9D8A6821D4DC988F02A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# sano-yukiharu, Users, e-smile.ne.jp
+dn: uid=sano-yukiharu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sano-yukiharu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bm45pm0IOS9kOmHjg==
+sn:: 5L2Q6YeO
+givenName:: 5bm45pm0
+displayName:: 5L2Q6YeO5bm45pm0
+uidNumber: 50102
+gidNumber: 2005
+homeDirectory: /home/05-102-sano-yukiharu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VVdHc1oxdllGbzNDU0YzZk50QnJBYlB6UXFOOXd3T0U=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-50102
+sambaNTPassword: 8CB6E51599674725C76DE54C0CBBB889
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2005
+
+# sasaki-yusuke, Users, e-smile.ne.jp
+dn: uid=sasaki-yusuke,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sasaki-yusuke
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L2R6LyUIOS9kOOAheacqA==
+sn:: 5L2Q44CF5pyo
+givenName:: 5L2R6LyU
+displayName:: 5L2Q44CF5pyo5L2R6LyU
+uidNumber: 90293
+gidNumber: 2009
+homeDirectory: /home/09-293-sasaki-yusuke
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RVoxaEV6ZmN0SkUxbUh6T25nWW1TTnU1UkVtbWczZWI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90293
+sambaNTPassword: 870F50C09CF0DDE1A16471D5CC280AF6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# sato-takahiro, Users, e-smile.ne.jp
+dn: uid=sato-takahiro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sato-takahiro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6LK05rSLIOS9kOiXpA==
+sn:: 5L2Q6Jek
+givenName:: 6LK05rSL
+displayName:: 5L2Q6Jek6LK05rSL
+uidNumber: 90328
+gidNumber: 2009
+homeDirectory: /home/09-328-sato-takahiro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UjJFVCtMMDVJU1NaRU5oT0syTEQ0dUNYU0FNUXVsb0E=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90328
+sambaNTPassword: 042B2025D857BD94814B407CC95312C0
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# shimizu-yudai, Users, e-smile.ne.jp
+dn: uid=shimizu-yudai,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shimizu-yudai
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6KOV5aSnIOa4heawtA==
+sn:: 5riF5rC0
+givenName:: 6KOV5aSn
+displayName:: 5riF5rC06KOV5aSn
+uidNumber: 100220
+gidNumber: 2010
+homeDirectory: /home/10-220-shimizu-yudai
+loginShell: /bin/bash
+userPassword:: e1NTSEF9YUJrMTRuWE9lNkRVSkRkVXJ0QllnVXErTjk2VHI2UHY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100220
+sambaNTPassword: 0CDF9FFD8A2025271931DEDC8C0FEBDD
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# shiono-mizuki, Users, e-smile.ne.jp
+dn: uid=shiono-mizuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiono-mizuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 576O5pyIIOWhqemHjg==
+sn:: 5aGp6YeO
+givenName:: 576O5pyI
+displayName:: 5aGp6YeO576O5pyI
+uidNumber: 100273
+gidNumber: 2010
+homeDirectory: /home/10-273-shiono-mizuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UWlpWFIrakJwRGhiU2o3d0VCNFpITmdzYkRiK2tUT1A=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100273
+sambaNTPassword: 094A5385F90397C702ED7B0F2E6296F0
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# soryo-tatsuya, Users, e-smile.ne.jp
+dn: uid=soryo-tatsuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: soryo-tatsuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6L6w5ZOJIOe4vemgmA==
+sn:: 57i96aCY
+givenName:: 6L6w5ZOJ
+displayName:: 57i96aCY6L6w5ZOJ
+uidNumber: 90603
+gidNumber: 2009
+homeDirectory: /home/09-603-soryo-tatsuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NTk2RWtyQ1JydmhqSS83aHVFQW03QnR5MmxzUzBkUkM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90603
+sambaNTPassword: A28D5F0EAEE7DA1472FDC4B5256F36E5
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# sugata-momoyo, Users, e-smile.ne.jp
+dn: uid=sugata-momoyo,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sugata-momoyo
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5qGD5LujIOiPheeUsA==
+sn:: 6I+F55Sw
+givenName:: 5qGD5Luj
+displayName:: 6I+F55Sw5qGD5Luj
+uidNumber: 100236
+gidNumber: 2010
+homeDirectory: /home/10-236-sugata-momoyo
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RWp4MjBoajFiNGpZSVpxSVJxVkFWaDRZbXZuL2QwYTk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100236
+sambaNTPassword: 537451DAA5F921CD7E3CED930EA9102E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# suzuki-masato, Users, e-smile.ne.jp
+dn: uid=suzuki-masato,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: suzuki-masato
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5p++55m7IOmItOacqA==
+sn:: 6Yi05pyo
+givenName:: 5p++55m7
+displayName:: 6Yi05pyo5p++55m7
+uidNumber: 100264
+gidNumber: 2010
+homeDirectory: /home/10-264-suzuki-masato
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TjBjUUlrYisydDJUY3lJZ1BiVUVDREM4V1pybTMxZTc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100264
+sambaNTPassword: 6F51FB9C7122103A7725FE3A5887C487
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# tajima-haruna, Users, e-smile.ne.jp
+dn: uid=tajima-haruna,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tajima-haruna
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6YGl5aWIIOeUsOWztg==
+sn:: 55Sw5bO2
+givenName:: 6YGl5aWI
+displayName:: 55Sw5bO26YGl5aWI
+uidNumber: 90583
+gidNumber: 2009
+homeDirectory: /home/09-583-tajima-haruna
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eTdIUU94WURtU2sxZWNwZVpLUGhnTXRpQ1FsYmFrdFo=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90583
+sambaNTPassword: 4A2D046D730B329662357C8A9BF99587
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# takeuchi-yuta, Users, e-smile.ne.jp
+dn: uid=takeuchi-yuta,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takeuchi-yuta
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L2R5rGwIOerueWGhQ==
+sn:: 56u55YaF
+givenName:: 5L2R5rGw
+displayName:: 56u55YaF5L2R5rGw
+uidNumber: 90604
+gidNumber: 2009
+homeDirectory: /home/09-604-takeuchi-yuta
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OXoyOG13Rk9Xcm5QQlkvejBTRHZDY1lvdHN5WGN0VHE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90604
+sambaNTPassword: 35F685AD852F044013DDE2B94CB21C20
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# tsutsumi-yuki, Users, e-smile.ne.jp
+dn: uid=tsutsumi-yuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tsutsumi-yuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YuH5qi5IOWgpA==
+sn:: 5aCk
+givenName:: 5YuH5qi5
+displayName:: 5aCk5YuH5qi5
+uidNumber: 100275
+gidNumber: 2010
+homeDirectory: /home/10-275-tsutsumi-yuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ZFR5U3crOWZnQ0o3V0FSdDQwRnNNRXdtaEhHUmRKTk4=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100275
+sambaNTPassword: 1AEF2A416C0D7D9D8B26777BC95562CE
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# ueda-tomohiro, Users, e-smile.ne.jp
+dn: uid=ueda-tomohiro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ueda-tomohiro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pm65Y2aIOakjeeUsA==
+sn:: 5qSN55Sw
+givenName:: 5pm65Y2a
+displayName:: 5qSN55Sw5pm65Y2a
+uidNumber: 120196
+gidNumber: 2012
+homeDirectory: /home/12-196-ueda-tomohiro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9c081Qmx4UStkM1ZHWmtZemdoblAxRGE5Z3RFUlRXbGI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120196
+sambaNTPassword: A9E5BA5E6BC20BED35AA4C3822CB7AB7
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# yamamura-riku, Users, e-smile.ne.jp
+dn: uid=yamamura-riku,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamamura-riku
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Zm4IOWxseadkQ==
+sn:: 5bGx5p2R
+givenName:: 6Zm4
+displayName:: 5bGx5p2R6Zm4
+uidNumber: 90599
+gidNumber: 2009
+homeDirectory: /home/09-599-yamamura-riku
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ODFaODlvcThyTkgzWWprMHZTMDc1N2ZDTzhDSlhqQjA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90599
+sambaNTPassword: 62845CCCEB57FB07D433AB7614352429
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# yamano-yusuke, Users, e-smile.ne.jp
+dn: uid=yamano-yusuke,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamano-yusuke
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y+L6LyUIOWxsemHjg==
+sn:: 5bGx6YeO
+givenName:: 5Y+L6LyU
+displayName:: 5bGx6YeO5Y+L6LyU
+uidNumber: 120112
+gidNumber: 2012
+homeDirectory: /home/12-112-yamano-yusuke
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cnhRVnNnYnhxSzRDWC9KRkhoei9GM25sTkZFNk55YlU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120112
+sambaNTPassword: F52E1484746BAD1FC2679B3B4A6CC9F4
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# yano-chinhyon, Users, e-smile.ne.jp
+dn: uid=yano-chinhyon,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yano-chinhyon
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6L6w54++IOefoumHjg==
+sn:: 55+i6YeO
+givenName:: 6L6w54++
+displayName:: 55+i6YeO6L6w54++
+uidNumber: 100223
+gidNumber: 2010
+homeDirectory: /home/10-223-yano-chinhyon
+loginShell: /bin/bash
+userPassword:: e1NTSEF9d1RsKzVMOW9VRit4dG9WNHpMWUpMVkNTRDBLaWIxV00=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100223
+sambaNTPassword: D6079358A7FAB077CA8828749D905436
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yokota-shohei, Users, e-smile.ne.jp
+dn: uid=yokota-shohei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yokota-shohei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bCG5bmzIOaoqueUsA==
+sn:: 5qiq55Sw
+givenName:: 5bCG5bmz
+displayName:: 5qiq55Sw5bCG5bmz
+uidNumber: 100156
+gidNumber: 2010
+homeDirectory: /home/10-156-yokota-shohei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ZHJuc2hYQVJVRTg2Wk82S1BITTQ5MjdZbnFNVlRLeEQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100156
+sambaNTPassword: AD75F697DA920AEF321A405BB411D7CC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yokoyama-ryou, Users, e-smile.ne.jp
+dn: uid=yokoyama-ryou,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yokoyama-ryou
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6KuSIOaoquWxsQ==
+sn:: 5qiq5bGx
+givenName:: 6KuS
+displayName:: 5qiq5bGx6KuS
+uidNumber: 100226
+gidNumber: 2010
+homeDirectory: /home/10-226-yokoyama-ryou
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MzlFSVRnTGhnTU9PTnVpQVdtOTBUb3RGZ2JkOG9rbDM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100226
+sambaNTPassword: 75E75C3346CA28FBAB12E874BAE65738
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yoshida-naoto, Users, e-smile.ne.jp
+dn: uid=yoshida-naoto,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yoshida-naoto
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bCa5Lq6IOWQieeUsA==
+sn:: 5ZCJ55Sw
+givenName:: 5bCa5Lq6
+displayName:: 5ZCJ55Sw5bCa5Lq6
+uidNumber: 120151
+gidNumber: 2012
+homeDirectory: /home/12-151-yoshida-naoto
+loginShell: /bin/bash
+userPassword:: e1NTSEF9YzFhTENWT2xYN3JadUlMSHEwNVBrRm1KM2w5TElxVUg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120151
+sambaNTPassword: 93019268DB0FBCE95D1357D2C70609D1
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# fujimoto-asami, Users, e-smile.ne.jp
+dn: uid=fujimoto-asami,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: fujimoto-asami
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6bq7576OIOiXpOacrA==
+sn:: 6Jek5pys
+givenName:: 6bq7576O
+displayName:: 6Jek5pys6bq7576O
+uidNumber: 90556
+gidNumber: 2009
+homeDirectory: /home/09-556-fujimoto-asami
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RzljYkFvWWNlckFqdkVRSERwT1J5OTVUamd1RWtISE0=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90556
+sambaNTPassword: E23C0E1CBFA0B2B21ECB9FC302C28A4E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# fujiwara-naoya, Users, e-smile.ne.jp
+dn: uid=fujiwara-naoya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: fujiwara-naoya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aWI57eS6IC2IOiXpOWOnw==
+sn:: 6Jek5Y6f
+givenName:: 5aWI57eS6IC2
+displayName:: 6Jek5Y6f5aWI57eS6IC2
+uidNumber: 100248
+gidNumber: 2010
+homeDirectory: /home/10-248-fujiwara-naoya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bktnTnpIUFpuM1NsdEUyemJnRVM0WEJ2emNvMGVYQ2s=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100248
+sambaNTPassword: 623FE459A13C4D3666A626EEBE7A8D96
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# fukushima-yuya, Users, e-smile.ne.jp
+dn: uid=fukushima-yuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: fukushima-yuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y+L5bylIOemj+Wztg==
+sn:: 56aP5bO2
+givenName:: 5Y+L5byl
+displayName:: 56aP5bO25Y+L5byl
+uidNumber: 90416
+gidNumber: 2009
+homeDirectory: /home/09-416-fukushima-yuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eGZjelIzVU16eEpJckRoRDErQXA2UUNIY0FnMzlob2M=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90416
+sambaNTPassword: D3E9CCCA1B6C836DD375DD6A2988E61C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# harada-hitoshi, Users, e-smile.ne.jp
+dn: uid=harada-hitoshi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: harada-hitoshi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5LuB5b+XIOWOn+eUsA==
+sn:: 5Y6f55Sw
+givenName:: 5LuB5b+X
+displayName:: 5Y6f55Sw5LuB5b+X
+uidNumber: 90543
+gidNumber: 2009
+homeDirectory: /home/09-543-harada-hitoshi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WWptUlk2clBSKzRObWppUGdaQkRKOVR5ckVHbkExaks=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90543
+sambaNTPassword: 64FE70CB48DD19E5078C9B43AEE3382A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# hiraga-daisuke, Users, e-smile.ne.jp
+dn: uid=hiraga-daisuke,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: hiraga-daisuke
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSn6LyUIOW5s+izgA==
+sn:: 5bmz6LOA
+givenName:: 5aSn6LyU
+displayName:: 5bmz6LOA5aSn6LyU
+uidNumber: 90592
+gidNumber: 2009
+homeDirectory: /home/09-592-hiraga-daisuke
+loginShell: /bin/bash
+userPassword:: e1NTSEF9azE2NnlxRUpxN1p0YVlwL2ZzV2I4TGNXTkdOUTJ2TEY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90592
+sambaNTPassword: F937844EEEF73E6E0398F7ABB57E9C3D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# hobo-hoshihito, Users, e-smile.ne.jp
+dn: uid=hobo-hoshihito,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: hobo-hoshihito
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pif5LuBIOS/neavjQ==
+sn:: 5L+d5q+N
+givenName:: 5pif5LuB
+displayName:: 5L+d5q+N5pif5LuB
+uidNumber: 90531
+gidNumber: 2009
+homeDirectory: /home/09-531-hobo-hoshihito
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SitvZ1pPNWdsTGlZZm0yay9mc1dvYk1yNlN6SWdBa08=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90531
+sambaNTPassword: 670B6D281548AD43FA262E7F3066DFB2
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# inagaki-wanoka, Users, e-smile.ne.jp
+dn: uid=inagaki-wanoka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: inagaki-wanoka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZKM5LmD6I+vIOeosuWeow==
+sn:: 56iy5Z6j
+givenName:: 5ZKM5LmD6I+v
+displayName:: 56iy5Z6j5ZKM5LmD6I+v
+uidNumber: 120209
+gidNumber: 2012
+homeDirectory: /home/12-209-inagaki-wanoka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QXg3WWk0WDdIQUl5SnBXZTFybnJFWkNjT0EvWmR1REM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120209
+sambaNTPassword: 38398DE507DAE9F9B76FA135CD91D19E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# ishii-takayasu, Users, e-smile.ne.jp
+dn: uid=ishii-takayasu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ishii-takayasu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bSH5bq3IOefs+S6lQ==
+sn:: 55+z5LqV
+givenName:: 5bSH5bq3
+displayName:: 55+z5LqV5bSH5bq3
+uidNumber: 100157
+gidNumber: 2010
+homeDirectory: /home/10-157-ishii-takayasu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OXVpbTZqODRpa1U2R2d3NzZtejVOdUdCZmZZcUZNeUk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100157
+sambaNTPassword: 4975FFB37450C023CABC66BE99D52D8C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kojima-keitaro, Users, e-smile.ne.jp
+dn: uid=kojima-keitaro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kojima-keitaro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5oW25aSq6YOOIOWwj+Wztg==
+sn:: 5bCP5bO2
+givenName:: 5oW25aSq6YOO
+displayName:: 5bCP5bO25oW25aSq6YOO
+uidNumber: 100192
+gidNumber: 2010
+homeDirectory: /home/10-192-kojima-keitaro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9aDNzcktIMHprdm43eC8vRUxzSTUvUVBidWpvdm56Y2Q=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100192
+sambaNTPassword: 857C5F1F4E4665A47F4C302716C1410A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kojima-michito, Users, e-smile.ne.jp
+dn: uid=kojima-michito,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kojima-michito
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6YGT5Lq6IOWwj+Wztg==
+sn:: 5bCP5bO2
+givenName:: 6YGT5Lq6
+displayName:: 5bCP5bO26YGT5Lq6
+uidNumber: 120108
+gidNumber: 2012
+homeDirectory: /home/12-108-kojima-michito
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SGZ1TDlRNU80VlBKQWErZkZ1OU9XTnpPc2Q5K012dHU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120108
+sambaNTPassword: 71F275FEB1D0FFBA369F47B7A21CF0BA
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# maeda-takahiro, Users, e-smile.ne.jp
+dn: uid=maeda-takahiro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: maeda-takahiro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6ZqG6KOVIOWJjeeUsA==
+sn:: 5YmN55Sw
+givenName:: 6ZqG6KOV
+displayName:: 5YmN55Sw6ZqG6KOV
+uidNumber: 120187
+gidNumber: 2012
+homeDirectory: /home/12-187-maeda-takahiro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OTA4SklqUEtxSTEvM1pxQ0U2aW1zaFZyYW9rTVExdnA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120187
+sambaNTPassword: 610ADB44B19E2625A60C23F824166C89
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# maruyama-ikumi, Users, e-smile.ne.jp
+dn: uid=maruyama-ikumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: maruyama-ikumi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6YOB576OIOS4uOWxsQ==
+sn:: 5Li45bGx
+givenName:: 6YOB576O
+displayName:: 5Li45bGx6YOB576O
+uidNumber: 90270
+gidNumber: 2009
+homeDirectory: /home/09-270-maruyama-ikumi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SWdvRHBxR3drM1BUSExiUXBnZlkzeVp3VDRYYkprZHA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90270
+sambaNTPassword: 3D1CB6EC212ED65D14D21554A1FA5777
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# masuda-keisuke, Users, e-smile.ne.jp
+dn: uid=masuda-keisuke,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: masuda-keisuke
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pWs5LuLIOWil+eUsA==
+sn:: 5aKX55Sw
+givenName:: 5pWs5LuL
+displayName:: 5aKX55Sw5pWs5LuL
+uidNumber: 100154
+gidNumber: 2010
+homeDirectory: /home/10-154-masuda-keisuke
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QUpDS2dnS2tONFhWdkJLRE1CY3JCanliUkU2REtwNUQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100154
+sambaNTPassword: 6BCF9EC60B3810E18F518AC9A23BBFEF
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# matsuoka-shuri, Users, e-smile.ne.jp
+dn: uid=matsuoka-shuri,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: matsuoka-shuri
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pyx55CGIOadvuWyoQ==
+sn:: 5p2+5bKh
+givenName:: 5pyx55CG
+displayName:: 5p2+5bKh5pyx55CG
+uidNumber: 100245
+gidNumber: 2010
+homeDirectory: /home/10-245-matsuoka-shuri
+loginShell: /bin/bash
+userPassword:: e1NTSEF9d201VWVmVWRqbmpKZHNtc3VzbWVJWVF4cldlNlZQTTM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100245
+sambaNTPassword: 6622EC74773435D07FB89ACB6A25658D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# mizuno-hideaki, Users, e-smile.ne.jp
+dn: uid=mizuno-hideaki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: mizuno-hideaki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56eA5pitIOawtOmHjg==
+sn:: 5rC06YeO
+givenName:: 56eA5pit
+displayName:: 5rC06YeO56eA5pit
+uidNumber: 100161
+gidNumber: 2010
+homeDirectory: /home/10-161-mizuno-hideaki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MTV0ZmhMUXFsZ25UeHp6cVJCK2lxUG9NMDlhREpDTXc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100161
+sambaNTPassword: 6871F299E60D916A30D609D876EF6A58
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# munaoka-haruka, Users, e-smile.ne.jp
+dn: uid=munaoka-haruka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: munaoka-haruka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pil5L2zIOWul+WyoQ==
+sn:: 5a6X5bKh
+givenName:: 5pil5L2z
+displayName:: 5a6X5bKh5pil5L2z
+uidNumber: 90571
+gidNumber: 2009
+homeDirectory: /home/09-571-munaoka-haruka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NTJ0ZjhZdEMzRm5rakIvV2xaNXR6ODNqWHlFUnRDb2Q=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90571
+sambaNTPassword: 698C1E8A066B5F1D3EB725500EEBEA14
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# nagayama-osamu, Users, e-smile.ne.jp
+dn: uid=nagayama-osamu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nagayama-osamu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rK75aSiIOawuOWxsQ==
+sn:: 5rC45bGx
+givenName:: 5rK75aSi
+displayName:: 5rC45bGx5rK75aSi
+uidNumber: 90532
+gidNumber: 2009
+homeDirectory: /home/09-532-nagayama-osamu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TEVzN3JNNkZNQ3ZOVFBpMi9rZTZ1NUJFVFMwdmdNWkw=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90532
+sambaNTPassword: D2E46E5EDE2D49478684C010949AB7F6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# nakamura-keita, Users, e-smile.ne.jp
+dn: uid=nakamura-keita,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakamura-keita
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5oW25aSqIOS4readkQ==
+sn:: 5Lit5p2R
+givenName:: 5oW25aSq
+displayName:: 5Lit5p2R5oW25aSq
+uidNumber: 90420
+gidNumber: 2009
+homeDirectory: /home/09-420-nakamura-keita
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WGxBYktnSDkreWthR3dVckZ3aUhyRDZlZmp1em5XQ0w=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90420
+sambaNTPassword: EE70B5C7010DA3FA59F2D7B050D3E683
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# nishimura-yuta, Users, e-smile.ne.jp
+dn: uid=nishimura-yuta,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nishimura-yuta
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L2R5aSqIOilv+adkQ==
+sn:: 6KW/5p2R
+givenName:: 5L2R5aSq
+displayName:: 6KW/5p2R5L2R5aSq
+uidNumber: 100172
+gidNumber: 2010
+homeDirectory: /home/10-172-nishimura-yuta
+loginShell: /bin/bash
+userPassword:: e1NTSEF9S25ISVhhSVh2SkFEWUN6d0ZvYmxmVnhIdDJtMXdjeFg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100172
+sambaNTPassword: B01014C85A9B6C51AAC2FBE84EF1B482
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# noda-takemichi, Users, e-smile.ne.jp
+dn: uid=noda-takemichi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: noda-takemichi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5q2m6YGTIOmHjueUsA==
+sn:: 6YeO55Sw
+givenName:: 5q2m6YGT
+displayName:: 6YeO55Sw5q2m6YGT
+uidNumber: 100279
+gidNumber: 2010
+homeDirectory: /home/10-279-noda-takemichi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OXd4R2QySmwxUzB6elhmaHFrVFVUWXE3d3kzaE50c1Y=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100279
+sambaNTPassword: 47A3C2976AB3FF1987DA23EDB0F5A39E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# okawara-chiaki, Users, e-smile.ne.jp
+dn: uid=okawara-chiaki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: okawara-chiaki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y2D5pm2IOWkp+ays+WOnw==
+sn:: 5aSn5rKz5Y6f
+givenName:: 5Y2D5pm2
+displayName:: 5aSn5rKz5Y6f5Y2D5pm2
+uidNumber: 90544
+gidNumber: 2009
+homeDirectory: /home/09-544-okawara-chiaki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9amRhT1BNWFcwUWJuQ0VVY005Yk9EQ3FUSGpGY1MvNVY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90544
+sambaNTPassword: 83F917775B01C73FEEA6136629CDEA5D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# onishi-keitaro, Users, e-smile.ne.jp
+dn: uid=onishi-keitaro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: onishi-keitaro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5qGC5aSq6YOOIOWkp+ilvw==
+sn:: 5aSn6KW/
+givenName:: 5qGC5aSq6YOO
+displayName:: 5aSn6KW/5qGC5aSq6YOO
+uidNumber: 90606
+gidNumber: 2009
+homeDirectory: /home/09-606-onishi-keitaro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9enVxRWhZYjdhZTB1c2wwZHFpY3h5REJNanFzbzcrWGU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90606
+sambaNTPassword: 084E27191915FD475DDAB46DD454380E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# oyama-takayuki, Users, e-smile.ne.jp
+dn: uid=oyama-takayuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: oyama-takayuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6LK05LmLIOWkp+WxsQ==
+sn:: 5aSn5bGx
+givenName:: 6LK05LmL
+displayName:: 5aSn5bGx6LK05LmL
+uidNumber: 100117
+gidNumber: 2010
+homeDirectory: /home/10-117-oyama-takayuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bkFETnpZRzZvTVFIU1pYUHBQRmRrMVlOK2F1Y2d0alI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100117
+sambaNTPassword: AEE29044706E273B53E29BC7C236CF24
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# saito-tomohisa, Users, e-smile.ne.jp
+dn: uid=saito-tomohisa,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: saito-tomohisa
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y+L5LmFIOaWjuiXpA==
+sn:: 5paO6Jek
+givenName:: 5Y+L5LmF
+displayName:: 5paO6Jek5Y+L5LmF
+uidNumber: 90447
+gidNumber: 2009
+homeDirectory: /home/09-447-saito-tomohisa
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TWZCUHlaK2xtYVp3YjRyS0ZXSjdRakQxQ3pzakFVNDc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90447
+sambaNTPassword: A90AC92ED03F79F4BDD733A080B60BB1
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# sakaguchi-miki, Users, e-smile.ne.jp
+dn: uid=sakaguchi-miki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sakaguchi-miki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 576O57SAIOWdguWPow==
+sn:: 5Z2C5Y+j
+givenName:: 576O57SA
+displayName:: 5Z2C5Y+j576O57SA
+uidNumber: 100214
+gidNumber: 2010
+homeDirectory: /home/10-214-sakaguchi-miki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TEtRQkhtcWZuNXV6MkM5aTFQSk5td0FRT0dDanBJS3I=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100214
+sambaNTPassword: 58536ED6FB20FA29DA451B553EDC9830
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# segoshi-miyuki, Users, e-smile.ne.jp
+dn: uid=segoshi-miyuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: segoshi-miyuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 576O55Sx57SAIOeArOi2ig==
+sn:: 54Cs6LaK
+givenName:: 576O55Sx57SA
+displayName:: 54Cs6LaK576O55Sx57SA
+uidNumber: 90559
+gidNumber: 2009
+homeDirectory: /home/09-559-segoshi-miyuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bEhVUTJYVGxBbUwzZWZvZitoRTZtditZTGQ4VWV4aDg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90559
+sambaNTPassword: 9C1F3AFAC2E8FAD769041CFEE8C6D623
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# shibuya-mikiko, Users, e-smile.ne.jp
+dn: uid=shibuya-mikiko,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shibuya-mikiko
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 576O57SA5a2QIOa+geiwtw==
+sn:: 5r6B6LC3
+givenName:: 576O57SA5a2Q
+displayName:: 5r6B6LC3576O57SA5a2Q
+uidNumber: 90578
+gidNumber: 2009
+homeDirectory: /home/09-578-shibuya-mikiko
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eVRBcTd4eFFrYnJrbDB1OElBK3R2V1F1K3NjYlhuaHA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90578
+sambaNTPassword: F19C2EFE45C0BA6DA796E556A5712E35
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# shiraki-hasumi, Users, e-smile.ne.jp
+dn: uid=shiraki-hasumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiraki-hasumi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6IqZ5a6fIOeZveacqA==
+sn:: 55m95pyo
+givenName:: 6IqZ5a6f
+displayName:: 55m95pyo6IqZ5a6f
+uidNumber: 90593
+gidNumber: 2009
+homeDirectory: /home/09-593-shiraki-hasumi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NlJJL1hJUWhiSjIvazFJWUwvRGUvWlk3YjlRa1o0bWE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90593
+sambaNTPassword: 5F9AC9CA3BDC2249E7F0818C0186D834
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# shumuta-tomoya, Users, e-smile.ne.jp
+dn: uid=shumuta-tomoya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shumuta-tomoya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pyL5LmfIOacseeJn+eUsA==
+sn:: 5pyx54mf55Sw
+givenName:: 5pyL5Lmf
+displayName:: 5pyx54mf55Sw5pyL5Lmf
+uidNumber: 90553
+gidNumber: 2009
+homeDirectory: /home/09-553-shumuta-tomoya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9b1YyVE5RVHZVUUhEdDFpMEdWdGNzNERTTkFLaHNiaWY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90553
+sambaNTPassword: E9304C85809A0719D292CCC5DBAA424F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# sobajima-ryoya, Users, e-smile.ne.jp
+dn: uid=sobajima-ryoya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sobajima-ryoya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YeM5bylIOWCjeW2iw==
+sn:: 5YKN5baL
+givenName:: 5YeM5byl
+displayName:: 5YKN5baL5YeM5byl
+uidNumber: 100167
+gidNumber: 2010
+homeDirectory: /home/10-167-sobajima-ryoya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9L21SUGRkTmE1VGlLVTY1NlFmK2RtU1cyRjZUaUNtZmk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100167
+sambaNTPassword: DC1071EB798D644391AF63F496E020BB
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# sukegawa-kaede, Users, e-smile.ne.jp
+dn: uid=sukegawa-kaede,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sukegawa-kaede
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5qWTIOWKqeW3nQ==
+sn:: 5Yqp5bed
+givenName:: 5qWT
+displayName:: 5Yqp5bed5qWT
+uidNumber: 90537
+gidNumber: 2009
+homeDirectory: /home/09-537-sukegawa-kaede
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OFh3RUJBWFJGRkZhbTFjUENNOUhTcCtIUjMwVm1DZWs=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90537
+sambaNTPassword: 9438D23B2FB05E9440DA3B09B99E4121
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# takezawa-shuma, Users, e-smile.ne.jp
+dn: uid=takezawa-shuma,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takezawa-shuma
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56eA56OoIOeruea+pA==
+sn:: 56u55r6k
+givenName:: 56eA56Oo
+displayName:: 56u55r6k56eA56Oo
+uidNumber: 100234
+gidNumber: 2010
+homeDirectory: /home/10-234-takezawa-shuma
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MHh0bmlKS2F5aFgvSGQ0Z0lBa1RXMnd5SlBZeTJjQjk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100234
+sambaNTPassword: 374CDD44F5A6364069B5179EBAA1FF36
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# takinishi_yuri, Users, e-smile.ne.jp
+dn: uid=takinishi_yuri,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takinishi_yuri
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y+L6YeMIOa7neilvw==
+sn:: 5rud6KW/
+givenName:: 5Y+L6YeM
+displayName:: 5rud6KW/5Y+L6YeM
+uidNumber: 120192
+gidNumber: 2012
+homeDirectory: /home/12-192-takinishi_yuri
+loginShell: /bin/bash
+userPassword:: e1NTSEF9V0E0RVBnVlFLLzVPS1lJRHJPZG8wdlNJRmFvYXBYaW8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120192
+sambaNTPassword: 415A97835CD8069FA33E024713AA1334
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# tanaka-motoaki, Users, e-smile.ne.jp
+dn: uid=tanaka-motoaki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tanaka-motoaki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Z+65pmDIOeUsOS4rQ==
+sn:: 55Sw5Lit
+givenName:: 5Z+65pmD
+displayName:: 55Sw5Lit5Z+65pmD
+uidNumber: 90529
+gidNumber: 2009
+homeDirectory: /home/09-529-tanaka-motoaki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SzB0Vk03c3RrNTVycWFJMEZGZHdGZ1JiU2VoYjc2S0Y=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90529
+sambaNTPassword: 60CA8DD29F62EF8C6077FDC117C2703B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# tsuji-muneharu, Users, e-smile.ne.jp
+dn: uid=tsuji-muneharu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tsuji-muneharu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5a6X5rK7IOi+uw==
+sn:: 6L67
+givenName:: 5a6X5rK7
+displayName:: 6L675a6X5rK7
+uidNumber: 120119
+gidNumber: 2012
+homeDirectory: /home/12-119-tsuji-muneharu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Q01ucUJMdGYyOTV3WUdtbTVTOU9DeEJ1YUFBTWJhZjk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120119
+sambaNTPassword: 53C27FD9E52FEF04AE310B4EBDF13C81
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# uehara-akimasa, Users, e-smile.ne.jp
+dn: uid=uehara-akimasa,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: uehara-akimasa
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5b2w5bCGIOS4iuWOnw==
+sn:: 5LiK5Y6f
+givenName:: 5b2w5bCG
+displayName:: 5LiK5Y6f5b2w5bCG
+uidNumber: 100268
+gidNumber: 2010
+homeDirectory: /home/10-268-uehara-akimasa
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NXRUWVdxNmU4SXc1Yzluc3BGdEx4R0RYRjZBeS81eEo=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100268
+sambaNTPassword: 1A4B54C4F577432890495A3D09AEF888
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# ushigome-norio, Users, e-smile.ne.jp
+dn: uid=ushigome-norio,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ushigome-norio
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 57SA6ZuEIOeJm+i+vA==
+sn:: 54mb6L68
+givenName:: 57SA6ZuE
+displayName:: 54mb6L6857SA6ZuE
+uidNumber: 30342
+gidNumber: 2003
+homeDirectory: /home/03-342-ushigome-norio
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TE93dWU4Yk8xcmRuV1NxTWdZaWtiZFp1bG8xa21yM2I=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30342
+sambaNTPassword: F9C24F40489E82AEE867CCB0DD8B0B39
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# yamazaki-saika, Users, e-smile.ne.jp
+dn: uid=yamazaki-saika,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamazaki-saika
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5b2p5aSPIOWxseW0jg==
+sn:: 5bGx5bSO
+givenName:: 5b2p5aSP
+displayName:: 5bGx5bSO5b2p5aSP
+uidNumber: 90575
+gidNumber: 2009
+homeDirectory: /home/09-575-yamazaki-saika
+loginShell: /bin/bash
+userPassword:: e1NTSEF9YXp2Rnp1NHFHcURBYlhCS2ZPVHR5Y09wSmFrcGF1UEo=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90575
+sambaNTPassword: 1DA31C6461D73C53C89AFBC4EC6EB3C4
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# yokoyama-souma, Users, e-smile.ne.jp
+dn: uid=yokoyama-souma,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yokoyama-souma
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6aKv55yfIOaoquWxsQ==
+sn:: 5qiq5bGx
+givenName:: 6aKv55yf
+displayName:: 5qiq5bGx6aKv55yf
+uidNumber: 100271
+gidNumber: 2010
+homeDirectory: /home/10-271-yokoyama-souma
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bjBXLzNZMFh3UWtxb2lWZXVSdExvWVpsR3ZvTUFzUEs=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100271
+sambaNTPassword: EF8C97000D05ADEB406284C6807D53E8
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# hashimoto-daiki, Users, e-smile.ne.jp
+dn: uid=hashimoto-daiki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: hashimoto-daiki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSn6LydIOapi+acrA==
+sn:: 5qmL5pys
+givenName:: 5aSn6Lyd
+displayName:: 5qmL5pys5aSn6Lyd
+uidNumber: 100255
+gidNumber: 2010
+homeDirectory: /home/10-255-hashimoto-daiki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9REtBYkRBNFhlUnJQa3p1eE54N1FDa0VxUzlCVlQyZWE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100255
+sambaNTPassword: 3F74232FF6F456CEC041803AE11F899E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# hoshitani-taiki, Users, e-smile.ne.jp
+dn: uid=hoshitani-taiki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: hoshitani-taiki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSn5ZacIOaYn+iwtw==
+sn:: 5pif6LC3
+givenName:: 5aSn5Zac
+displayName:: 5pif6LC35aSn5Zac
+uidNumber: 90602
+gidNumber: 2009
+homeDirectory: /home/09-602-hoshitani-taiki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9d0xRWUJ5ekFnQyt1SnpIZGE4d0xxbFU1WWdpUW80cTY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90602
+sambaNTPassword: 084EF891D03CF3A10661351DCC74C78F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kadowaki-shusei, Users, e-smile.ne.jp
+dn: uid=kadowaki-shusei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kadowaki-shusei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5p+K5pifIOmWgOiEhw==
+sn:: 6ZaA6ISH
+givenName:: 5p+K5pif
+displayName:: 6ZaA6ISH5p+K5pif
+uidNumber: 120202
+gidNumber: 2012
+homeDirectory: /home/12-202-kadowaki-shusei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9d1lnamVKRmdJQWd2a0NsNkxiSWozRXE5VlZsK21oRCs=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120202
+sambaNTPassword: 2DEEFE500C79106FCEA011656F990869
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# kanemoto-masaki, Users, e-smile.ne.jp
+dn: uid=kanemoto-masaki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kanemoto-masaki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5q2j5qi5IOmHkeacrA==
+sn:: 6YeR5pys
+givenName:: 5q2j5qi5
+displayName:: 6YeR5pys5q2j5qi5
+uidNumber: 90438
+gidNumber: 2009
+homeDirectory: /home/09-438-kanemoto-masaki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MWthTXdBeFpVVHpIVTFsNklyOU8zSWw5bUxWREEwOFU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90438
+sambaNTPassword: 27EE876744DF3C2BE2170AF15DAA1324
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# katagiri-kosuke, Users, e-smile.ne.jp
+dn: uid=katagiri-kosuke,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: katagiri-kosuke
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bq356WQIOeJh+ahkA==
+sn:: 54mH5qGQ
+givenName:: 5bq356WQ
+displayName:: 54mH5qGQ5bq356WQ
+uidNumber: 100107
+gidNumber: 2010
+homeDirectory: /home/10-107-katagiri-kosuke
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SGZ5YUZPNENNa3BHTGhhbGVxeEJuUG8zNXlrRDFFc1g=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100107
+sambaNTPassword: 2DAC8FC81B4840F9C40B090186D413C7
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# katayama-serika, Users, e-smile.ne.jp
+dn: uid=katayama-serika,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: katayama-serika
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Iq56aaZIOeJh+WxsQ==
+sn:: 54mH5bGx
+givenName:: 6Iq56aaZ
+displayName:: 54mH5bGx6Iq56aaZ
+uidNumber: 120126
+gidNumber: 2012
+homeDirectory: /home/12-126-katayama-serika
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VHRucThCcWNsbUVXbEF6K0lBZVF4M2l3M1dkVEp6SkI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120126
+sambaNTPassword: 0EC7C36538AC8280535F9834E685CD19
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# katsumata-kaede, Users, e-smile.ne.jp
+dn: uid=katsumata-kaede,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: katsumata-kaede
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5qWTIOWLneWPiA==
+sn:: 5Yud5Y+I
+givenName:: 5qWT
+displayName:: 5Yud5Y+I5qWT
+uidNumber: 100179
+gidNumber: 2010
+homeDirectory: /home/10-179-katsumata-kaede
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MlJ2Wkc3ZUVjNXdsSll2V0FhQ1FoMUpMM2Z3TFViaTA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100179
+sambaNTPassword: 4403AD4FA32FA1F85AF2964322AB6B0B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kinoshita-ryota, Users, e-smile.ne.jp
+dn: uid=kinoshita-ryota,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kinoshita-ryota
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YeM5rGwIOacqOS4iw==
+sn:: 5pyo5LiL
+givenName:: 5YeM5rGw
+displayName:: 5pyo5LiL5YeM5rGw
+uidNumber: 90581
+gidNumber: 2009
+homeDirectory: /home/09-581-kinoshita-ryota
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Y3VkK01hVnV2YnVPcWJ0V3p6TVZSVXljSGh2cm1uZW8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90581
+sambaNTPassword: EDCCC34BC4FA3C208694D75FBA05696B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kishimoto-ryoya, Users, e-smile.ne.jp
+dn: uid=kishimoto-ryoya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kishimoto-ryoya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YeM5bylIOWyuOacrA==
+sn:: 5bK45pys
+givenName:: 5YeM5byl
+displayName:: 5bK45pys5YeM5byl
+uidNumber: 90579
+gidNumber: 2009
+homeDirectory: /home/09-579-kishimoto-ryoya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RWhPQ1FoSVpOOUNEZWZEbXltaEdvUlZBNlEweFB2aVQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90579
+sambaNTPassword: 80FA52376BCF07BDF59234839617C5C0
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kobayashi-ayuki, Users, e-smile.ne.jp
+dn: uid=kobayashi-ayuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kobayashi-ayuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5q2p5biMIOWwj+aelw==
+sn:: 5bCP5p6X
+givenName:: 5q2p5biM
+displayName:: 5bCP5p6X5q2p5biM
+uidNumber: 100258
+gidNumber: 2010
+homeDirectory: /home/10-258-kobayashi-ayuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VmkvTDNWcVdLS0M3b2U4a0c1WFpLbEVoSmgzbXZlQVU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100258
+sambaNTPassword: E2C56614983547DADB51A01F5FB9B58B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# minakawa-kazuya, Users, e-smile.ne.jp
+dn: uid=minakawa-kazuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: minakawa-kazuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZKM5bylIOeahuW3nQ==
+sn:: 55qG5bed
+givenName:: 5ZKM5byl
+displayName:: 55qG5bed5ZKM5byl
+uidNumber: 120145
+gidNumber: 2012
+homeDirectory: /home/12-145-minakawa-kazuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VW95Nks1WDgzdkRPcFgzTG1EN1M0VldHbVhkNHZZTVI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120145
+sambaNTPassword: 68B2BDFF01B990D0D2BC1C47DB7FF57C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# mizumoto-makito, Users, e-smile.ne.jp
+dn: uid=mizumoto-makito,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: mizumoto-makito
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55yf6KaP5Lq6IOawtOacrA==
+sn:: 5rC05pys
+givenName:: 55yf6KaP5Lq6
+displayName:: 5rC05pys55yf6KaP5Lq6
+uidNumber: 120141
+gidNumber: 2012
+homeDirectory: /home/12-141-mizumoto-makito
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ellOYzY4ZVdDdVVhcWViQ2UzaFg0L0tRNTlqZjhtQXA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120141
+sambaNTPassword: B8B5190D8AE6F4A8300E4DEB04C3C3F9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# mochizuki-hiroe, Users, e-smile.ne.jp
+dn: uid=mochizuki-hiroe,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: mochizuki-hiroe
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5a6P5oG1IOacm+aciA==
+sn:: 5pyb5pyI
+givenName:: 5a6P5oG1
+displayName:: 5pyb5pyI5a6P5oG1
+uidNumber: 100170
+gidNumber: 2010
+homeDirectory: /home/10-170-mochizuki-hiroe
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UjRoQm9oaEl1YVJrem1VdUl0b1dlaEU2Y3FyTXBYbVg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100170
+sambaNTPassword: 5C44FB2F6C103E714BCF4EA25325317B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# momodomi-hiroya, Users, e-smile.ne.jp
+dn: uid=momodomi-hiroya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: momodomi-hiroya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSu5bylIOeZvuWGqA==
+sn:: 55m+5Yao
+givenName:: 5aSu5byl
+displayName:: 55m+5Yao5aSu5byl
+uidNumber: 100272
+gidNumber: 2010
+homeDirectory: /home/10-272-momodomi-hiroya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SGF0VXFQMVl4RFIyRmVDVVFVT2JNUld3LzVkNmVkQXA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100272
+sambaNTPassword: 14E6907A622CD048CA3C3ADD6BF4F540
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# nakamura-suzuka, Users, e-smile.ne.jp
+dn: uid=nakamura-suzuka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakamura-suzuka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ra86aaZIOS7suadkQ==
+sn:: 5Luy5p2R
+givenName:: 5ra86aaZ
+displayName:: 5Luy5p2R5ra86aaZ
+uidNumber: 90605
+gidNumber: 2009
+homeDirectory: /home/09-605-nakamura-suzuka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bVZwa2xuZm5Mc3h1TjcvemRoa0JVOEtPQnVQMmxKY1I=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90605
+sambaNTPassword: A86CFB1476BF520D09A8B98B511A7AB4
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# onodera-tatsuki, Users, e-smile.ne.jp
+dn: uid=onodera-tatsuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: onodera-tatsuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56uL5qi5IOWwj+mHjuWvug==
+sn:: 5bCP6YeO5a+6
+givenName:: 56uL5qi5
+displayName:: 5bCP6YeO5a+656uL5qi5
+uidNumber: 100265
+gidNumber: 2010
+homeDirectory: /home/10-265-onodera-tatsuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eHFOWEZmWVQxTVpJRWtjcmJXOFU1MlVJdzhhMzhlN28=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100265
+sambaNTPassword: 4F5B004B23DCCB5813F1E65E1D2FE9F6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# sakaguchi-keiji, Users, e-smile.ne.jp
+dn: uid=sakaguchi-keiji,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sakaguchi-keiji
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5oG15LqMIOWdguWPow==
+sn:: 5Z2C5Y+j
+givenName:: 5oG15LqM
+displayName:: 5Z2C5Y+j5oG15LqM
+uidNumber: 90449
+gidNumber: 2009
+homeDirectory: /home/09-449-sakaguchi-keiji
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UWVrS3YyS0xQKzZsSlhSayswbWo3SlIweFdJellBTFk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90449
+sambaNTPassword: EDAA4C530FA61AE633787BF6F49E9581
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# shiraeda-tomoki, Users, e-smile.ne.jp
+dn: uid=shiraeda-tomoki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiraeda-tomoki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y+L57SAIOeZveaenQ==
+sn:: 55m95p6d
+givenName:: 5Y+L57SA
+displayName:: 55m95p6d5Y+L57SA
+uidNumber: 100241
+gidNumber: 2010
+homeDirectory: /home/10-241-shiraeda-tomoki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dXl4ZWZYbFoxcnJNVlNQSGpIR1Y4VDNGR2NRdHZFY1E=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100241
+sambaNTPassword: 7742A97CF8834477CF9B3C496E76C6C9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# takeda-nobutaka, Users, e-smile.ne.jp
+dn: uid=takeda-nobutaka,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takeda-nobutaka
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5L+h5a2dIOatpueUsA==
+sn:: 5q2m55Sw
+givenName:: 5L+h5a2d
+displayName:: 5q2m55Sw5L+h5a2d
+uidNumber: 90306
+gidNumber: 2009
+homeDirectory: /home/09-306-takeda-nobutaka
+loginShell: /bin/bash
+userPassword:: e1NTSEF9M1FmdUx5d2FGdVlkRmo4VjZCcVlKc1hycDBHWTIwTmE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90306
+sambaNTPassword: FE0D3DA36FC2D6A19C26AB11FC3392D8
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# takehara-shohei, Users, e-smile.ne.jp
+dn: uid=takehara-shohei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takehara-shohei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5piH5bmzIOerueWOnw==
+sn:: 56u55Y6f
+givenName:: 5piH5bmz
+displayName:: 56u55Y6f5piH5bmz
+uidNumber: 100132
+gidNumber: 2010
+homeDirectory: /home/10-132-takehara-shohei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eW5KRXdHN3NScmtWN2I2NFoveWVrTzIvcmhHYzhHaFE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100132
+sambaNTPassword: D1F1709876E123E5BDA3E4311DE60AD3
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# tanaka-hiroyuki, Users, e-smile.ne.jp
+dn: uid=tanaka-hiroyuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tanaka-hiroyuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6KOV5LmLIOeUsOS4rQ==
+sn:: 55Sw5Lit
+givenName:: 6KOV5LmL
+displayName:: 55Sw5Lit6KOV5LmL
+uidNumber: 100119
+gidNumber: 2010
+homeDirectory: /home/10-119-tanaka-hiroyuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OHR3ZThvYkhScmc3Q05NYUtZMjdiOUFDOWpRZ3dUQis=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100119
+sambaNTPassword: AFABDBF0B796BC599CF0121EBDF85168
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# tsuruoka-taichi, Users, e-smile.ne.jp
+dn: uid=tsuruoka-taichi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tsuruoka-taichi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSq5LiAIOm2tOWyoQ==
+sn:: 6ba05bKh
+givenName:: 5aSq5LiA
+displayName:: 6ba05bKh5aSq5LiA
+uidNumber: 100276
+gidNumber: 2010
+homeDirectory: /home/10-276-tsuruoka-taichi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MnluWW1kS1dyU2YycWFDRFlNeDJmcVhaeVk3bVlRcU0=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100276
+sambaNTPassword: C140A6F6E17B20ECFE3E8A70CC8B2428
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yamamoto-ryuhei, Users, e-smile.ne.jp
+dn: uid=yamamoto-ryuhei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamamoto-ryuhei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56uc5bmzIOWxseacrA==
+sn:: 5bGx5pys
+givenName:: 56uc5bmz
+displayName:: 5bGx5pys56uc5bmz
+uidNumber: 100224
+gidNumber: 2010
+homeDirectory: /home/10-224-yamamoto-ryuhei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9T3dqQkE3Z3hJcVhDd1l1RHJ4bUpkekR5NWxSeTNhQ2s=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100224
+sambaNTPassword: 7F5F8773A8D24CEBC64574E9F693A29C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yamasaki-ryohei, Users, e-smile.ne.jp
+dn: uid=yamasaki-ryohei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamasaki-ryohei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Imv5bmzIOWxseW0jg==
+sn:: 5bGx5bSO
+givenName:: 6Imv5bmz
+displayName:: 5bGx5bSO6Imv5bmz
+uidNumber: 30410
+gidNumber: 2003
+homeDirectory: /home/03-410-yamasaki-ryohei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dFdQQ3A4T3dmTnQrWEJMYnJmNE1HWDBSWjZLNFRkODc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30410
+sambaNTPassword: A42C34DAB1D4D5C10C6150843D053A4C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# yamashita-reika, Users, e-smile.ne.jp
+dn: uid=yamashita-reika,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamashita-reika
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ba66I+vIOWxseS4iw==
+sn:: 5bGx5LiL
+givenName:: 5ba66I+v
+displayName:: 5bGx5LiL5ba66I+v
+uidNumber: 100244
+gidNumber: 2010
+homeDirectory: /home/10-244-yamashita-reika
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NldaRUF3eVpqY1BEdVpQZUM4bWk0aUp6b3R1S2Y4VHU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100244
+sambaNTPassword: A0048279CB8BB00EA1723727C7ED83A1
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yoshida-chihiro, Users, e-smile.ne.jp
+dn: uid=yoshida-chihiro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yoshida-chihiro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Y2D5rWpIOWQieeUsA==
+sn:: 5ZCJ55Sw
+givenName:: 5Y2D5rWp
+displayName:: 5ZCJ55Sw5Y2D5rWp
+uidNumber: 100252
+gidNumber: 2010
+homeDirectory: /home/10-252-yoshida-chihiro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SWZIeVd6a2FKMXhWMFpjbFJRZHJIbEltcE43QTNzS3U=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100252
+sambaNTPassword: 14514D4DC1C64EEFBA23D920D596AE1D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# ichikura-honatsu, Users, e-smile.ne.jp
+dn: uid=ichikura-honatsu,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ichikura-honatsu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5biG5aSPIOW4guWAiQ==
+sn:: 5biC5YCJ
+givenName:: 5biG5aSP
+displayName:: 5biC5YCJ5biG5aSP
+uidNumber: 100230
+gidNumber: 2010
+homeDirectory: /home/10-230-ichikura-honatsu
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ckFWNHhWcGNpVC81ZTBrZnBOc0Juemo3eGk5L2V1dC8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100230
+sambaNTPassword: D6CC06CFEE35D185D42B6D89B0697202
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# ishikawa-tatsuya, Users, e-smile.ne.jp
+dn: uid=ishikawa-tatsuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: ishikawa-tatsuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6YGU5LmfIOefs+W3nQ==
+sn:: 55+z5bed
+givenName:: 6YGU5Lmf
+displayName:: 55+z5bed6YGU5Lmf
+uidNumber: 100228
+gidNumber: 2010
+homeDirectory: /home/10-228-ishikawa-tatsuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cUF5ZXBteDFpcy9MV1h4aEZ3cW9OMENjT040WVAyMnQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100228
+sambaNTPassword: C9402A7B2BC6DEAE3B1D006B35241AC5
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kanamori-akihiro, Users, e-smile.ne.jp
+dn: uid=kanamori-akihiro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kanamori-akihiro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56ug5a6PIOmHkeajrg==
+sn:: 6YeR5qOu
+givenName:: 56ug5a6P
+displayName:: 6YeR5qOu56ug5a6P
+uidNumber: 100104
+gidNumber: 2010
+homeDirectory: /home/10-104-kanamori-akihiro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TWQvdEFQbDdNK1Z3Q3dBS0Z3aHNlTHF6TFA3K2xCaEk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100104
+sambaNTPassword: 311C18C1E6AB524D0ECED0909F218CEE
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# kaneshiro-marina, Users, e-smile.ne.jp
+dn: uid=kaneshiro-marina,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kaneshiro-marina
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 44G+44KK44GqIOmHkeWfjg==
+sn:: 6YeR5Z+O
+givenName:: 44G+44KK44Gq
+displayName:: 6YeR5Z+O44G+44KK44Gq
+uidNumber: 90596
+gidNumber: 2009
+homeDirectory: /home/09-596-kaneshiro-marina
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Y0ZOcGt3OGlTendZSUtyZHhKTkdjd1IySkgvRDhFejY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90596
+sambaNTPassword: 2B65CAA6AC88CDB70FF0E2ECBC30D45B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# kobayashi-shohei, Users, e-smile.ne.jp
+dn: uid=kobayashi-shohei,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kobayashi-shohei
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bCG5YW1IOWwj+aelw==
+sn:: 5bCP5p6X
+givenName:: 5bCG5YW1
+displayName:: 5bCP5p6X5bCG5YW1
+uidNumber: 90566
+gidNumber: 2009
+homeDirectory: /home/09-566-kobayashi-shohei
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VTZFbXdjcHRBOXVNK3Nmc0N6N3U5dFJrcVU2REU1TzM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90566
+sambaNTPassword: 86692B222C10E553B6B5B2403B40A78F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# miyagawa-satsuki, Users, e-smile.ne.jp
+dn: uid=miyagawa-satsuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: miyagawa-satsuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6aKv6JG1IOWuruW3nQ==
+sn:: 5a6u5bed
+givenName:: 6aKv6JG1
+displayName:: 5a6u5bed6aKv6JG1
+uidNumber: 90588
+gidNumber: 2009
+homeDirectory: /home/09-588-miyagawa-satsuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9V3dPVXRkcld5TjVtRVJ4OUtIelhHL2VYeW5YNzM2Wkg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90588
+sambaNTPassword: 41B5EDB0C621486C04DB0B5CFE2EF446
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# nakabayashi-yugo, Users, e-smile.ne.jp
+dn: uid=nakabayashi-yugo,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakabayashi-yugo
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YSq5ZC+IOS4reaelw==
+sn:: 5Lit5p6X
+givenName:: 5YSq5ZC+
+displayName:: 5Lit5p6X5YSq5ZC+
+uidNumber: 120208
+gidNumber: 2012
+homeDirectory: /home/12-208-nakabayashi-yugo
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TXFZYjlQcjF3TjRYM0VmREswTmZxNThlS2dZclE4R28=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120208
+sambaNTPassword: BAF32D600D44A5FC415B9F56C0E898C5
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# nakamura-katsumi, Users, e-smile.ne.jp
+dn: uid=nakamura-katsumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nakamura-katsumi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YWL5bexIOS4readkQ==
+sn:: 5Lit5p2R
+givenName:: 5YWL5bex
+displayName:: 5Lit5p2R5YWL5bex
+uidNumber: 100259
+gidNumber: 2010
+homeDirectory: /home/10-259-nakamura-katsumi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Y2hqeWY5NmFCZFoxaXVOc0RDckFVODlOWHUyaFFQS1k=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100259
+sambaNTPassword: 4CCA756425DF96F99708560CD2D59E4A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# noguchi-yasuhito, Users, e-smile.ne.jp
+dn: uid=noguchi-yasuhito,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: noguchi-yasuhito
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bq35LuBIOmHjuWPow==
+sn:: 6YeO5Y+j
+givenName:: 5bq35LuB
+displayName:: 6YeO5Y+j5bq35LuB
+uidNumber: 120189
+gidNumber: 2012
+homeDirectory: /home/12-189-noguchi-yasuhito
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TzM1R29LRitqUThBQXEwMURrTDQ4Wkt0djZwQTZ6Qkc=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120189
+sambaNTPassword: BA73D1B43255B85C994B075F33685B10
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# shimoyama-hikaru, Users, e-smile.ne.jp
+dn: uid=shimoyama-hikaru,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shimoyama-hikaru
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6LydIOS4i+WxsQ==
+sn:: 5LiL5bGx
+givenName:: 6Lyd
+displayName:: 5LiL5bGx6Lyd
+uidNumber: 100130
+gidNumber: 2010
+homeDirectory: /home/10-130-shimoyama-hikaru
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QnVUS1A0SkQ0NzdYMTZpNmUxaDJON1ExTWVyRTU3dUY=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100130
+sambaNTPassword: 6C397A37E0528534E7AB2EB82E804C88
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# sugimoto-tatsuya, Users, e-smile.ne.jp
+dn: uid=sugimoto-tatsuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sugimoto-tatsuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6YGU5ZOJIOadieacrA==
+sn:: 5p2J5pys
+givenName:: 6YGU5ZOJ
+displayName:: 5p2J5pys6YGU5ZOJ
+uidNumber: 90513
+gidNumber: 2009
+homeDirectory: /home/09-513-sugimoto-tatsuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ZytuUHdBeWlKV1VBWGUzN3NXUjV1OXNtNjJsUzVuN2U=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90513
+sambaNTPassword: F9F71F8C09602BB27500E60FB8E7808A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# taniguchi-kazuki, Users, e-smile.ne.jp
+dn: uid=taniguchi-kazuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: taniguchi-kazuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZKM5biMIOiwt+WPow==
+sn:: 6LC35Y+j
+givenName:: 5ZKM5biM
+displayName:: 6LC35Y+j5ZKM5biM
+uidNumber: 90562
+gidNumber: 2009
+homeDirectory: /home/09-562-taniguchi-kazuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cjJzZ1dnU0pabWlDL0ptZE5qR0szd0V5d29wS2hzSCs=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90562
+sambaNTPassword: 79F66906FD9F282EF624BDC31951E1E6
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# tsukahara-mizuki, Users, e-smile.ne.jp
+dn: uid=tsukahara-mizuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tsukahara-mizuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 576O5pyIIOWhmuWOnw==
+sn:: 5aGa5Y6f
+givenName:: 576O5pyI
+displayName:: 5aGa5Y6f576O5pyI
+uidNumber: 100210
+gidNumber: 2010
+homeDirectory: /home/10-210-tsukahara-mizuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9K3BaSnZ4dituYUVKQmxEWjh5aURhSi9JR002ckM2cWk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100210
+sambaNTPassword: 3DA100A95569EA06AB99429CEA54F7C3
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# tsurumi-masayuki, Users, e-smile.ne.jp
+dn: uid=tsurumi-masayuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: tsurumi-masayuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5piM5LmLIOm2tOimiw==
+sn:: 6ba06KaL
+givenName:: 5piM5LmL
+displayName:: 6ba06KaL5piM5LmL
+uidNumber: 100253
+gidNumber: 2010
+homeDirectory: /home/10-253-tsurumi-masayuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NWxRcVVCL3QzL3ZGbjdPRkFOYUJlczBpZ0c4VzRjeS8=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100253
+sambaNTPassword: 76F44D7ED50DF39A95C30481A5C0C372
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yamasaki-ryosuke, Users, e-smile.ne.jp
+dn: uid=yamasaki-ryosuke,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamasaki-ryosuke
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5Lqu6LyUIOWxseW0jg==
+sn:: 5bGx5bSO
+givenName:: 5Lqu6LyU
+displayName:: 5bGx5bSO5Lqu6LyU
+uidNumber: 100219
+gidNumber: 2010
+homeDirectory: /home/10-219-yamasaki-ryosuke
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MDZZZzQ0QjBGUXhZU201UlM2MXgvamdrVFBLbGJGOE4=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100219
+sambaNTPassword: 59857A87A74A0ED977F2C4DC52758677
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yamauchi-kentaro, Users, e-smile.ne.jp
+dn: uid=yamauchi-kentaro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamauchi-kentaro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YGl5aSq6YOOIOWxseWGhQ==
+sn:: 5bGx5YaF
+givenName:: 5YGl5aSq6YOO
+displayName:: 5bGx5YaF5YGl5aSq6YOO
+uidNumber: 100209
+gidNumber: 2010
+homeDirectory: /home/10-209-yamauchi-kentaro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TER2cVFpK3VQY0pKYkpJMTVLZ0g4bnUyK0FraS85Uzg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100209
+sambaNTPassword: A5EB6350BF87680BD362DA440502DAB7
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yamazaki-akinori, Users, e-smile.ne.jp
+dn: uid=yamazaki-akinori,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamazaki-akinori
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5piO5YW4IOWxseW0jg==
+sn:: 5bGx5bSO
+givenName:: 5piO5YW4
+displayName:: 5bGx5bSO5piO5YW4
+uidNumber: 30348
+gidNumber: 2003
+homeDirectory: /home/03-348-yamazaki-akinori
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VmtMNUZEcjRzcHlqQlJTY3hIM3FKdTBQSFRrWGM1THM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-30348
+sambaNTPassword: EE22E1D5AA2A3E999295C525F5C34064
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2003
+
+# yanagisawa-ayuna, Users, e-smile.ne.jp
+dn: uid=yanagisawa-ayuna,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yanagisawa-ayuna
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5q2p5aWIIOafs+ayog==
+sn:: 5p+z5rKi
+givenName:: 5q2p5aWI
+displayName:: 5p+z5rKi5q2p5aWI
+uidNumber: 90558
+gidNumber: 2009
+homeDirectory: /home/09-558-yanagisawa-ayuna
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MUJaNkVWWEpTUkFadXZWMmVIODJzNXFyMGZSMlgveEQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90558
+sambaNTPassword: 727987E51D3659E9D61AE21997CA9A28
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# yasumura-yasuaki, Users, e-smile.ne.jp
+dn: uid=yasumura-yasuaki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yasumura-yasuaki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bq36Zm9IOWuieadkQ==
+sn:: 5a6J5p2R
+givenName:: 5bq36Zm9
+displayName:: 5a6J5p2R5bq36Zm9
+uidNumber: 120143
+gidNumber: 2012
+homeDirectory: /home/12-143-yasumura-yasuaki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9M2hUZmVHeDdTaWpWeW9yVE5JM0F1Tkt0d1VOLzdGTlk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120143
+sambaNTPassword: 94589617BCA411E15812DAF99B93A5C1
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# asakawa-kazutoshi, Users, e-smile.ne.jp
+dn: uid=asakawa-kazutoshi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: asakawa-kazutoshi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5ZKM5L+KIOa1heW3nQ==
+sn:: 5rWF5bed
+givenName:: 5ZKM5L+K
+displayName:: 5rWF5bed5ZKM5L+K
+uidNumber: 100266
+gidNumber: 2010
+homeDirectory: /home/10-266-asakawa-kazutoshi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9TXU2SE1uT1hUQnFsdjFKUkVnbnh4NTMySTNaUWs2RXU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100266
+sambaNTPassword: 2622E4EB427190E7224B11659BA2E909
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# chikaarashi-kanae, Users, e-smile.ne.jp
+dn: uid=chikaarashi-kanae,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: chikaarashi-kanae
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6aaZ5aWI57W1IOi/keW1kA==
+sn:: 6L+R5bWQ
+givenName:: 6aaZ5aWI57W1
+displayName:: 6L+R5bWQ6aaZ5aWI57W1
+uidNumber: 120128
+gidNumber: 2012
+homeDirectory: /home/12-128-chikaarashi-kanae
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SldZeDRJMEFUVEF1Z09VVHNTRk95WVJEN0lNNW1CRE4=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120128
+sambaNTPassword: 9D320AF29C581C56A172A29CC594A12E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# kuramochi-mitsuki, Users, e-smile.ne.jp
+dn: uid=kuramochi-mitsuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kuramochi-mitsuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YWJ5biMIOWAieaMgQ==
+sn:: 5YCJ5oyB
+givenName:: 5YWJ5biM
+displayName:: 5YCJ5oyB5YWJ5biM
+uidNumber: 100269
+gidNumber: 2010
+homeDirectory: /home/10-269-kuramochi-mitsuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UkhnakVLSTdiK2NGZCs4UC9PNFZzeUhRdGRueW5sN0o=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100269
+sambaNTPassword: 5369A3A36D55B1E9701FB1BCD397795B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# maruyama-takahiro, Users, e-smile.ne.jp
+dn: uid=maruyama-takahiro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: maruyama-takahiro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6ZqG5a6PIOS4uOWxsQ==
+sn:: 5Li45bGx
+givenName:: 6ZqG5a6P
+displayName:: 5Li45bGx6ZqG5a6P
+uidNumber: 100207
+gidNumber: 2010
+homeDirectory: /home/10-207-maruyama-takahiro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bkVOY0ZEVlVOWEVlR1ljVS8xdWs4bTQrTTNQc2xpcDE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100207
+sambaNTPassword: 39868787B4F3507C455D313EA9E3061E
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# matushita-futoshi, Users, e-smile.ne.jp
+dn: uid=matushita-futoshi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: matushita-futoshi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5aSq5b+XIOadvuS4iw==
+sn:: 5p2+5LiL
+givenName:: 5aSq5b+X
+displayName:: 5p2+5LiL5aSq5b+X
+uidNumber: 90427
+gidNumber: 2009
+homeDirectory: /home/09-427-matushita-futoshi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NUdpMWFaS09OWi9BZjJoeUJRaDl2RWwrYkpiQ0FzeVU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90427
+sambaNTPassword: A9A3C63DA9BB858D21931BA6D9920A47
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# nagano-naoki-1980, Users, e-smile.ne.jp
+dn: uid=nagano-naoki-1980,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nagano-naoki-1980
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55u05qi5IOawuOmHjg==
+sn:: 5rC46YeO
+givenName:: 55u05qi5
+displayName:: 5rC46YeO55u05qi5
+uidNumber: 90387
+gidNumber: 2009
+homeDirectory: /home/09-387-nagano-naoki-1980
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VnJySWtjWlgxOU5RWUI0alR6V3pVTGJ6SCt5TkU2SEg=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90387
+sambaNTPassword: 4A7064FE3F86CDABC900BC5D93CE8E4D
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# namimatu-teruyuki, Users, e-smile.ne.jp
+dn: uid=namimatu-teruyuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: namimatu-teruyuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6Lyd6KGMIOS4puadvg==
+sn:: 5Lim5p2+
+givenName:: 6Lyd6KGM
+displayName:: 5Lim5p2+6Lyd6KGM
+uidNumber: 90413
+gidNumber: 2009
+homeDirectory: /home/09-413-namimatu-teruyuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9N1lxdjlsK3FkUDRmUklrcWp0K3psU3pSVFJLY3FoTng=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90413
+sambaNTPassword: 0EC081B87492978A34C4919922BFACFE
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# nishizawa-satoshi, Users, e-smile.ne.jp
+dn: uid=nishizawa-satoshi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: nishizawa-satoshi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5pm6IOilv+a+pA==
+sn:: 6KW/5r6k
+givenName:: 5pm6
+displayName:: 6KW/5r6k5pm6
+uidNumber: 90557
+gidNumber: 2009
+homeDirectory: /home/09-557-nishizawa-satoshi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Sll3cXJqU2ZsOVpGZ0dkQWJCV2VPS2Nnbm1zSUNjZzA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90557
+sambaNTPassword: 393574EA2B7E4C73E85320AB1F2D612B
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# sekimoto-takahito, Users, e-smile.ne.jp
+dn: uid=sekimoto-takahito,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sekimoto-takahito
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6ZqG5Lq6IOmWouacrA==
+sn:: 6Zai5pys
+givenName:: 6ZqG5Lq6
+displayName:: 6Zai5pys6ZqG5Lq6
+uidNumber: 90363
+gidNumber: 2009
+homeDirectory: /home/09-363-sekimoto-takahito
+loginShell: /bin/bash
+userPassword:: e1NTSEF9MXQ1K2tzd0laTFhLWVRJTkdLMXNPak9XVWtMeDl1VTU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90363
+sambaNTPassword: F8C242CF8CDF4C3DA6E07E55833F4B38
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# shiraishi-tatsuya, Users, e-smile.ne.jp
+dn: uid=shiraishi-tatsuya,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiraishi-tatsuya
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6YGU5LmfIOeZveefsw==
+sn:: 55m955+z
+givenName:: 6YGU5Lmf
+displayName:: 55m955+z6YGU5Lmf
+uidNumber: 100113
+gidNumber: 2010
+homeDirectory: /home/10-113-shiraishi-tatsuya
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UExlUFJoQnIvenFMdDZiaVZybDErSU1XVHFlaG1rZlI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100113
+sambaNTPassword: D918E047884463D1EFF5844A472C4597
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# takabatake-hideto, Users, e-smile.ne.jp
+dn: uid=takabatake-hideto,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takabatake-hideto
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56eA5Lq6IOmrmeeVoA==
+sn:: 6auZ55Wg
+givenName:: 56eA5Lq6
+displayName:: 6auZ55Wg56eA5Lq6
+uidNumber: 90527
+gidNumber: 2009
+homeDirectory: /home/09-527-takabatake-hideto
+loginShell: /bin/bash
+userPassword:: e1NTSEF9VTI4TndsT0FBdEpSQ3hMbFZDNnByQzZEajZJeFBMZ2Q=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90527
+sambaNTPassword: D066CFADEE21081C859084D432C44AA5
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# taniguchi-yoshiki, Users, e-smile.ne.jp
+dn: uid=taniguchi-yoshiki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: taniguchi-yoshiki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 576p6LK0IOiwt+WPow==
+sn:: 6LC35Y+j
+givenName:: 576p6LK0
+displayName:: 6LC35Y+j576p6LK0
+uidNumber: 100155
+gidNumber: 2010
+homeDirectory: /home/10-155-taniguchi-yoshiki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bURFbXFOZC9FdlNUblFKZGhkRXJjMlBBYndJQmhpZ1Q=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100155
+sambaNTPassword: B0889F99BF804A1104554909BF4D04A4
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yamagishi-hiroaki, Users, e-smile.ne.jp
+dn: uid=yamagishi-hiroaki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamagishi-hiroaki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5rWp5piOIOWxseWyuA==
+sn:: 5bGx5bK4
+givenName:: 5rWp5piO
+displayName:: 5bGx5bK45rWp5piO
+uidNumber: 90340
+gidNumber: 2009
+homeDirectory: /home/09-340-yamagishi-hiroaki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eW02SWsyQmVnVXpXNXlSY05DSWQrUEpvV211MDR5NHA=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90340
+sambaNTPassword: 5277B0D1250EC15A7A5DF90B87190B07
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# yanagisawa-yurika, Users, e-smile.ne.jp
+dn: uid=yanagisawa-yurika,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yanagisawa-yurika
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55m+5ZCI6aaZIOafs+a+pA==
+sn:: 5p+z5r6k
+givenName:: 55m+5ZCI6aaZ
+displayName:: 5p+z5r6k55m+5ZCI6aaZ
+uidNumber: 50103
+gidNumber: 2005
+homeDirectory: /home/05-103-yanagisawa-yurika
+loginShell: /bin/bash
+userPassword:: e1NTSEF9N1lrZjBJQ2c0NmJQNnpkNWlrS2ZWNDVybVhPRmxPM2E=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-50103
+sambaNTPassword: 61EEA93146A36F3741E60A2E57F3837C
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2005
+
+# imaizumi-takayoshi, Users, e-smile.ne.jp
+dn: uid=imaizumi-takayoshi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: imaizumi-takayoshi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 6LK05a+MIOS7iuaziQ==
+sn:: 5LuK5rOJ
+givenName:: 6LK05a+M
+displayName:: 5LuK5rOJ6LK05a+M
+uidNumber: 120155
+gidNumber: 2012
+homeDirectory: /home/12-155-imaizumi-takayoshi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RTNuQmhqbUlRNmpSSm1hb3JCTGgrOFlraFlhTlFUcVk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120155
+sambaNTPassword: 57CC933310B1A7BC2507142D013E168F
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# kobayashi-takehiro, Users, e-smile.ne.jp
+dn: uid=kobayashi-takehiro,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: kobayashi-takehiro
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5bKz5a6ZIOWwj+aelw==
+sn:: 5bCP5p6X
+givenName:: 5bKz5a6Z
+displayName:: 5bCP5p6X5bKz5a6Z
+uidNumber: 90594
+gidNumber: 2009
+homeDirectory: /home/09-594-kobayashi-takehiro
+loginShell: /bin/bash
+userPassword:: e1NTSEF9V2pwaU1SMmNXT243T3BkRk14QmJJVzJYbCtqejc2N20=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90594
+sambaNTPassword: FC13D00CB180036699B15ECA7F119B22
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# komatsubara-kazuki, Users, e-smile.ne.jp
+dn: uid=komatsubara-kazuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: komatsubara-kazuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5LiA6aiOIOWwj+advuWOnw==
+sn:: 5bCP5p2+5Y6f
+givenName:: 5LiA6aiO
+displayName:: 5bCP5p2+5Y6f5LiA6aiO
+uidNumber: 100145
+gidNumber: 2010
+homeDirectory: /home/10-145-komatsubara-kazuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WXQrODR3ZlA1ZUdzUkxqcHI3Unc3ZDlsREprdm5ESUM=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100145
+sambaNTPassword: 390D1BAC2FDB76BD890D95B014AA8BEC
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# parry-ewan-mathias, Users, e-smile.ne.jp
+dn: uid=parry-ewan-mathias,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: parry-ewan-mathias
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YuH6KGMIOODkeODquOCow==
+sn:: 44OR44Oq44Kj
+givenName:: 5YuH6KGM
+displayName:: 44OR44Oq44Kj5YuH6KGM
+uidNumber: 100256
+gidNumber: 2010
+homeDirectory: /home/10-256-parry-ewan-mathias
+loginShell: /bin/bash
+userPassword:: e1NTSEF9alROYmFGZTVhL0pzNXo0NzZxejRXU0JDeSsvdFdyUGU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100256
+sambaNTPassword: FA0CEEFA19C22722A6DB17643DB1C02A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# sakamoto-katsuyuki, Users, e-smile.ne.jp
+dn: uid=sakamoto-katsuyuki,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: sakamoto-katsuyuki
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 5YWL5bm4IOWdguacrA==
+sn:: 5Z2C5pys
+givenName:: 5YWL5bm4
+displayName:: 5Z2C5pys5YWL5bm4
+uidNumber: 90533
+gidNumber: 2009
+homeDirectory: /home/09-533-sakamoto-katsuyuki
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bkVkTWxRR2NGM2s2V3ZHb3ovTFViNWVtdzZHUmxVSDQ=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90533
+sambaNTPassword: 93E4ECD3ACE11ED1931DB057934F86F9
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# takahashi-shinichi, Users, e-smile.ne.jp
+dn: uid=takahashi-shinichi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: takahashi-shinichi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55yf5LiAIOmrmeapiw==
+sn:: 6auZ5qmL
+givenName:: 55yf5LiA
+displayName:: 6auZ5qmL55yf5LiA
+uidNumber: 120198
+gidNumber: 2012
+homeDirectory: /home/12-198-takahashi-shinichi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9b2VSOUZpNWNaK2p4eU51eWJIMzMyMWlMeUlBejhBeFU=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-120198
+sambaNTPassword: 496E4A08DCF781F25AC8ADA4AB68BE35
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2012
+
+# yamamoto-tatsuyoshi, Users, e-smile.ne.jp
+dn: uid=yamamoto-tatsuyoshi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamamoto-tatsuyoshi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 56uc576pIOWxseacrA==
+sn:: 5bGx5pys
+givenName:: 56uc576p
+displayName:: 5bGx5pys56uc576p
+uidNumber: 100274
+gidNumber: 2010
+homeDirectory: /home/10-274-yamamoto-tatsuyoshi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SVo1VE1LcVF4bVMzbFQ4eGpsZlY2L0JoR1h6dXJmcGk=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100274
+sambaNTPassword: 9DA41916D61618AEC27F817807025A1A
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# yamada-masayuki-3780, Users, e-smile.ne.jp
+dn: uid=yamada-masayuki-3780,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yamada-masayuki-3780
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55yf5LmLIOWxseeUsA==
+sn:: 5bGx55Sw
+givenName:: 55yf5LmL
+displayName:: 5bGx55Sw55yf5LmL
+uidNumber: 90266
+gidNumber: 2009
+homeDirectory: /home/09-266-yamada-masayuki-3780
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Um5iZ1l5MGVWVEx0eVZyNnRBT1U1VFllSlRYSnAxRDE=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-90266
+sambaNTPassword: 96EC2111E664F460F51E6442715BF010
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2009
+
+# yanagisawa-masamichi, Users, e-smile.ne.jp
+dn: uid=yanagisawa-masamichi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: yanagisawa-masamichi
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: sambaSamAccount
+cn:: 55yf55CGIOafs+ayog==
+sn:: 5p+z5rKi
+givenName:: 55yf55CG
+displayName:: 5p+z5rKi55yf55CG
+uidNumber: 100118
+gidNumber: 2010
+homeDirectory: /home/10-118-yanagisawa-masamichi
+loginShell: /bin/bash
+userPassword:: e1NTSEF9b2NiWm5EVXg3ZjVXM3Jsb3h0OVBOZXBiNmo5bDlwMzI=
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675-100118
+sambaNTPassword: 02E8A9EBE61ADE1B77077D10D406CBF1
+sambaAcctFlags: [U          ]
+sambaPwdLastSet: 1751651561
+sambaPrimaryGroupSID: S-1-5-21-3566765955-3362818161-2431109675-2010
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 254
+# numEntries: 253

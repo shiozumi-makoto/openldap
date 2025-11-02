@@ -1,0 +1,8 @@
+# ./tmp/map-external-to-admin.ldif
+dn: cn=config
+changetype: modify
+add: olcAuthzRegexp
+olcAuthzRegexp: uidNumber=0\+gidNumber=0,cn=peercred,cn=external,cn=auth cn=admin,dc=e-smile,dc=ne,dc=jp
+
+
+

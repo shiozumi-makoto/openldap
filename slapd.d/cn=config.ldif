@@ -1,0 +1,55 @@
+# AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
+# CRC32 96697d67
+dn: cn=config
+objectClass: olcGlobal
+cn: config
+olcConfigFile: /usr/local/etc/openldap/slapd.conf
+olcConfigDir: /usr/local/etc/openldap/slapd.d
+olcArgsFile: /usr/local/var/run/slapd.args
+olcAttributeOptions: lang-
+olcAuthzPolicy: none
+olcConcurrency: 0
+olcConnMaxPending: 100
+olcConnMaxPendingAuth: 1000
+olcGentleHUP: FALSE
+olcIdleTimeout: 0
+olcIndexSubstrIfMaxLen: 4
+olcIndexSubstrIfMinLen: 2
+olcIndexSubstrAnyLen: 4
+olcIndexSubstrAnyStep: 2
+olcIndexHash64: FALSE
+olcIndexIntLen: 4
+olcListenerThreads: 1
+olcLocalSSF: 71
+olcLogLevel: 0
+olcLogFileOnly: FALSE
+olcMaxFilterDepth: 1000
+olcPidFile: /usr/local/var/run/slapd.pid
+olcReadOnly: FALSE
+olcSaslAuxpropsDontUseCopyIgnore: FALSE
+olcSaslSecProps: noplain,noanonymous
+olcSockbufMaxIncoming: 262143
+olcSockbufMaxIncomingAuth: 16777215
+olcThreads: 16
+olcThreadQueues: 1
+olcTLSCRLCheck: none
+olcTLSVerifyClient: never
+olcTLSProtocolMin: 0.0
+olcToolThreads: 1
+olcWriteTimeout: 0
+structuralObjectClass: olcGlobal
+entryUUID: a0bbe558-4bd4-1040-90c1-45ef2fcf7a17
+creatorsName: cn=config
+createTimestamp: 20251102011138Z
+olcTLSCertificateFile: /usr/local/etc/openldap/certs/server_happy_sha256.crt
+olcTLSCertificateKeyFile: /usr/local/etc/openldap/certs/server_happy_sha256.ke
+ y
+olcTLSCACertificateFile: /usr/local/etc/openldap/certs/cacert.crt
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+entryCSN: 20251102014425.425279Z#000000#000#000000
+modifiersName: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+modifyTimestamp: 20251102014425Z

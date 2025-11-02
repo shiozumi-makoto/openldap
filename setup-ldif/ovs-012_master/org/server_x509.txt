@@ -1,0 +1,13 @@
+﻿
+openssl genrsa -out server_happy_sha256.key 2048
+
+openssl req -new   -key server_happy_sha256.key   -out server_happy_sha256_2025.csr   -config ./openssl.cnf   -subj "/C=JP/ST=Tokyo/L=Chuo-ku Nihonbashi Koami-cho/O=E-SMILE SOL-TRIBE Co.,Ltd./OU=web-admin/CN=happy.esmile-hd.jp/emailAddress=shiozumi@esmile-hd.jp"
+
+openssl ca -config ./openssl.cnf   -in  server_happy_sha256_2025.csr   -out server_happy_sha256_2025.crt   -extensions usr_cert   -days 365 -notext -batch   -cert ../CA/cacert.pem   -keyfile ../CA/private/cakey.pem
+
+openssl x509 -in server_happy_sha256_2025.crt -noout -text   | egrep -i "Subject:|Issuer:|DNS:|Key Usage|Extended Key Usage|Not Before|Not After"
+
+apachectl configtest
+systemctl restart httpd
+systemctl status httpd
+

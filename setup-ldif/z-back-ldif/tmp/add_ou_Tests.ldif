@@ -1,0 +1,4 @@
+dn: ou=Tests,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: organizationalUnit
+ou: Tests

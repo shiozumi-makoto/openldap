@@ -1,0 +1,346 @@
+# ↑で得た SID を smbldap.conf に書き込む（例のSIDで置換してください）
+
+
+SID_REAL='S-1-5-21-1131644523-3367784460-4058559141'
+sudo sed -i -E "s|^sid=.*$|sid=\"${SID_REAL}\"|" /etc/smbldap-tools/smbldap.conf
+
+sudo sed -i -E \
+  -e 's|^workgroup=.*$|workgroup="OVS-025"|' \
+  -e 's|^sambaDomain=.*$|sambaDomain="OVS-025"|' \
+  /etc/smbldap-tools/smbldap.conf
+
+
+ 1071  ldapsearch -x -b "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" sambaNTPassword
+ 1072  smbldap-passwd
+ 1073  yum install smbldap-tools
+ 1074  which smbldap-passwd
+ 1075  cat /etc/smbldap-tools/smbldap.conf
+ 1076  cat /etc/smbldap-tools/smbldap_bind.conf
+ 1077  ldapsearch -x -b "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp"   sambaNTPassword userPassword
+ 1078  history
+
+
+
+
+NEWPW='Makoto87426598'
+
+python3 - <<'PY' "$NEWPW"
+import sys, struct
+
+# --- minimal MD4 (RFC1320) ---
+def _F(x,y,z): return ((x & y) | (~x & z)) & 0xFFFFFFFF
+def _G(x,y,z): return ((x & y) | (x & z) | (y & z)) & 0xFFFFFFFF
+def _H(x,y,z): return (x ^ y ^ z) & 0xFFFFFFFF
+def _rol(v, s): return ((v << s) | (v >> (32 - s))) & 0xFFFFFFFF
+def md4(data: bytes) -> bytes:
+    # init
+    A, B, C, D = 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476
+    # padding
+    orig_len_bits = (len(data) * 8) & 0xFFFFFFFFFFFFFFFF
+    data += b"\x80"
+    while (len(data) % 64) != 56:
+        data += b"\x00"
+    data += struct.pack("<Q", orig_len_bits)
+    # process
+    for i in range(0, len(data), 64):
+        X = list(struct.unpack("<16I", data[i:i+64]))
+        AA, BB, CC, DD = A, B, C, D
+
+        # round 1
+        S = [3,7,11,19]
+        A = _rol((A + _F(B,C,D) + X[0]) & 0xFFFFFFFF,  S[0])
+        D = _rol((D + _F(A,B,C) + X[1]) & 0xFFFFFFFF,  S[1])
+        C = _rol((C + _F(D,A,B) + X[2]) & 0xFFFFFFFF,  S[2])
+        B = _rol((B + _F(C,D,A) + X[3]) & 0xFFFFFFFF,  S[3])
+        A = _rol((A + _F(B,C,D) + X[4]) & 0xFFFFFFFF,  S[0])
+        D = _rol((D + _F(A,B,C) + X[5]) & 0xFFFFFFFF,  S[1])
+        C = _rol((C + _F(D,A,B) + X[6]) & 0xFFFFFFFF,  S[2])
+        B = _rol((B + _F(C,D,A) + X[7]) & 0xFFFFFFFF,  S[3])
+        A = _rol((A + _F(B,C,D) + X[8]) & 0xFFFFFFFF,  S[0])
+        D = _rol((D + _F(A,B,C) + X[9]) & 0xFFFFFFFF,  S[1])
+        C = _rol((C + _F(D,A,B) + X[10]) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _F(C,D,A) + X[11]) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _F(B,C,D) + X[12]) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _F(A,B,C) + X[13]) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _F(D,A,B) + X[14]) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _F(C,D,A) + X[15]) & 0xFFFFFFFF, S[3])
+
+        # round 2
+        S = [3,5,9,13]
+        A = _rol((A + _G(B,C,D) + X[0]  + 0x5A827999) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _G(A,B,C) + X[4]  + 0x5A827999) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _G(D,A,B) + X[8]  + 0x5A827999) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _G(C,D,A) + X[12] + 0x5A827999) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _G(B,C,D) + X[1]  + 0x5A827999) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _G(A,B,C) + X[5]  + 0x5A827999) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _G(D,A,B) + X[9]  + 0x5A827999) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _G(C,D,A) + X[13] + 0x5A827999) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _G(B,C,D) + X[2]  + 0x5A827999) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _G(A,B,C) + X[6]  + 0x5A827999) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _G(D,A,B) + X[10] + 0x5A827999) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _G(C,D,A) + X[14] + 0x5A827999) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _G(B,C,D) + X[3]  + 0x5A827999) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _G(A,B,C) + X[7]  + 0x5A827999) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _G(D,A,B) + X[11] + 0x5A827999) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _G(C,D,A) + X[15] + 0x5A827999) & 0xFFFFFFFF, S[3])
+
+        # round 3
+        S = [3,9,11,15]
+        A = _rol((A + _H(B,C,D) + X[0]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _H(A,B,C) + X[8]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _H(D,A,B) + X[4]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _H(C,D,A) + X[12] + 0x6ED9EBA1) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _H(B,C,D) + X[2]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _H(A,B,C) + X[10] + 0x6ED9EBA1) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _H(D,A,B) + X[6]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _H(C,D,A) + X[14] + 0x6ED9EBA1) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _H(B,C,D) + X[1]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _H(A,B,C) + X[9]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _H(D,A,B) + X[5]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _H(C,D,A) + X[13] + 0x6ED9EBA1) & 0xFFFFFFFF, S[3])
+        A = _rol((A + _H(B,C,D) + X[3]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[0])
+        D = _rol((D + _H(A,B,C) + X[11] + 0x6ED9EBA1) & 0xFFFFFFFF, S[1])
+        C = _rol((C + _H(D,A,B) + X[7]  + 0x6ED9EBA1) & 0xFFFFFFFF, S[2])
+        B = _rol((B + _H(C,D,A) + X[15] + 0x6ED9EBA1) & 0xFFFFFFFF, S[3])
+
+        A = (A + AA) & 0xFFFFFFFF
+        B = (B + BB) & 0xFFFFFFFF
+        C = (C + CC) & 0xFFFFFFFF
+        D = (D + DD) & 0xFFFFFFFF
+
+    return struct.pack("<4I", A, B, C, D)
+
+# NT Hash = MD4( UTF-16LE(password) )
+pw_utf16 = sys.argv[1].encode('utf-16le')
+nthash = md4(pw_utf16).hex().upper()
+print(nthash)
+PY
+
+
+NTHASH='D5EC50C26E64961D9A26E6E602A906A3'
+cat <<EOF | ldapmodify -x \
+  -H ldap://127.0.0.1 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566'
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: sambaNTPassword
+sambaNTPassword: ${NTHASH}
+EOF
+
+
+# SSHAハッシュ生成例
+
+slappasswd -h {SSHA} -s Makoto87426598
+
+cat <<EOF | ldapmodify -x \
+  -H ldap://192.168.61.12 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566'
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: userPassword
+userPassword: {SSHA}Y9dHhp75sZosrVqOfBP9ywUKQm92ZLrN
+EOF
+
+
+ldapwhoami -x \
+  -H ldap://192.168.61.12 \
+  -D "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" \
+  -w 'Makoto87426598'
+
+
+
+
+
+ldapwhoami -x \
+  -H ldap://192.168.61.25 \
+  -D "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" \
+  -w 'Makoto87426598'
+
+
+
+
+
+
+NTHASH='D5EC50C26E64961D9A26E6E602A906A3'
+cat <<EOF | ldapmodify -x \
+  -H ldap://127.0.0.1 \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  -w 'es0356525566'
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: sambaNTPassword
+sambaNTPassword: ${NTHASH}
+EOF
+
+
+
+
+
+
+
+
+
+ldapsearch -x -LLL -H ldap://192.168.61.10   -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi*)" uid gidNumber
+dn: uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto
+gidNumber: 2001
+
+dn: uid=shiozumi-makoto2,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto2
+gidNumber: 2002
+
+dn: uid=shiozumi-makoto3,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto3
+gidNumber: 2003
+
+
+ldapsearch -x -LLL -H ldap://192.168.61.10   -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(memberUid=shiozumi*)" uid gidNumber
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 100
+
+dn: cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2001
+
+dn: cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2002
+
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2003
+
+
+
+# --------------------------------------
+#	shiozumi が、余計なのであろう！
+# --------------------------------------
+
+ldapsearch -x -LLL -H ldap://192.168.61.12  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi*)" uid gidNumber
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi
+gidNumber: 1000
+
+dn: uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto
+gidNumber: 2001
+
+dn: uid=shiozumi-makoto2,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto2
+gidNumber: 2002
+
+dn: uid=shiozumi-makoto3,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi-makoto3
+gidNumber: 2003
+
+
+
+ldapsearch -x -LLL -H ldap://192.168.61.12   -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(memberUid=shiozumi*)" uid gidNumber
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 100
+
+dn: cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2001
+
+dn: cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2002
+
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 2003
+
+
+
+[root@ovs-012 ~]# ldapsearch -x -LLL -H ldap://192.168.61.10  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi)" uid gidNumber
+[root@ovs-012 ~]# ldapsearch -x -LLL -H ldap://192.168.61.10  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(memberUid=shiozumi)" uid gidNumber
+
+
+
+[root@ovs-012 ~]# ldapsearch -x -LLL -H ldap://192.168.61.12   -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'  -b "ou=Groups,dc=e-smile,dc=ne,dc=jp" "(memberUid=shiozumi)" uid gidNumber
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+gidNumber: 100
+
+[root@ovs-012 ~]# ldapsearch -x -LLL -H ldap://192.168.61.12  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566'   -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=shiozumi)" uid gidNumber
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi
+gidNumber: 1000
+
+
+
+pass: Makoto87426598
+
+
+ldappasswd -x -H ldap://192.168.61.12 \
+  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" -s "Makoto87426598"
+
+
+php -r '
+function ntlm_hash($password) {
+    $utf16 = mb_convert_encoding($password, "UTF-16LE");
+    return strtoupper(bin2hex(hash("md4", $utf16, true)));
+}
+echo ntlm_hash("Makoto87426598"), "\n";
+'
+
+
+passwd:: D5EC50C26E64961D9A26E6E602A906A3
+
+
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: sambaNTPassword
+sambaNTPassword: D5EC50C26E64961D9A26E6E602A906A3
+-
+replace: sambaPwdLastSet
+sambaPwdLastSet: 1738123456
+
+
+ldapmodify -x -H ldap://192.168.61.12 \
+  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -f reset_shiozumi.ldif
+
+
+
+[root@ovs-012 tools]#
+
+ldapsearch -x -LLL -H ldap://192.168.61.12 \
+  -D "cn=admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -b "uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp" uid userPassword sambaNTPassword sambaPwdLastSet
+
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+uid: shiozumi
+userPassword:: e1NTSEF9VUdwbmZmTVpuS2R6azV0UTl5VFlYNzJhQW1JQkdQZGE=
+sambaNTPassword: D5EC50C26E64961D9A26E6E602A906A3
+sambaPwdLastSet: 1738123456
+
+
+
+
+[homes]
+        comment = Home Directories
+        create mask = 0700
+        directory mask = 0700
+        force user = %U
+        inherit acls = Yes
+        read only = No
+        valid users = %S %D%w%S
+
+
+[Users]
+        comment = Solt,Social,Systems [192.168.62.13:TNAS-3F-4TB]
+        create mask = 0664
+        directory mask = 02775
+        force group = users
+        path = /mnt/raid0/Users
+        read only = No
+        valid users = @esmile-dev @kindaka-dev @boj-dev @e_gamne-dev @solt-dev @social-dev shiozumi
+
+
+[Users_game]
+        comment = Games [192.168.62.10]
+        create mask = 0664
+        directory mask = 02775
+        force group = users
+        path = /mnt/raid1/Users_game
+        read only = No
+        valid users = @esmile-dev @kindaka-dev @boj-dev @e_gamne-dev @solt-dev @social-dev shiozumi
+

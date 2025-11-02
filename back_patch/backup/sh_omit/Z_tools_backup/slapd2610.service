@@ -1,0 +1,31 @@
+# /etc/systemd/system/slapd2610.service
+[Unit]
+Description=OpenLDAP 2.6.10 (local build)
+After=network.target
+
+[Service]
+Type=forking
+# User=ldap
+# Group=ldap
+
+# ldapi ソケット/pid 置き場を確実に用意
+ExecStartPre=/usr/bin/mkdir -p /usr/local/openldap-2.6.10/var/run
+ExecStartPre=/usr/bin/chown ldap:ldap /usr/local/openldap-2.6.10/var/run
+
+# 必要なら OpenSSL を別ディレクトリに入れている場合だけ解除
+# Environment=LD_LIBRARY_PATH=/opt/openssl-1.1/lib
+
+# 2.6.10 の slapd を起動（ldapi は 2.6.10 の var/run を使用）
+ExecStart=/usr/local/openldap-2.6.10/libexec/slapd -F /usr/local/etc/openldap/slapd.d -h "ldap://ovs-012.e-smile.local ldap://127.0.0.1 ldapi:/// ldaps:///" -u ldap -g ldap
+
+# 明示的に 2.6.10 側の pid を参照
+PIDFile=/usr/local/var/run/slapd.pid
+
+Restart=on-failure
+RestartSec=2s
+TimeoutStartSec=60s
+TimeoutStopSec=30s
+
+[Install]
+WantedBy=multi-user.target
+

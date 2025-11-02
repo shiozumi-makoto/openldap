@@ -1,0 +1,11 @@
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+add: olcAccess
+olcAccess: to attrs=userPassword
+  by self write
+  by anonymous auth
+  by * none
+olcAccess: to *
+  by dn.base="cn=admin,dc=e-smile,dc=ne,dc=jp" write
+  by users read
+  by anonymous none

@@ -1,0 +1,328 @@
+
+[root@ovs-025 openldap]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config '(olcDatabase= mdb )' dn olcSuffix
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSuffix: dc=e-smile,dc=ne,dc=jp
+
+
+[OK] Completed on ovs-025
+[root@ovs-025 tmp]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config olcServerID
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={2}mdb,cn=config" olcSyncrepl olcMultiProvider
+
+[root@ovs-025 tmp]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// \
+  -b "olcDatabase={2}mdb,cn=config" olcSyncrepl olcMultiProvider
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSyncrepl: {0}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {1}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {2}rid=012 provider=ldap://ovs-012.e-smile.local bindmethod=simpl
+ e binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 5" timeout=1
+  interval=00:00:01:00
+olcSyncrepl: {3}rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcMultiProvider: TRUE
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+----------------------------------------------------------------------------------------------------------------
+
+[root@ovs-024 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config '(olcDatabase= mdb )' dn olcSuffix
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSuffix: dc=e-smile,dc=ne,dc=jp
+
+
+[OK] Completed on ovs-024
+[root@ovs-024 tmp]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config olcServerID
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={2}mdb,cn=config" olcSyncrepl olcMultiProvider
+
+[root@ovs-024 tmp]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// \
+>   -b "olcDatabase={2}mdb,cn=config" olcSyncrepl olcMultiProvider
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSyncrepl: {0}rid=001 provider=ldap://ovs-025.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {1}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {2}rid=012 provider=ldap://ovs-012.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {3}rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcMultiProvider: TRUE
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+[root@ovs-026 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config '(olcDatabase= mdb )' dn olcSuffix
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSuffix: dc=e-smile,dc=ne,dc=jp
+
+
+[OK] Completed on ovs-026
+[root@ovs-026 tmp]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config olcServerID
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSyncrepl: {0}rid=001 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {1}rid=002 provider=ldap://ovs-025.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {2}rid=012 provider=ldap://ovs-012.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {3}rid=102 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcMultiProvider: TRUE
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+----------------------------------------------------------------------------------------------------------------
+
+[root@ovs-012 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config '(olcDatabase= mdb )' dn olcSuffix
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcSuffix: dc=e-smile,dc=ne,dc=jp
+
+
+[OK] Completed on ovs-012
+[root@ovs-012 tmp]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config olcServerID
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b "olcDatabase={1}mdb,cn=config" olcSyncrepl olcMultiProvider
+
+
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcSyncrepl: {0}rid=001 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
+ e binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {1}rid=025 provider=ldap://ovs-025.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 5" timeout=1
+  interval=00:00:01:00
+olcSyncrepl: {2}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 1 interval=00:00:05:00
+olcMultiProvider: TRUE
+
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+[root@ovs-002 ~]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config '(olcDatabase= mdb )' dn olcSuffix
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcSuffix: dc=e-smile,dc=ne,dc=jp
+
+
+[OK] Completed on ovs-002
+[root@ovs-002 tmp]# ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config olcServerID
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: cn=config
+olcServerID: 24 ldap://ovs-024.e-smile.local
+olcServerID: 25 ldap://ovs-025.e-smile.local
+olcServerID: 26 ldap://ovs-026.e-smile.local
+olcServerID: 12 ldap://ovs-012.e-smile.local
+olcServerID: 2  ldap://ovs-002.e-smile.local
+
+
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={1}mdb,cn=config
+olcSyncrepl: {0}rid=001 provider=ldap://ovs-012.e-smile.local bindmethod=simpl
+ e binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 10
+olcSyncrepl: {1}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
+ e binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 10
+olcSyncrepl: {2}rid=025 provider=ldap://ovs-025.e-smile.local bindmethod=simpl
+ e binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 10
+olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
+ e binddn="cn=admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
+ 10
+olcMultiProvider: TRUE
+
+dn: olcOverlay={0}syncprov,olcDatabase={1}mdb,cn=config
+
+
+# /usr/local/etc/openldap/tmp/monitor-csn.sh
+HOSTS=(ovs-024 ovs-025 ovs-026 ovs-002 ovs-012)
+for h in "${HOSTS[@]}"; do
+  echo "== $h ==";
+  ldapsearch -LLL -x -H ldap://$h \
+    -D 'cn=Admin,dc=e-smile,dc=ne,dc=jp' -y /root/.ldap-pass \
+    -b 'dc=e-smile,dc=ne,dc=jp' -s base -e manageDSAit contextCSN; echo;
+done
+
+
+[root@ovs-025 tmp]# ldapsearch -LLL -x -H ldap://ovs-024 \
+  -D 'cn=Admin,dc=e-smile,dc=ne,dc=jp' -y /root/.ldap-pass \
+  -b "cn=Database 2,cn=Databases,cn=Monitor" "(cn=Consumer *)" + \
+  syncreplCookie contextCSN \
+| awk '
+  /^dn: cn=Consumer/ {print "\n" $0}
+  /^syncreplCookie:/ {print}
+  /^contextCSN:/ {print}
+'
+
+dn: cn=Consumer 026,cn=Database 2,cn=Databases,cn=Monitor
+
+dn: cn=Consumer 001,cn=Database 2,cn=Databases,cn=Monitor
+
+dn: cn=Consumer 012,cn=Database 2,cn=Databases,cn=Monitor
+
+dn: cn=Consumer 002,cn=Database 2,cn=Databases,cn=Monitor
+
+
+---------------------------------------------------------------------------------------------------------------- ovs-010
+
+root@ovs-010 ~# ldapsearch -LLL -Y EXTERNAL -b "olcDatabase={2}mdb,cn=config" olcSyncrepl
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSyncrepl: {0}rid=009 provider=ldap://ovs-009.e-smile.local binddn="cn=Admin
+ ,dc=e-smile,dc=ne,dc=jp" bindmethod=simple credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 +" timeout=1
+  network-timeout=3 keepalive=60:3:10 schemachecking=on
+olcSyncrepl: {1}rid=011 provider=ldap://ovs-011.e-smile.local binddn="cn=Admin
+ ,dc=e-smile,dc=ne,dc=jp" bindmethod=simple credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 +" timeout=1
+  network-timeout=3 keepalive=60:3:10 schemachecking=on
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+---------------------------------------------------------------------------------------------------------------- ovs-009
+
+[root@ovs-009 ~]#  ldapsearch -LLL -Y EXTERNAL -b "olcDatabase={2}mdb,cn=config" olcSyncrepl
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSyncrepl: {0}rid=010 provider=ldap://ovs-010.e-smile.local binddn="cn=Admin
+ ,dc=e-smile,dc=ne,dc=jp" bindmethod=simple credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 +" timeout=1
+  network-timeout=3 keepalive=60:3:10 schemachecking=on
+olcSyncrepl: {1}rid=011 provider=ldap://ovs-011.e-smile.local binddn="cn=Admin
+ ,dc=e-smile,dc=ne,dc=jp" bindmethod=simple credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 +" timeout=1
+  network-timeout=3 keepalive=60:3:10 schemachecking=on
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config
+
+---------------------------------------------------------------------------------------------------------------- ovs-011
+
+[root@ovs-011 ~]# ldapsearch -LLL -Y EXTERNAL -b "olcDatabase={2}mdb,cn=config" olcSyncrepl
+SASL/EXTERNAL authentication started
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
+SASL SSF: 0
+dn: olcDatabase={2}mdb,cn=config
+olcSyncrepl: {0}rid=009 provider=ldap://ovs-009.e-smile.local binddn="cn=Admin
+ ,dc=e-smile,dc=ne,dc=jp" bindmethod=simple credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 +" timeout=1
+  network-timeout=3 keepalive=60:3:10 schemachecking=on
+olcSyncrepl: {1}rid=010 provider=ldap://ovs-010.e-smile.local binddn="cn=Admin
+ ,dc=e-smile,dc=ne,dc=jp" bindmethod=simple credentials=es0356525566 searchbas
+ e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="5 5 300 +" timeout=1
+  network-timeout=3 keepalive=60:3:10 schemachecking=on
+
+dn: olcOverlay={0}syncprov,olcDatabase={2}mdb,cn=config

@@ -1,0 +1,10 @@
+dn: cn={6}emMailAux,cn=schema,cn=config
+changetype: modify
+add: olcAttributeTypes
+olcAttributeTypes: ( 1.3.6.1.4.1.55555.1.4
+  NAME 'displayOrderInt'
+  DESC 'Display order integer (0 = primary)'
+  EQUALITY integerMatch
+  ORDERING integerOrderingMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
+

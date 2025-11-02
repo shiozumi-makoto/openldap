@@ -1,0 +1,6 @@
+dn: cn=config
+changetype: modify
+add: olcServerID
+olcServerID: 1 ldap://ovs-002/
+olcServerID: 2 ldap://ovs-012/
+

@@ -1,0 +1,22 @@
+# AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
+# CRC32 0d95cb98
+dn: olcDatabase={2}monitor
+objectClass: olcDatabaseConfig
+olcDatabase: {2}monitor
+olcAccess: {0}to dn.subtree="cn=monitor"  by dn.base="cn=admin,dc=e-smile,dc=n
+ e,dc=jp" read  by * none
+olcAddContentAcl: FALSE
+olcLastMod: TRUE
+olcLastBind: FALSE
+olcLastBindPrecision: 0
+olcMaxDerefDepth: 15
+olcReadOnly: FALSE
+olcSyncUseSubentry: FALSE
+olcMonitoring: FALSE
+structuralObjectClass: olcDatabaseConfig
+entryUUID: a0bc21bc-4bd4-1040-90ce-45ef2fcf7a17
+creatorsName: cn=config
+createTimestamp: 20251102011138Z
+entryCSN: 20251102011138.630026Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20251102011138Z

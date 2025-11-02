@@ -1,0 +1,5 @@
+dn: cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+cn: users
+gidNumber: 100

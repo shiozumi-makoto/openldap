@@ -1,0 +1,71 @@
+dn: dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: e-smile
+dc: e-smile
+
+dn: cn=admin,dc=e-smile,dc=ne,dc=jp
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: Directory Manager
+userPassword: {SSHA}WgrhXtx6vtueAc1rocf8cCVD4/1POga2
+
+dn: ou=Users,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: organizationalUnit
+ou: Users
+
+dn: ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: organizationalUnit
+ou: Groups
+
+dn: cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+cn: esmile-dev
+gidNumber: 2001
+
+dn: cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+cn: nicori-dev
+gidNumber: 2002
+
+dn: cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+cn: kindaka-dev
+gidNumber: 2003
+
+dn: cn=boj-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+cn: boj-dev
+gidNumber: 2005
+
+dn: cn=e_game-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+cn: e_game-dev
+gidNumber: 2009
+
+dn: cn=solt-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+cn: solt-dev
+gidNumber: 2010
+
+dn: cn=social-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: posixGroup
+cn: social-dev
+gidNumber: 2012
+
+dn: sambaDomainName=E-SMILE,dc=e-smile,dc=ne,dc=jp
+objectClass: sambaDomain
+sambaDomainName: E-SMILE
+sambaSID: S-1-5-21-3566765955-3362818161-2431109675
+sambaAlgorithmicRidBase: 1000

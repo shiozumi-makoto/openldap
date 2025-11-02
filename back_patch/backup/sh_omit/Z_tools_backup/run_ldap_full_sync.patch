@@ -1,0 +1,68 @@
+@@
+-# LDAP（★認証は環境変数に統一★）
+-export LDAP_URL="${LDAP_URL:-ldap://127.0.0.1}"
++# LDAP（★認証は環境変数に統一★）
++# 接続先は「このホスト（ovs-012）なら ldapi、その他は ldaps」に自動切替
++HOST_FQDN="$(hostname -f 2>/dev/null || hostname)"
++HOST_SHORT="$(hostname -s 2>/dev/null || echo "")"
++LDAP_URL_DEFAULT="ldaps://ovs-012.e-smile.local"
++if [[ "$HOST_SHORT" == "ovs-012" || "$HOST_FQDN" == "ovs-012.e-smile.local" ]]; then
++  LDAP_URL_DEFAULT='ldapi://%2Fvar%2Frun%2Fldapi'
++fi
++export LDAP_URL="${LDAP_URL:-$LDAP_URL_DEFAULT}"
+@@
+-export LDAP_BASE_DN="${LDAP_BASE_DN:-ou=Users,dc=e-smile,dc=ne,dc=jp}"  # OU付きも許容
++export LDAP_BASE_DN="${LDAP_BASE_DN:-ou=Users,dc=e-smile,dc=ne,dc=jp}"  # OU付きも許容
+ export BIND_DN="${BIND_DN:-cn=Admin,dc=e-smile,dc=ne,dc=jp}"
+@@
+-# セキュア取得順：BIND_PW > LDAP_ADMIN_PW > BIND_PW_FILE
+-export LDAP_ADMIN_PW="${LDAP_ADMIN_PW-}"
+-: "${BIND_PW_FILE:=/root/.secrets/ldap_admin.pw}"
+-if [ -z "${BIND_PW-}" ]; then
+-  if [ -n "${LDAP_ADMIN_PW-}" ]; then
+-    export BIND_PW="$LDAP_ADMIN_PW"
+-  elif [ -r "$BIND_PW_FILE" ]; then
+-    export BIND_PW="$(head -n1 "$BIND_PW_FILE")"
+-  else
+-    echo "[ERROR] BIND_PW が未設定です（BIND_PW / LDAP_ADMIN_PW / BIND_PW_FILE を用意してください）" >&2
+-    exit 1
+-  fi
+-fi
++# セキュア取得順：BIND_PW > LDAP_ADMIN_PW > BIND_PW_FILE
++# ※ ldapi 利用時でも、PHP 側がシンプルバインドを使う実装なら BIND_PW が必要。
++#    （サーバ側で olcLocalSSF を設定済みなら Stronger エラーは発生しません）
++export LDAP_ADMIN_PW="${LDAP_ADMIN_PW-}"
++: "${BIND_PW_FILE:=/root/.secrets/ldap_admin.pw}"
++if [ -z "${BIND_PW-}" ]; then
++  if [ -n "${LDAP_ADMIN_PW-}" ]; then
++    export BIND_PW="$LDAP_ADMIN_PW"
++  elif [ -r "$BIND_PW_FILE" ]; then
++    export BIND_PW="$(head -n1 "$BIND_PW_FILE")"
++  else
++    echo "[ERROR] BIND_PW が未設定です（BIND_PW / LDAP_ADMIN_PW / BIND_PW_FILE を用意してください）" >&2
++    exit 1
++  fi
++fi
+@@
+-export LDAP_URI="${LDAP_URI:-$LDAP_URL}"
++export LDAP_URI="${LDAP_URI:-$LDAP_URL}"
+@@
+-echo "[INFO] LDAP=${LDAP_URL} BASE_DN=${BASE_DN} (PEOPLE_OU=${PEOPLE_OU}) BIND_DN=${BIND_DN}"
++echo "[INFO] LDAP=${LDAP_URL} BASE_DN=${BASE_DN} (PEOPLE_OU=${PEOPLE_OU}) BIND_DN=${BIND_DN}"
++if [[ "$LDAP_URL" == ldapi://* ]]; then
++  echo "[INFO] MODE=LOCAL(ldapi)"
++else
++  echo "[INFO] MODE=REMOTE(ldaps)"
++fi
+@@
+ run_env() {
+   local tool="$1"; shift || true
+   echo "[RUN] (env) BIND_DN=${BIND_DN} BIND_PW=$(mask_pw "$BIND_PW") $PHP_BIN $tool $*"
+-  BIND_DN="$BIND_DN" BIND_PW="$BIND_PW" \
++  BIND_DN="$BIND_DN" BIND_PW="$BIND_PW" \
+   LDAP_URL="$LDAP_URL" LDAP_URI="$LDAP_URL" \
+   LDAP_BASE_DN="$LDAP_BASE_DN" BASE_DN="$BASE_DN" \
+   PEOPLE_OU="ou=Users,${BASE_DN}" \
+   "$PHP_BIN" "$tool" "$@"
+ }
+

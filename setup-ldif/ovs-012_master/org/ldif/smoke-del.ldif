@@ -1,0 +1,4 @@
+dn: uid=10-260,ou=Temp,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+delete: description
+description: SYNC-CHECK-2025-09-07

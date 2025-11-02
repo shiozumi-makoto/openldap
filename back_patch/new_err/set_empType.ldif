@@ -1,0 +1,6 @@
+# set_empType.ldif
+dn: uid=shiozumi-makoto,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: employeeType
+employeeType: adm-cls 1
+

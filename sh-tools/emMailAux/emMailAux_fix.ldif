@@ -1,0 +1,17 @@
+dn: cn=emMailAux,cn=schema,cn=config
+changetype: modify
+replace: olcAttributeTypes
+olcAttributeTypes: ( 1.3.6.1.4.1.55555.1.1
+  NAME 'mailAlternateAddress'
+  DESC 'Additional email addresses for a person'
+  EQUALITY caseIgnoreIA5Match
+  SUBSTR caseIgnoreIA5SubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+-
+replace: olcObjectClasses
+olcObjectClasses: ( 1.3.6.1.4.1.55555.1.2
+  NAME 'emMailAux'
+  DESC 'Aux class to hold alternate email addresses'
+  SUP top
+  AUXILIARY
+  MAY ( mailAlternateAddress ) )

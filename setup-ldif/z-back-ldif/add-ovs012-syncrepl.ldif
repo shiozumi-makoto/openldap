@@ -1,0 +1,7 @@
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+add: olcSyncrepl
+olcSyncrepl: {2}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=1 interval=00:00:05:00
+-
+add: olcSyncrepl
+olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simple binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=1 interval=00:00:05:00

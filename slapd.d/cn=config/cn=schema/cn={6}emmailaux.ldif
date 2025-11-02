@@ -1,0 +1,24 @@
+# AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
+# CRC32 b6335ffd
+dn: cn={6}emmailaux
+objectClass: olcSchemaConfig
+cn: {6}emmailaux
+olcAttributeTypes: {0}( 1.3.6.1.4.1.55555.1.1 NAME 'mailAlternateAddress' DESC
+  'Additional email addresses for a person' EQUALITY caseIgnoreIA5Match SUBSTR
+  caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+olcAttributeTypes: {1}( 1.3.6.1.4.1.55555.1.4 NAME 'displayOrderInt' DESC 'Dis
+ play order integer (for sorting)' EQUALITY integerMatch ORDERING integerOrder
+ ingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
+olcAttributeTypes: {2}( 1.3.6.1.4.1.55555.1.2 NAME 'displayNameOrder' DESC 'So
+ rt key for display name' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115
+ .121.1.15 )
+olcObjectClasses: {0}( 1.3.6.1.4.1.55555.2.1 NAME 'emMailAux' DESC 'Aux class 
+ to hold alternate emails and display order' SUP top AUXILIARY MAY ( mailAlter
+ nateAddress $ displayNameOrder $ displayOrderInt ) )
+structuralObjectClass: olcSchemaConfig
+entryUUID: a0bc1b68-4bd4-1040-90ca-45ef2fcf7a17
+creatorsName: cn=config
+createTimestamp: 20251102011138Z
+entryCSN: 20251102011138.630026Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20251102011138Z

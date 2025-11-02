@@ -1,0 +1,5 @@
+dn: uid=shiozumi,ou=Users,dc=e-smile,dc=ne,dc=jp
+changetype: modify
+replace: gidNumber
+gidNumber: 100
+
