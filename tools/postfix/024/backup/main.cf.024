@@ -1,0 +1,76 @@
+# =====================================================================
+#  Postfix main.cf  for ovs-024.e-smile.local
+#  LDAP + Dovecot (LMTP & SASL) integration
+#  Domain: esmile-holdings.com
+#  BaseDN: dc=e-smile,dc=ne,dc=jp
+# =====================================================================
+
+# --- 基本ホスト情報 ---------------------------------------------------
+myhostname = ovs-024.esmile-holdings.com
+mydomain   = esmile-holdings.com
+myorigin   = $mydomain
+
+inet_interfaces = all
+inet_protocols  = ipv4
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain, mail2.$mydomain
+
+# --- メールボックス ----------------------------------------------------
+# LMTP 経由で Dovecot に配送する
+mailbox_transport = lmtp:unix:private/dovecot-lmtp
+# home_mailbox = Maildir/    # ← Dovecot に任せる場合はコメントアウト
+
+# --- SMTP AUTH (Dovecot SASL) -----------------------------------------
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+broken_sasl_auth_clients = yes
+
+# --- TLS / STARTTLS ----------------------------------------------------
+smtpd_use_tls = yes
+smtpd_tls_cert_file = /etc/pki/tls/certs/esmile-ca.crt
+smtpd_tls_key_file  = /etc/pki/tls/private/esmile-ca.key
+smtpd_tls_security_level = may
+smtpd_tls_auth_only = yes
+smtpd_tls_loglevel = 1
+
+# --- 受信制限 ----------------------------------------------------------
+smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+mynetworks = 127.0.0.0/8, 192.168.0.0/16, [::1]/128
+
+# --- 送信制御 ----------------------------------------------------------
+relayhost =
+
+# --- ローカル宛先チェック（LDAP）---------------------------------------
+local_recipient_maps = ldap:/etc/postfix/ldap-users.cf
+
+# --- 仮想ドメイン設定（LDAP対応）-------------------------------------
+virtual_mailbox_domains = esmile-holdings.com
+virtual_mailbox_maps    = ldap:/etc/postfix/ldap-users.cf
+virtual_alias_maps      = ldap:/etc/postfix/ldap-alias.cf
+virtual_transport       = lmtp:unix:private/dovecot-lmtp
+
+# --- メッセージサイズなど ---------------------------------------------
+message_size_limit = 52428800        # 50MB
+mailbox_size_limit = 0
+recipient_delimiter = +
+
+# --- DNS / ホストルックアップ ----------------------------------------
+smtp_host_lookup = native
+
+# --- ログ / デバッグ ---------------------------------------------------
+debug_peer_level = 2
+soft_bounce = no
+
+# --- banner ------------------------------------------------------------
+smtpd_banner = $myhostname ESMTP Postfix (E-SMILE SOL-TRIBE)
+biff = no
+append_dot_mydomain = no
+
+# --- サブミッションポート設定 ----------------------------------------
+# submission/587 は master.cf で有効化 (以下は参考)
+# smtpd_tls_security_level = encrypt
+# smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3
+# smtpd_tls_mandatory_ciphers = high
+
+# --- End of main.cf ----------------------------------------------------

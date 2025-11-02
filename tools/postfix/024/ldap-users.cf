@@ -1,0 +1,24 @@
+# LDAP lookup for virtual_mailbox_maps (users)
+server_host = ldaps://ovs-024.e-smile.local
+search_base = ou=Users,dc=e-smile,dc=ne,dc=jp
+version = 3
+timeout = 5
+
+# ユーザー検索（uid= か mail= で命中）
+query_filter = (|(uid=%s)(mail=%s))
+result_attribute = uid
+
+# バインド（必要に応じて匿名に変更可）
+bind = yes
+bind_dn = cn=admin,dc=e-smile,dc=ne,dc=jp
+bind_pw = es0356525566
+
+# LDAPS を使うため start_tls は不要
+# start_tls = no
+
+# 証明書検証用の CA（社内CA）
+# tls_ca_cert_file = /usr/local/etc/openldap/certs/cacert.crt
+tls_ca_cert_file = /etc/postfix/tls/ca.crt
+
+# ホスト名検証を有効化（デフォルト有効の実装が多いが明示）
+# tls_require_cert = yes

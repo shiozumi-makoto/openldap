@@ -1,0 +1,21 @@
+server_host = ldap://ovs-024.e-smile.local
+search_base = ou=Users,dc=e-smile,dc=ne,dc=jp
+version = 3
+timeout = 5
+
+query_filter = (|(uid=%s)(mail=%s))
+result_attribute = uid
+
+bind = yes
+bind_dn = cn=admin,dc=e-smile,dc=ne,dc=jp
+bind_pw = es0356525566
+
+# ここがポイント
+domain            = esmile-holdings.com
+# domain            = esmile-holdings.com, esmile-soltribe.com, esmile-systems.jp
+
+# StartTLS を使う
+start_tls = yes
+# tls_ca_cert_file = /usr/local/etc/openldap/certs/cacert.crt
+tls_ca_cert_file = /etc/postfix/tls/ca.crt
+# tls_require_cert = yes

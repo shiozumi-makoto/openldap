@@ -1,0 +1,111 @@
+# =========================================================
+# Postfix Main Configuration - ovs-010.esmile-holdings.com
+# 送信専用SMTPリレー (relayhost: ovs-009)
+# =========================================================
+
+queue_directory = /var/spool/postfix
+command_directory = /usr/sbin
+daemon_directory  = /usr/libexec/postfix
+data_directory    = /var/lib/postfix
+
+mail_owner = postfix
+setgid_group = postdrop
+
+# === ホスト名 / ドメイン識別 ===
+myhostname = ovs-010.esmile-holdings.com
+mydomain   = esmile-holdings.com
+myorigin   = $mydomain
+
+# === ネットワーク設定 ===
+inet_interfaces = all
+
+# inet_protocols  = all
+# 必要に応じて
+inet_protocols = ipv4
+
+mynetworks_style = subnet
+mynetworks = 192.168.61.0/24, 127.0.0.0/8
+
+# === 宛先制御 ===
+mydestination = $myhostname, localhost.$mydomain, localhost
+
+unknown_local_recipient_reject_code = 550
+
+# === リレー設定 ===
+relayhost = [192.168.61.9]:25
+smtp_generic_maps = hash:/etc/postfix/generic
+
+# === SMTP 動作設定 ===
+smtp_helo_name = ovs-010.esmile-holdings.com
+smtp_tls_security_level = may
+smtp_tls_loglevel = 1
+smtp_tls_note_starttls_offer = yes
+smtp_tls_CAfile = /etc/postfix/tls/ca.crit
+
+smtpd_tls_security_level = may
+smtpd_use_tls = yes
+smtpd_tls_cert_file = /etc/postfix/tls/postfix.crt
+smtpd_tls_key_file  = /etc/postfix/tls/postfix.key
+smtpd_tls_CAfile    = /etc/postfix/tls/ca.crt
+
+smtpd_tls_loglevel  = 1
+smtpd_tls_auth_only = yes
+smtpd_tls_received_header = yes
+
+# === SASL認証（送信専用の場合はクライアントのみ） ===
+smtp_sasl_auth_enable = no
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+broken_sasl_auth_clients = yes
+
+# === メールボックス / ローカル配送（不要ならMaildir指定） ===
+home_mailbox = Maildir/
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+
+# === DKIM / ARC Milter ===
+milter_default_action = accept
+milter_protocol = 6
+
+# smtpd_milters = unix:/var/run/opendkim/opendkim.sock, unix:/var/run/opendmarc/opendmarc.sock, unix:/var/run/arc/arc.sock
+# non_smtpd_milters = unix:/var/run/opendkim/opendkim.sock, unix:/var/run/opendmarc/opendmarc.sock, unix:/var/run/arc/arc.sock
+
+smtpd_milters = unix:/var/spool/postfix/opendkim/opendkim.sock
+non_smtpd_milters = $smtpd_milters
+
+
+# === ログ / デバッグ ===
+debug_peer_level = 2
+debug_peer_list = 192.168.61.9
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+
+# === バナー ===
+smtpd_banner = $myhostname ESMTP $mail_name
+biff = no
+append_dot_mydomain = no
+readme_directory = /usr/share/doc/postfix-2.10.1/README_FILES
+html_directory = no
+manpage_directory = /usr/share/man
+
+# === alias更新コマンド ===
+sendmail_path   = /usr/sbin/sendmail.postfix
+newaliases_path = /usr/bin/newaliases.postfix
+mailq_path      = /usr/bin/mailq.postfix
+
+# === オプション: LMTP / fallback なし ===
+local_recipient_maps =
+fallback_transport =
+
+# === 認証結果ヘッダ（Gmail等で可視化される） ===
+receive_override_options = no_address_mappings
+
+# === ローカルドメイン署名用 ===
+sender_canonical_classes = envelope_sender
+sender_canonical_maps = regexp:/etc/postfix/sender_canonical
+
+# === Milterソケット権限 ===
+milter_connect_timeout = 30s
+milter_command_timeout = 30s
+milter_content_timeout = 300s
+milter_default_action = accept

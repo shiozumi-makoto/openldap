@@ -1,0 +1,198 @@
+# =========================
+# ovs-024
+# =========================
+[global]
+
+workgroup = E-SMILE
+server string = ovs-024 ( 192.168.61.24 )
+netbios name = ovs-024
+
+# --- セキュリティ/プロトコル ---
+
+security = user
+server min protocol = SMB2_10
+server max protocol = SMB3_11
+client min protocol = SMB2_10
+client max protocol = SMB3_11
+smb encrypt = desired
+map to guest = Bad User
+# ntlm auth = ntlmv2-only
+
+# --- LDAP(passdb) - 自ホストへ StartTLS で ---
+
+passdb backend = ldapsam:ldap://ovs-024.e-smile.local/
+ldap admin dn = cn=admin,dc=e-smile,dc=ne,dc=jp
+ldap suffix = dc=e-smile,dc=ne,dc=jp
+ldap user suffix = ou=Users
+ldap group suffix = ou=Groups
+ldap machine suffix = ou=Computers
+ldap passwd sync = yes
+ldap ssl = start_tls
+tls cafile = /usr/local/etc/openldap/certs/cacert.crt
+client ldap sasl wrapping = sign
+
+# --- WINS / Browser 役割（Client）---
+
+wins support = no
+wins server  = 192.168.61.2
+name resolve order = wins host bcast
+domain master = no
+local master = no
+preferred master = no
+os level = 20
+
+# --- ネットワーク制限 ---
+
+interfaces = 192.168.61.24/24 127.0.0.1
+bind interfaces only = yes
+hosts allow = 127.0.0.0/8 192.168.61.0/24 192.168.62.0/24 172.16.0.0/12
+hosts deny  = all
+
+# --- ログ ---
+log file = /var/log/samba/%m.log
+max log size = 1000
+# --- 印刷（必要なら） ---
+printing = cups
+printcap name = cups
+load printers = yes
+cups options = raw
+# --- 見え方/列挙 ---
+browseable = yes
+access based share enum = yes
+ldapsam:trusted   = yes
+ldapsam:editposix = yes
+
+# ==========================================
+# 各ユーザーのホーム共有
+# ==========================================
+
+[homes]
+	comment = Home Directories
+	browseable = no
+	writable = yes
+
+[printers]
+	comment = All Printers
+	path = /var/spool/samba
+	browseable = no
+	guest ok = no
+	writable = no
+	printable = yes
+
+# ==========================================
+# 開発関連
+# ==========================================
+
+[www]
+        comment = ovs-024 www
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /var/www/
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[Pear]
+        comment = ovs-024 Pear
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /usr/share/pear
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+
+[httpd]
+        comment = ovs-024 httpd
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /etc/httpd
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+
+[ssl_pki]
+        comment = ovs-024 ssl pki
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /etc/pki/
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[openldap]
+        comment = ovs-024 open ldap
+        browseable = yes
+        invalid users = %S
+        path = /usr/local/etc/openldap/
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = no
+        create mask = 0664
+        force create mode = 0664
+        directory mask = 2775
+        inherit permissions = yes
+        map acl inherit = yes
+        dos filemode = yes
+
+[pgsql]
+
+        comment = ovs-024 pgsql
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = postgres
+        force group = postgres
+        read only = No
+        writable = yes
+        path = /var/lib/pgsql/
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+
+[backup_sh]
+        comment = ovs-024 backup shell
+        browseable = yes
+        path = /root/backup
+        create mask = 0775
+        directory mask = 0775
+        force create mode = 0775
+        force group = shiozumi
+        invalid users = %S
+        valid users = shiozumi
+        force user = root
+
+
+[root_logs]
+        comment       = ovs012 ovs-logs
+        path          = /var/logs_share
+        browseable    = Yes
+        writable      = Yes
+        read only     = No
+        valid users   = shiozumi shiozumi-makoto
+        force user    = shiozumi
+        force group   = shiozumi
+        create mask   = 0664
+        directory mask= 2775

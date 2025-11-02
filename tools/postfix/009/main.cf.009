@@ -1,0 +1,126 @@
+# =====================================================================
+#  Postfix main.cf  for ovs-009.esmile-holdings.com
+#  Outbound SMTP (submission relay) + LDAP alias lookup
+#  Domain: esmile-holdings.com
+#  BaseDN: dc=e-smile,dc=ne,dc=jp
+#  Role  : Send-only (no local mailbox); receive disabled except from LAN
+# =====================================================================
+
+# --- 基本ホスト情報 ---------------------------------------------------
+myhostname = ovs-009.esmile-holdings.com
+mydomain   = esmile-holdings.com
+myorigin   = $mydomain
+
+inet_interfaces = all
+inet_protocols  = ipv4
+
+# このサーバは受信メールをローカル配送しない（最小限に限定）
+mydestination = $myhostname, localhost.$mydomain, localhost
+home_mailbox = Maildir/
+
+# 送信時のHELO名
+smtp_helo_name = $myhostname
+
+# 自サーバの信頼ネットワーク（LAN からのリレーを許可）
+mynetworks = 127.0.0.0/8, 192.168.10.0/24, 192.168.61.0/24, 192.168.62.0/24, 192.168.63.0/24, 192.168.100.0/24
+
+# 受信サイズ上限（例: 25MB）
+message_size_limit = 26214400
+
+# --- メールルーティング ------------------------------------------------
+# 直接インターネットへ配送（中継先がある場合は relayhost を指定）
+# relayhost = [mail.esmile-holdings.com]:587
+
+# --- メールエイリアス -------------------------------------------------
+alias_maps     = hash:/etc/aliases, ldap:/etc/postfix/ldap-alias.cf
+alias_database = hash:/etc/aliases
+
+# --- エイリアス展開対象 -------------------------------
+virtual_alias_domains = esmile-soltribe.jp
+virtual_alias_maps = ldap:/etc/postfix/ldap-alias.cf, regexp:/etc/postfix/virtual-regexp
+
+
+# --- 仮想ドメイン/ユーザー（LDAP参照） -------------------------------
+# ※受信サーバではないため virtual_mailbox は無効化のまま
+# virtual_mailbox_domains = esmile-holdings.com
+# virtual_mailbox_maps    = ldap:/etc/postfix/ldap-users.cf
+# virtual_alias_maps      = ldap:/etc/postfix/ldap-alias.cf
+
+# --- 送信キュー寿命 ---------------------------------------------------
+maximal_queue_lifetime = 3d
+bounce_queue_lifetime  = 3d
+
+# --- SMTP AUTH（クライアント認証を使うなら有効化） --------------------
+# smtpd_sasl_type = dovecot
+# smtpd_sasl_path = private/auth
+# smtpd_sasl_auth_enable = yes
+# smtpd_sasl_security_options = noanonymous
+# smtpd_sasl_local_domain = $myhostname
+# smtpd_tls_auth_only = yes
+
+# 中継許可制御（LAN と SASL 認証のみ許可）
+smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+
+# 受信側の最低限の制御（送信専用だが、踏み台防止で置いておく）
+smtpd_helo_required = yes
+smtpd_recipient_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_invalid_hostname,
+    reject_non_fqdn_sender,
+    reject_non_fqdn_recipient,
+    reject_unknown_sender_domain,
+    reject_unknown_recipient_domain,
+    reject_unauth_destination,
+    reject_rbl_client zen.spamhaus.org,
+    reject_rbl_client bl.spamcop.net,
+    permit
+
+# --- TLS（受信/送信） -------------------------------------------------
+# --- STARTTLS（Postfix用複製証明書） ----------------------------------
+# TLS設定
+smtpd_use_tls = yes
+smtpd_tls_cert_file = /etc/postfix/tls/postfix.crt
+smtpd_tls_key_file  = /etc/postfix/tls/postfix.key
+smtpd_tls_CAfile    = /etc/postfix/tls/ca.crt
+
+# smtpd_tls_cert_file = /etc/letsencrypt/live/esmile-holdings.com/fullchain.pem
+# smtpd_tls_key_file  = /etc/letsencrypt/live/esmile-holdings.com/privkey.pem
+
+smtpd_tls_security_level   = may
+smtpd_tls_received_header  = yes
+smtpd_tls_loglevel         = 1
+
+# --- 送信時TLS ---------------------------------------------------------
+smtp_tls_security_level    = may
+smtp_tls_loglevel          = 1
+smtp_tls_CAfile            = /etc/postfix/tls/ca.crt
+# smtp_tls_CAfile          = /etc/ssl/certs/ca-bundle.crt
+
+# --- DKIM（使う場合のみ有効化） --------------------------------------
+smtpd_milters       = unix:/var/spool/postfix/opendkim/opendkim.sock
+non_smtpd_milters   = $smtpd_milters
+milter_default_action = accept
+milter_protocol     = 6
+
+# --- postscreen（受信スパム対策：最小限） -----------------------------
+postscreen_cache_map             = btree:$data_directory/postscreen_cache
+postscreen_greet_action          = drop
+postscreen_non_smtp_command_action = drop
+postscreen_pipelining_action     = drop
+
+# --- 互換設定 ---------------------------------------------------------
+# compatibility_level = 2
+
+# --- LMTP 連携は不要（受信しない） -----------------------------------
+# local_transport = lmtp:unix:private/dovecot-lmtp
+
+# --- その他 -----------------------------------------------------------
+disable_vrfy_command      = yes
+strict_rfc821_envelopes   = yes
+
+
+# --- その他 -----------------------------------------------------------
+always_add_missing_headers = yes
+smtp_generic_maps = hash:/etc/postfix/generic
+

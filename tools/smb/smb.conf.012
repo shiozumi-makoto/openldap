@@ -1,0 +1,263 @@
+# =========================
+# ovs-012 (WINS Client)
+# =========================
+[global]
+    workgroup = E-SMILE
+    server string = ovs-012 ( 192.168.61.12 )
+    netbios name = ovs-012
+
+    # --- セキュリティ/プロトコル ---
+    security = user
+    server min protocol = SMB2_10
+    server max protocol = SMB3_11
+    client min protocol = SMB2_10
+    client max protocol = SMB3_11
+    smb encrypt = desired
+    map to guest = Bad User
+    # ntlm auth = ntlmv2-only
+
+    # --- LDAP(passdb) - 自ホストへ StartTLS で ---
+    passdb backend = ldapsam:ldap://ovs-012.e-smile.local/
+    ldap admin dn = cn=admin,dc=e-smile,dc=ne,dc=jp
+    ldap suffix = dc=e-smile,dc=ne,dc=jp
+    ldap user suffix = ou=Users
+    ldap group suffix = ou=Groups
+    ldap machine suffix = ou=Computers
+    ldap passwd sync = yes
+    ldap ssl = start_tls
+    tls cafile = /usr/local/etc/openldap/certs/cacert.crt
+    client ldap sasl wrapping = sign
+
+    # --- WINS / Browser 役割（Client）---
+    wins support = no
+    wins server  = 192.168.61.2
+    name resolve order = wins host bcast
+    domain master = no
+    local master = no
+    preferred master = no
+    os level = 20
+
+    # --- ネットワーク制限 ---
+    interfaces = 192.168.61.12/24 127.0.0.1
+    bind interfaces only = yes
+    hosts allow = 127.0.0.0/8 192.168.61.0/24 192.168.62.0/24 172.16.0.0/12
+    hosts deny  = all
+
+    # --- ログ ---
+    log file = /var/log/samba/%m.log
+    max log size = 1000
+
+    # --- 印刷（必要なら） ---
+    printing = cups
+    printcap name = cups
+    load printers = yes
+    cups options = raw
+
+    # --- 見え方/列挙 ---
+    browseable = yes
+    access based share enum = yes
+       
+# ==========================================
+# 各ユーザーのホーム共有
+# ==========================================
+
+[homes]
+        comment = Home Directories
+        valid users = %S, %D%w%S
+        browseable = yes
+        read only = No
+        inherit acls = Yes
+        create mask = 0700
+        directory mask = 0700
+        force user = %U
+
+[printers]
+        comment = All Printers
+        path = /var/tmp
+        printable = Yes
+        create mask = 0600
+        browseable = No
+
+[print$]
+        comment = Printer Drivers
+        path = /var/lib/samba/drivers
+        write list = @printadmin root
+        force group = @printadmin
+        create mask = 0664
+        directory mask = 0775
+
+# ==========================================
+# 開発関連
+# ==========================================
+
+[www]
+        comment = ovs-012 www
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /var/www/
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[Pear]
+        comment = ovs-012 Pear
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /usr/share/pear
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[httpd]
+        comment = ovs-012 httpd
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /etc/httpd
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[ssl_pki]
+        comment = ovs-012 ssl pki
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /etc/pki/
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[openldap]
+
+        comment = ovs-012 openldap
+        browseable = yes
+        invalid users = %S
+        path = /usr/local/etc/openldap/
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = no
+        create mask = 0664
+        force create mode = 0664
+        directory mask = 2775
+        inherit permissions = yes
+        map acl inherit = yes
+        dos filemode = yes
+
+[usr_local_src]
+
+        ment = ovs-012 /usr/local/src
+        ath = /usr/local/src
+        alid users = shiozumi shiozumi-makoto
+        orce user    = shiozumi
+        orce group = shiozumi
+        rowseable = yes
+        ead only = no
+        ritable = yes  
+        reate mask = 0664
+        irectory mask = 2775
+
+[home_shiozumi]
+
+         comment = ovs-012 shiozumi [org]
+         path = /home/shiozumi/
+         browseable = yes
+         writable = yes
+         valid users = shiozumi shiozumi-makoto
+         force user = shiozumi
+         force group = shiozumi
+         create mask = 0775
+         directory mask = 2775
+         inherit permissions = yes
+         dos filemode = yes
+
+[pgsql]
+
+         comment = ovs-012 pgsql
+         browseable = yes
+         invalid users = %S
+         valid users = shiozumi shiozumi-makoto
+         force user  = postgres
+         force group = postgres
+         read only = No
+         writable = yes
+         path = /var/lib/pgsql/
+         create mask = 0775
+         force create mode = 0775
+         directory mask = 0775
+
+[root_logs]
+
+         comment       = ovs012 ovs-logs
+         path          = /var/logs_share
+         browseable    = Yes
+         writable      = Yes
+         read only     = No
+         valid users   = shiozumi shiozumi-makoto
+         force user    = shiozumi
+         force group   = shiozumi
+         create mask   = 0664
+         directory mask= 2775
+
+[root_bin]
+
+          comment       = root bin tools
+          path          = /root/bin
+          browseable    = Yes
+          writable      = Yes
+          read only     = No
+          valid users   = shiozumi shiozumi-makoto
+          force user    = shiozumi
+          force group   = shiozumi
+          create mask   = 0664
+          directory mask= 2775
+
+# ==========================================
+# 新) NAS
+# ==========================================
+
+[Users]
+
+        comment = Solt,Social,Systems [192.168.62.13:TNAS-3F-4TB]
+        path = /mnt/raid0/Users
+
+        valid users = @esmile-dev @kindaka-dev @boj-dev @e_gamne-dev @solt-dev @social-dev shiozumi
+        force group = users
+
+        browseable = yes
+        writable = yes
+        create mask = 0664
+        directory mask = 2775
+
+[Users_game]
+
+        comment = Games [192.168.62.10:LS220DB (ESMILE-NAS)]
+        path = /mnt/raid1/Users_game
+
+        valid users = @esmile-dev @kindaka-dev @boj-dev @e_gamne-dev @solt-dev @social-dev shiozumi
+        force group = users
+
+        browseable = yes
+        writable = yes
+        create mask = 0664
+        directory mask = 2775
+
+
