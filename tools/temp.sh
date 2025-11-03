@@ -102,7 +102,6 @@ echo
 
 echo "-------------------------------------------------------------------------------------- ★★★★★[STEP5] 不要ホームの整理"
 php "${BASE_DIR}/prune_home_dirs.php" "${COMMON_URI_FLAG[@]}"
-
 echo "=== DONE ACCOUNT UPDATE! ==="
 
 # ------------------
@@ -115,7 +114,6 @@ echo "=== DONE ACCOUNT UPDATE! ==="
 # ------------------
 
 echo "-------------------------------------------------------------------------------------- ★★★★★★[STEP6]"
-
 php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-post=ovs-010
 php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-post=ovs-010
 php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-post=ovs-010
@@ -124,5 +122,4 @@ php "${BASE_DIR}/make_forward_from_pg.php" "${COMMON_URI_FLAG[@]}"
 echo "-------------------------------------------------------------------------------------- ★★★★★★★[STEP7]"
 echo "Maildir の削除"
 php prune_maildir.php --maildir --maildir-days=180 --maildir-max-count=80000 --maildir-max-size=2000MB
-
 exit

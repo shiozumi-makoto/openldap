@@ -422,6 +422,7 @@ foreach ($rows as $r) {
 	$primaryDomain	 = Env::str('MAIL_PRIMARY_DOMAIN', 'esmile-holdings.com');
 	$extraDomainsCsv = Env::str('MAIL_EXTRA_DOMAINS', ''); // 例: "esmile-soltribe.com, esmile-systems.jp"
 	$extraDomains	 = array_values(array_filter(array_map('trim', explode(',', $extraDomainsCsv))));
+
 	$mailAddrs		 = [ sprintf('%s@%s', $login, $primaryDomain) ];
 	foreach ($extraDomains as $dom) {
 	     if ($dom !== '') $mailAddrs[] = sprintf('%s@%s', $login, $dom);
@@ -443,6 +444,10 @@ foreach ($rows as $r) {
 
 	// （必要なら添字を振り直す）
 	$mailAlternateAddress = array_values($mailAlternateAddress);
+
+// ★ ここで mailAlternateAddress を mail にも追加！
+//	$mailAddrs = array_merge($mailAddrs, $mailAlternateAddress);
+//	$mailAddrs = array_values(array_unique($mailAddrs));
 
 //	print_r($mailAlternateAddress);
 //	print_r($mailAddrs);
@@ -601,13 +606,76 @@ exit;
 //				exit;
             }
 
+    //============================================================
+    // Thunderbird AddressBook 自動生成（ou=AddressBook）
+    //============================================================
+    if (!empty($cfg['ldap']) && $ds && !empty($mailAlternateAddress)) {
+        $baseAB = 'ou=AddressBook,dc=e-smile,dc=ne,dc=jp';
+        $chk = @ldap_search($ds, 'dc=e-smile,dc=ne,dc=jp', '(ou=AddressBook)');
+        if (!$chk || ldap_count_entries($ds, $chk) === 0) {
+            $ouEntry = [
+                'objectClass' => ['top','organizationalUnit'],
+                'ou' => 'AddressBook',
+                'description' => 'Thunderbird用アドレス帳 (自動生成)'
+            ];
+            if ($APPLY) {
+                @ldap_add($ds, $baseAB, $ouEntry);
+                echo "  [ADD] ou=AddressBook を新規作成\n";
+            } else {
+                echo "  [DRY] would create ou=AddressBook\n";
+            }
+        }
+    
+        foreach ($mailAlternateAddress as $addr) {
+            if (!filter_var($addr, FILTER_VALIDATE_EMAIL)) continue;
+            $dnAB = sprintf('mail=%s,%s', $addr, $baseAB);
+            $cnAB = sprintf('%s (%s)', $cn, preg_replace('/@.*/', '', $addr));
+            $snAB = $sn ?: $cn;
+            $gnAB = $givenName ?: '';
+            $seeAlsoDn = sprintf('uid=%s,ou=Users,dc=e-smile,dc=ne,dc=jp', $login);
+    
+            $entryAB = [
+                'objectClass' => ['inetOrgPerson'],
+                'cn'          => $cnAB,
+                'sn'          => $snAB,
+                'givenName'   => $gnAB,
+                'mail'        => $addr,
+                'seeAlso'     => $seeAlsoDn,
+            ];
+    
+            $exists = @ldap_read($ds, $dnAB, '(objectClass=inetOrgPerson)');
+            if ($exists && ldap_count_entries($ds, $exists) > 0) {
+                if ($APPLY) {
+                    @ldap_modify($ds, $dnAB, $entryAB);
+                    echo "  [update] AddressBook: {$addr}\n";
+                } else {
+                    echo "  [DRY] would update AddressBook: {$addr}\n";
+                }
+            } else {
+                if ($APPLY) {
+                    @ldap_add($ds, $dnAB, $entryAB);
+                    echo "  [add] AddressBook: {$addr}\n";
+                } else {
+                    echo "  [DRY] would add AddressBook: {$addr}\n";
+                }
+            }
+        }
+    }
+
+
+
+
+
 //				print_r($attrs);
 //				echo "Nww Add ------------------------------------------------------------- $dn : $empType password = $pwd : $displayOrderInt app = $APPLY\n";
 //				exit;
 
         }
 
-//		print_r($mailAlternateAddress);
+//	print_r($mailAlternateAddress);
+//	print_r($mailAddrs);
+//	exit;
+
 
     }
 

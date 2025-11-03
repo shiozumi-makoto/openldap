@@ -2,71 +2,93 @@
 <?php
 /**
  * sync_mail_extension_from_ldap2.php
+ * -----------------------------------------------------------------------------
+ * 概要:
+ *   LDAP からユーザーの mail を取得し、PostgreSQL public."情報個人メール拡張" に
+ *   レコードを UPSERT（存在すれば UPDATE / 無ければ INSERT）する同期スクリプト。
  *
- * - LDAP から mail を取得し、PostgreSQL public."情報個人メール拡張" に UPSERT
- * - ベースDN/主キーの解釈と書込列はモードで切替:
- *     * --People (別名 --Peple):  base=ou=People,dc=e-smile,dc=ne,dc=jp
- *         - uid: "<cmp>-<user(3桁)>" → cmp_id,user_id に分割
- *         - 書込列: "電子メールアドレスLDAP登録"
- *     * --Users:   base=ou=Users,dc=e-smile,dc=ne,dc=jp
- *         - uidNumber: 例 50101 -> (cmp_id=5, user_id=0101), 120198 -> (12, 0198)
- *         - 書込列: "電子メールアドレス自社サーバー"
+ * 同期モード（ベースDN・主キー解釈・書込先列が切替）:
+ *   --People（別名 --Peple）:
+ *     - base:  ou=People,dc=e-smile,dc=ne,dc=jp
+ *     - 主キー: uid を "<cmp>-<user(3桁)>" と解釈し、cmp_id, user_id に分割
+ *               例) "10-015" -> cmp_id=10, user_id=15
+ *     - 書込列: "電子メールアドレスLDAP登録"
  *
- * 例:
- *   php sync_mail_extension_from_ldap2.php --People --confirm --config=/usr/local/etc/openldap/tools/tools.conf
- *   php sync_mail_extension_from_ldap2.php --Users  --confirm
+ *   --Users:
+ *     - base:  ou=Users,dc=e-smile,dc=ne,dc=jp
+ *     - 主キー: uidNumber を "cmp_id * 10000 + user_id(4桁)" として分解
+ *               例)  50101  -> (cmp_id=5,  user_id=0101)
+ *                    120198 -> (cmp_id=12, user_id=0198)
+ *               ※ 一般式: cmp_id = floor(uidNumber / 10000), user_id = uidNumber % 10000
+ *     - 書込列: "電子メールアドレス自社サーバー"
+ *
+ * 取り扱い属性:
+ *   - 読取:   mail（文字列・単一想定。複数値があれば先頭採用 or 結合方針は実装に依存）
+ *   - 変換:   前後空白除去、Unicode 正規化（任意）、小文字化（任意）
+ *   - 検証:   簡易メール形式チェック（任意; 不正形式はスキップ可能）
+ *
+ * 書込先テーブル（想定）: public."情報個人メール拡張"
+ *   - キー列: cmp_id (int), user_id (int)
+ *   - 値列:  "電子メールアドレスLDAP登録" (text), "電子メールアドレス自社サーバー" (text)
+ *   - 監査列: updated_at, updated_by（存在する場合のみ更新）
+ *   - UPSERT 例（概念）:
+ *       INSERT INTO public."情報個人メール拡張"(cmp_id, user_id, "電子メールアドレスLDAP登録")
+ *       VALUES (:cmp_id, :user_id, :mail)
+ *       ON CONFLICT (cmp_id, user_id) DO UPDATE
+ *         SET "電子メールアドレスLDAP登録" = EXCLUDED."電子メールアドレスLDAP登録",
+ *             updated_at = NOW();
+ *     ※ --Users の場合は上記の対象列が "電子メールアドレス自社サーバー" に変わる
+ *
+ * 実行フロー（概要）:
+ *   1) CLI引数・設定ファイルを読む（--config など）
+ *   2) LDAP 接続（ldapi:/// / ldaps:// など、Bind/証明書は環境依存）
+ *   3) モード別に baseDN と検索フィルタを構築して mail, uid/uidNumber を取得
+ *   4) 主キー（cmp_id, user_id）をモード別規則で算出
+ *   5) PostgreSQL に UPSERT（--confirm が無い場合はドライラン）
+ *   6) サマリ出力（対象件数・更新件数・スキップ件数・エラー件数）
+ *
+ * 代表的なオプション:
+ *   --People / --Peple   People モードで実行（ベースDN/主キー/書込列が People 用に）
+ *   --Users              Users モードで実行（ベースDN/主キー/書込列が Users 用に）
+ *   --config=<path>      設定ファイル（例: /usr/local/etc/openldap/tools/tools.conf）
+ *   --filter=<ldap>      LDAP 追加フィルタ（例: '(objectClass=inetOrgPerson)'）
+ *   --limit=<N>          最大処理件数の上限（テスト用）
+ *   --confirm            実際に DB へ書き込む（指定が無ければドライラン）
+ *   -v/--verbose         ログ詳細化
+ *   --debug              デバッグログを有効化
+ *
+ * 依存コンポーネント（例: プロジェクト内ライブラリ）:
+ *   - Tools\Lib\Env, Tools\Lib\Config
+ *   - Tools\Lib\CliUtil, Tools\Lib\CliColor
+ *   - Tools\Lib\LdapConnector（もしくは LdapUtil / LdapConnector）
+ *   - DB 接続: PDO (pdo_pgsql)
+ *   - LDAP拡張: php-ldap
+ *
+ * 実行例:
+ *   # People モード（LDAPのアドレスを "電子メールアドレスLDAP登録" に同期）
+ *   php sync_mail_extension_from_ldap2.php \
+ *       --People --confirm \
+ *       --config=/usr/local/etc/openldap/tools/tools.conf
+ *
+ *   # Users モード（自社サーバー側のアドレスを "電子メールアドレス自社サーバー" に同期）
+ *   php sync_mail_extension_from_ldap2.php --Users --confirm
+ *
+ * 運用上の注意:
+ *   - デフォルトはドライラン。実書込は --confirm 必須。
+ *   - 主キー解釈ルール（uid/uidNumber→cmp_id,user_id）に合致しないレコードはスキップ。
+ *   - 既存値と同一なら UPDATE はスキップ（無駄な更新を避ける実装推奨）。
+ *   - 大量更新時はトランザクション/バルクUPSERT/インデックス最適化を検討。
+ *   - 文字列は可能なら小文字化・余分な空白除去・Unicode正規化で揺れを低減。
+ *
+ * 返り値（慣例）:
+ *   - 0: 正常終了（エラー0件）
+ *   - 1: 引数または設定ファイル不備
+ *   - 2: LDAP接続/検索エラー
+ *   - 3: DB接続/書込エラー
+ *
+ * © E-Smile Group. Internal use only.
+ * -----------------------------------------------------------------------------
  */
-
-/*
-CREATE TABLE IF NOT EXISTS public.passwd_mail
-(
-    cmp_id integer NOT NULL,
-    user_id integer NOT NULL,
-    flag_id integer NOT NULL,
-    level_id integer NOT NULL,
-    login_id character varying(128) COLLATE pg_catalog."default",
-    passwd_id character varying(128) COLLATE pg_catalog."default",
-    entry timestamp without time zone,
-    domain01 integer,
-    domain02 integer,
-    domain03 integer,
-    domain04 integer,
-    domain05 integer,
-    CONSTRAINT passwd_mail_pkey PRIMARY KEY (cmp_id, user_id)
-)
-
-domain01 = esmile-hd.jp
-domain02 = web-esmile.biz
-domain03 = e-smile.jp.net
-domain04 = sol-tribehd.com
-domain05 = web-esmile.biz
-
-
-CREATE TABLE IF NOT EXISTS public.passwd_tnas
-(
-    cmp_id integer NOT NULL,
-    user_id integer NOT NULL,
-    level_id integer NOT NULL,
-    login_id character varying(128) COLLATE pg_catalog."default",
-    passwd_id character varying(128) COLLATE pg_catalog."default",
-    entry timestamp without time zone,
-    srv01 integer,
-    srv02 integer,
-    srv03 integer,
-    srv04 integer,
-    srv05 integer,
-    samba_id character varying(128) COLLATE pg_catalog."default",
-    CONSTRAINT passwd_tnas_pkey PRIMARY KEY (cmp_id, user_id)
-)
-
-
-dn: uid=takahashi-shinichi,ou=Users,dc=e-smile,dc=ne,dc=jp
-mail: takahashi-shinichi@esmile-holdings.com
-
-uidNumber:  50101 ->  5 - 0101
-uidNumber: 120198 -> 12 - 0198
-*/
-
 
 require_once __DIR__ . '/autoload.php';
 

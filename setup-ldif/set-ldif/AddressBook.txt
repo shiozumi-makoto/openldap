@@ -1,0 +1,28 @@
+cat >/root/add_addressbook_ou.ldif <<'LDIF'
+dn: ou=AddressBook,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: organizationalUnit
+ou: AddressBook
+LDIF
+
+ldapadd -x -H ldapi:/// \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -f /root/add_addressbook_ou.ldif
+
+
+
+cat >/root/ab_sample.ldif <<'LDIF'
+dn: cn=Test Entry,ou=AddressBook,dc=e-smile,dc=ne,dc=jp
+objectClass: top
+objectClass: inetOrgPerson
+cn: Test Entry
+sn: Entry
+mail: test@example.com
+LDIF
+
+ldapadd -x -H ldapi:/// \
+  -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w 'es0356525566' \
+  -f /root/ab_sample.ldif
+
+
+
