@@ -1,0 +1,136 @@
+#min(0-59) hour(0-23) day(1-31) month(1-12) week(0-7) command
+MAILTO="shiozumi@esmile-sys.com"
+
+# -----------------------------------
+# access file
+# back up 業務管理システム(db+html)
+# -----------------------------------
+45 23 * * * /var/www/happy/backup/tsk_backup_slave.sh
+
+# -----------------------------------------------------------------------
+# ★ バックアップ
+# Step-1) 業務管理システム「データー整理整頓」
+# /var/www/happy/htdocs/ver401/admin/auto_batch/batch_copy_2.sh > /var/logs_share/log_copy_2.log 2>&1
+# Step-2) 2009sys スキルシートシステム「マスターバックアップ」
+# /var/www/happy/backup/tsk_backup_inc_2009sys.sh > /var/logs_share/log_2009sys.log 2>&1
+# Step-3) 業務管理システム「マスターバックアップ」
+# /var/www/happy/backup/tsk_backup_inc_ovs010.sh > /var/logs_share/log_master.log 2>&1
+#
+# 2025.9.23 marge!
+# -----------------------------------------------------------------------
+30 01 * * * /var/www/happy/backup/tsk_backup_com.sh > /var/logs_share/backup_all.log 2>&1
+
+# -----------------------------------------------------------------------
+# ★ route config file のバックアップ
+# -----------------------------------------------------------------------
+# 45 04 * * * /var/www/happy/backup/tsk_router_config.sh > /var/logs_share/log_route_config.log 2>&1
+
+# -----------------------------------------------------------------------
+# ★ happy6 の IPv6 の整合性の検査
+# -----------------------------------------------------------------------
+00 05 * * * /var/www/happy/htdocs/tools/check_ipv6_match.sh happy.esmile-hd.jp > /var/logs_share/ipv6_match.log 2>&1
+
+# -----------------------------------------------------------------------
+# /usr/local/etc/openldap/tools/run_ldap_full_sync.sh
+# 4つのPHPスクリプトを安全な順序で実行
+# 1) ユーザー追加/更新（PostgreSQL -> LDAP）
+# 2) 全ユーザーを 'users' グループへ追加
+# 3) gidNumber に基づいて各グループへ追加
+# 4) Samba の groupmap を同期
+# 5) こちらは、ovs-012で実行する！
+# -----------------------------------------------------------------------
+# 0 06 * * * /usr/local/etc/openldap/tools/run_ldap_full_sync.sh > /var/logs_share/ldap_samba_sync.log 2>&1
+
+
+# -----------------------------------------------------------------------
+# ★ 2009sys 
+# cron mail send + cash clear!(day)
+# -----------------------------------------------------------------------
+*/15 * * * * /var/www/01_user/app/batch/cronMail_cc2.php
+00 08 * * * rm -rf /var/www/lib2009/esys/cache/zend_cache*
+00 08 * * * rm -rf /var/www/01_user/app/cache/data/zend_cache*
+
+# ---------------------------------------------------------------------
+# ★ 毎月1日：Apaheのログ初期化
+# ---------------------------------------------------------------------
+30 07 01 * * /var/www/happy/backup/log_clean.sh > /var/log/log_clean.log 2>&1
+
+# -----------------------------------------------------------------------
+# ★ 情報edit クリアー
+# 売上ランキング更新 2024.1.14 shiozumi
+# -----------------------------------------------------------------------
+30 * * * * /var/www/happy/htdocs/ver401/admin/alert/alert_hour_all.sh
+
+
+
+# -----------------------------------------------------------------------
+# ◇ 25日締め（毎日）（タイムカード、経費精算入力）
+# -----------------------------------------------------------------------
+15 00 * * * /var/www/happy/htdocs/ver401/admin/auto_batch/batch_expense.sh
+# -----------------------------------------------------------------------
+# ◇ 有給処理（毎日）
+# 30 00 2-31 * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_paid_day.sh
+# -----------------------------------------------------------------------
+#00 03 * * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_paid_all_reset.sh > /var/logs_share/log_paid_reset.log
+# -----------------------------------------------------------------------
+# ◇（毎日）
+# -----------------------------------------------------------------------
+#00 06 * * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_pay_terms.sh
+#15 06 * * * /var/www/happy/htdocs/ver401/admin/alert/alert_day_all.sh 1
+# -----------------------------------------------------------------------
+# ◇ 毎月１日 or ２５日
+# -----------------------------------------------------------------------
+#45 07 01 * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_old_40.sh 0
+#30 07 01 * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_work_out.sh 0
+#00 07 01 * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_user_prj.sh 0
+#30 08 25 * * /var/www/happy/htdocs/ver401/admin/alert/alert_pay_user.sh
+# -----------------------------------------------------------------------
+# ◇ 給与台帳計算（1～24>仮 25>本番）
+# -----------------------------------------------------------------------
+00 08 1-24 * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_user_pay.sh 1 0 1 1 1
+00 08 25 * *   /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_user_pay.sh 1 1 1 1 1
+# -----------------------------------------------------------------------
+# ◇ 給与台帳送信 0=内勤[25日]
+# -----------------------------------------------------------------------
+#00 10 10 * * /var/www/happy/htdocs/ver401/admin/sample/tsk_mail.sh 0 1 0
+#00 10 15 * * /var/www/happy/htdocs/ver401/admin/sample/tsk_mail.sh 0 1 0
+#00 10 20 * * /var/www/happy/htdocs/ver401/admin/sample/tsk_mail.sh 0 1 0
+#00 10 25 * * /var/www/happy/htdocs/ver401/admin/sample/tsk_mail.sh 0 1 0
+# -----------------------------------------------------------------------
+# ◇ 給与台帳送信 1=顧問[月末]
+# このバッチの中で、日付を確認して、1日だけ、顧問先にデーターを送ります。
+# -----------------------------------------------------------------------
+#00 10 *  * * /var/www/happy/htdocs/ver401/admin/sample/tsk_mail.sh 0 1 1
+# -----------------------------------------------------------------------
+# ◇ 住民税の全銀データー 0=内勤「勝さん、高橋くん」
+# マイポケットのみ高橋
+# -----------------------------------------------------------------------
+#00 10 25 * * /var/www/happy/htdocs/ver401/admin/sample/tsk_mail_jyumin.sh 0 1 0
+#00 10 25 * * /var/www/happy/htdocs/ver401/admin/sample/tsk_mail_zengin.sh 0 1 0
+#00 10 25 * * /var/www/happy/htdocs/ver401/admin/sample/tsk_mail_mypocket.sh 0 1 0
+# -----------------------------------------------------------------------
+# ◇ 毎月１日：社会保険、労働保険の年度選択
+# -----------------------------------------------------------------------
+20 00 01 * * /var/www/happy/htdocs/ver401/admin/auto_batch/batch_shaho_rodo.sh now
+# -----------------------------------------------------------------------
+# ◇ 毎月1日（全銀コード） shiozuni 2025.5.28 add!
+# -----------------------------------------------------------------------
+00 07 01 * * /var/www/happy/htdocs/ver401/admin/auto_batch/batch_bank_list.sh
+
+# ---------------------------------------------------------------------
+# 2021.10.3 停電対応
+# 2022.10.2
+# 2023.10.21
+# 2024.10.19
+# 2025.10.xx
+# ----------------------------------------------------------------------
+#00 07 19 10 * /usr/sbin/shutdown -h now
+
+
+# -----------------------------------------------------------------------
+# x.509 自動作成
+# -----------------------------------------------------------------------
+# 30 23 * * * /var/www/happy/backup/tsk_x509_make.sh
+# ne_jp は、15分に作成して、ovs-010 から、23:45 に、取り出す。
+
+15 23 * * * /var/www/happy/backup/tsk_x509_make_new.sh ssl_esmile_ne_jp 192.168.61.9 192.168.61.10 192.168.61.11 192.168.61.24 192.168.61.26

@@ -27,7 +27,10 @@ log(){ printf '[%s] %s\n' "$(date +%F\ %T)" "$*"; }
 deploy_one(){
   local host="$1" file="$2" suffix="$3"
 
+  echo 
+  echo "---------------------------------------------------------------"
   log "=== ${host}: 配布開始 (${file}) ==="
+
   if [[ ! -f "${SRC_DIR}/${file}" ]]; then
     echo "ERROR: ${SRC_DIR}/${file} が見つかりません" >&2
     exit 1
@@ -72,14 +75,16 @@ for SVC in nmb nmbd; do
 done
 EOS
 
-  log "=== ${host}: 配布完了 ==="
+  log "=== ${host}: 配布完了 === "
+  echo
+
 }
 
 main(){
   log "配布元: ${SRC_DIR}"
   log "ターゲット: ${HOST_002}(${FILE_002}), ${HOST_012}(${FILE_012})"
 
-#  deploy_one "${HOST_002}" "${FILE_002}" "002"
+deploy_one "${HOST_002}" "${FILE_002}" "002"
 #  deploy_one "${HOST_012}" "${FILE_012}" "012"
 deploy_one "${HOST_024}" "${FILE_024}" "024"
 

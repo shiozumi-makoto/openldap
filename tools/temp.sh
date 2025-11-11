@@ -29,11 +29,16 @@ export PATH=/usr/local/bin:$PATH
 echo "-------------------------------------------------------------------------------------- ★[STEP1] ユーザ本体の同期（HOME/LDAP upsert）"
 php "${BASE_DIR}/ldap_id_pass_from_postgres_set.php" --ldapi --ldap --confirm
 
+
 # PATH=/usr/bin:/bin: /bin/sh -c '/usr/local/etc/openldap/tools/temp.sh'
 # env -i PATH=/usr/local/bin:/usr/bin:/bin: HOME=/root SHELL=/bin/sh /bin/sh -c '/usr/local/etc/openldap/tools/temp.sh'
 # php ldap_id_pass_from_postgres_set.php --ldapi --home --maildir-only --confirm
 # php ldap_id_pass_from_postgres_set.php --ldapi --ldap --confirm
+# php ldap_id_pass_from_postgres_set.php --ldapi --ldap --cmps=5 --users=101 --confirm
+# ldapsearch -x -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=takahashi-ryouya2)"
 # exit
+# Up!  [250] [12-209] [uid: 120209 gid: 2012] [ent-cls 20] [inagaki-wanoka      ] [CON] 更新 [nvEiGQ3g_5] [稲垣 和乃華]
+
 
 echo "-------------------------------------------------------------------------------------- ★☆[STEP1.5]"
 #
@@ -97,9 +102,6 @@ php "${BASE_DIR}/ldap_smb_groupmap_sync.php"   "${COMMON_URI_FLAG[@]}" "${CONFIR
 echo
 net groupmap list | egrep 'users|dev|cls' || true
 
-echo
-
-
 echo "-------------------------------------------------------------------------------------- ★★★★★[STEP5] 不要ホームの整理"
 php "${BASE_DIR}/prune_home_dirs.php" "${COMMON_URI_FLAG[@]}"
 echo "=== DONE ACCOUNT UPDATE! ==="
@@ -109,17 +111,31 @@ echo "=== DONE ACCOUNT UPDATE! ==="
 # php sync_mail_extension_from_ldap.php --confirm --U --pg-post=ovs-010
 # php sync_mail_extension_from_ldap.php --confirm --O --pg-post=ovs-010
 # php make_forward_from_pg.php --confirm
-# --P --U :ldap の mail
-# --O	  :passwd_mail の login_id 列！
+#
+# php sync_mail_extension_from_ldap.php --confirm --O --pg-host=ovs-010
+#
+# --P --U :ldap の mail ( --P = people / --U = users )
+# --O	  :passwd_mail の login_id 列を参照！
+#
+# php sync_mail_extension_from_ldap.php --ldapi --O --pg-post=ovs-010
+
 # ------------------
 
-echo "-------------------------------------------------------------------------------------- ★★★★★★[STEP6]"
+echo "-------------------------------------------------------------------------------------- ★★★★★★[STEP6] .forward 情報個人メール拡張の更新"
 php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-post=ovs-010
 php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-post=ovs-010
 php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-post=ovs-010
+
+echo "-------------------------------------------------------------------------------------- ★★★★★★[STEP6 + plus] .forward のファイル作成"
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-post=ovs-012
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-post=ovs-012
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-post=ovs-012
 php "${BASE_DIR}/make_forward_from_pg.php" "${COMMON_URI_FLAG[@]}"
 
-echo "-------------------------------------------------------------------------------------- ★★★★★★★[STEP7]"
+echo "-------------------------------------------------------------------------------------- ★★★★★★★[STEP7] MailBoxの容量チェック"
 echo "Maildir の削除"
 php prune_maildir.php --maildir --maildir-days=180 --maildir-max-count=80000 --maildir-max-size=2000MB
+
+
+echo "-------------------------------------------------------------------------------------- End ! "
 exit

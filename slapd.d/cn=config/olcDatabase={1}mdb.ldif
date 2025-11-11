@@ -1,5 +1,5 @@
 # AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
-# CRC32 2423c882
+# CRC32 24c1b983
 dn: olcDatabase={1}mdb
 objectClass: olcDatabaseConfig
 objectClass: olcMdbConfig
@@ -57,6 +57,11 @@ olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
  e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
  1 interval=00:00:05:00
 olcMultiProvider: TRUE
-entryCSN: 20251102193402.513307Z#000000#00c#000000
+olcSizeLimit: 50000
+olcLimits: {0}dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" size=unlimited time=u
+ nlimited
+olcLimits: {1}dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=aut
+ h" size=unlimited time=unlimited
+entryCSN: 20251105054351.504216Z#000000#00c#000000
 modifiersName: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
-modifyTimestamp: 20251102193402Z
+modifyTimestamp: 20251105054351Z

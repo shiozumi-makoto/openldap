@@ -39,7 +39,7 @@ name resolve order = wins host bcast
 domain master = no
 local master = no
 preferred master = no
-os level = 20
+os level = 10
 
 # --- ネットワーク制限 ---
 

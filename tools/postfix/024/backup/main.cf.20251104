@@ -1,0 +1,178 @@
+# =====================================================================
+#  Postfix main.cf  for ovs-024.esmile-holdings.com
+#  LDAP + Dovecot (LMTP & SASL) integration
+#  Domain: esmile-holdings.com
+#  BaseDN: dc=e-smile,dc=ne,dc=jp
+# =====================================================================
+
+# --- 基本ホスト情報 ---------------------------------------------------
+myhostname = ovs-024.esmile-holdings.com
+mydomain   = esmile-holdings.com
+myorigin   = $mydomain
+
+inet_interfaces = all
+inet_protocols  = ipv4
+
+# このサーバ自身が受けるローカル配送の範囲（virtualメール用）
+# mydestination = $myhostname, localhost.$mydomain, localhost
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+home_mailbox = Maildir/
+
+# 送信時のHELO名
+smtp_helo_name = $myhostname
+
+# 自サーバの信頼ネットワーク
+mynetworks = 127.0.0.0/8, 192.168.10.0/24, 192.168.61.0/24, 192.168.62.0/24, 192.168.63.0/24, 192.168.100.0/24
+
+# 受信サイズ上限（例: 25MB）
+message_size_limit = 26214400
+
+# --- メールルーティング ------------------------------------------------
+relayhost =
+
+# --- メールエイリアス ------------------------------------------------
+alias_maps = hash:/etc/aliases, ldap:/etc/postfix/ldap-alias.cf
+
+# --- 仮想ドメイン/ユーザー（LDAP参照） -------------------------------
+# virtual_mailbox_domains = esmile-holdings.com
+# virtual_mailbox_maps    = ldap:/etc/postfix/ldap-users.cf
+# virtual_alias_maps      = ldap:/etc/postfix/ldap-alias.cf
+
+# LMTP経由でDovecotへ配送
+virtual_transport = lmtp:unix:private/dovecot-lmtp
+
+# --- エイリアス展開対象 -------------------------------
+virtual_alias_domains = esmile-soltribe.jp
+virtual_alias_maps = ldap:/etc/postfix/ldap-alias.cf, regexp:/etc/postfix/virtual-regexp
+
+# --- 送信キュー寿命 ---------------------------------------------------
+maximal_queue_lifetime = 3d
+bounce_queue_lifetime  = 3d
+
+# --- SMTP AUTH（Dovecot SASL経由） ------------------------------------
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+
+# smtpd_sasl_security_options = noanonymous
+# smtpd_sasl_local_domain = $myhostname
+# smtpd_tls_auth_only = yes
+
+# 中継許可制御
+# smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, defer_unauth_destination
+
+# 中継許可制御（内部LANのみ許可）
+smtpd_relay_restrictions = permit_mynetworks, reject_unauth_destination
+
+#
+# スパム対策・認証強化
+# 受信制御
+# スパム対策・認証強化
+#
+smtpd_helo_required = yes
+smtpd_recipient_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_invalid_hostname,
+    reject_non_fqdn_sender,
+    reject_unknown_sender_domain,
+    reject_unauth_destination,
+    reject_rbl_client zen.spamhaus.org
+
+#    reject_non_fqdn_recipient,
+#    reject_unknown_recipient_domain,
+#    permit_mynetworks,
+#    permit_sasl_authenticated,
+#    reject_unauth_destination
+
+
+# --- STARTTLS（Postfix用複製証明書） ----------------------------------
+# TLS設定
+smtpd_use_tls = yes
+# smtpd_tls_cert_file = /etc/postfix/tls/postfix.crt
+# smtpd_tls_key_file  = /etc/postfix/tls/postfix.key
+smtpd_tls_cert_file = /etc/postfix/tls/esmile-holdings.crt
+smtpd_tls_key_file  = /etc/postfix/tls/esmile-holdings.key
+smtpd_tls_CAfile    = /etc/postfix/tls/ca.crt
+
+
+smtp_tls_security_level    = may
+smtpd_tls_security_level   = may
+smtpd_tls_auth_only        = yes
+smtpd_tls_loglevel         = 1
+
+smtpd_tls_received_header  = yes
+
+# --- 送信時TLS ---------------------------------------------------------
+smtp_tls_security_level = may
+smtp_tls_loglevel       = 1
+smtp_tls_CAfile         = /etc/postfix/tls/ca.crt
+
+# --- ログ/便利設定 ----------------------------------------------------
+disable_vrfy_command = yes
+strict_rfc821_envelopes = yes
+
+# --- 互換設定 ---------------------------------------------------------
+compatibility_level = 2
+
+# --- DKIM/DMARC（後で有効化） ----------------------------------------
+
+#smtpd_milters = unix:/opendkim/opendkim.sock, unix:/opendmarc/opendmarc.sock
+#non_smtpd_milters = $smtpd_milters
+#milter_default_action = accept
+#milter_protocol = 6
+
+# smtpd_milters = unix:/opendkim/opendkim.sock
+# non_smtpd_milters=$smtpd_milters
+
+smtpd_milters=unix:/var/spool/postfix/opendkim/opendkim.sock
+non_smtpd_milters=$smtpd_milters
+milter_default_action=accept
+milter_protocol=6
+
+
+# postscreen を有効化するためのキャッシュ
+postscreen_cache_map = btree:$data_directory/postscreen_cache
+
+# まずは DNSBL なしで基本テストだけ使う（安全）
+postscreen_greet_action = drop
+postscreen_non_smtp_command_action = drop
+postscreen_pipelining_action = drop
+
+
+# --- LMTP 連携に切替 ---------------------------------------------------------
+# local_transport=lmtp:unix:private/dovecot-lmtp
+
+
+#
+# ovs-025 の /etc/php.ini
+# sendmail_path = "/usr/sbin/sendmail -t -i -fgyomu@esmile-holdings.com"
+# -f は「Envelope From（Return-Path）」を指定するオプション
+#
+# apache / www-data / nobody など非特権ユーザー -> Postfix が無視して、apache@ホスト名 を強制
+#
+authorized_submit_users = static:anyone
+
+
+# ---- PostfixでSRS（Sender Rewriting Scheme）対応を入れる -------------------- 2025.11.4
+
+# sender_canonical_maps = regexp:/etc/postfix/sender_canonical
+# sender_canonical_classes = envelope_sender
+
+# sender_canonical_maps =
+# recipient_canonical_maps =
+# sender_canonical_classes =
+
+
+sender_canonical_maps=tcp:127.0.0.1:10001
+sender_canonical_classes=envelope_sender
+recipient_canonical_maps=tcp:127.0.0.1:10002
+recipient_canonical_classes=envelope_recipient, header_recipient
+
+
+transport_maps = hash:/etc/postfix/transport
+
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_use_tls = yes

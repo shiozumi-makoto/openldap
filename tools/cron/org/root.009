@@ -1,0 +1,72 @@
+#min(0-59) hour(0-23) day(1-31) month(1-12) week(0-7) command
+#55 * * * * cd /var/www/src/php/crons && php makeEventRanking.php local >> /var/www/src/logs/eventRanking.log
+MAILTO="shiozumi@esmile-sys.com"
+
+# -----------------------------------
+# jravan database backup
+# -----------------------------------
+# 00 22 * * * /var/www/happy/backup/batch_01_backup_db_jravan.sh
+
+# -----------------------------------
+# access file
+# back up 業務管理システム(db+html)
+# -----------------------------------
+45 23 * * * /var/www/happy/backup/tsk_backup_slave.sh
+
+# ---------------------
+# delete ldap postgres
+# ---------------------
+00 06 * * * /var/www/01_user/tools/del-ldap_postgres.sh
+
+
+# -----------------------------------------------------------------------
+# 有給処理
+# -----------------------------------------------------------------------
+30 00 * * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_paid_day.sh
+
+# -----------------------------------------------------------------------
+# 25日締め（タイムカード、経費精算入力）
+# -----------------------------------------------------------------------
+45 00 * * * /var/www/happy/htdocs/ver401/admin/auto_batch/batch_expense.sh
+
+# -----------------------------------------------------------------------
+# 毎月１日  社会保険、労働保険の年度選択 2025.6.1 shiozumi
+# 労働保険率の、lib ファイルを、tmp から作成する。
+# -----------------------------------------------------------------------
+55 00 01 * * /var/www/happy/htdocs/ver401/admin/auto_batch/batch_shaho_rodo.sh now
+
+00 06 * * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_pay_terms.sh
+15 06 * * * /var/www/happy/htdocs/ver401/admin/alert/alert_day_all.sh 0
+
+# ------------------------------------------------
+# 毎月5日 07:00 に実行。ログ保存＆二重起動防止
+# ------------------------------------------------
+00 07 5 * * /var/www/backup/backup_www.sh > /var/www/backup/backup_www.log 2>&1
+
+# -------------------------------------------
+# month 1 and 25
+# -------------------------------------------
+30 07 01 * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_work_out.sh 0
+00 08 1-24 * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_user_pay.sh 1 0 1 1 1
+00 08 25 * *   /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_user_pay.sh 1 1 1 1 1
+30 08 25 * * /var/www/happy/htdocs/ver401/admin/alert/alert_pay_user.sh
+
+# 00 09 25 * * /var/www/happy/htdocs/ver401/admin/kyuyo/tsk_user_mail.sh 0
+
+# -----------------
+# 2009sys cron
+# -----------------
+# */5 * * * * /var/www/01_user/app/batch/cronMail_cc2.php
+00 08 * * * rm -rf /var/www/lib2009/esys/cache/zend_cache*
+00 08 * * * rm -rf /var/www/01_user/app/cache/data/zend_cache*
+
+10 *  * * * /var/www/happy/htdocs/ver401/admin/alert/alert_hour_all.sh
+
+
+# ----------------------------------------------------------------------
+# 2021.10.3 停電対応
+# 2022.10.2
+# 2023.10.21
+# 2024.10.19
+# ----------------------------------------------------------------------
+#00 07 19 10 * /usr/sbin/shutdown -h now

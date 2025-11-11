@@ -96,7 +96,7 @@ smtpd_tls_key_file  = /etc/postfix/tls/esmile-holdings.key
 smtpd_tls_CAfile    = /etc/postfix/tls/ca.crt
 
 
-smtp_tls_security_level    = may
+smtp_tls_security_level = may
 smtpd_tls_security_level   = may
 smtpd_tls_auth_only        = yes
 smtpd_tls_loglevel         = 1
@@ -152,3 +152,28 @@ postscreen_pipelining_action = drop
 # apache / www-data / nobody など非特権ユーザー -> Postfix が無視して、apache@ホスト名 を強制
 #
 authorized_submit_users = static:anyone
+
+
+# ---- PostfixでSRS（Sender Rewriting Scheme）対応を入れる -------------------- 2025.11.4
+
+# sender_canonical_maps = regexp:/etc/postfix/sender_canonical
+# sender_canonical_classes = envelope_sender
+
+# sender_canonical_maps =
+# recipient_canonical_maps =
+# sender_canonical_classes =
+
+
+sender_canonical_maps=tcp:127.0.0.1:10001
+sender_canonical_classes=envelope_sender
+recipient_canonical_maps=tcp:127.0.0.1:10002
+recipient_canonical_classes=envelope_recipient, header_recipient
+
+
+transport_maps = hash:/etc/postfix/transport
+
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_use_tls = yes
+smtp_sasl_mechanism_filter = plain, login

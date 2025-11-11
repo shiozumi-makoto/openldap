@@ -113,7 +113,10 @@ $ds = $baseDn = $uri = null;
 $ldapMode = 'off';
 $ldapStatus = '-';
 $ldapProto = 'v3';
+
 if ($cfg['ldap'] || $cfg['home'] || $INIT) {
+//	print_r($cfg);
+//	exit;
     [$ds, $baseDn, /*$groupsDn*/, $uri] = LdapConnector::connect($cfg, $DBG);
     $ldapMode = parse_ldap_mode((string)$uri);
     $ldapStatus = ($ds ? '? bind success ' : 'bind failed') . (empty($cfg['bind_dn']) ? '(anonymous)' : '');
@@ -152,6 +155,36 @@ printf("ldap_user : %s\n", $cfg['bind_dn'] ?? '-');
 printf("ldap_pass : %s\n", mask_secret($cfg['bind_pass'] ?? Env::secret('LDAP_BIND_PASS', '********')));
 echo "----------------------------------------------\n\n";
 
+/*
+# ----------------------
+# ovs-009 も更新！
+# ----------------------
+
+php ldap_id_pass_from_postgres_set.php \
+  --ldap \
+  --ldaps \
+  --uri=ldaps://ovs-009.e-smile.local:636 \
+  --bind-dn="cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+  --bind-pass='es0356525566' \
+  --base-dn="dc=e-smile,dc=ne,dc=jp" \
+  --confirm \
+  --verbose \
+  --cmps=5 --users=101
+
+env -u LDAPURI -u LDAP_URI -u LDAPCONF -u LDAPTLS_CACERT -u LDAPTLS_REQCERT \
+  php ldap_id_pass_from_postgres_set.php \
+    --ldap --home --confirm --verbose \
+    --ldaps --uri=ldaps://ovs-009.e-smile.local:636 \
+    --bind-dn="cn=Admin,dc=e-smile,dc=ne,dc=jp" \
+    --bind-pass='es0356525566' \
+    --base-dn="dc=e-smile,dc=ne,dc=jp" \
+    --cmps=5 --users=101
+    --uids=takahashi-ryouya2
+
+php ldap_id_pass_from_postgres_set.php \
+  --ldap --confirm --verbose --ldaps --uri=ldaps://ovs-009.e-smile.local:636 --bind-dn="cn=Admin,dc=e-smile,dc=ne,dc=jp" --bind-pass='es0356525566' --base-dn="dc=e-smile,dc=ne,dc=jp"
+  --cmps=5
+*/
 
 //============================================================
 // SQL 構築（旧フォーマット + 条件）
@@ -339,7 +372,11 @@ foreach ($rows as $r) {
     $uidn = (int)$r['user_id'];
     $lvl  = isset($r['level_id']) ? (int)$r['level_id'] : 0;
     if ($lvl === 0) { $lvl = 99; } // 表示上は err-cls 99 として扱う
+// ---------------------------------------------------------------------------------- passwd_tnas と passwd_mail は、同じ！ 2025.11.5
     $pwd  = isset($r['passwd_id']) ? (string)$r['passwd_id'] : '';
+
+//	print_r($r);	
+//	exit;
 
     // かな列（必須）
     $seiKana = trim((string)($r['姓かな'] ?? ''));
@@ -393,8 +430,8 @@ foreach ($rows as $r) {
 
     // Up! 行（旧フォーマット）
     printf(
-        "Up!  [%3d] [%02d-%03d] [uid: %6d gid: %4d] [%s] [%-20s] [CON] 更新 [%-8s] [%s]\n",
-        $idx, $cmp, $uidn, $uidNumber, $gidNumber, $lblDisp, $login, mask_pwd3($pwd), $jpName
+        "Up!  [%3d] [%02d-%03d] [uid: %6d gid: %4d] [%s] [%-20s] [CON] 更新 [%-10s] [%s]\n",
+        $idx, $cmp, $uidn, $uidNumber, $gidNumber, $lblDisp, $login, $pwd, $jpName
     );
 
 
@@ -531,8 +568,66 @@ exit;
 
     // LDAP upsert（進捗の [MOD]/[ADD] 行は出さない）
     if (!empty($cfg['ldap'])) {
+
         $entry = ldap_find_by_uid($ds, (string)$baseDn, $login, $DBG);
         if ($entry) {
+
+            // メール配列の正規化（重複排除・小文字化・並び安定）
+            $norm_mails = static function($v): array {
+                if ($v === null || $v === '') return [];
+                $arr = is_array($v) ? $v : [$v];
+                $arr = array_map('strtolower', array_map('trim', $arr));
+                $arr = array_values(array_unique($arr));
+                sort($arr);
+                return $arr;
+            };
+    
+            // ===== 既存あり → MODIFY（差分REPLACEのみ） =====
+            $dn    = $entry['dn'];
+            $attrs = $entry['attrs'] ?? [];
+            if (!is_array($attrs)) $attrs = [];
+    
+            // ← ここが “$desired” 本体（build_modify_attrs は使わない）
+            $desired = [
+                'cn'                   => $cn ?? null,
+                'sn'                   => $sn ?? null,
+                'givenName'            => $givenName ?? null,
+                'displayName'          => ($jpName ?? '') !== '' ? $jpName : ($login ?? null),
+                'uidNumber'            => isset($uidNumber) ? (string)$uidNumber : null,
+                'gidNumber'            => isset($gidNumber) ? (string)$gidNumber : null,
+                'employeeType'         => $empType ?? null,
+                'homeDirectory'        => $homeLink ?? null,
+                'loginShell'           => isset($cfg['shell']) ? (string)$cfg['shell'] : null,
+                // パスワードは変更時のみ入れる（ normalize_password が未変更時 null/'' を返すのが理想）
+                'userPassword'         => ($pwd ?? '') !== '' ? normalize_password($pwd) : null,
+                'mail'                 => $norm_mails($mailAddrs ?? []),
+                'sambaSID'             => $sambaSID ?? null,
+                'sambaNTPassword'      => $ntlm ?? null,
+                'sambaAcctFlags'       => '[U          ]',
+                'sambaPwdLastSet'      => $pwdLastSet ?? null,
+                'sambaPrimaryGroupSID' => $sambaPrimaryGroupSID ?? null,
+                'displayOrderInt'      => isset($displayOrderInt) ? (string)$displayOrderInt : null,
+                'displayNameOrder'     => isset($displayNameOrder) ? (string)$displayNameOrder : null,
+                'mailAlternateAddress' => $norm_mails($mailAlternateAddress ?? []),
+            ];
+    
+            // 空値を除去（null/''/[] は投げない）
+            $desired = array_filter(
+                $desired,
+                static fn($v) => !($v === null || $v === '' || (is_array($v) && $v === []))
+            );
+
+            // 差分を REPLACE に落とす
+            $ops = build_ops_for_replace($attrs, $desired);  // ← ここで $desired が必ず配列
+    
+            if ($APPLY && $ops) {
+                if (!@ldap_modify_batch($ds, $dn, $ops)) {
+                    log_ldap_error($ERR_LOG, $cmp, $uidn, $login, 'modify-batch', $dn, $ds);
+                    echo "Err Up! ------------------------------------------------------------- $dn\n";
+                }
+            }
+
+/*
             $dn   = $entry['dn'];
             $mods = build_modify_attrs($entry['attrs'], [
                 'cn'            => $cn,
@@ -558,10 +653,15 @@ exit;
 
             if ($mods && $APPLY && !@ldap_modify($ds, $dn, $mods)) {
                 log_ldap_error($ERR_LOG, $cmp, $uidn, $login, 'modify', $dn, $ds);
+				echo "Err Up! ------------------------------------------------------------- $dn\n";
             }
+
+*/
+
 /*
 			echo "<pre>";
 			print_r($mods);
+			echo $pwd;
 			exit;
 */
 //				print_r($entry['attrs']);
@@ -600,11 +700,16 @@ exit;
 
             if ($APPLY && !@ldap_add($ds, $dn, array_filter($attrs, fn($v)=>$v!==null && $v!==''))) {
                 log_ldap_error($ERR_LOG, $cmp, $uidn, $login, 'add', $dn, $ds);
+				echo "Err Add ------------------------------------------------------------- $dn\n";
+            }
 
 //				print_r($attrs);
-//				echo "Err Add ------------------------------------------------------------- $dn\n";
+//				echo "Nww Add ------------------------------------------------------------- $dn : $empType password = $pwd : $displayOrderInt app = $APPLY\n";
 //				exit;
-            }
+
+        }
+
+
 
     //============================================================
     // Thunderbird AddressBook 自動生成（ou=AddressBook）
@@ -626,51 +731,73 @@ exit;
             }
         }
     
-        foreach ($mailAlternateAddress as $addr) {
-            if (!filter_var($addr, FILTER_VALIDATE_EMAIL)) continue;
-            $dnAB = sprintf('mail=%s,%s', $addr, $baseAB);
-            $cnAB = sprintf('%s (%s)', $cn, preg_replace('/@.*/', '', $addr));
-            $snAB = $sn ?: $cn;
-            $gnAB = $givenName ?: '';
-            $seeAlsoDn = sprintf('uid=%s,ou=Users,dc=e-smile,dc=ne,dc=jp', $login);
+
+    foreach ($mailAlternateAddress as $addr) {
+        if (!filter_var($addr, FILTER_VALIDATE_EMAIL)) continue;
+        $dnAB = sprintf('mail=%s,%s', $addr, $baseAB);
     
-            $entryAB = [
-                'objectClass' => ['inetOrgPerson'],
-                'cn'          => $cnAB,
-                'sn'          => $snAB,
-                'givenName'   => $gnAB,
-                'mail'        => $addr,
-                'seeAlso'     => $seeAlsoDn,
-            ];
+        // 表示用の氏名（例: "塩住 誠"）
+        // $displayName = trim($sn . ' ' . $givenName);
+		$displayName = sprintf( "%d-%03d %s", $cmp, $uidn, ($jpName ?: $login) );
+
+        // メールユーザー名部分をカッコで添える
+        $cnAB = sprintf('%s (%s)', $displayName, preg_replace('/@.*/', '', $addr));
+
+
+/*
+        $entryAB = [
+            'objectClass' => ['inetOrgPerson'],
+            'cn'          => $cnAB,
+            'displayName' => $displayName,   // ★ これを追加
+            'sn'          => $sn ?: $displayName,
+            'givenName'   => $givenName ?: '',
+            'mail'        => $addr,
+            'seeAlso'     => sprintf('uid=%s,ou=Users,dc=e-smile,dc=ne,dc=jp', $login),
+        ];
+*/
+
+      $entryAB = [
+          'objectClass' => ['inetOrgPerson'],
+          'cn'          => $cnAB,
+          'displayName' => $displayName,
+//          'title'       => '役職',
+//          'ou'          => '所属部署',
+//          'description' => '備考',
+          'sn'          => $sn ?: $displayName,
+          'givenName'   => $givenName ?: '',
+          'mail'        => $addr,
+          'seeAlso'     => sprintf('uid=%s,ou=Users,dc=e-smile,dc=ne,dc=jp', $login),
+      ];
+
+//		print_r($entryAB);
+//		exit;
     
-            $exists = @ldap_read($ds, $dnAB, '(objectClass=inetOrgPerson)');
-            if ($exists && ldap_count_entries($ds, $exists) > 0) {
-                if ($APPLY) {
-                    @ldap_modify($ds, $dnAB, $entryAB);
-                    echo "  [update] AddressBook: {$addr}\n";
-                } else {
-                    echo "  [DRY] would update AddressBook: {$addr}\n";
-                }
+        $exists = @ldap_read($ds, $dnAB, '(objectClass=inetOrgPerson)');
+        if ($exists && ldap_count_entries($ds, $exists) > 0) {
+            if ($APPLY) {
+                @ldap_modify($ds, $dnAB, $entryAB);
+//              echo "  [update] AddressBook: {$addr}\n";
             } else {
-                if ($APPLY) {
-                    @ldap_add($ds, $dnAB, $entryAB);
-                    echo "  [add] AddressBook: {$addr}\n";
-                } else {
-                    echo "  [DRY] would add AddressBook: {$addr}\n";
-                }
+//              echo "  [DRY] would update AddressBook: {$addr}\n";
+            }
+        } else {
+            if ($APPLY) {
+                @ldap_add($ds, $dnAB, $entryAB);
+//              echo "  [add] AddressBook: {$addr}\n";
+            } else {
+//              echo "  [DRY] would add AddressBook: {$addr}\n";
             }
         }
     }
 
 
+	}
 
 
+    //============================================================
+    // Thunderbird AddressBook 自動生成（End!）
+    //============================================================
 
-//				print_r($attrs);
-//				echo "Nww Add ------------------------------------------------------------- $dn : $empType password = $pwd : $displayOrderInt app = $APPLY\n";
-//				exit;
-
-        }
 
 //	print_r($mailAlternateAddress);
 //	print_r($mailAddrs);
@@ -1053,3 +1180,87 @@ function mask_secret(?string $v): string {
     return '********';
 }
 
+
+
+
+/*
+// 1) 既存属性($entry['attrs']) と 望ましい属性($desired) を突き合わせて
+//    "変わるものだけ" を REPLACE する ops に落とす
+*/
+
+// 受け取りは null 許容にして空配列へ補正
+function build_ops_for_replace(array $currentAttrs, ?array $desired): array {
+    $desired = $desired ?? [];
+    $ops = [];
+
+    // 正規化: 配列は各要素を trim＋string化、空は除外、重複除去、並び安定
+    $norm = function($v) {
+        if (is_array($v)) {
+            $vv = array_map(function($x){
+                // 文字列はそのまま、数値等のスカラーは文字列化、その他は空に
+                if (is_string($x)) return trim($x);
+                if (is_scalar($x)) return trim((string)$x);
+                return '';
+            }, $v);
+            // 空を除去
+            $vv = array_values(array_filter($vv, static fn($s) => $s !== ''));
+            // 重複除去＆ソート
+            $vv = array_values(array_unique($vv, SORT_REGULAR));
+            sort($vv, SORT_STRING);
+            return $vv;
+        }
+        // 単値
+        if (is_string($v)) return trim($v);
+        if (is_scalar($v)) return trim((string)$v);
+        return '';
+    };
+
+    // 既存属性を正規化（比較用にキーは小文字化）
+    $cur = [];
+    foreach ($currentAttrs as $k => $v) {
+        if ($k === 'dn') continue;
+        $cur[strtolower((string)$k)] = $norm($v);
+    }
+
+    foreach ($desired as $k => $v) {
+        $attr = strtolower((string)$k);
+        // 空値はそもそも対象外
+        if ($v === null || $v === '' || (is_array($v) && $v === [])) continue;
+
+        $val = $norm($v);
+
+        // mail系は小文字化。ただし **必ず文字列化** してから。
+        if ($attr === 'mail' || $attr === 'mailalternateaddress') {
+            if (is_array($val)) {
+                $val = array_map(static fn($s) => strtolower((string)$s), $val);
+            } else {
+                $val = strtolower((string)$val);
+            }
+            // 重複除去＆並び安定（再度）
+            $val = is_array($val) ? array_values(array_unique($val)) : $val;
+            if (is_array($val)) sort($val, SORT_STRING);
+        }
+
+        // SambaNTPassword は大文字HEX統一
+        if ($attr === 'sambantpassword' && is_string($val)) {
+            $val = strtoupper($val);
+        }
+
+        $was = $cur[$attr] ?? null;
+
+        // 等価判定（配列は JSON 比較、単値は文字列化して比較）
+        $same = (is_array($val) || is_array($was))
+              ? (json_encode($val) === json_encode($was))
+              : ((string)$val === (string)$was);
+
+        if (!$same) {
+            $ops[] = [
+                'attrib'  => $k,
+                'modtype' => LDAP_MODIFY_BATCH_REPLACE,
+                'values'  => is_array($val) ? $val : [(string)$val],
+            ];
+        }
+    }
+
+    return $ops;
+}

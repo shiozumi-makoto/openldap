@@ -130,6 +130,9 @@ $schema = [
 
 $cfg = Config::loadWithFile($argv, $schema, null);
 
+# print_r($cfg);
+# exit;
+
 // tools.conf 取込
 if (($cfg['config'] ?? null) && is_file($cfg['config'])) {
     $ini = parse_ini_file($cfg['config'], true, INI_SCANNER_TYPED) ?: [];
@@ -201,8 +204,8 @@ $pgPass = Env::str('PGPASSWORD', null); // 必要なら export PGPASSWORD=... �
 
 $dsn = "pgsql:host={$pgHost};port={$pgPort};dbname={$pgDb}";
 
-//echo $dsn."\n";
-//exit;
+# echo $dsn."\n";
+# exit;
 
 try {
     $pdo = new PDO($dsn, $pgUser, $pgPass, [
@@ -238,6 +241,7 @@ $infoText .= C::cyan("Base DN : ") . ($modeOnamae ? '(N/A for --Onamae: -O: -o)'
 
 // 出力
 echo $infoText;
+//exit;
 
 
 // レコード配列
@@ -256,19 +260,99 @@ if ($modeOnamae) {
     ];
     $domainOrder = array_keys($domainMap);
 
+	// -------------------------------------------------------------------------- login_id 列の参照は、passwd_tnas から、passwd_mail に変更！
+	//  t.login_id,   pm.login_id as login_id_other
+	//  pm.login_id,  t.login_id  as login_id_other
+	//
     // login_id とドメインフラグを JOIN して取得
+	//
     $sql = <<<SQL
 SELECT
   pm.cmp_id, pm.user_id, pm.flag_id,
   pm.domain01, pm.domain02, pm.domain03, pm.domain04, pm.domain05,
-  t.login_id
+  pm.login_id,  t.login_id  as login_id_other, t.samba_id 
 FROM public.passwd_mail AS pm
 JOIN public.passwd_tnas AS t
   ON t.cmp_id = pm.cmp_id AND t.user_id = pm.user_id
-WHERE pm.flag_id = 1
+WHERE pm.flag_id = 1 and pm.cmp_id = 5 -- and pm.user_id = 101
 ORDER BY pm.cmp_id, pm.user_id
 SQL;
+
     $rows = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+/* --------------------------------------------------------------------------- takahahi or takahahi-ryoya */
+/*
+*/
+
+//echo $sql;
+//print_r($domainOrder);
+//print_r($rows);
+//echo "\n\n";
+//exit;
+
+	/* ----------------------------------------------------------------
+		$domainMap を参照して、domain01〜domain05 の各カラムを調べ、
+		値が 1 のときに対応するドメイン名を配列に追加するには、次のように書けます👇
+    ---------------------------------------------------------------- */
+	foreach ($rows as &$row) {
+        $domain_names = [];
+    
+        foreach ($domainMap as $key => $domain_name) {
+            if (!empty($row[$key]) && (int)$row[$key] === 1) {
+                $domain_names = $domain_name;
+    			break;
+            }
+        }
+    
+        // domain_name 配列を行データに追加
+        $row['domain_name'] = $domain_names;
+    }
+
+
+// 一致していないものだけ抽出
+$unmatched = array_filter($rows, function($row) {
+    return $row['login_id'] !== $row['login_id_other'];
+});
+
+// キーを0から振り直す（なくても動くが見やすくなる）
+$unmatched = array_values($unmatched);
+
+// 確認用出力
+//print_r($rows);
+
+// 結果を表示
+foreach ($unmatched as $key => $r) {
+    printf("[%3d] cmp_id=%2d user_id=%d login_id [passwd_mail.login_id] [New] = %20s@%-16s >>> %-14s [old] [ passwd_tnas.login_id ] [ passwd_tnas.samba ] %-20s\n",
+        $key,
+        $r['cmp_id'],
+        $r['user_id'],
+        $r['login_id'],			// passwd_mail	     -- 新規アドレス@ドメイン
+        $r['domain_name'],
+        $r['login_id_other'],	// passed_tans.login -- TNASのID
+        $r['samba_id'],			// passed_tans.samba -- ここに統一して、passwd_mail.login_id に上書きする。
+    );
+}
+
+// exit;
+// 確認用出力
+//print_r($rows);
+//exit;
+/*
+    [1] => Array
+        (
+            [cmp_id] => 5
+            [user_id] => 101
+            [flag_id] => 1
+            [domain01] => 0
+            [domain02] => 0
+            [domain03] => 1
+            [domain04] => 0
+            [domain05] => 0
+            [login_id] => takahashi-ryoya
+            [login_id_other] => takahashi
+            [domain_name] => e-smile.jp.net
+        )
+*/
 
 //	print_r($rows);
 //	exit;
@@ -312,6 +396,14 @@ SQL;
             echo "  others: ".implode(', ', $x['candidates'])."\n";
         }
     }
+
+
+// ----------------------------------------------------------
+/*
+	print_r($records);
+	exit;
+*/
+
 } else {
     // LDAP検索
     $baseDn  = (string)($modePeople ? $cfg['people_dn'] : $cfg['users_dn']);

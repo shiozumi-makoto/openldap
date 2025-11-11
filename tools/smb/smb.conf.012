@@ -56,7 +56,12 @@
     # --- 見え方/列挙 ---
     browseable = yes
     access based share enum = yes
-       
+
+	# ---- ファイル名の同期 ----       
+    change notify = yes
+    kernel change notify = yes
+    notify:inotify = yes
+
 # ==========================================
 # 各ユーザーのホーム共有
 # ==========================================
@@ -170,7 +175,7 @@
         orce user    = shiozumi
         orce group = shiozumi
         rowseable = yes
-        ead only = no
+        read only = no
         ritable = yes  
         reate mask = 0664
         irectory mask = 2775

@@ -1,0 +1,55 @@
+#min(0-59) hour(0-23) day(1-31) month(1-12) week(0-7) command
+#55 * * * * cd /var/www/src/php/crons && php makeEventRanking.php local >> /var/www/src/logs/eventRanking.log
+
+MAILTO="shiozumi@esmile-sys.com"
+
+# -----------------------------------
+# access file
+# back up 業務管理システム(db+html)
+# -----------------------------------
+45 23 * * * /var/www/happy/backup/tsk_backup_slave.sh
+
+# -----------------------------------------------------------------------
+# jra-van
+# -----------------------------------------------------------------------
+# 30 23 * * * /var/www/happy/backup/tsk_restore_ovs009-jravan.sh >  /var/logs_share/restore_jravan_db.log 2>&1
+
+# ---------------------
+# delete ldap postgres
+# ---------------------
+00 06 * * * /var/www/01_user/tools/del-ldap_postgres.sh
+
+# ------------------------------------------------
+# 毎月5日 07:00 に実行。ログ保存＆二重起動防止
+# ------------------------------------------------
+00 07 5 * * /var/www/backup/backup_www.sh > /var/www/backup/backup_www.log 2>&1
+
+
+# ----------------------------------------------------------------------
+# 2009sys cron
+# ----------------------------------------------------------------------
+*/10 * * * * /var/www/01_user/app/batch/cronMail_cc2.php
+
+# ----------------------------------------------------------------------
+# 2021.10.3 停電対応
+# 2022.10.2
+# ----------------------------------------------------------------------
+#00 07 19 10 * /usr/sbin/shutdown -h now
+
+# ------------------------------------------
+# restore from ovs-024 [happy!] to ovs-025
+# ------------------------------------------
+
+# 00 07 * * * /var/www/blog2021/batch/tsk_sync_blog_html.sh 192.168.61.25  > /var/logs_share/blog_sync.log 2>&1
+
+# ------------------------------------------
+# 2022.10.19 shiozumi
+# ------------------------------------------
+00 12 * * * /root/backup/copy-dns-to-ovs-009.sh
+
+ 
+# -----------------------------------------
+# 2025.6.3 shiozumi blog backup
+# -----------------------------------------
+0 7 * * * /var/www/happy/backup/mt_backup.sh >> /var/www/happy/backup/mt/mt_backup_$(date +\%F).log 2>&1
+

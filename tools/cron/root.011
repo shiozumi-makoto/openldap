@@ -1,0 +1,30 @@
+#min(0-59) hour(0-23) day(1-31) month(1-12) week(0-7) command
+#55 * * * * cd /var/www/src/php/crons && php makeEventRanking.php local >> /var/www/src/logs/eventRanking.log
+
+MAILTO="shiozumi@esmile-sys.com"
+
+# ------------------------------------------------------------------------------------
+# access file
+# back up 業務管理システム(db+html)
+# ------------------------------------------------------------------------------------
+45 23 * * * /var/www/happy/backup/tsk_backup_000.sh
+
+# ---------------------
+# delete ldap postgres
+# ---------------------
+00 06 * * * /var/www/01_user/tools/del-ldap_postgres.sh
+
+
+# ----------------------------------------------------------------------
+# 2009sys cron
+# ----------------------------------------------------------------------
+# */5 * * * * /var/www/01_user/app/batch/cronMail_cc2.php
+00 08 * * * rm -rf /var/www/lib2009/esys/cache/zend_cache*
+00 08 * * * rm -rf /var/www/01_user/app/cache/data/zend_cache*
+
+
+# ----------------------------------------------------------------------
+# 2021.10.3 停電対応
+# 2023.10.x
+# ----------------------------------------------------------------------
+#00 07 19 10 * /usr/sbin/shutdown -h now

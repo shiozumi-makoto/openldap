@@ -1,0 +1,54 @@
+MAILTO="shiozumi@esmile-sys.com"
+
+# ----------------------------------------
+# 月～金まで、夜22時から実行
+# ----------------------------------------
+
+# 0 22 * * 1-5 /home/shiozumi/backup_sh/backup_tnas.sh tnas-2020 > /home/shiozumi/backup_sh/tnas-2020.log 2>&1
+
+# ----------------------------------------
+# 毎週土曜日の19時から実行
+# ----------------------------------------
+
+# 00 19 * * 6 /home/shiozumi/backup_sh/backup_tnas.sh tnas-3f-4tb-new > /home/shiozumi/backup_sh/tnas-3f-4tb-new.log 2>&1
+
+
+# ----------------------------------------
+# 毎週日曜日の19時から実行
+# ----------------------------------------
+
+# 00 19 * * 0 /home/shiozumi/backup_sh/backup_tnas.sh tnas-game-4tb > /home/shiozumi/backup_sh/tnas-game-4tb.log 2>&1
+
+
+# ----------------------------------------
+# 月～金まで、夜0時から実行 
+# ----------------------------------------
+
+# 00 00 * * 1-5 /home/shiozumi/backup_sh/backup_tnas_home.sh > /home/shiozumi/backup_sh/php_tnas_home.log 2>&1
+
+
+
+# ----------------------------------------
+# 月曜日の3時に実行
+# ----------------------------------------
+# 0 3 * * 1 /home/shiozumi/backup_sh/backup_tnas-2020.sh tnas-3f-4tb-new > /home/shiozumi/backup_sh/tnas-3f-4tb-new.log 2>&1
+
+
+0 22 * * * /home/shiozumi/backup_sh/backup_all.sh
+
+# ----------------------------------------------------------------------
+# 2021.10.3 停電対応
+# 2022.10.2
+# 2023.10.21
+# 2024.10.19
+# ----------------------------------------------------------------------
+# 00 07 19 10 * /usr/sbin/shutdown -h now
+
+
+# ----------------------------------------------------------------------
+# 2009sys cron
+# ----------------------------------------------------------------------
+# */5 * * * * /var/www/01_user/app/batch/cronMail_cc2.php
+00 08 * * * rm -rf /var/www/lib2009/esys/cache/zend_cache*
+00 08 * * * rm -rf /var/www/01_user/app/cache/data/zend_cache*
+

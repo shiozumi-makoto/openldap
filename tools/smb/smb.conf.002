@@ -8,6 +8,7 @@
 
     # --- セキュリティ/プロトコル ---
     security = user
+    server role = standalone server
     server min protocol = SMB2_10
     server max protocol = SMB3_11
     client min protocol = SMB2_10
@@ -36,7 +37,8 @@
     domain master = yes
     local master = yes
     preferred master = yes
-    os level = 255
+#   os level = 255
+	os level = 65
 
     # --- ネットワーク制限 ---
     interfaces = 192.168.61.2/24 127.0.0.1

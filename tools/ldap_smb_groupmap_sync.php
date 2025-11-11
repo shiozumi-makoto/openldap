@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-declare(strict_types=1);
 
 /**
  * ldap_smb_groupmap_sync.php
