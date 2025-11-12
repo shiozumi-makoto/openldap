@@ -43,6 +43,18 @@ declare(strict_types=1);
  *  php ldap_memberuid_users_group.php --ldapi --confirm --group=esmile-dev
  */
 
+/*
+php ldap_memberuid_users_group.php --confirm --group=users \
+  --uri='ldaps://ovs-009.e-smile.local:636' \
+  --bind-dn='cn=Admin,dc=e-smile,dc=ne,dc=jp' \
+  --bind-pass='es0356525566' \
+  --base-dn='dc=e-smile,dc=ne,dc=jp'
+
+php ldap_memberuid_users_group.php --list --uri=ldaps://ovs-012.e-smile.local:636
+
+*/
+
+
 //--------------------------------------------------------------
 // オートロード（存在すれば活用） & 共通ヘルプ
 //--------------------------------------------------------------
@@ -105,6 +117,9 @@ $options = getopt('', [
     'ldapi',
     'uri::',
     'base-dn::',
+    'bind-dn::',
+    'bind-pass::',
+//  'base-pass::',
     'people-ou::',
     'groups-ou::',
 ]);
@@ -146,16 +161,26 @@ $DO_INIT   = isset($options['init']);
 $LIST      = isset($options['list']);
 
 $URI_OPT   = $options['uri'] ?? null;
-$LDAP_URL  = getenv('LDAPURI') ?: getenv('LDAP_URI') ?: getenv('LDAP_URL') ?: ($URI_OPT ?: null);
+$LDAP_URL  = $URI_OPT ?: getenv('LDAPURI') ?: getenv('LDAP_URI') ?: getenv('LDAP_URL') ?: null;
+
+// $LDAP_URL  = getenv('LDAPURI') ?: getenv('LDAP_URI') ?: getenv('LDAP_URL') ?: ($URI_OPT ?: null);
+
 // Backward-compat: allow --ldapi to force default socket if nothing chosen
+//var_dump($LDAP_URL);
+//var_dump(isset($options['ldapi']));
+//exit;
+
 if (!$LDAP_URL && isset($options['ldapi'])) {
     $LDAP_URL = 'ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi';
 }
 
-$BIND_DN   = envv('BIND_DN', 'cn=Admin,dc=e-smile,dc=ne,dc=jp');
-$BIND_PW   = envv('BIND_PW', '');
+// $BIND_DN   = envv('BIND_DN', 'cn=Admin,dc=e-smile,dc=ne,dc=jp');
+// $BIND_PW   = envv('BIND_PW', '');
 
+$BIND_DN   = $options['bind-dn'] ?? envv('BIND_DN', '');
+$BIND_PW   = $options['bind-pass'] ?? envv('BIND_PW', '');
 $BASE_DN   = $options['base-dn'] ?? envv('BASE_DN', null);
+
 if (!$BASE_DN) {
     // BIND_DN からベースを推定
     $BASE_DN = preg_replace('/^[^,]+,/', '', $BIND_DN);
@@ -204,7 +229,7 @@ if ($wantExternal && function_exists('ldap_sasl_bind')) {
 } else {
     $bindOk = @ldap_bind($link, $BIND_DN, $BIND_PW);
 }
-if (!$bindOk) { log_err("ldap_bind failed: ".(function_exists('ldap_error')?ldap_error($link):'unknown')); exit(1); }
+if (!$bindOk) { log_err(" ldap_bind failed: ".(function_exists('ldap_error')?ldap_error($link):'unknown')); exit(1); }
 
 //--------------------------------------------------------------
 // OU 自動検出（People）

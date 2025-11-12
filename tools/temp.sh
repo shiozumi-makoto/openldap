@@ -15,7 +15,8 @@ echo
 
 # 共通フラグ
 LDAP_URI='ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi'   # ldapi 推奨
-COMMON_URI_FLAG=(--ldapi)                               # もしくは: --uri="${LDAP_URI}"
+COMMON_URI_FLAG_ORG=(--ldapi --base-dn='dc=e-smile,dc=ne,dc=jp')                               # もしくは: --uri="${LDAP_URI}"
+COMMON_URI_FLAG=(--uri='ldaps://ovs-012.e-smile.local:636' --bind-dn='cn=Admin,dc=e-smile,dc=ne,dc=jp' --bind-pass='es0356525566' --base-dn='dc=e-smile,dc=ne,dc=jp')
 CONFIRM_FLAG=(--confirm)
 [[ "$DRY" -eq 1 ]] && CONFIRM_FLAG=()
 LIST_FLAG=(--list)
@@ -30,6 +31,10 @@ echo "--------------------------------------------------------------------------
 php "${BASE_DIR}/ldap_id_pass_from_postgres_set.php" --ldapi --ldap --confirm
 
 
+#
+# ovs-009 もついでに？
+# php ldap_id_pass_from_postgres_set.php --ldap --confirm --ldaps --uri=ldaps://ovs-009.e-smile.local:636 --bind-dn="cn=Admin,dc=e-smile,dc=ne,dc=jp" --bind-pass='es0356525566' --base-dn="dc=e-smile,dc=ne,dc=jp"
+#
 # PATH=/usr/bin:/bin: /bin/sh -c '/usr/local/etc/openldap/tools/temp.sh'
 # env -i PATH=/usr/local/bin:/usr/bin:/bin: HOME=/root SHELL=/bin/sh /bin/sh -c '/usr/local/etc/openldap/tools/temp.sh'
 # php ldap_id_pass_from_postgres_set.php --ldapi --home --maildir-only --confirm
@@ -46,11 +51,17 @@ echo "--------------------------------------------------------------------------
 # export MAIL_PRIMARY_DOMAIN=esmile-holdings.com
 # export MAIL_EXTRA_DOMAINS="esmile-soltribe.com, esmile-systems.jp"
 #
+# BASE_DN   : dc=e-smile,dc=ne,dc=jp
+# GROUPS_OU : ou=Groups,dc=e-smile,dc=ne,dc=jp
+#
+
+# echo ldap_level_groups_sync.php --group=users,esmile-dev,nicori-dev,kindaka-dev,boj-dev,e_game-dev,solt-dev,social-dev,adm-cls,dir-cls,mgr-cls,mgs-cls,stf-cls,ent-cls,tmp-cls,err-cls --init-group "${CONFIRM_FLAG[@]}" "${COMMON_URI_FLAG_ORG[@]}" --description || true
 
 php "${BASE_DIR}/ldap_level_groups_sync.php" \
   --group=users,esmile-dev,nicori-dev,kindaka-dev,boj-dev,e_game-dev,solt-dev,social-dev,adm-cls,dir-cls,mgr-cls,mgs-cls,stf-cls,ent-cls,tmp-cls,err-cls \
-  --init-group "${CONFIRM_FLAG[@]}" --ldapi --description \
+  --init-group "${CONFIRM_FLAG[@]}" "${COMMON_URI_FLAG_ORG[@]}" --description \
   || true
+
 
 echo "-------------------------------------------------------------------------------------- ★★[STEP2] 役職クラスの posixGroup を事前整備（存在しなければ作成・gid整合）"
 CLASS_GROUPS=(
@@ -95,6 +106,9 @@ for g in "${TARGET_GROUPS_CLASSES[@]}"; do
     "${COMMON_URI_FLAG[@]}" "${CONFIRM_FLAG[@]}" --init "${LIST_FLAG[@]}" --group="${g}"
 done
 
+
+
+
 echo "-------------------------------------------------------------------------------------- ★★★★[STEP4] Samba groupmap 同期（idempotent）"
 php "${BASE_DIR}/ldap_smb_groupmap_sync.php"   "${COMMON_URI_FLAG[@]}" "${CONFIRM_FLAG[@]}" --all --verbose
 
@@ -102,11 +116,13 @@ php "${BASE_DIR}/ldap_smb_groupmap_sync.php"   "${COMMON_URI_FLAG[@]}" "${CONFIR
 echo
 net groupmap list | egrep 'users|dev|cls' || true
 
+# ssh ovs-009 "net groupmap list | egrep 'users|dev|cls' || true"
+
 echo "-------------------------------------------------------------------------------------- ★★★★★[STEP5] 不要ホームの整理"
 php "${BASE_DIR}/prune_home_dirs.php" "${COMMON_URI_FLAG[@]}"
 echo "=== DONE ACCOUNT UPDATE! ==="
 
-# ------------------
+# ------------------------------------
 # php sync_mail_extension_from_ldap.php --confirm --P --pg-post=ovs-010
 # php sync_mail_extension_from_ldap.php --confirm --U --pg-post=ovs-010
 # php sync_mail_extension_from_ldap.php --confirm --O --pg-post=ovs-010
@@ -118,8 +134,7 @@ echo "=== DONE ACCOUNT UPDATE! ==="
 # --O	  :passwd_mail の login_id 列を参照！
 #
 # php sync_mail_extension_from_ldap.php --ldapi --O --pg-post=ovs-010
-
-# ------------------
+# ------------------------------------
 
 echo "-------------------------------------------------------------------------------------- ★★★★★★[STEP6] .forward 情報個人メール拡張の更新"
 php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-post=ovs-010

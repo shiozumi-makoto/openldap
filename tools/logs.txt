@@ -1,0 +1,693 @@
+[root@ovs-012 tools]# ./temp-ovs-009.sh
+
+=== START ACCOUNT UPDATE! (SAMBA+-LDAP) ===
+
+/usr/local/etc/openldap/tools/temp-ovs-009.sh [+W5+ITA-shell]
+
+-------------------------------------------------------------------------------------- +JgU-[STEP1] +MOYw/DC2ZyxPUzBuVAxnH/8I-HOME/LDAP upsert+/wk-
+  php ldap_id_pass_from_postgres_set.php --ldaps --ldap --confirm --uri=ldaps://ovs-009.e-smile.local:636 --bind-dn=cn=Admin,dc=e-smile,dc=ne,dc=jp --bind-pass=es0356525566 --base-dn=dc=e-smile,dc=ne,dc=jp
+
+=== LDAP connection summary ===
+ Mode      : ldaps
+ URI       : ldaps://ovs-009.e-smile.local:636
+ Status    : ? bind success
+ Protocol  : v3
+===============================
+
+=== START add-home(+-LDAP) ===
+HOST      : ovs-012.e-smile.local
+HOME_ROOT : /home
+SKEL      : /etc/skel
+MODE      : 0750 (488)
+CONFIRM   : YES (execute)
+LDAP      : enabled
+log file  : ldap_uid_errors.log
+local uid : 0
+----------------------------------------------
+ldap_host : ldaps://ovs-009.e-smile.local:636
+ldap_base : dc=e-smile,dc=ne,dc=jp
+ldap_user : cn=Admin,dc=e-smile,dc=ne,dc=jp
+ldap_pass : ********
+----------------------------------------------
+
+DB: fetch target rows +ICY-
+[INFO] DB rows (pre-filter): 250
+[INFO] DB rows (post-filter): 250
+SID! +U9ZflzBXMF8wyTDhMKQw8w-SID: S-1-5-21-3566765955-3362818161-2431109675
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[INFO] Domain SID: S-1-5-21-3566765955-3362818161-2431109675
+Up!  [  1] [01-001] [uid:  10001 gid: 2001] [adm-cls 1 ] [shiozumi-makoto     ] [CON] +ZvRlsA- [Makoto87426598] [+WGlPTw- +iqA-]
+Up!  [  2] [02-001] [uid:  20001 gid: 2002] [err-cls 99] [shiozumi-makoto2    ] [CON] +ZvRlsA- [WDXzk7RP  ] [+WGlPTw- +iqA-]
+Up!  [  3] [03-001] [uid:  30001 gid: 2003] [err-cls 99] [shiozumi-makoto3    ] [CON] +ZvRlsA- [C37skZG0  ] [+WGlPTw- +iqA-]
+Up!  [  4] [03-156] [uid:  30156 gid: 2003] [ent-cls 20] [kurabayashi-akira   ] [CON] +ZvRlsA- [4dmiH601_0] [+UAlnlw- +Zg4-]
+Up!  [  5] [03-207] [uid:  30207 gid: 2003] [ent-cls 20] [watanabe-toshihiro  ] [CON] +ZvRlsA- [feljC13r_9] [+biGQiQ- +ZU9taQ-]
+Up!  [  6] [03-245] [uid:  30245 gid: 2003] [ent-cls 20] [fukuyasu-hideaki    ] [CON] +ZvRlsA- [oFRmn6pV_8] [+eY9biQ- +ecBmDg-]
+Up!  [  7] [03-303] [uid:  30303 gid: 2003] [mgr-cls 5 ] [katsu-shino         ] [CON] +ZvRlsA- [E7ytzuGK_5] [+Ut0- +MFdOQw-]
+Up!  [  8] [03-321] [uid:  30321 gid: 2003] [mgs-cls 10] [takebayashi-yumiko  ] [CON] +ZvRlsA- [gR8fGSCH_1] [+evlnlw- +dTF/jltQ-]
+Up!  [  9] [03-329] [uid:  30329 gid: 2003] [dir-cls 3 ] [yamaguchi-tomohisa  ] [CON] +ZvRlsA- [Y2sHrG3N_8] [+XHFT4w- +ZnpORQ-]
+Up!  [ 10] [03-330] [uid:  30330 gid: 2003] [ent-cls 20] [koyama-hiroki       ] [CON] +ZvRlsA- [29L2Vl43_1] [+XA9ccQ- +WSdqOQ-]
+Up!  [ 11] [03-342] [uid:  30342 gid: 2003] [ent-cls 20] [ushigome-norio      ] [CON] +ZvRlsA- [e90x5Mhp_4] [+cluPvA- +fQCWxA-]
+Up!  [ 12] [03-347] [uid:  30347 gid: 2003] [ent-cls 20] [saitou-jun          ] [CON] +ZvRlsA- [7Fv5CZ3i_3] [+n0qF5A- +fRQ-]
+Up!  [ 13] [03-348] [uid:  30348 gid: 2003] [ent-cls 20] [yamazaki-akinori    ] [CON] +ZvRlsA- [f5qw445G_5] [+XHFdDg- +Zg5ReA-]
+Up!  [ 14] [03-362] [uid:  30362 gid: 2003] [ent-cls 20] [nemoto-osamu        ] [CON] +ZvRlsA- [auB7ZT87_4] [+aDlnLA- +T+4-]
+Up!  [ 15] [03-363] [uid:  30363 gid: 2003] [ent-cls 20] [akashio-hiroki      ] [CON] +ZvRlsA- [tnC52Ei6_3] [+jWRYaQ- +W9uJjw-]
+Up!  [ 16] [03-365] [uid:  30365 gid: 2003] [ent-cls 20] [takeuchi-tomokazu   ] [CON] +ZvRlsA- [I37um3uM_1] [+a2ZRhQ- +U8tUjA-]
+Up!  [ 17] [03-366] [uid:  30366 gid: 2003] [ent-cls 20] [nakamura-toshihiko  ] [CON] +ZvRlsA- [Sg70296n_9] [+Ti1nUQ- +T8pfZg-]
+Up!  [ 18] [03-367] [uid:  30367 gid: 2003] [ent-cls 20] [iizawa-kensuke      ] [CON] +ZvRlsA- [35G7n3F4_7] [+mO9vpA- +eBROyw-]
+Up!  [ 19] [03-410] [uid:  30410 gid: 2003] [ent-cls 20] [yamasaki-ryouhei    ] [CON] +ZvRlsA- [bK5K020B_1] [+XHFdDg- +gm9ecw-]
+Up!  [ 20] [03-412] [uid:  30412 gid: 2003] [ent-cls 20] [nakajima-shin       ] [CON] +ZvRlsA- [UqOThy23_8] [+Ti1c9g- +Tzg-]
+Up!  [ 21] [05-100] [uid:  50100 gid: 2005] [mgs-cls 10] [hirukawa-makoto     ] [CON] +ZvRlsA- [pZ3XMTak_7] [+a9R1WV3d- +dx8-]
+Up!  [ 22] [05-101] [uid:  50101 gid: 2005] [dir-cls 3 ] [takahashi-ryouya2   ] [CON] +ZvRlsA- [HZy1kEFr_4] [+mtlqSw- +YBxOXw-]
+Up!  [ 23] [05-102] [uid:  50102 gid: 2005] [mgr-cls 5 ] [sano-yukiharu       ] [CON] +ZvRlsA- [N0CqiyU5_6] [+T1CRzg- +XnhmdA-]
+Up!  [ 24] [05-103] [uid:  50103 gid: 2005] [mgs-cls 10] [yanagisawa-yurika   ] [CON] +ZvRlsA- [rnYN6scr_4] [+Z/NvpA- +dn5UCJmZ-]
+Up!  [ 25] [09-102] [uid:  90102 gid: 2009] [ent-cls 20] [nishizawa-takuya    ] [CON] +ZvRlsA- [fZQ6B1wa_3] [+iX9sog- +U1NOXw-]
+Up!  [ 26] [09-103] [uid:  90103 gid: 2009] [ent-cls 20] [abe-ryou            ] [CON] +ZvRlsA- [DF42xP54_2] [+lj+Q6A- +Tq4-]
+Up!  [ 27] [09-104] [uid:  90104 gid: 2009] [ent-cls 20] [suzuki-daisuke      ] [CON] +ZvRlsA- [THo9f4sN_6] [+kjRnKA- +WSdOyw-]
+Up!  [ 28] [09-106] [uid:  90106 gid: 2009] [ent-cls 20] [tamai-akihiko       ] [CON] +ZvRlsA- [NZL6973v_0] [+c4lOlQ- +Zg5fZg-]
+Up!  [ 29] [09-118] [uid:  90118 gid: 2009] [mgs-cls 8 ] [oonuki-atsushi      ] [CON] +ZvRlsA- [U8j6Et9y_2] [+WSeMqw- +U5o-]
+Up!  [ 30] [09-119] [uid:  90119 gid: 2009] [ent-cls 20] [horikawa-yuudai     ] [CON] +ZvRlsA- [9dFl2rp1_5] [+WABd3Q- +lsRZJw-]
+Up!  [ 31] [09-157] [uid:  90157 gid: 2009] [ent-cls 20] [hirose-masaya       ] [CON] +ZvRlsA- [91iMAe38_8] [+XuNwLA- +UUGANg-]
+Up!  [ 32] [09-164] [uid:  90164 gid: 2009] [ent-cls 20] [fujii-hibiki        ] [CON] +ZvRlsA- [Mj63xtAY_6] [+heROlQ- +l/8-]
+Up!  [ 33] [09-174] [uid:  90174 gid: 2009] [ent-cls 20] [nakano-atsushi      ] [CON] +ZvRlsA- [yxc9LoKQ_1] [+Ti2Rzg- +e+Rf1w-]
+Up!  [ 34] [09-229] [uid:  90229 gid: 2009] [ent-cls 20] [sugawara-naoki      ] [CON] +ZvRlsA- [452EhHeB_2] [+g8VTnw- +dvSKGA-]
+Up!  [ 35] [09-232] [uid:  90232 gid: 2009] [ent-cls 20] [namiki-hiroyuki     ] [CON] +ZvRlsA- [98Q3L5gS_5] [+TiZnKA- +iNVeeA-]
+Up!  [ 36] [09-266] [uid:  90266 gid: 2009] [ent-cls 20] [yamada-masayuki     ] [CON] +ZvRlsA- [G6frtqrH_9] [+XHF1MA- +dx9OSw-]
+Up!  [ 37] [09-270] [uid:  90270 gid: 2009] [mgs-cls 10] [maruyama-ikumi      ] [CON] +ZvRlsA- [yKNh6N1u_9] [+TjhccQ- +kMF/jg-]
+Up!  [ 38] [09-271] [uid:  90271 gid: 2009] [ent-cls 20] [itou-yutaka         ] [CON] +ZvRlsA- [RlqN63xO_3] [+TwqF5A- +jEo-]
+Up!  [ 39] [09-293] [uid:  90293 gid: 2009] [ent-cls 20] [sasaki-yuusuke      ] [CON] +ZvRlsA- [4VmzTA02_4] [+T1AwBWco- +T1GPFA-]
+Up!  [ 40] [09-306] [uid:  90306 gid: 2009] [ent-cls 20] [takeda-nobutaka     ] [CON] +ZvRlsA- [Apu1Qd1u_6] [+a2Z1MA- +T+FbXQ-]
+Up!  [ 41] [09-328] [uid:  90328 gid: 2009] [ent-cls 20] [satou-takahiro      ] [CON] +ZvRlsA- [6M7bk3ho_4] [+T1CF5A- +jLRtCw-]
+Up!  [ 42] [09-340] [uid:  90340 gid: 2009] [ent-cls 20] [yamagishi-hiroaki   ] [CON] +ZvRlsA- [C808616N_0] [+XHFcuA- +bWlmDg-]
+Up!  [ 43] [09-361] [uid:  90361 gid: 2009] [ent-cls 20] [kakumoto-yuuki      ] [CON] +ZvRlsA- [1E3PqE0C_1] [+idJnLA- +eVBeDA-]
+Up!  [ 44] [09-363] [uid:  90363 gid: 2009] [ent-cls 20] [sekimoto-takahito   ] [CON] +ZvRlsA- [1Xvm2InH_5] [+laJnLA- +loZOug-]
+Up!  [ 45] [09-387] [uid:  90387 gid: 2009] [ent-cls 20] [nagano-naoki        ] [CON] +ZvRlsA- [6y2JATUA_7] [+bDiRzg- +dvRqOQ-]
+Up!  [ 46] [09-413] [uid:  90413 gid: 2009] [ent-cls 20] [namimatsu-teruyuki  ] [CON] +ZvRlsA- [yk6G2eHz_4] [+TiZnfg- +jx2ITA-]
+Up!  [ 47] [09-416] [uid:  90416 gid: 2009] [ent-cls 20] [fukushima-yuuya     ] [CON] +ZvRlsA- [tDG0nJSg_4] [+eY9c9g- +U8tfJQ-]
+Up!  [ 48] [09-419] [uid:  90419 gid: 2009] [ent-cls 20] [kaneko-hitomi       ] [CON] +ZvRlsA- [vBJrSO1M_8] [+kdFbUA- +MHIwaDB/-]
+Up!  [ 49] [09-420] [uid:  90420 gid: 2009] [ent-cls 20] [nakamura-keita      ] [CON] +ZvRlsA- [0kY4Cy4E_5] [+Ti1nUQ- +YXZZKg-]
+Up!  [ 50] [09-427] [uid:  90427 gid: 2009] [ent-cls 20] [matsushita-futoshi  ] [CON] +ZvRlsA- [Di6Y9Qth_8] [+Z35OCw- +WSpf1w-]
+Up!  [ 51] [09-438] [uid:  90438 gid: 2009] [ent-cls 20] [kanemoto-masaki     ] [CON] +ZvRlsA- [8EYc9umm_5] [+kdFnLA- +a2NqOQ-]
+Up!  [ 52] [09-441] [uid:  90441 gid: 2009] [ent-cls 20] [esashika-akio       ] [CON] +ZvRlsA- [By61z018_8] [+bF9SOlu2- +ZktP3Q-]
+Up!  [ 53] [09-447] [uid:  90447 gid: 2009] [ent-cls 20] [saitou-tomohisa     ] [CON] +ZvRlsA- [kAqUhDc6_3] [+ZY6F5A- +U8tORQ-]
+Up!  [ 54] [09-449] [uid:  90449 gid: 2009] [ent-cls 20] [sakaguchi-keiji     ] [CON] +ZvRlsA- [1jC80486_4] [+V0JT4w- +YHVOjA-]
+Up!  [ 55] [09-468] [uid:  90468 gid: 2009] [mgs-cls 10] [takano-jun          ] [CON] +ZvRlsA- [8p223ml4_1] [+mtiRzg- +bfM-]
+Up!  [ 56] [09-472] [uid:  90472 gid: 2009] [mgr-cls 5 ] [iwai-yasumichi      ] [CON] +ZvRlsA- [i2Kw7YDR_8] [+XKlOlQ- +bPCQUw-]
+Up!  [ 57] [09-477] [uid:  90477 gid: 2009] [ent-cls 20] [gouda-naoki         ] [CON] +ZvRlsA- [6682F9pb_1] [+VAh1MA- +dvRqOQ-]
+Up!  [ 58] [09-482] [uid:  90482 gid: 2009] [mgr-cls 5 ] [gotou-satomi        ] [CON] +ZvRlsA- [f3YqVt9T_6] [+X4yF5A- +Znp/jg-]
+Up!  [ 59] [09-513] [uid:  90513 gid: 2009] [ent-cls 20] [sugimoto-tatsuya    ] [CON] +ZvRlsA- [jYeW8yu2_8] [+Z0lnLA- +kFRUyQ-]
+Up!  [ 60] [09-519] [uid:  90519 gid: 2009] [ent-cls 20] [kubota-shion        ] [CON] +ZvRlsA- [7wO3Xajd_2] [+TkVP3XUw- +X9eX8w-]
+Up!  [ 61] [09-527] [uid:  90527 gid: 2009] [ent-cls 20] [takabatake-hideto   ] [CON] +ZvRlsA- [PX8ujNc8_1] [+mtl1YA- +ecBOug-]
+Up!  [ 62] [09-528] [uid:  90528 gid: 2009] [ent-cls 20] [akiba-yuuichi       ] [CON] +ZvRlsA- [B45386lV_5] [+ecuESQ- +eVBOAA-]
+Up!  [ 63] [09-529] [uid:  90529 gid: 2009] [ent-cls 20] [tanaka-motoaki      ] [CON] +ZvRlsA- [oX4k82h3_6] [+dTBOLQ- +V/pmQw-]
+Up!  [ 64] [09-531] [uid:  90531 gid: 2009] [ent-cls 20] [hobo-hoshihito      ] [CON] +ZvRlsA- [ZtDic6fZ_6] [+T91rzQ- +Zh9OwQ-]
+Up!  [ 65] [09-532] [uid:  90532 gid: 2009] [ent-cls 20] [nagayama-osamu      ] [CON] +ZvRlsA- [6l9w0Bf2_4] [+bDhccQ- +bLtZIg-]
+Up!  [ 66] [09-533] [uid:  90533 gid: 2009] [ent-cls 20] [sakamoto-katsuyuki  ] [CON] +ZvRlsA- [6Oli07Jl_2] [+V0JnLA- +UUteeA-]
+Up!  [ 67] [09-536] [uid:  90536 gid: 2009] [ent-cls 20] [kurokawa-ryou       ] [CON] +ZvRlsA- [ze4jjJIi_4] [+ntJd3Q- +Ucw-]
+Up!  [ 68] [09-537] [uid:  90537 gid: 2009] [ent-cls 20] [sukegawa-kaede      ] [CON] +ZvRlsA- [NdoQT636_5] [+Uqld3Q- +aVM-]
+Up!  [ 69] [09-538] [uid:  90538 gid: 2009] [ent-cls 20] [azumaya-ryouta      ] [CON] +ZvRlsA- [IKw5vIZD_1] [+Z3GMNw- +gm9ZKg-]
+Up!  [ 70] [09-542] [uid:  90542 gid: 2009] [ent-cls 20] [akiyoshi-yuuya      ] [CON] +ZvRlsA- [rWXNqt22_4] [+ectUCQ- +T1FUyQ-]
+Up!  [ 71] [09-543] [uid:  90543 gid: 2009] [ent-cls 20] [harada-hitoshi      ] [CON] +ZvRlsA- [OhoQa5q5_2] [+U591MA- +TsFf1w-]
+Up!  [ 72] [09-544] [uid:  90544 gid: 2009] [ent-cls 20] [ookawara-chiaki     ] [CON] +ZvRlsA- [7w3LUmKh_0] [+WSdss1Of- +U0Nmdg-]
+Up!  [ 73] [09-546] [uid:  90546 gid: 2009] [ent-cls 20] [saitou-rui          ] [CON] +ZvRlsA- [5H42Nxpn_7] [+ZYmF5A- +WEE-]
+Up!  [ 74] [09-553] [uid:  90553 gid: 2009] [ent-cls 20] [shumuta-tomoya      ] [CON] +ZvRlsA- [izwMyIXg_5] [+ZzFyX3Uw- +ZwtOXw-]
+Up!  [ 75] [09-556] [uid:  90556 gid: 2009] [ent-cls 20] [fujimoto-asami      ] [CON] +ZvRlsA- [e93qZk3J_8] [+heRnLA- +nrt/jg-]
+Up!  [ 76] [09-557] [uid:  90557 gid: 2009] [ent-cls 20] [nishizawa-satoshi   ] [CON] +ZvRlsA- [5fTiGE36_8] [+iX9vpA- +Zno-]
+Up!  [ 77] [09-558] [uid:  90558 gid: 2009] [ent-cls 20] [yanagisawa-ayuna    ] [CON] +ZvRlsA- [0pd23Jx1_0] [+Z/Nsog- +a2lZSA-]
+Up!  [ 78] [09-559] [uid:  90559 gid: 2009] [ent-cls 20] [segoshi-miyuki      ] [CON] +ZvRlsA- [Z27fp6M6_7] [+cCyNig- +f451MX0A-]
+Up!  [ 79] [09-560] [uid:  90560 gid: 2009] [ent-cls 20] [iwanaga-reina       ] [CON] +ZvRlsA- [LZvKg7lP_3] [+XKlsOA- +YBxZSA-]
+Up!  [ 80] [09-562] [uid:  90562 gid: 2009] [ent-cls 20] [taniguchi-kazuki    ] [CON] +ZvRlsA- [7437wkJP_5] [+jDdT4w- +VIxeDA-]
+Up!  [ 81] [09-566] [uid:  90566 gid: 2009] [ent-cls 20] [kobayashi-shouhei   ] [CON] +ZvRlsA- [4T7XjA02_0] [+XA9nlw- +XAZRdQ-]
+Up!  [ 82] [09-571] [uid:  90571 gid: 2009] [ent-cls 20] [munaoka-haruka      ] [CON] +ZvRlsA- [zL9ZR7vL_8] [+W5dcoQ- +ZiVPcw-]
+Up!  [ 83] [09-575] [uid:  90575 gid: 2009] [ent-cls 20] [yamazaki-saika      ] [CON] +ZvRlsA- [2y02S824_4] [+XHFdDg- +X2lZDw-]
+Up!  [ 84] [09-577] [uid:  90577 gid: 2009] [ent-cls 20] [sakai-mao           ] [CON] +ZvRlsA- [sP7f61e3_3] [+V0JOlQ- +dx990g-]
+Up!  [ 85] [09-578] [uid:  90578 gid: 2009] [ent-cls 20] [shibuya-mikiko      ] [CON] +ZvRlsA- [ds54NpFy_3] [+b4GMNw- +f459AFtQ-]
+Up!  [ 86] [09-579] [uid:  90579 gid: 2009] [ent-cls 20] [kishimoto-ryouya    ] [CON] +ZvRlsA- [Xvq85494_5] [+XLhnLA- +UcxfJQ-]
+Up!  [ 87] [09-581] [uid:  90581 gid: 2009] [ent-cls 20] [kinoshita-ryouta    ] [CON] +ZvRlsA- [57G1Kl93_1] [+ZyhOCw- +UcxscA-]
+Up!  [ 88] [09-582] [uid:  90582 gid: 2009] [ent-cls 20] [komatsu-sairi       ] [CON] +ZvRlsA- [tp0a5sTv_4] [+XA9nfg- +X2mRzA-]
+Up!  [ 89] [09-583] [uid:  90583 gid: 2009] [ent-cls 20] [tajima-haruna       ] [CON] +ZvRlsA- [9aZQRd5T_1] [+dTBc9g- +kGVZSA-]
+Up!  [ 90] [09-586] [uid:  90586 gid: 2009] [ent-cls 20] [iijima-ryou         ] [CON] +ZvRlsA- [20WEmQtv_9] [+mO9diw- +Ucw-]
+Up!  [ 91] [09-587] [uid:  90587 gid: 2009] [ent-cls 20] [oota-kaho           ] [CON] +ZvRlsA- [k35mvxj1_6] [+WSp1MA- +WQ9eBg-]
+Up!  [ 92] [09-588] [uid:  90588 gid: 2009] [ent-cls 20] [miyagawa-satsuki    ] [CON] +ZvRlsA- [sqg8uiQw_3] [+W65d3Q- +mK+EdQ-]
+Up!  [ 93] [09-589] [uid:  90589 gid: 2009] [ent-cls 20] [shouji-yuuta        ] [CON] +ZvRlsA- [48QhK5D2_5] [+XoRbUA- +USpZKg-]
+Up!  [ 94] [09-590] [uid:  90590 gid: 2009] [ent-cls 20] [saitou-ren          ] [CON] +ZvRlsA- [26ut6QLk_3] [+n0qF5A- +Xsk-]
+Up!  [ 95] [09-591] [uid:  90591 gid: 2009] [ent-cls 20] [koshikawa-ren       ] [CON] +ZvRlsA- [51ojAb30_9] [+jYpd3Q- +Xsk-]
+Up!  [ 96] [09-592] [uid:  90592 gid: 2009] [ent-cls 20] [hiraga-daisuke      ] [CON] +ZvRlsA- [o56286K5_9] [+XnOMwA- +WSePFA-]
+Up!  [ 97] [09-593] [uid:  90593 gid: 2009] [ent-cls 20] [shiraki-hasumi      ] [CON] +ZvRlsA- [Uh2dmY0L_5] [+dn1nKA- +gplbnw-]
+Up!  [ 98] [09-594] [uid:  90594 gid: 2009] [ent-cls 20] [kobayashi-takehiro  ] [CON] +ZvRlsA- [036rnNH0_4] [+XA9nlw- +XLNbmQ-]
+Up!  [ 99] [09-595] [uid:  90595 gid: 2009] [ent-cls 20] [haruta-haruki       ] [CON] +ZvRlsA- [4z6T6103_7] [+ZiV1MA- +ln2MtA-]
+Up!  [100] [09-596] [uid:  90596 gid: 2009] [ent-cls 20] [kaneshiro-marina    ] [CON] +ZvRlsA- [6qqopwQb_8] [+kdFXzg- +MH4wijBq-]
+Up!  [101] [09-597] [uid:  90597 gid: 2009] [ent-cls 20] [itou-keigo          ] [CON] +ZvRlsA- [hNx7wCjZ_6] [+TwpncQ- +YXZgnw-]
+Up!  [102] [09-599] [uid:  90599 gid: 2009] [ent-cls 20] [yamamura-riku       ] [CON] +ZvRlsA- [Kh19DSwP_2] [+XHFnUQ- +lng-]
+Up!  [103] [09-601] [uid:  90601 gid: 2009] [ent-cls 20] [tokiwa-moe          ] [CON] +ZvRlsA- [U73M62x9_6] [+Xjh25A- +hAw-]
+Up!  [104] [09-602] [uid:  90602 gid: 2009] [ent-cls 20] [hoshitani-taiki     ] [CON] +ZvRlsA- [cDV4B2wX_4] [+Zh+MNw- +WSdVnA-]
+Up!  [105] [09-603] [uid:  90603 gid: 2009] [ent-cls 20] [souryou-tatsuya     ] [CON] +ZvRlsA- [0ayB5Fv2_3] [+fj2YGA- +j7BUyQ-]
+Up!  [106] [09-604] [uid:  90604 gid: 2009] [ent-cls 20] [takeuchi-yuuta      ] [CON] +ZvRlsA- [oOHYx6S3_3] [+evlRhQ- +T1FscA-]
+Up!  [107] [09-605] [uid:  90605 gid: 2009] [ent-cls 20] [nakamura-suzuka     ] [CON] +ZvRlsA- [y5UI6WO9_8] [+TvJnUQ- +bbyZmQ-]
+Up!  [108] [09-606] [uid:  90606 gid: 2009] [ent-cls 20] [oonishi-keitarou    ] [CON] +ZvRlsA- [4Ugy0bgc_9] [+WSeJfw- +aEJZKpDO-]
+Up!  [109] [09-607] [uid:  90607 gid: 2009] [ent-cls 20] [kikuchi-miki        ] [CON] +ZvRlsA- [8Ztk22ya_3] [+g8psYA- +f46PHQ-]
+Up!  [110] [09-608] [uid:  90608 gid: 2009] [ent-cls 20] [furukawa-kouki      ] [CON] +ZvRlsA- [FkjAP4z8_7] [+U+Rd3Q- +UBZd8Q-]
+Up!  [111] [09-609] [uid:  90609 gid: 2009] [ent-cls 20] [yamaoka-eiki        ] [CON] +ZvRlsA- [OEEc1R4p_3] [+XHFcoQ- +bDiPHQ-]
+Up!  [112] [09-610] [uid:  90610 gid: 2009] [ent-cls 20] [kou-kazunari        ] [CON] +ZvRlsA- [s5C8wRxt_7] [+mtg- +VIxiEA-]
+Up!  [113] [09-611] [uid:  90611 gid: 2009] [ent-cls 20] [kaneko-ryouta       ] [CON] +ZvRlsA- [KhH9DdDp_9] [+kdFbUA- +kHxZKg-]
+Up!  [114] [09-612] [uid:  90612 gid: 2009] [ent-cls 20] [wakui-daiki         ] [CON] +ZvRlsA- [37v2Xq46_7] [+bYxOlQ- +WSePHQ-]
+Up!  [115] [09-613] [uid:  90613 gid: 2009] [ent-cls 20] [yamanaka-rui        ] [CON] +ZvRlsA- [lN6736K6_3] [+XHFOLQ- +dAl1Hw-]
+Up!  [116] [10-101] [uid: 100101 gid: 2010] [dir-cls 4 ] [hiraku-kingo        ] [CON] +ZvRlsA- [4B7tg432_2] [+XnNd5Q- +az1gnw-]
+Up!  [117] [10-104] [uid: 100104 gid: 2010] [mgs-cls 10] [kanamori-akihiro    ] [CON] +ZvRlsA- [mbG4Waox_9] [+kdFo7g- +euBbjw-]
+Up!  [118] [10-107] [uid: 100107 gid: 2010] [ent-cls 20] [katagiri-kousuke    ] [CON] +ZvRlsA- [554COB38_3] [+ckdoUA- +Xrd5UA-]
+Up!  [119] [10-110] [uid: 100110 gid: 2010] [ent-cls 20] [kudou-yuuki         ] [CON] +ZvRlsA- [R55FSv4i_1] [+XeWF5A- +eVBrxQ-]
+Up!  [120] [10-113] [uid: 100113 gid: 2010] [mgs-cls 10] [shiraishi-tatsuya   ] [CON] +ZvRlsA- [5p3096I7_0] [+dn138w- +kFROXw-]
+Up!  [121] [10-117] [uid: 100117 gid: 2010] [ent-cls 20] [ooyama-takayuki     ] [CON] +ZvRlsA- [dT9XR5Gx_7] [+WSdccQ- +jLROSw-]
+Up!  [122] [10-118] [uid: 100118 gid: 2010] [ent-cls 20] [yanagisawa-masamichi] [CON] +ZvRlsA- [7090927h_9] [+Z/Nsog- +dx90Bg-]
+Up!  [123] [10-119] [uid: 100119 gid: 2010] [ent-cls 20] [tanaka-hiroyuki     ] [CON] +ZvRlsA- [B1Y8Nou5_3] [+dTBOLQ- +iNVOSw-]
+Up!  [124] [10-130] [uid: 100130 gid: 2010] [ent-cls 20] [shimoyama-hikaru    ] [CON] +ZvRlsA- [umTUleq0_3] [+TgtccQ- +jx0-]
+Up!  [125] [10-131] [uid: 100131 gid: 2010] [ent-cls 20] [asahara-yuuki       ] [CON] +ZvRlsA- [88B7gNRb_7] [+Zx1Tnw- +USpqOQ-]
+Up!  [126] [10-132] [uid: 100132 gid: 2010] [mgs-cls 10] [takehara-shouhei    ] [CON] +ZvRlsA- [9YM7ztOi_0] [+evlTnw- +Zgdecw-]
+Up!  [127] [10-136] [uid: 100136 gid: 2010] [mgs-cls 10] [morita-taichi       ] [CON] +ZvRlsA- [U5y4AmqD_5] [+aO51MA- +WSpOAA-]
+Up!  [128] [10-145] [uid: 100145 gid: 2010] [mgs-cls 10] [komatsubara-kazuki  ] [CON] +ZvRlsA- [jF687zi8_9] [+XA9nflOf- +TgCaDg-]
+Up!  [129] [10-149] [uid: 100149 gid: 2010] [ent-cls 20] [yamanishi-toshihiro ] [CON] +ZvRlsA- [4y1q0V5p_5] [+XHGJfw- +T8pfGA-]
+Up!  [130] [10-154] [uid: 100154 gid: 2010] [ent-cls 20] [masuda-keisuke      ] [CON] +ZvRlsA- [0831zZ2K_4] [+WJd1MA- +ZWxOyw-]
+Up!  [131] [10-155] [uid: 100155 gid: 2010] [ent-cls 20] [taniguchi-yoshiki   ] [CON] +ZvRlsA- [RxL8GcaF_2] [+jDdT4w- +f6mMtA-]
+Up!  [132] [10-156] [uid: 100156 gid: 2010] [ent-cls 20] [yokota-shouhei      ] [CON] +ZvRlsA- [5JL73v37_7] [+aip1MA- +XAZecw-]
+Up!  [133] [10-157] [uid: 100157 gid: 2010] [ent-cls 20] [ishii-takayasu      ] [CON] +ZvRlsA- [aOhGH97h_2] [+d/NOlQ- +XQdetw-]
+Up!  [134] [10-160] [uid: 100160 gid: 2010] [ent-cls 20] [okada-takuya        ] [CON] +ZvRlsA- [yMXkl8ZR_9] [+XKF1MA- +YtNOXw-]
+Up!  [135] [10-161] [uid: 100161 gid: 2010] [ent-cls 20] [mizuno-hideaki      ] [CON] +ZvRlsA- [mzR6AF5y_0] [+bDSRzg- +ecBmLQ-]
+Up!  [136] [10-167] [uid: 100167 gid: 2010] [mgs-cls 10] [sobajima-ryouya     ] [CON] +ZvRlsA- [202k612r_6] [+UI1diw- +UcxfJQ-]
+Up!  [137] [10-170] [uid: 100170 gid: 2010] [ent-cls 20] [mochizuki-hiroe     ] [CON] +ZvRlsA- [F14jGTt0_8] [+ZxtnCA- +W49gdQ-]
+Up!  [138] [10-171] [uid: 100171 gid: 2010] [ent-cls 20] [kondou-aya          ] [CON] +ZvRlsA- [RJyqSXbN_9] [+j9GF5A- +X2k-]
+Up!  [139] [10-172] [uid: 100172 gid: 2010] [ent-cls 20] [nishimura-yuuta     ] [CON] +ZvRlsA- [CSrvWf0T_9] [+iX9nUQ- +T1FZKg-]
+Up!  [140] [10-174] [uid: 100174 gid: 2010] [ent-cls 20] [ueki-mayuka         ] [CON] +ZvRlsA- [33Pal23E_5] [+aQ1nKA- +dx9RKpmZ-]
+Up!  [141] [10-176] [uid: 100176 gid: 2010] [ent-cls 20] [itou-yuuya          ] [CON] +ZvRlsA- [WfBhNbbz_3] [+TwqF5A- +iNVUyQ-]
+Up!  [142] [10-179] [uid: 100179 gid: 2010] [ent-cls 20] [katsumata-kaede     ] [CON] +ZvRlsA- [Z572q8hG_7] [+Ut1TyA- +aVM-]
+Up!  [143] [10-182] [uid: 100182 gid: 2010] [ent-cls 20] [iwaide-takumi       ] [CON] +ZvRlsA- [qjGhjNu6_6] [+XKlR+g- +U1Nd8w-]
+Up!  [144] [10-184] [uid: 100184 gid: 2010] [mgs-cls 10] [kamiyama-yuri       ] [CON] +ZvRlsA- [MavF3NwR_2] [+eV5ccQ- +fVCDiQ-]
+Up!  [145] [10-190] [uid: 100190 gid: 2010] [ent-cls 20] [kamada-shuu         ] [CON] +ZvRlsA- [6a09SBR2_6] [+k4x1MA- +XDE-]
+Up!  [146] [10-191] [uid: 100191 gid: 2010] [ent-cls 20] [nakamura-yuuki      ] [CON] +ZvRlsA- [Y7X1vM23_1] [+Ti1nUQ- +USpeDA-]
+Up!  [147] [10-192] [uid: 100192 gid: 2010] [ent-cls 20] [kojima-keitarou     ] [CON] +ZvRlsA- [Zzsy4PTs_3] [+XA9c9g- +YXZZKpDO-]
+Up!  [148] [10-193] [uid: 100193 gid: 2010] [ent-cls 20] [abiru-masashi       ] [CON] +ZvRlsA- [UATu32oD_4] [+lj9r1HVZ- +lsVY6w-]
+Up!  [149] [10-194] [uid: 100194 gid: 2010] [ent-cls 20] [komuta-kazuki       ] [CON] +ZvRlsA- [Igk4xp63_3] [+XA9yX3Uw- +VIyPHQ-]
+Up!  [150] [10-195] [uid: 100195 gid: 2010] [ent-cls 20] [uehara-kei          ] [CON] +ZvRlsA- [C6597AbQ_8] [+TgpTnw- +bhM-]
+Up!  [151] [10-196] [uid: 100196 gid: 2010] [ent-cls 20] [kubo-yuuki          ] [CON] +ZvRlsA- [dAfl4oC6_8] [+TkVP3Q- +U8tbYw-]
+Up!  [152] [10-201] [uid: 100201 gid: 2010] [ent-cls 20] [ishii-megumi        ] [CON] +ZvRlsA- [27aC72j7_8] [+d/NOlQ- +YHV/jg-]
+Up!  [153] [10-206] [uid: 100206 gid: 2010] [ent-cls 20] [naitou-takato       ] [CON] +ZvRlsA- [Cxy56xeG_3] [+UYWF5A- +jLROug-]
+Up!  [154] [10-207] [uid: 100207 gid: 2010] [ent-cls 20] [maruyama-takahiro   ] [CON] +ZvRlsA- [968O0J32_1] [+TjhccQ- +loZbjw-]
+Up!  [155] [10-209] [uid: 100209 gid: 2010] [ent-cls 20] [yamauchi-kentarou   ] [CON] +ZvRlsA- [89mIT1lN_9] [+XHFRhQ- +UGVZKpDO-]
+Up!  [156] [10-210] [uid: 100210 gid: 2010] [ent-cls 20] [tsukahara-mizuki    ] [CON] +ZvRlsA- [5Kzyx296_2] [+WFpTnw- +f45nCA-]
+Up!  [157] [10-214] [uid: 100214 gid: 2010] [ent-cls 20] [sakaguchi-miki      ] [CON] +ZvRlsA- [UqL71Z1S_9] [+V0JT4w- +f459AA-]
+Up!  [158] [10-216] [uid: 100216 gid: 2010] [ent-cls 20] [kondou-kana         ] [CON] +ZvRlsA- [eC3tUlUq_7] [+j9GF5A- +UqCD3A-]
+Up!  [159] [10-219] [uid: 100219 gid: 2010] [ent-cls 20] [yamasaki-ryousuke   ] [CON] +ZvRlsA- [YO8n9H42_0] [+XHFdDg- +Tq6PFA-]
+Up!  [160] [10-220] [uid: 100220 gid: 2010] [ent-cls 20] [shimizu-yuudai      ] [CON] +ZvRlsA- [sO69Lm0o_3] [+bgVsNA- +iNVZJw-]
+Up!  [161] [10-223] [uid: 100223 gid: 2010] [ent-cls 20] [yano-chinhyon       ] [CON] +ZvRlsA- [2IapS8Qb_4] [+d+KRzg- +j7Bz/g-]
+Up!  [162] [10-224] [uid: 100224 gid: 2010] [ent-cls 20] [yamamoto-ryuuhei    ] [CON] +ZvRlsA- [79a6Jxe8_5] [+XHFnLA- +etxecw-]
+Up!  [163] [10-225] [uid: 100225 gid: 2010] [ent-cls 20] [komamura-ami        ] [CON] +ZvRlsA- [P0iB6qHV_0] [+mdJnUQ- +Tpx/jg-]
+Up!  [164] [10-226] [uid: 100226 gid: 2010] [ent-cls 20] [yokoyama-ryou       ] [CON] +ZvRlsA- [C7nM9n11_6] [+aipccQ- +itI-]
+Up!  [165] [10-228] [uid: 100228 gid: 2010] [ent-cls 20] [ishikawa-tatsuya    ] [CON] +ZvRlsA- [X94wnV3b_5] [+d/Nd3Q- +kFROXw-]
+Up!  [166] [10-229] [uid: 100229 gid: 2010] [ent-cls 20] [nagao-momoka        ] [CON] +ZvRlsA- [rA8bi93A_1] [+lXdcPg- +aENPcw-]
+Up!  [167] [10-230] [uid: 100230 gid: 2010] [ent-cls 20] [ichikura-honatsu    ] [CON] +ZvRlsA- [VSphkPjf_2] [+XgJQCQ- +XgZZDw-]
+Up!  [168] [10-233] [uid: 100233 gid: 2010] [ent-cls 20] [mori-yuuki          ] [CON] +ZvRlsA- [4kzBoMDV_3] [+aO4- +eVBqOQ-]
+Up!  [169] [10-234] [uid: 100234 gid: 2010] [ent-cls 20] [takezawa-shuuma     ] [CON] +ZvRlsA- [Qj4ur928_1] [+evlvpA- +ecB46A-]
+Up!  [170] [10-236] [uid: 100236 gid: 2010] [ent-cls 20] [sugata-momoyo       ] [CON] +ZvRlsA- [RUlruw5c_2] [+g8V1MA- +aENO4w-]
+Up!  [171] [10-239] [uid: 100239 gid: 2010] [ent-cls 20] [munehiro-ayami      ] [CON] +ZvRlsA- [Mh30bx4q_9] [+W5de4w- +X2lnKg-]
+Up!  [172] [10-240] [uid: 100240 gid: 2010] [ent-cls 20] [baba-yuutarou       ] [CON] +ZvRlsA- [uPJ0P6x7_4] [+maxYNA- +lsRZKpDO-]
+Up!  [173] [10-241] [uid: 100241 gid: 2010] [ent-cls 20] [shiraeda-tomoki     ] [CON] +ZvRlsA- [c47ZiRUk_9] [+dn1nnQ- +U8t9AA-]
+Up!  [174] [10-242] [uid: 100242 gid: 2010] [ent-cls 20] [takeda-saaya        ] [CON] +ZvRlsA- [YvspOlxl_5] [+a2Z1MA- +fReRxw-]
+Up!  [175] [10-243] [uid: 100243 gid: 2010] [ent-cls 20] [saitou-masaki       ] [CON] +ZvRlsA- [mC28qqbf_7] [+n0uF5A- +dx+PHQ-]
+Up!  [176] [10-244] [uid: 100244 gid: 2010] [ent-cls 20] [yamashita-reika     ] [CON] +ZvRlsA- [vkz4gxe7_5] [+XHFOCw- +XbqD7w-]
+Up!  [177] [10-245] [uid: 100245 gid: 2010] [ent-cls 20] [matsuoka-shuri      ] [CON] +ZvRlsA- [s6sF5a9K_6] [+Z35coQ- +ZzF0Bg-]
+Up!  [178] [10-247] [uid: 100247 gid: 2010] [ent-cls 20] [kimura-riku         ] [CON] +ZvRlsA- [FYuCI4k7_1] [+ZyhnUQ- +lng-]
+Up!  [179] [10-248] [uid: 100248 gid: 2010] [ent-cls 20] [fujiwara-naoya      ] [CON] +ZvRlsA- [9Ap1LE3V_0] [+heRTnw- +WUh90oA2-]
+Up!  [180] [10-250] [uid: 100250 gid: 2010] [ent-cls 20] [adachi-kaito        ] [CON] +ZvRlsA- [00p7IMe9_9] [+jbN6yw- +bXdOug-]
+Up!  [181] [10-252] [uid: 100252 gid: 2010] [ent-cls 20] [yoshida-chihiro     ] [CON] +ZvRlsA- [i9umqOGK_0] [+VAl1MA- +U0NtaQ-]
+Up!  [182] [10-253] [uid: 100253 gid: 2010] [ent-cls 20] [tsurumi-masayuki    ] [CON] +ZvRlsA- [6Ba0Io4p_7] [+nbSJiw- +ZgxOSw-]
+Up!  [183] [10-254] [uid: 100254 gid: 2010] [ent-cls 20] [nitta-ruka          ] [CON] +ZvRlsA- [oQKdDF0z_6] [+ZbB1MA- +dVlpUw-]
+Up!  [184] [10-255] [uid: 100255 gid: 2010] [ent-cls 20] [hashimoto-daiki     ] [CON] +ZvRlsA- [4Y0GR10G_0] [+aktnLA- +WSePHQ-]
+Up!  [185] [10-256] [uid: 100256 gid: 2010] [ent-cls 20] [parii-yuan          ] [CON] +ZvRlsA- [uGrRu5Ll_4] [+MNEw6jCj- +UseITA-]
+Up!  [186] [10-258] [uid: 100258 gid: 2010] [ent-cls 20] [kobayashi-ayuki     ] [CON] +ZvRlsA- [55bA83E7_7] [+XA9nlw- +a2leDA-]
+Up!  [187] [10-259] [uid: 100259 gid: 2010] [ent-cls 20] [nakamura-katsumi    ] [CON] +ZvRlsA- [E7p01l5g_4] [+Ti1nUQ- +UUtd8Q-]
+Up!  [188] [10-261] [uid: 100261 gid: 2010] [ent-cls 20] [kouno-atsuki        ] [CON] +ZvRlsA- [SLHKjp8F_8] [+bLORzg- +ZWaMtA-]
+Up!  [189] [10-263] [uid: 100263 gid: 2010] [ent-cls 20] [nakagawa-miyu       ] [CON] +ZvRlsA- [G050ws3A_2] [+Ti1d3Q- +f45RKg-]
+Up!  [190] [10-264] [uid: 100264 gid: 2010] [ent-cls 20] [suzuki-masato       ] [CON] +ZvRlsA- [5RAMK49k_4] [+kjRnKA- +Z/52ew-]
+Up!  [191] [10-265] [uid: 100265 gid: 2010] [ent-cls 20] [onodera-tatsuki     ] [CON] +ZvRlsA- [03V0paPM_5] [+XA+Rzlv6- +estqOQ-]
+Up!  [192] [10-266] [uid: 100266 gid: 2010] [ent-cls 20] [asakawa-kazutoshi   ] [CON] +ZvRlsA- [948D66o1_8] [+bUVd3Q- +VIxPyg-]
+Up!  [193] [10-267] [uid: 100267 gid: 2010] [ent-cls 20] [murakami-yori       ] [CON] +ZvRlsA- [c0Ff50Z2_6] [+Z1FOCg- +VIw-]
+Up!  [194] [10-268] [uid: 100268 gid: 2010] [ent-cls 20] [uehara-akimasa      ] [CON] +ZvRlsA- [iq967v2X_8] [+TgpTnw- +X3BcBg-]
+Up!  [195] [10-269] [uid: 100269 gid: 2010] [ent-cls 20] [kuramochi-mitsuki   ] [CON] +ZvRlsA- [MplEi5Y9_1] [+UAljAQ- +UUleDA-]
+Up!  [196] [10-270] [uid: 100270 gid: 2010] [ent-cls 20] [ibushi-tessei       ] [CON] +ZvRlsA- [0X3ANhBV_7] [+mO9PDw- +VPJOFg-]
+Up!  [197] [10-271] [uid: 100271 gid: 2010] [ent-cls 20] [yokoyama-souma      ] [CON] +ZvRlsA- [CqsqEl8L_0] [+aipccQ- +mK93Hw-]
+Up!  [198] [10-272] [uid: 100272 gid: 2010] [ent-cls 20] [momodomi-hiroya     ] [CON] +ZvRlsA- [4Bbmzj7q_0] [+dn5RqA- +WS5fJQ-]
+Up!  [199] [10-273] [uid: 100273 gid: 2010] [ent-cls 20] [shiono-mizuki       ] [CON] +ZvRlsA- [O0rHMLwn_2] [+WGmRzg- +f45nCA-]
+Up!  [200] [10-274] [uid: 100274 gid: 2010] [ent-cls 20] [yamamoto-tatsuyoshi ] [CON] +ZvRlsA- [2z7O5PYF_0] [+XHFnLA- +etx/qQ-]
+Up!  [201] [10-275] [uid: 100275 gid: 2010] [ent-cls 20] [tsutsumi-yuuki      ] [CON] +ZvRlsA- [W18VYq4k_5] [+WCQ- +UsdqOQ-]
+Up!  [202] [10-276] [uid: 100276 gid: 2010] [mgs-cls 10] [tsuruoka-taichi     ] [CON] +ZvRlsA- [4X3xTASt_9] [+nbRcoQ- +WSpOAA-]
+Up!  [203] [10-277] [uid: 100277 gid: 2010] [ent-cls 20] [iwata-yuushirou     ] [CON] +ZvRlsA- [lzyE9Gmx_6] [+XKl1MA- +bmdY65DO-]
+Up!  [204] [10-278] [uid: 100278 gid: 2010] [ent-cls 20] [ooishi-satsuki      ] [CON] +ZvRlsA- [JQtDj9q0_2] [+WSd38w- +mK9qOQ-]
+Up!  [205] [10-279] [uid: 100279 gid: 2010] [ent-cls 20] [noda-takemichi      ] [CON] +ZvRlsA- [933cq5XF_1] [+kc51MA- +a2aQUw-]
+Up!  [206] [10-280] [uid: 100280 gid: 2010] [ent-cls 20] [hara-chika          ] [CON] +ZvRlsA- [576uzd9N_6] [+U58- +U0NSoA-]
+Up!  [207] [12-106] [uid: 120106 gid: 2012] [ent-cls 20] [kiya-kazuki         ] [CON] +ZvRlsA- [t3UJFVt8_2] [+ZyiMNw- +TgCPHQ-]
+Up!  [208] [12-108] [uid: 120108 gid: 2012] [ent-cls 20] [kojima-michito      ] [CON] +ZvRlsA- [76TvBBd7_1] [+XA9c9g- +kFNOug-]
+Up!  [209] [12-112] [uid: 120112 gid: 2012] [ent-cls 20] [yamano-yuusuke      ] [CON] +ZvRlsA- [Tnd788pg_6] [+XHGRzg- +U8uPFA-]
+Up!  [210] [12-119] [uid: 120119 gid: 2012] [ent-cls 20] [tsuji-muneharu      ] [CON] +ZvRlsA- [5Ba0Ah96_0] [+j7s- +W5dsuw-]
+Up!  [211] [12-122] [uid: 120122 gid: 2012] [ent-cls 20] [aoki-shunichi       ] [CON] +ZvRlsA- [c4QVy42R_5] [+l1JnKA- +T8pOAA-]
+Up!  [212] [12-126] [uid: 120126 gid: 2012] [ent-cls 20] [katayama-serika     ] [CON] +ZvRlsA- [TR6f0e57_7] [+ckdccQ- +grmZmQ-]
+Up!  [213] [12-128] [uid: 120128 gid: 2012] [ent-cls 20] [chikaarashi-kanae   ] [CON] +ZvRlsA- [M4h2XBZM_7] [+j9FdUA- +mZlZSH11-]
+Up!  [214] [12-136] [uid: 120136 gid: 2012] [ent-cls 20] [saitou-sayaka       ] [CON] +ZvRlsA- [Y9k5na50_1] [+n0uF5A- +UbROX4Kx-]
+Up!  [215] [12-141] [uid: 120141 gid: 2012] [ent-cls 20] [mizumoto-makito     ] [CON] +ZvRlsA- [T7gZ5oVp_7] [+bDRnLA- +dx+Jj066-]
+Up!  [216] [12-143] [uid: 120143 gid: 2012] [ent-cls 20] [yasumura-yasuaki    ] [CON] +ZvRlsA- [d3975oH8_2] [+W4lnUQ- +XreWfQ-]
+Up!  [217] [12-145] [uid: 120145 gid: 2012] [ent-cls 20] [minakawa-kazuya     ] [CON] +ZvRlsA- [kdXNB4r2_9] [+doZd3Q- +VIxfJQ-]
+Up!  [218] [12-151] [uid: 120151 gid: 2012] [ent-cls 20] [yoshida-naoto       ] [CON] +ZvRlsA- [TCNms31h_1] [+VAl1MA- +XBpOug-]
+Up!  [219] [12-154] [uid: 120154 gid: 2012] [ent-cls 20] [matsui-yuuki        ] [CON] +ZvRlsA- [17LDg6al_1] [+Z35OlQ- +UsdqOQ-]
+Up!  [220] [12-155] [uid: 120155 gid: 2012] [ent-cls 20] [imaizumi-takayoshi  ] [CON] +ZvRlsA- [HReYm2Eg_2] [+TspsyQ- +jLRbzA-]
+Up!  [221] [12-157] [uid: 120157 gid: 2012] [ent-cls 20] [masuno-sana         ] [CON] +ZvRlsA- [8Oe6J2nG_6] [+WJeRzg- +X2lZSA-]
+Up!  [222] [12-163] [uid: 120163 gid: 2012] [ent-cls 20] [akiyama-ryou        ] [CON] +ZvRlsA- [PPfb3gHQ_6] [+ectccQ- +Tq4-]
+Up!  [223] [12-165] [uid: 120165 gid: 2012] [ent-cls 20] [inoue-saki          ] [CON] +ZvRlsA- [UO7Li39c_0] [+TpVOCg- +fRePHQ-]
+Up!  [224] [12-167] [uid: 120167 gid: 2012] [mgs-cls 10] [suzuki-yoshimi      ] [CON] +ZvRlsA- [Yp3ZGyH8_2] [+kjRnKA- +eWV/jg-]
+Up!  [225] [12-168] [uid: 120168 gid: 2012] [mgs-cls 10] [ooshita-shuuhei2    ] [CON] +ZvRlsA- [u8FMVz4Z_4] [+WSdOCw- +VGhecw-]
+Up!  [226] [12-170] [uid: 120170 gid: 2012] [mgs-cls 10] [sakurai-asuka       ] [CON] +ZvRlsA- [a4QAsXhu_1] [+avtOlQ- +MEIwWTBL-]
+Up!  [227] [12-171] [uid: 120171 gid: 2012] [ent-cls 20] [kanamori-sana       ] [CON] +ZvRlsA- [XNlapsJg_0] [+kdFo7g- +bJmQow-]
+Up!  [228] [12-177] [uid: 120177 gid: 2012] [mgs-cls 9 ] [marukawa-kumiko     ] [CON] +ZvRlsA- [Y8i4qBcM_5] [+Tjhd3Q- +TkV/jltQ-]
+Up!  [229] [12-184] [uid: 120184 gid: 2012] [ent-cls 20] [umeno-taiki         ] [CON] +ZvRlsA- [c32RyRUH_2] [+aIWRzg- +WSpj7g-]
+Up!  [230] [12-185] [uid: 120185 gid: 2012] [ent-cls 20] [saitou-tomonao      ] [CON] +ZvRlsA- [A4T4OLfE_3] [+n0uF5A- +Xnl3Hw-]
+Up!  [231] [12-186] [uid: 120186 gid: 2012] [ent-cls 20] [takeda-shun         ] [CON] +ZvRlsA- [7CspqaaA_5] [+a2Z1MA- +d6w-]
+Up!  [232] [12-187] [uid: 120187 gid: 2012] [ent-cls 20] [maeda-takahiro      ] [CON] +ZvRlsA- [8eaY6fEh_8] [+Uk11MA- +loaI1Q-]
+Up!  [233] [12-188] [uid: 120188 gid: 2012] [ent-cls 20] [makiyo-shunya       ] [CON] +ZvRlsA- [O6EP5iN6_2] [+dx9uBQ- +lrxOXw-]
+Up!  [234] [12-189] [uid: 120189 gid: 2012] [ent-cls 20] [noguchi-yasuhito    ] [CON] +ZvRlsA- [0JF3Yf0Z_1] [+kc5T4w- +XrdOwQ-]
+Up!  [235] [12-190] [uid: 120190 gid: 2012] [ent-cls 20] [suzuki-reo          ] [CON] +ZvRlsA- [76Sl74O6_1] [+kjRnKA- +c7JZLg-]
+Up!  [236] [12-191] [uid: 120191 gid: 2012] [ent-cls 20] [kuroda-yuuya        ] [CON] +ZvRlsA- [X87AIb63_4] [+ntJ1MA- +USp34g-]
+Up!  [237] [12-192] [uid: 120192 gid: 2012] [mgr-cls 5 ] [takinishi-yuri      ] [CON] +ZvRlsA- [$6BgGU7B_8] [+bt2Jfw- +U8uRzA-]
+Up!  [238] [12-196] [uid: 120196 gid: 2012] [ent-cls 20] [ueda-tomohiro       ] [CON] +ZvRlsA- [NbH2tFZ2_3] [+aQ11MA- +ZnpTWg-]
+Up!  [239] [12-197] [uid: 120197 gid: 2012] [ent-cls 20] [okumura-nagi        ] [CON] +ZvRlsA- [YD067Rzu_5] [+WWVnUQ- +Ueo-]
+Up!  [240] [12-198] [uid: 120198 gid: 2012] [ent-cls 20] [takahashi-shinichi  ] [CON] +ZvRlsA- [c7Nu21l8_4] [+mtlqSw- +dx9OAA-]
+Up!  [241] [12-199] [uid: 120199 gid: 2012] [ent-cls 20] [kojima-kyouhei      ] [CON] +ZvRlsA- [R9wVSR9n_4] [+XA9c9g- +Vaxecw-]
+Up!  [242] [12-200] [uid: 120200 gid: 2012] [ent-cls 20] [ogawa-hikaru        ] [CON] +ZvRlsA- [y28nu3q1_0] [+XA9d3Q- +UUl0CQ-]
+Up!  [243] [12-202] [uid: 120202 gid: 2012] [ent-cls 20] [kadowaki-shuusei    ] [CON] +ZvRlsA- [823Mm1Tq_1] [+lYCBBw- +Z8pmHw-]
+Up!  [244] [12-203] [uid: 120203 gid: 2012] [ent-cls 20] [nagai-yuusei        ] [CON] +ZvRlsA- [Wc30F6zy_1] [+bDhOlQ- +YKBiEA-]
+Up!  [245] [12-204] [uid: 120204 gid: 2012] [ent-cls 20] [onodera-kai         ] [CON] +ZvRlsA- [xPBtxmK3_2] [+XA+Rzlv6- +bXdSxw-]
+Up!  [246] [12-205] [uid: 120205 gid: 2012] [mgs-cls 10] [kinase-miku         ] [CON] +ZvRlsA- [Pgr1Zz16_9] [+ZyhUDXAs- +Zyp6eg-]
+Up!  [247] [12-206] [uid: 120206 gid: 2012] [ent-cls 20] [oono-sora           ] [CON] +ZvRlsA- [AGPVm02b_4] [+WSeRzg- +hLx6eg-]
+Up!  [248] [12-207] [uid: 120207 gid: 2012] [ent-cls 20] [kitani-sora         ] [CON] +ZvRlsA- [FsLJ9eYT_1] [+ZyiMNw- +W5k-]
+Up!  [249] [12-208] [uid: 120208 gid: 2012] [ent-cls 20] [nakabayashi-yuugo   ] [CON] +ZvRlsA- [SLaIJh05_0] [+Ti1nlw- +USpUPg-]
+Up!  [250] [12-209] [uid: 120209 gid: 2012] [ent-cls 20] [inagaki-wanoka      ] [CON] +ZvRlsA- [nvEiGQ3g_5] [+ejJXow- +VIxOQ4Pv-]
+
+LDAP +ZvRlsFv+jGE-: 250 +TvY-
+[INFO] SQL OK: passwd_tnas.samba_id +iNxbjA- => 250 +TvY-
+
++JgU- +W4xOhg-: LDAP/HOME +VAxnHw- (EXECUTE) / +W/6MYQ- 250 +TvY-
++JgU- +T4s-: +aRx9Ini6io0-
+  ldapsearch -x -H ldaps://ovs-009.e-smile.local:636 -D "cn=Admin,dc=e-smile,dc=ne,dc=jp" -w ******** -b "ou=Users,dc=e-smile,dc=ne,dc=jp" "(uid=*)" dn
+=== DONE ===
+-------------------------------------------------------------------------------------- +JgUmBg-[STEP1.5]
+
+=== level groups sync (posixGroup ensure) ===
+URI       : ldaps://ovs-009.e-smile.local:636
+BASE_DN   : dc=e-smile,dc=ne,dc=jp
+BIND_DN   : cn=Admin,dc=e-smile,dc=ne,dc=jp
+BIND_PW   : es0356525566
+GROUPS_OU : ou=Groups,dc=e-smile,dc=ne,dc=jp
+MODE      : APPLY
+TARGETS   : users,esmile-dev,nicori-dev,kindaka-dev,boj-dev,e_game-dev,solt-dev,social-dev,adm-cls,dir-cls,mgr-cls,mgs-cls,stf-cls,ent-cls,tmp-cls,err-cls
+DISCRIPT  : true
+----------------------------------------------
+[TASK] cn=users gid=100 dn=cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 100
+[INFO] MOD description +IZI- [al:users]
+[TASK] cn=esmile-dev gid=2001 dn=cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 2001
+[INFO] MOD description +IZI- [01:esmile]
+[TASK] cn=nicori-dev gid=2002 dn=cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 2002
+[INFO] MOD description +IZI- [02:nicori]
+[TASK] cn=kindaka-dev gid=2003 dn=cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 2003
+[INFO] MOD description +IZI- [03:kindaka]
+[TASK] cn=boj-dev gid=2005 dn=cn=boj-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 2005
+[INFO] MOD description +IZI- [05:boj]
+[TASK] cn=e_game-dev gid=2009 dn=cn=e_game-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 2009
+[INFO] MOD description +IZI- [09:e_games]
+[TASK] cn=solt-dev gid=2010 dn=cn=solt-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 2010
+[INFO] MOD description +IZI- [10:soltribe]
+[TASK] cn=social-dev gid=2012 dn=cn=social-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 2012
+[INFO] MOD description +IZI- [12:social]
+[TASK] cn=adm-cls gid=3001 dn=cn=adm-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 3001
+[INFO] MOD description +IZI- [01:level]
+[TASK] cn=dir-cls gid=3003 dn=cn=dir-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 3003
+[INFO] MOD description +IZI- [03:level]
+[TASK] cn=mgr-cls gid=3005 dn=cn=mgr-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 3005
+[INFO] MOD description +IZI- [05:level]
+[TASK] cn=mgs-cls gid=3006 dn=cn=mgs-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 3006
+[INFO] MOD description +IZI- [10:level]
+[TASK] cn=stf-cls gid=3015 dn=cn=stf-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 3015
+[INFO] MOD description +IZI- [15:level]
+[TASK] cn=ent-cls gid=3020 dn=cn=ent-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 3020
+[INFO] MOD description +IZI- [20:level]
+[TASK] cn=tmp-cls gid=3021 dn=cn=tmp-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 3021
+[INFO] MOD description +IZI- [21:level]
+[TASK] cn=err-cls gid=3099 dn=cn=err-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] MOD gidNumber +IZI- 3099
+[INFO] MOD description +IZI- [99:level]
+
+[DONE] level groups sync complete  created=0 fixed_gid=32  (APPLIED)
+-------------------------------------------------------------------------------------- +JgUmBQ-[STEP2] +X3mAdzCvMOkwuTBu- posixGroup +MJJOi1JNZXRQmf8IW1hXKDBXMGowUTCMMHBPXGIQMPs-gid+ZXRUCP8J-
+-------------------------------------------------------------------------------------- +JgUmBSYF-[STEP3] memberUid +VAxnH/8I-users / +lYt2enz7- / +MK8w6TC5f6T/CQ-
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : users
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP users  want(250): abe-ryou,abiru-masashi,adachi-kaito,akashio-hiroki,akiba-yuuichi,akiyama-ryou,akiyoshi-yuuya,aoki-shunichi,asahara-yuuki,asakawa-kazutoshi,azumaya-ryouta,baba-yuutarou,chikaarashi-kanae,esashika-akio,fujii-hibiki,fujimoto-asami,fujiwara-naoya,fukushima-yuuya,fukuyasu-hideaki,furukawa-kouki,gotou-satomi,gouda-naoki,hara-chika,harada-hitoshi,haruta-haruki,hashimoto-daiki,hiraga-daisuke,hiraku-kingo,hirose-masaya,hirukawa-makoto,hobo-hoshihito,horikawa-yuudai,hoshitani-taiki,ibushi-tessei,ichikura-honatsu,iijima-ryou,iizawa-kensuke,imaizumi-takayoshi,inagaki-wanoka,inoue-saki,ishii-megumi,ishii-takayasu,ishikawa-tatsuya,itou-keigo,itou-yutaka,itou-yuuya,iwai-yasumichi,iwaide-takumi,iwanaga-reina,iwata-yuushirou,kadowaki-shuusei,kakumoto-yuuki,kamada-shuu,kamiyama-yuri,kanamori-akihiro,kanamori-sana,kaneko-hitomi,kaneko-ryouta,kanemoto-masaki,kaneshiro-marina,katagiri-kousuke,katayama-serika,katsu-shino,katsumata-kaede,kikuchi-miki,kimura-riku,kinase-miku,kinoshita-ryouta,kishimoto-ryouya,kitani-sora,kiya-kazuki,kobayashi-ayuki,kobayashi-shouhei,kobayashi-takehiro,kojima-keitarou,kojima-kyouhei,kojima-michito,komamura-ami,komatsu-sairi,komatsubara-kazuki,komuta-kazuki,kondou-aya,kondou-kana,koshikawa-ren,kou-kazunari,kouno-atsuki,koyama-hiroki,kubo-yuuki,kubota-shion,kudou-yuuki,kurabayashi-akira,kuramochi-mitsuki,kuroda-yuuya,kurokawa-ryou,maeda-takahiro,makiyo-shunya,marukawa-kumiko,maruyama-ikumi,maruyama-takahiro,masuda-keisuke,masuno-sana,matsui-yuuki,matsuoka-shuri,matsushita-futoshi,minakawa-kazuya,miyagawa-satsuki,mizumoto-makito,mizuno-hideaki,mochizuki-hiroe,momodomi-hiroya,mori-yuuki,morita-taichi,munaoka-haruka,munehiro-ayami,murakami-yori,nagai-yuusei,nagano-naoki,nagao-momoka,nagayama-osamu,naitou-takato ...
+[LIST] GRP users  have(250): abe-ryou,abiru-masashi,adachi-kaito,akashio-hiroki,akiba-yuuichi,akiyama-ryou,akiyoshi-yuuya,aoki-shunichi,asahara-yuuki,asakawa-kazutoshi,azumaya-ryouta,baba-yuutarou,chikaarashi-kanae,esashika-akio,fujii-hibiki,fujimoto-asami,fujiwara-naoya,fukushima-yuuya,fukuyasu-hideaki,furukawa-kouki,gotou-satomi,gouda-naoki,hara-chika,harada-hitoshi,haruta-haruki,hashimoto-daiki,hiraga-daisuke,hiraku-kingo,hirose-masaya,hirukawa-makoto,hobo-hoshihito,horikawa-yuudai,hoshitani-taiki,ibushi-tessei,ichikura-honatsu,iijima-ryou,iizawa-kensuke,imaizumi-takayoshi,inagaki-wanoka,inoue-saki,ishii-megumi,ishii-takayasu,ishikawa-tatsuya,itou-keigo,itou-yutaka,itou-yuuya,iwai-yasumichi,iwaide-takumi,iwanaga-reina,iwata-yuushirou,kadowaki-shuusei,kakumoto-yuuki,kamada-shuu,kamiyama-yuri,kanamori-akihiro,kanamori-sana,kaneko-hitomi,kaneko-ryouta,kanemoto-masaki,kaneshiro-marina,katagiri-kousuke,katayama-serika,katsu-shino,katsumata-kaede,kikuchi-miki,kimura-riku,kinase-miku,kinoshita-ryouta,kishimoto-ryouya,kitani-sora,kiya-kazuki,kobayashi-ayuki,kobayashi-shouhei,kobayashi-takehiro,kojima-keitarou,kojima-kyouhei,kojima-michito,komamura-ami,komatsu-sairi,komatsubara-kazuki,komuta-kazuki,kondou-aya,kondou-kana,koshikawa-ren,kou-kazunari,kouno-atsuki,koyama-hiroki,kubo-yuuki,kubota-shion,kudou-yuuki,kurabayashi-akira,kuramochi-mitsuki,kuroda-yuuya,kurokawa-ryou,maeda-takahiro,makiyo-shunya,marukawa-kumiko,maruyama-ikumi,maruyama-takahiro,masuda-keisuke,masuno-sana,matsui-yuuki,matsuoka-shuri,matsushita-futoshi,minakawa-kazuya,miyagawa-satsuki,mizumoto-makito,mizuno-hideaki,mochizuki-hiroe,momodomi-hiroya,mori-yuuki,morita-taichi,munaoka-haruka,munehiro-ayami,murakami-yori,nagai-yuusei,nagano-naoki,nagao-momoka,nagayama-osamu,naitou-takato ...
+[SUMMARY:GRP users     ] add=0 del=0 [applied]
+
+=== memberUid +fVBnnA- ===
+  +VAiKCA-: 250, +j/1SoE6IW5o-/+W59+Pg-: 0, +U8KAAw-: +dnuTMm4I-(+aYJ7lw-): 250
+
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : esmile-dev
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP esmile-dev  want(1): shiozumi-makoto
+[LIST] GRP esmile-dev  have(1): shiozumi-makoto
+[SUMMARY:GRP esmile-dev] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : nicori-dev
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP nicori-dev  want(1): shiozumi-makoto2
+[LIST] GRP nicori-dev  have(1): shiozumi-makoto2
+[SUMMARY:GRP nicori-dev] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : kindaka-dev
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP kindaka-dev  want(18): akashio-hiroki,fukuyasu-hideaki,iizawa-kensuke,katsu-shino,koyama-hiroki,kurabayashi-akira,nakajima-shin,nakamura-toshihiko,nemoto-osamu,saitou-jun,shiozumi-makoto3,takebayashi-yumiko,takeuchi-tomokazu,ushigome-norio,watanabe-toshihiro,yamaguchi-tomohisa,yamasaki-ryouhei,yamazaki-akinori
+[LIST] GRP kindaka-dev  have(18): akashio-hiroki,fukuyasu-hideaki,iizawa-kensuke,katsu-shino,koyama-hiroki,kurabayashi-akira,nakajima-shin,nakamura-toshihiko,nemoto-osamu,saitou-jun,shiozumi-makoto3,takebayashi-yumiko,takeuchi-tomokazu,ushigome-norio,watanabe-toshihiro,yamaguchi-tomohisa,yamasaki-ryouhei,yamazaki-akinori
+[SUMMARY:GRP kindaka-dev] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : boj-dev
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP boj-dev  want(4): hirukawa-makoto,sano-yukiharu,takahashi-ryouya2,yanagisawa-yurika
+[LIST] GRP boj-dev  have(4): hirukawa-makoto,sano-yukiharu,takahashi-ryouya2,yanagisawa-yurika
+[SUMMARY:GRP boj-dev   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : e_game-dev
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP e_game-dev  want(91): abe-ryou,akiba-yuuichi,akiyoshi-yuuya,azumaya-ryouta,esashika-akio,fujii-hibiki,fujimoto-asami,fukushima-yuuya,furukawa-kouki,gotou-satomi,gouda-naoki,harada-hitoshi,haruta-haruki,hiraga-daisuke,hirose-masaya,hobo-hoshihito,horikawa-yuudai,hoshitani-taiki,iijima-ryou,itou-keigo,itou-yutaka,iwai-yasumichi,iwanaga-reina,kakumoto-yuuki,kaneko-hitomi,kaneko-ryouta,kanemoto-masaki,kaneshiro-marina,kikuchi-miki,kinoshita-ryouta,kishimoto-ryouya,kobayashi-shouhei,kobayashi-takehiro,komatsu-sairi,koshikawa-ren,kou-kazunari,kubota-shion,kurokawa-ryou,maruyama-ikumi,matsushita-futoshi,miyagawa-satsuki,munaoka-haruka,nagano-naoki,nagayama-osamu,nakamura-keita,nakamura-suzuka,nakano-atsushi,namiki-hiroyuki,namimatsu-teruyuki,nishizawa-satoshi,nishizawa-takuya,ookawara-chiaki,oonishi-keitarou,oonuki-atsushi,oota-kaho,saitou-ren,saitou-rui,saitou-tomohisa,sakaguchi-keiji,sakai-mao,sakamoto-katsuyuki,sasaki-yuusuke,satou-takahiro,segoshi-miyuki,sekimoto-takahito,shibuya-mikiko,shiraki-hasumi,shouji-yuuta,shumuta-tomoya,souryou-tatsuya,sugawara-naoki,sugimoto-tatsuya,sukegawa-kaede,suzuki-daisuke,tajima-haruna,takabatake-hideto,takano-jun,takeda-nobutaka,takeuchi-yuuta,tamai-akihiko,tanaka-motoaki,taniguchi-kazuki,tokiwa-moe,wakui-daiki,yamada-masayuki,yamagishi-hiroaki,yamamura-riku,yamanaka-rui,yamaoka-eiki,yamazaki-saika,yanagisawa-ayuna
+[LIST] GRP e_game-dev  have(91): abe-ryou,akiba-yuuichi,akiyoshi-yuuya,azumaya-ryouta,esashika-akio,fujii-hibiki,fujimoto-asami,fukushima-yuuya,furukawa-kouki,gotou-satomi,gouda-naoki,harada-hitoshi,haruta-haruki,hiraga-daisuke,hirose-masaya,hobo-hoshihito,horikawa-yuudai,hoshitani-taiki,iijima-ryou,itou-keigo,itou-yutaka,iwai-yasumichi,iwanaga-reina,kakumoto-yuuki,kaneko-hitomi,kaneko-ryouta,kanemoto-masaki,kaneshiro-marina,kikuchi-miki,kinoshita-ryouta,kishimoto-ryouya,kobayashi-shouhei,kobayashi-takehiro,komatsu-sairi,koshikawa-ren,kou-kazunari,kubota-shion,kurokawa-ryou,maruyama-ikumi,matsushita-futoshi,miyagawa-satsuki,munaoka-haruka,nagano-naoki,nagayama-osamu,nakamura-keita,nakamura-suzuka,nakano-atsushi,namiki-hiroyuki,namimatsu-teruyuki,nishizawa-satoshi,nishizawa-takuya,ookawara-chiaki,oonishi-keitarou,oonuki-atsushi,oota-kaho,saitou-ren,saitou-rui,saitou-tomohisa,sakaguchi-keiji,sakai-mao,sakamoto-katsuyuki,sasaki-yuusuke,satou-takahiro,segoshi-miyuki,sekimoto-takahito,shibuya-mikiko,shiraki-hasumi,shouji-yuuta,shumuta-tomoya,souryou-tatsuya,sugawara-naoki,sugimoto-tatsuya,sukegawa-kaede,suzuki-daisuke,tajima-haruna,takabatake-hideto,takano-jun,takeda-nobutaka,takeuchi-yuuta,tamai-akihiko,tanaka-motoaki,taniguchi-kazuki,tokiwa-moe,wakui-daiki,yamada-masayuki,yamagishi-hiroaki,yamamura-riku,yamanaka-rui,yamaoka-eiki,yamazaki-saika,yanagisawa-ayuna
+[SUMMARY:GRP e_game-dev] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : solt-dev
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP solt-dev  want(91): abiru-masashi,adachi-kaito,asahara-yuuki,asakawa-kazutoshi,baba-yuutarou,fujiwara-naoya,hara-chika,hashimoto-daiki,hiraku-kingo,ibushi-tessei,ichikura-honatsu,ishii-megumi,ishii-takayasu,ishikawa-tatsuya,itou-yuuya,iwaide-takumi,iwata-yuushirou,kamada-shuu,kamiyama-yuri,kanamori-akihiro,katagiri-kousuke,katsumata-kaede,kimura-riku,kobayashi-ayuki,kojima-keitarou,komamura-ami,komatsubara-kazuki,komuta-kazuki,kondou-aya,kondou-kana,kouno-atsuki,kubo-yuuki,kudou-yuuki,kuramochi-mitsuki,maruyama-takahiro,masuda-keisuke,matsuoka-shuri,mizuno-hideaki,mochizuki-hiroe,momodomi-hiroya,mori-yuuki,morita-taichi,munehiro-ayami,murakami-yori,nagao-momoka,naitou-takato,nakagawa-miyu,nakamura-katsumi,nakamura-yuuki,nishimura-yuuta,nitta-ruka,noda-takemichi,okada-takuya,onodera-tatsuki,ooishi-satsuki,ooyama-takayuki,parii-yuan,saitou-masaki,sakaguchi-miki,shimizu-yuudai,shimoyama-hikaru,shiono-mizuki,shiraeda-tomoki,shiraishi-tatsuya,sobajima-ryouya,sugata-momoyo,suzuki-masato,takeda-saaya,takehara-shouhei,takezawa-shuuma,tanaka-hiroyuki,taniguchi-yoshiki,tsukahara-mizuki,tsurumi-masayuki,tsuruoka-taichi,tsutsumi-yuuki,uehara-akimasa,uehara-kei,ueki-mayuka,yamamoto-ryuuhei,yamamoto-tatsuyoshi,yamanishi-toshihiro,yamasaki-ryousuke,yamashita-reika,yamauchi-kentarou,yanagisawa-masamichi,yano-chinhyon,yokota-shouhei,yokoyama-ryou,yokoyama-souma,yoshida-chihiro
+[LIST] GRP solt-dev  have(91): abiru-masashi,adachi-kaito,asahara-yuuki,asakawa-kazutoshi,baba-yuutarou,fujiwara-naoya,hara-chika,hashimoto-daiki,hiraku-kingo,ibushi-tessei,ichikura-honatsu,ishii-megumi,ishii-takayasu,ishikawa-tatsuya,itou-yuuya,iwaide-takumi,iwata-yuushirou,kamada-shuu,kamiyama-yuri,kanamori-akihiro,katagiri-kousuke,katsumata-kaede,kimura-riku,kobayashi-ayuki,kojima-keitarou,komamura-ami,komatsubara-kazuki,komuta-kazuki,kondou-aya,kondou-kana,kouno-atsuki,kubo-yuuki,kudou-yuuki,kuramochi-mitsuki,maruyama-takahiro,masuda-keisuke,matsuoka-shuri,mizuno-hideaki,mochizuki-hiroe,momodomi-hiroya,mori-yuuki,morita-taichi,munehiro-ayami,murakami-yori,nagao-momoka,naitou-takato,nakagawa-miyu,nakamura-katsumi,nakamura-yuuki,nishimura-yuuta,nitta-ruka,noda-takemichi,okada-takuya,onodera-tatsuki,ooishi-satsuki,ooyama-takayuki,parii-yuan,saitou-masaki,sakaguchi-miki,shimizu-yuudai,shimoyama-hikaru,shiono-mizuki,shiraeda-tomoki,shiraishi-tatsuya,sobajima-ryouya,sugata-momoyo,suzuki-masato,takeda-saaya,takehara-shouhei,takezawa-shuuma,tanaka-hiroyuki,taniguchi-yoshiki,tsukahara-mizuki,tsurumi-masayuki,tsuruoka-taichi,tsutsumi-yuuki,uehara-akimasa,uehara-kei,ueki-mayuka,yamamoto-ryuuhei,yamamoto-tatsuyoshi,yamanishi-toshihiro,yamasaki-ryousuke,yamashita-reika,yamauchi-kentarou,yanagisawa-masamichi,yano-chinhyon,yokota-shouhei,yokoyama-ryou,yokoyama-souma,yoshida-chihiro
+[SUMMARY:GRP solt-dev  ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : social-dev
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP social-dev  want(44): akiyama-ryou,aoki-shunichi,chikaarashi-kanae,imaizumi-takayoshi,inagaki-wanoka,inoue-saki,kadowaki-shuusei,kanamori-sana,katayama-serika,kinase-miku,kitani-sora,kiya-kazuki,kojima-kyouhei,kojima-michito,kuroda-yuuya,maeda-takahiro,makiyo-shunya,marukawa-kumiko,masuno-sana,matsui-yuuki,minakawa-kazuya,mizumoto-makito,nagai-yuusei,nakabayashi-yuugo,noguchi-yasuhito,ogawa-hikaru,okumura-nagi,onodera-kai,oono-sora,ooshita-shuuhei2,saitou-sayaka,saitou-tomonao,sakurai-asuka,suzuki-reo,suzuki-yoshimi,takahashi-shinichi,takeda-shun,takinishi-yuri,tsuji-muneharu,ueda-tomohiro,umeno-taiki,yamano-yuusuke,yasumura-yasuaki,yoshida-naoto
+[LIST] GRP social-dev  have(44): akiyama-ryou,aoki-shunichi,chikaarashi-kanae,imaizumi-takayoshi,inagaki-wanoka,inoue-saki,kadowaki-shuusei,kanamori-sana,katayama-serika,kinase-miku,kitani-sora,kiya-kazuki,kojima-kyouhei,kojima-michito,kuroda-yuuya,maeda-takahiro,makiyo-shunya,marukawa-kumiko,masuno-sana,matsui-yuuki,minakawa-kazuya,mizumoto-makito,nagai-yuusei,nakabayashi-yuugo,noguchi-yasuhito,ogawa-hikaru,okumura-nagi,onodera-kai,oono-sora,ooshita-shuuhei2,saitou-sayaka,saitou-tomonao,sakurai-asuka,suzuki-reo,suzuki-yoshimi,takahashi-shinichi,takeda-shun,takinishi-yuri,tsuji-muneharu,ueda-tomohiro,umeno-taiki,yamano-yuusuke,yasumura-yasuaki,yoshida-naoto
+[SUMMARY:GRP social-dev] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : adm-cls
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP adm-cls  want(1): shiozumi-makoto
+[LIST] GRP adm-cls  have(1): shiozumi-makoto
+[SUMMARY:GRP adm-cls   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : dir-cls
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP dir-cls  want(3): hiraku-kingo,takahashi-ryouya2,yamaguchi-tomohisa
+[LIST] GRP dir-cls  have(3): hiraku-kingo,takahashi-ryouya2,yamaguchi-tomohisa
+[SUMMARY:GRP dir-cls   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : mgr-cls
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP mgr-cls  want(5): gotou-satomi,iwai-yasumichi,katsu-shino,sano-yukiharu,takinishi-yuri
+[LIST] GRP mgr-cls  have(5): gotou-satomi,iwai-yasumichi,katsu-shino,sano-yukiharu,takinishi-yuri
+[SUMMARY:GRP mgr-cls   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : mgs-cls
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP mgs-cls  want(19): hirukawa-makoto,kamiyama-yuri,kanamori-akihiro,kinase-miku,komatsubara-kazuki,marukawa-kumiko,maruyama-ikumi,morita-taichi,oonuki-atsushi,ooshita-shuuhei2,sakurai-asuka,shiraishi-tatsuya,sobajima-ryouya,suzuki-yoshimi,takano-jun,takebayashi-yumiko,takehara-shouhei,tsuruoka-taichi,yanagisawa-yurika
+[LIST] GRP mgs-cls  have(19): hirukawa-makoto,kamiyama-yuri,kanamori-akihiro,kinase-miku,komatsubara-kazuki,marukawa-kumiko,maruyama-ikumi,morita-taichi,oonuki-atsushi,ooshita-shuuhei2,sakurai-asuka,shiraishi-tatsuya,sobajima-ryouya,suzuki-yoshimi,takano-jun,takebayashi-yumiko,takehara-shouhei,tsuruoka-taichi,yanagisawa-yurika
+[SUMMARY:GRP mgs-cls   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : stf-cls
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP stf-cls  want(0):
+[LIST] GRP stf-cls  have(0):
+[SUMMARY:GRP stf-cls   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : ent-cls
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP ent-cls  want(220): abe-ryou,abiru-masashi,adachi-kaito,akashio-hiroki,akiba-yuuichi,akiyama-ryou,akiyoshi-yuuya,aoki-shunichi,asahara-yuuki,asakawa-kazutoshi,azumaya-ryouta,baba-yuutarou,chikaarashi-kanae,esashika-akio,fujii-hibiki,fujimoto-asami,fujiwara-naoya,fukushima-yuuya,fukuyasu-hideaki,furukawa-kouki,gouda-naoki,hara-chika,harada-hitoshi,haruta-haruki,hashimoto-daiki,hiraga-daisuke,hirose-masaya,hobo-hoshihito,horikawa-yuudai,hoshitani-taiki,ibushi-tessei,ichikura-honatsu,iijima-ryou,iizawa-kensuke,imaizumi-takayoshi,inagaki-wanoka,inoue-saki,ishii-megumi,ishii-takayasu,ishikawa-tatsuya,itou-keigo,itou-yutaka,itou-yuuya,iwaide-takumi,iwanaga-reina,iwata-yuushirou,kadowaki-shuusei,kakumoto-yuuki,kamada-shuu,kanamori-sana,kaneko-hitomi,kaneko-ryouta,kanemoto-masaki,kaneshiro-marina,katagiri-kousuke,katayama-serika,katsumata-kaede,kikuchi-miki,kimura-riku,kinoshita-ryouta,kishimoto-ryouya,kitani-sora,kiya-kazuki,kobayashi-ayuki,kobayashi-shouhei,kobayashi-takehiro,kojima-keitarou,kojima-kyouhei,kojima-michito,komamura-ami,komatsu-sairi,komuta-kazuki,kondou-aya,kondou-kana,koshikawa-ren,kou-kazunari,kouno-atsuki,koyama-hiroki,kubo-yuuki,kubota-shion,kudou-yuuki,kurabayashi-akira,kuramochi-mitsuki,kuroda-yuuya,kurokawa-ryou,maeda-takahiro,makiyo-shunya,maruyama-takahiro,masuda-keisuke,masuno-sana,matsui-yuuki,matsuoka-shuri,matsushita-futoshi,minakawa-kazuya,miyagawa-satsuki,mizumoto-makito,mizuno-hideaki,mochizuki-hiroe,momodomi-hiroya,mori-yuuki,munaoka-haruka,munehiro-ayami,murakami-yori,nagai-yuusei,nagano-naoki,nagao-momoka,nagayama-osamu,naitou-takato,nakabayashi-yuugo,nakagawa-miyu,nakajima-shin,nakamura-katsumi,nakamura-keita,nakamura-suzuka,nakamura-toshihiko,nakamura-yuuki,nakano-atsushi,namiki-hiroyuki,namimatsu-teruyuki,nemoto-osamu ...
+[LIST] GRP ent-cls  have(220): abe-ryou,abiru-masashi,adachi-kaito,akashio-hiroki,akiba-yuuichi,akiyama-ryou,akiyoshi-yuuya,aoki-shunichi,asahara-yuuki,asakawa-kazutoshi,azumaya-ryouta,baba-yuutarou,chikaarashi-kanae,esashika-akio,fujii-hibiki,fujimoto-asami,fujiwara-naoya,fukushima-yuuya,fukuyasu-hideaki,furukawa-kouki,gouda-naoki,hara-chika,harada-hitoshi,haruta-haruki,hashimoto-daiki,hiraga-daisuke,hirose-masaya,hobo-hoshihito,horikawa-yuudai,hoshitani-taiki,ibushi-tessei,ichikura-honatsu,iijima-ryou,iizawa-kensuke,imaizumi-takayoshi,inagaki-wanoka,inoue-saki,ishii-megumi,ishii-takayasu,ishikawa-tatsuya,itou-keigo,itou-yutaka,itou-yuuya,iwaide-takumi,iwanaga-reina,iwata-yuushirou,kadowaki-shuusei,kakumoto-yuuki,kamada-shuu,kanamori-sana,kaneko-hitomi,kaneko-ryouta,kanemoto-masaki,kaneshiro-marina,katagiri-kousuke,katayama-serika,katsumata-kaede,kikuchi-miki,kimura-riku,kinoshita-ryouta,kishimoto-ryouya,kitani-sora,kiya-kazuki,kobayashi-ayuki,kobayashi-shouhei,kobayashi-takehiro,kojima-keitarou,kojima-kyouhei,kojima-michito,komamura-ami,komatsu-sairi,komuta-kazuki,kondou-aya,kondou-kana,koshikawa-ren,kou-kazunari,kouno-atsuki,koyama-hiroki,kubo-yuuki,kubota-shion,kudou-yuuki,kurabayashi-akira,kuramochi-mitsuki,kuroda-yuuya,kurokawa-ryou,maeda-takahiro,makiyo-shunya,maruyama-takahiro,masuda-keisuke,masuno-sana,matsui-yuuki,matsuoka-shuri,matsushita-futoshi,minakawa-kazuya,miyagawa-satsuki,mizumoto-makito,mizuno-hideaki,mochizuki-hiroe,momodomi-hiroya,mori-yuuki,munaoka-haruka,munehiro-ayami,murakami-yori,nagai-yuusei,nagano-naoki,nagao-momoka,nagayama-osamu,naitou-takato,nakabayashi-yuugo,nakagawa-miyu,nakajima-shin,nakamura-katsumi,nakamura-keita,nakamura-suzuka,nakamura-toshihiko,nakamura-yuuki,nakano-atsushi,namiki-hiroyuki,namimatsu-teruyuki,nemoto-osamu ...
+[SUMMARY:GRP ent-cls   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : tmp-cls
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP tmp-cls  want(0):
+[LIST] GRP tmp-cls  have(0):
+[SUMMARY:GRP tmp-cls   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+
+=== memberUid sync START ===
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+PEOPLE  : (auto)
+GROUPS  : ou=Groups,dc=e-smile,dc=ne,dc=jp
+CONFIRM : YES (apply)
+INIT    : YES (auto-create missing groups)
+GROUPS# : err-cls
+----------------------------------------------
+[INFO] People OU: ou=Users,dc=e-smile,dc=ne,dc=jp+/wiB6lLVaRxR+v8J-
+[LIST] GRP err-cls  want(2): shiozumi-makoto2,shiozumi-makoto3
+[LIST] GRP err-cls  have(2): shiozumi-makoto2,shiozumi-makoto3
+[SUMMARY:GRP err-cls   ] add=0 del=0 [applied]
+[DONE] memberUid sync complete (APPLIED)
+-------------------------------------------------------------------------------------- +JgUmBSYFJgU-[STEP4] Samba groupmap +VAxnH/8I-idempotent+/wk-
+
+----------------------------------------------
+URI     : ldaps://ovs-009.e-smile.local:636
+BASE_DN : dc=e-smile,dc=ne,dc=jp
+BIND_DN : cn=Admin,dc=e-smile,dc=ne,dc=jp
+BIND_PW : es0356525566
+CONFIRM : YES (apply)
+----------------------------------------------
+[INFO] +lYtZyw-: 2025-11-11 22:13:13
+[INFO] +MOIw/DDJ-: APPLY | +W/6MYQ-: ALL
+[DBG] URI=ldaps://ovs-009.e-smile.local:636 BASE_DN=dc=e-smile,dc=ne,dc=jp GROUPS_DN=ou=Groups,dc=e-smile,dc=ne,dc=jp
+[INFO] RID +MOsw/DDr-: users=1008, *-dev=(gid-1000), cls={adm:1009,dir:1010,mgr:1011,mgs:1012,stf:1013,ent:1014,tmp:1015,err:1016}
+[DBG] DomainSID: S-1-5-21-3566765955-3362818161-2431109675
+[ADD] [MOD-ADD] cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=users,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1008] sambaGroupType=[2] displayName=[users]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=esmile-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1001] sambaGroupType=[2] displayName=[esmile-dev]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=nicori-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1002] sambaGroupType=[2] displayName=[nicori-dev]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=kindaka-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1003] sambaGroupType=[2] displayName=[kindaka-dev]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=boj-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=boj-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1005] sambaGroupType=[2] displayName=[boj-dev]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=e_game-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=e_game-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1009] sambaGroupType=[2] displayName=[e_game-dev]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=solt-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=solt-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1010] sambaGroupType=[2] displayName=[solt-dev]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=social-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=social-dev,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1012] sambaGroupType=[2] displayName=[social-dev]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=adm-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=adm-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1009] sambaGroupType=[2] displayName=[Administrator Class (1?2) / +e6F0BoAFlo5cZA-]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=dir-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=dir-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1010] sambaGroupType=[2] displayName=[Director Class (3?4) / +U9Z94F95lo5cZA-]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=mgr-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=mgr-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1011] sambaGroupType=[2] displayName=[Manager Class (5) / +kOiVgJV3-]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=mgs-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=mgs-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1012] sambaGroupType=[2] displayName=[Sub-Manager Class (6?14) / +irKVdzD7duN3Y4B3-]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=stf-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=stf-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1013] sambaGroupType=[2] displayName=[Staff Class (15?19) / +TjtO+zD7TgCCLHk+VOE-]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=ent-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=ent-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1014] sambaGroupType=[2] displayName=[Entry Class (20) / +ZbBRZXk+VOE-]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=tmp-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=tmp-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1015] sambaGroupType=[2] displayName=[Temporary Class (21?98) / +bT6QYzD7kACAd4AF-]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[ADD] [MOD-ADD] cn=err-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp add: objectClass=[top,posixGroup,sambaGroupMapping]
+[ADD] [MOD-REPL] cn=err-cls,ou=Groups,dc=e-smile,dc=ne,dc=jp replace: sambaSID=[S-1-5-21-3566765955-3362818161-2431109675-1016] sambaGroupType=[2] displayName=[Error Class (99) / +T4tZFlHmdAYw+2cqW5p/qQ-ID+dSg-]
+[SKIP] [ERR] ldap_mod_replace(objectClass) failed: Object class violation
+[SKIP] [ERR] ldap_mod_replace failed: Object class violation
+[INFO] +W4xOhg-: total=16 ok=0 added=16 updated=0 skip(no-posix)=0 skip(ng)=0
+
+e_game-dev (S-1-5-21-2472930339-1292973816-1914088701-1006) -> e_game-dev
+solt-dev (S-1-5-21-2472930339-1292973816-1914088701-1007) -> solt-dev
+users (S-1-5-21-2472930339-1292973816-1914088701-1001) -> users
+social-dev (S-1-5-21-2472930339-1292973816-1914088701-1008) -> social-dev
+esmile-dev (S-1-5-21-2472930339-1292973816-1914088701-1002) -> esmile-dev
+nicori-dev (S-1-5-21-2472930339-1292973816-1914088701-1003) -> nicori-dev
+kindaka-dev (S-1-5-21-2472930339-1292973816-1914088701-1004) -> kindaka-dev
+boj-dev (S-1-5-21-2472930339-1292973816-1914088701-1005) -> boj-dev
+[root@ovs-012 tools]#

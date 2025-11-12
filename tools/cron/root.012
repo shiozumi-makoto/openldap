@@ -24,10 +24,9 @@ MAILTO="shiozumi@esmile-sys.com"
 # ------------------------------------------------
 # 00 06 * * * /usr/local/etc/openldap/tools/run_ldap_full_sync.sh > /var/logs_share/ldap_samba_sync.log 2>&1
 
-00 06 * * * /usr/local/etc/openldap/tools/temp.sh > /var/logs_share/ldap_samba_sync.log 2>&1
+00 06 * * * /usr/local/etc/openldap/tools/temp.sh > /var/logs_share/ldap_samba_sync.log 2>&1 && /usr/local/etc/openldap/tools/temp-ovs-009.sh > /var/logs_share/ldap_samba_sync_ovs-009.log 2>&1
 
-15 06 * * * php /var/www/01_user/tools/php/postgresVer.php
-
+30 06 * * * php /var/www/01_user/tools/php/postgresVer.php
 
 # ----------------------------------------------------------------------
 # 2021.10.3 停電対応

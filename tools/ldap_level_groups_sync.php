@@ -68,6 +68,8 @@ if (class_exists(\Tools\Lib\CliUtil::class) && method_exists(\Tools\Lib\CliUtil:
         'ldap-uri'   => [null,  'string'],
         'uri'        => [null,  'string'],
         'base-dn'    => [null,  'string'],
+        'bind-dn'    => [null,  'string'],
+        'bind-pass'  => [null,  'string'],
         'groups-ou'  => [null,  'string'],
         'description'=> [null,  'string'],
     ]);
@@ -81,6 +83,8 @@ if (class_exists(\Tools\Lib\CliUtil::class) && method_exists(\Tools\Lib\CliUtil:
         'ldap-uri::',
         'uri::',
         'base-dn::',
+        'bind-dn::',
+        'bind-pass::',
         'groups-ou::',
         'description::',
     ]);
@@ -105,6 +109,8 @@ Options:
   --ldap-uri=URI    Explicit LDAP URI (alias: --uri)
   --uri=URI         Alias of --ldap-uri
   --base-dn=DN      Base DN (default: inferred from BIND_DN)
+  --bind-dn=DN      Bind DN (default: inferred from BIND_DN)
+  --bind-pass
   --groups-ou=DN    Groups OU DN (default: ou=Groups,<BASE_DN>)
   --description     Description (update!)
 
@@ -119,20 +125,27 @@ $CONFIRM = isset($options['confirm']);
 $DO_INIT = isset($options['init-group']);
 $DO_UPDS = isset($options['description']);	// $description = true;
 
-$URI_OPT = $options['ldap-uri'] ?? ($options['uri'] ?? null);
-$LDAP_URL = getenv('LDAPURI') ?: getenv('LDAP_URI') ?: getenv('LDAP_URL') ?: ($URI_OPT ?: null);
+$URI_OPT   = $options['ldap-uri'] ?? ($options['uri'] ?? null);
+$LDAP_URL  = $URI_OPT ?: getenv('LDAPURI') ?: getenv('LDAP_URI') ?: getenv('LDAP_URL') ?: null;
+// $LDAP_URL  = getenv('LDAPURI') ?: getenv('LDAP_URI') ?: getenv('LDAP_URL') ?: ($URI_OPT ?: null);
+
 if (!$LDAP_URL && isset($options['ldapi'])) {
     $LDAP_URL = 'ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi';
 }
+
 if (!$LDAP_URL) {
     // 既定は ldapi を使う（安全運用）
     $LDAP_URL = 'ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi';
 }
 
-$BIND_DN = getenv('BIND_DN') ?: 'cn=Admin,dc=e-smile,dc=ne,dc=jp';
-$BIND_PW = getenv('BIND_PW') ?: '';
+// $BIND_DN = getenv('BIND_DN') ?: 'cn=Admin,dc=e-smile,dc=ne,dc=jp';
+// $BIND_PW = getenv('BIND_PW') ?: '';
+// $BASE_DN = $options['base-dn'] ?? (getenv('BASE_DN') ?: null);
 
-$BASE_DN = $options['base-dn'] ?? (getenv('BASE_DN') ?: null);
+$BIND_DN   = $options['bind-dn'] ?? getenv('BIND_DN')   ?:'';
+$BIND_PW   = $options['bind-pass'] ?? getenv('BIND_PW') ?:'';
+$BASE_DN   = $options['base-dn'] ?? getenv('BASE_DN')   ?:null;
+
 if (!$BASE_DN) {
     $BASE_DN = preg_replace('/^[^,]+,/', '', $BIND_DN);
 }
@@ -156,11 +169,21 @@ echo "\n";
 echo ($C['bcyan'])("=== level groups sync (posixGroup ensure) ===\n");
 printf("URI       : %s\n", $LDAP_URL);
 printf("BASE_DN   : %s\n", $BASE_DN);
+printf("BIND_DN   : %s\n", $BIND_DN);
+printf("BIND_PW   : %s\n", $BIND_PW);
 printf("GROUPS_OU : %s\n", $GROUPS_OU);
 printf("MODE      : %s\n", $CONFIRM ? 'APPLY' : 'DRY-RUN');
 printf("TARGETS   : %s\n", implode(',', $TARGET_GROUPS));
 printf("DISCRIPT  : %s\n", ((bool)$DO_UPDS) ? "true" : "false");
 echo "----------------------------------------------\n";
+
+//--------------------------------------------------------------
+// Validate BIND_DN
+//--------------------------------------------------------------
+if ($BASE_DN === null || trim($BASE_DN) === '') {
+    err("BASE_DN が未設定です。--base-dn または環境変数 BIND_DN を指定してください。");
+    exit(2);
+}
 
 //--------------------------------------------------------------
 // LDAP connect/bind
@@ -172,21 +195,27 @@ if (!$link) { err("ldap_connect failed: {$LDAP_URL}"); exit(1); }
 
 $wantExternal = str_starts_with($LDAP_URL, 'ldapi://');
 $bindOk = false;
+
+
+
 if ($wantExternal && function_exists('ldap_sasl_bind')) {
     putenv('LDAPTLS_REQCERT=never');
     $bindOk = @ldap_sasl_bind($link, null, null, 'EXTERNAL');
 } else {
     $bindOk = @ldap_bind($link, $BIND_DN, $BIND_PW);
 }
+
 if (!$bindOk) { err("ldap_bind failed: ".(function_exists('ldap_error')?ldap_error($link):'unknown')); exit(1); }
+
 
 //--------------------------------------------------------------
 // GroupDef::all();
 //--------------------------------------------------------------
 // 対象セット
 $GROUP_DEF = GroupDef::all_id();
-//print_r($GROUP_DEF);
-//exit;
+
+// print_r($GROUP_DEF);
+// exit;
 
 //--------------------------------------------------------------
 // helpers
@@ -246,8 +275,10 @@ function ensure_posix_group($link, string $dn, string $cn, ?int $gid, bool $conf
 
     $created = false; $fixedGid = false;
     $description = $group_def[$gid]['description'] ?? 'Domain Unix group';
+
 //	echo $description;
 //	exit;
+
 /*
 $group_def =
 
@@ -324,6 +355,7 @@ $group_def =
 $totalCreated = 0; $totalFixed = 0;
 
 foreach ($TARGET_GROUPS as $cn) {
+
     $dn  = group_dn($cn, $GROUPS_OU);
     $gid = infer_gid_from_defs($cn);
 
@@ -345,6 +377,13 @@ foreach ($TARGET_GROUPS as $cn) {
         continue;
     }
 
+
+    [$created,$fixed,$err,$description] = ensure_posix_group($link, $dn, $cn, $gid, $CONFIRM, $GROUP_DEF, $DO_UPDS);
+    if ($err !== null) {
+        warn("{$cn}: {$err}");
+        continue;
+    }
+
 /*
 	echo " **************************** \n";
 	var_dump($DO_INIT);
@@ -352,15 +391,13 @@ foreach ($TARGET_GROUPS as $cn) {
 	exit;
 */
 
-    [$created,$fixed,$err,$description] = ensure_posix_group($link, $dn, $cn, $gid, $CONFIRM, $GROUP_DEF, $DO_UPDS);
-    if ($err !== null) {
-        warn("{$cn}: {$err}");
-        continue;
-    }
+
     if ($created) { $totalCreated++; info(($CONFIRM?'ADD ':'DRY ADD ')."posixGroup {$dn} (gid={$gid})"); }
     if ($fixed)   { $totalFixed++;   info(($CONFIRM?'MOD ':'DRY MOD ')."gidNumber → {$gid}"); }
     if ($fixed)   { $totalFixed++;   info(($CONFIRM?'MOD ':'DRY MOD ')."description → {$description}"); }
     if (!$created && !$fixed) { info("OK: {$cn}（変更なし）"); }
+
+
 }
 
 echo "\n";

@@ -17,9 +17,19 @@ declare(strict_types=1);
  *   php ldap_smb_groupmap_sync.php --all   --confirm --group=stf-cls
  *
  * 接続指定（必要に応じて）:
- *   --uri='ldaps://host' --bind-dn='cn=admin,dc=...' --bind-pw='***'
+ *   --uri='ldaps://host' --bind-dn='cn=admin,dc=...' --bind-pass='***'
  *   既定は ldapi + SASL/EXTERNAL（--bind-dn未指定時、Connection::bind に委譲）
  */
+
+
+/*
+php ldap_smb_groupmap_sync.php --all --verbose --confirm \
+  --uri='ldaps://ovs-009.e-smile.local:636' \
+  --bind-dn='cn=Admin,dc=e-smile,dc=ne,dc=jp' \
+  --bind-pass='es0356525566' \
+  --base-dn='dc=e-smile,dc=ne,dc=jp'
+
+*/
 
 ini_set('memory_limit', '512M');
 date_default_timezone_set('Asia/Tokyo');
@@ -34,7 +44,6 @@ use Tools\Ldap\Support\LdapUtil;
 use Tools\Ldap\Connection;
 
 
-
 // ---------------- CLI ----------------
 $args = getopt('', [
     'biz',
@@ -46,7 +55,7 @@ $args = getopt('', [
     'uri:',
     'base-dn:',
     'bind-dn:',
-    'bind-pw:',
+    'bind-pass:',
     'help',
  ]);
 
@@ -93,9 +102,22 @@ $VERBOSE    = $has('verbose');
 $URI     = $arg('uri',     getenv('LDAP_URI') ?: 'ldapi://%2Fusr%2Flocal%2Fvar%2Frun%2Fldapi');
 $BASE_DN = $arg('base-dn', getenv('LDAP_BASE_DN') ?: getenv('BASE_DN') ?: 'dc=e-smile,dc=ne,dc=jp');
 $BIND_DN = $arg('bind-dn', getenv('BIND_DN') ?: null);
-$BIND_PW = $arg('bind-pw', getenv('BIND_PW') ?: null);
+$BIND_PW = $arg('bind-pass', getenv('BIND_PW') ?: null);
 
 $GROUPS_DN = 'ou=Groups,' . $BASE_DN;
+
+//--------------------------------------------------------------
+// 実行見出し
+//--------------------------------------------------------------
+echo "\n";
+echo "----------------------------------------------\n";
+printf("URI     : %s\n", $URI);
+printf("BASE_DN : %s\n", $BASE_DN);
+printf("BIND_DN : %s\n", $BIND_DN);
+printf("BIND_PW : %s\n", $BIND_PW);
+printf("CONFIRM : %s\n", $CONFIRM ? 'YES (apply)' : 'NO (DRY-RUN)');
+echo "----------------------------------------------\n";
+
 
 // ---- RID 決定ロジック（確定版：二車線ルール + users 特番） ----
 $ridFor = function(string $cn, int $gid): ?int {
@@ -118,6 +140,7 @@ $ridFor = function(string $cn, int $gid): ?int {
     ];
     return $clsRid[$cn] ?? null;
 };
+
 
 // ログ
 $log = function (string $lvl, string $msg) use ($VERBOSE) {

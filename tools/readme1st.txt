@@ -1,3 +1,23 @@
+[root@ovs-012 tools]# git log --pretty=format:"%h %ad %an %s" --date=short
+bc3d989 2025-11-11 root 2025.11.11
+3cad673 2025-11-03 root 1103の朝
+10018ec 2025-11-03 root 更新内容を簡単に書く
+6dd2f07 2025-11-02 root include tools directory in parent repository
+36b064e 2025-11-02 root remove embedded repo tools from tracking
+
+
+3cad673
+
+
+git status
+git add -A
+git commit -m "更新内容を簡単に書く"
+git push origin main
+
+
+git show 3cad673:tools/ldap_level_groups_sync.php > ldap_level_groups_sync_20251103.php
+
+
 
 fix_OVS-024_sid.ldif という名前で保存：
 
