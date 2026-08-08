@@ -160,7 +160,7 @@ if (!empty($cfg['help'])) {
     echo C::green("使用例:\n");
     echo "  php sync_mail_extension_from_ldap2.php --People --confirm --config=/usr/local/etc/openldap/tools/tools.conf\n";
     echo "  php sync_mail_extension_from_ldap2.php --Users  --confirm\n";
-    echo "  php sync_mail_extension_from_ldap2.php --O      --confirm    # passwd_mail（flag_id=1）由来\n\n";
+    echo "  php sync_mail_extension_from_ldap2.php --O      --confirm    # passwd_mail（flag_id=1）\n\n";
     echo C::green("主なオプション:\n");
     foreach ($schema as $key => $m) {
         $cli = isset($m['cli']) ? '--'.$m['cli'] : $key;
@@ -181,7 +181,7 @@ var_dump($modePeople);
 var_dump($modeUsers);
 var_dump($modeOnamae);
 */
-//exit;
+
 
 if ( ($modePeople + $modeUsers + $modeOnamae) != 1 ) {
     fwrite(STDERR, C::red("エラー: --People[P] / --Users[U] / --Onamae[O] のいずれか1つを指定してください。--help 参照。\n"));
@@ -274,7 +274,7 @@ SELECT
 FROM public.passwd_mail AS pm
 JOIN public.passwd_tnas AS t
   ON t.cmp_id = pm.cmp_id AND t.user_id = pm.user_id
-WHERE pm.flag_id = 1 and pm.cmp_id = 5 -- and pm.user_id = 101
+WHERE pm.flag_id = 1 -- and pm.cmp_id = 3 -- and pm.user_id = 101
 ORDER BY pm.cmp_id, pm.user_id
 SQL;
 

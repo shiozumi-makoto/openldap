@@ -75,6 +75,11 @@ $schema = [
 
 $cfg = Config::loadWithFile($argv, $schema, __DIR__ . '/inc/tools.conf');
 
+
+// print_r($cfg);
+// echo "test";
+// exit;
+
 if (!empty($cfg['help'])) {
     $prog = basename($_SERVER['argv'][0] ?? 'ldap_id_pass_from_postgres_set.php');
     echo CliUtil::buildHelp($schema, $prog, [
@@ -101,6 +106,17 @@ echo '  php ' . basename(__FILE__) . ' ' . implode(' ', array_slice($_SERVER['ar
 // DB 接続
 //============================================================
 $dsn = sprintf('pgsql:host=%s;port=%d;dbname=%s', $cfg['pg_host'], $cfg['pg_port'], $cfg['pg_db']);
+
+
+/*
+echo $dsn;
+echo "\n";
+echo "\n";
+print_r($cfg);
+exit;
+*/
+
+
 $pdo = new PDO($dsn, $cfg['pg_user'], $cfg['pg_pass'] ?? null, [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -252,7 +268,9 @@ echo "[INFO] DB rows (pre-filter): " . count($rows) . "\n";
 echo "[INFO] DB rows (post-filter): " . count($rows) . "\n";
 
 
-//print_r($rows[0]);
+// echo $dsn;
+// echo $baseSql;
+//print_r($rows);
 //exit;
 
 
@@ -284,6 +302,8 @@ if ($cfg['ldap'] || $cfg['home'] || $INIT) {
 //============================================================
 // INIT モード（初期化：DB NULL化 + LDAP削除 + 旧命名掃除）
 //============================================================
+
+
 if ($INIT) {
     echo "=== INIT MODE ===\n";
     $pdo->beginTransaction();
@@ -365,6 +385,17 @@ $idx = 0; $updCount = 0;
 $pdo->beginTransaction();
 $psUpd = $pdo->prepare('UPDATE public.passwd_tnas SET samba_id = :sid WHERE cmp_id = :cmp AND user_id = :uid');
 
+
+/* 土屋 */
+//	print_r($rows[201]);	
+/*
+	$xxx = $rows[201];	
+	$rows = [];
+	$rows[] = $xxx;
+*/
+//	print_r($rows);
+//	exit;
+
 foreach ($rows as $r) {
     $idx++;
 
@@ -375,8 +406,6 @@ foreach ($rows as $r) {
 // ---------------------------------------------------------------------------------- passwd_tnas と passwd_mail は、同じ！ 2025.11.5
     $pwd  = isset($r['passwd_id']) ? (string)$r['passwd_id'] : '';
 
-//	print_r($r);	
-//	exit;
 
     // かな列（必須）
     $seiKana = trim((string)($r['姓かな'] ?? ''));
@@ -430,7 +459,7 @@ foreach ($rows as $r) {
 
     // Up! 行（旧フォーマット）
     printf(
-        "Up!  [%3d] [%02d-%03d] [uid: %6d gid: %4d] [%s] [%-20s] [CON] 更新 [%-10s] [%s]\n",
+        "Up!  [%3d] [%02d-%03d] [uid: %6d gid: %4d] [%s] [%-20s] [CON] 更新 xxx [%-10s] [%s]\n",
         $idx, $cmp, $uidn, $uidNumber, $gidNumber, $lblDisp, $login, $pwd, $jpName
     );
 
@@ -474,19 +503,31 @@ foreach ($rows as $r) {
 		$r['電子メールアドレス自社サーバー']		// shiozumi-makoto@esmile-holdings.com
 	];
 
+
 	// 空要素を削除（null, 空文字, 0文字など）
 	$mailAlternateAddress = array_filter($mailAlternateAddress, function($v) {
     	return isset($v) && $v !== '';
 	});
 
+	// 重複を省く！
+	$mailAlternateAddress = array_values(array_unique($mailAlternateAddress));
+
 	// （必要なら添字を振り直す）
 	$mailAlternateAddress = array_values($mailAlternateAddress);
+
+
 
 // ★ ここで mailAlternateAddress を mail にも追加！
 //	$mailAddrs = array_merge($mailAddrs, $mailAlternateAddress);
 //	$mailAddrs = array_values(array_unique($mailAddrs));
 
-//	print_r($mailAlternateAddress);
+/*
+	if($cmp==3 && $uidn==363) {
+		print_r($mailAlternateAddress);
+		exit;
+	}
+*/
+
 //	print_r($mailAddrs);
 //	exit;
 
@@ -565,6 +606,13 @@ exit;
 //  export MAIL_PRIMARY_DOMAIN=esmile-holdings.com
 //  export MAIL_EXTRA_DOMAINS="esmile-soltribe.com, esmile-systems.jp"//
 // =====================================================================
+
+
+/*
+echo "test end 2";
+exit;
+*/
+
 
     // LDAP upsert（進捗の [MOD]/[ADD] 行は出さない）
     if (!empty($cfg['ldap'])) {
@@ -703,10 +751,11 @@ exit;
 				echo "Err Add ------------------------------------------------------------- $dn\n";
             }
 
-//				print_r($attrs);
-//				echo "Nww Add ------------------------------------------------------------- $dn : $empType password = $pwd : $displayOrderInt app = $APPLY\n";
-//				exit;
-
+/*
+			print_r($attrs);
+			echo "Nww Add ------------------------------------------------------------- $dn : $empType password = $pwd : $displayOrderInt app = $APPLY\n";
+			exit;
+*/
         }
 
 

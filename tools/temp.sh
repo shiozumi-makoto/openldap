@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+#
+# 00 06 * * * /usr/local/etc/openldap/tools/temp.sh > /var/logs_share/ldap_samba_sync.log 2>&1 && /usr/local/etc/openldap/tools/temp-ovs-009.sh > /var/logs_share/ldap_samba_sync_ovs-009.log 2>&1
+#
+
 BASE_DIR='/usr/local/etc/openldap/tools'
 cd "${BASE_DIR}"
 
@@ -24,12 +28,44 @@ LIST_FLAG=(--list)
 # kakasi 
 export PATH=/usr/local/bin:$PATH
 
-# exit
-# echo $PATH
+# php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-host=192.168.61.10 "${CONFIRM_FLAG[@]}"
+# php "${BASE_DIR}/make_forward_from_pg.php" "${COMMON_URI_FLAG[@]}" "${CONFIRM_FLAG[@]}"
+# echo ${CONFIRM_FLAG[@]}
+# exit;
+
+#
+# お名前がバクっていたので、実効（赤塩）aka_hoshi@ -> akashio-hiroki@
+# [  8] cmp_id= 3 user_id=363 login_id [passwd_mail.login_id] [New] =       akashio-hiroki@web-esmile.biz   >>> aka_hoshi      [old] [ passwd_tnas.login_id ] [ passwd_tnas.samba ] akashio-hiroki
+#
+#
+#php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-host=ovs-010
+#php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-host=ovs-010
+#php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-host=ovs-010
+
+
+# php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-host=ovs-012 "${CONFIRM_FLAG[@]}"
+# php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-host=ovs-012 "${CONFIRM_FLAG[@]}"
+# php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-host=ovs-012 "${CONFIRM_FLAG[@]}"
+# exit;
+# php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-host=ovs-012
+# php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-host=ovs-012
+# echo "php ${BASE_DIR}/sync_mail_extension_from_ldap.php ${COMMON_URI_FLAG[@]} --O --pg-host=ovs-012"
+# echo ${COMMON_URI_FLAG[@]}
 
 echo "-------------------------------------------------------------------------------------- ★[STEP1] ユーザ本体の同期（HOME/LDAP upsert）"
+
+# /tmp になっていたので、とりあえずは、unset （笑）
+unset PGHOST
+
+# echo "${BASE_DIR}/ldap_id_pass_from_postgres_set.php"
+# 島津諒
+# php ldap_id_pass_from_postgres_set.php --ldapi --ldap --confirm --cmps=12 --users=213
+# php "${BASE_DIR}/ldap_id_pass_from_postgres_set.php" --ldapi --ldap --confirm --cmps=12 --users=213
+
 php "${BASE_DIR}/ldap_id_pass_from_postgres_set.php" --ldapi --ldap --confirm
 
+# echo "test step 1 "
+# exit;
 
 #
 # ovs-009 もついでに？
@@ -123,9 +159,9 @@ php "${BASE_DIR}/prune_home_dirs.php" "${COMMON_URI_FLAG[@]}"
 echo "=== DONE ACCOUNT UPDATE! ==="
 
 # ------------------------------------
-# php sync_mail_extension_from_ldap.php --confirm --P --pg-post=ovs-010
-# php sync_mail_extension_from_ldap.php --confirm --U --pg-post=ovs-010
-# php sync_mail_extension_from_ldap.php --confirm --O --pg-post=ovs-010
+# php sync_mail_extension_from_ldap.php --confirm --P --pg-host=ovs-010
+# php sync_mail_extension_from_ldap.php --confirm --U --pg-host=ovs-010
+# php sync_mail_extension_from_ldap.php --confirm --O --pg-host=ovs-010
 # php make_forward_from_pg.php --confirm
 #
 # php sync_mail_extension_from_ldap.php --confirm --O --pg-host=ovs-010
@@ -133,19 +169,19 @@ echo "=== DONE ACCOUNT UPDATE! ==="
 # --P --U :ldap の mail ( --P = people / --U = users )
 # --O	  :passwd_mail の login_id 列を参照！
 #
-# php sync_mail_extension_from_ldap.php --ldapi --O --pg-post=ovs-010
+# php sync_mail_extension_from_ldap.php --ldapi --O --pg-host=ovs-010
 # ------------------------------------
 
 echo "-------------------------------------------------------------------------------------- ★★★★★★[STEP6] .forward 情報個人メール拡張の更新"
-php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-post=ovs-010
-php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-post=ovs-010
-php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-post=ovs-010
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-host=192.168.61.10 "${CONFIRM_FLAG[@]}"
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-host=192.168.61.10 "${CONFIRM_FLAG[@]}"
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-host=192.168.61.10 "${CONFIRM_FLAG[@]}"
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-host=127.0.0.1 "${CONFIRM_FLAG[@]}"
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-host=127.0.0.1 "${CONFIRM_FLAG[@]}"
+php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-host=127.0.0.1 "${CONFIRM_FLAG[@]}"
 
 echo "-------------------------------------------------------------------------------------- ★★★★★★[STEP6 + plus] .forward のファイル作成"
-php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --P --pg-post=ovs-012
-php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --U --pg-post=ovs-012
-php "${BASE_DIR}/sync_mail_extension_from_ldap.php" "${COMMON_URI_FLAG[@]}" --O --pg-post=ovs-012
-php "${BASE_DIR}/make_forward_from_pg.php" "${COMMON_URI_FLAG[@]}"
+php "${BASE_DIR}/make_forward_from_pg.php" "${COMMON_URI_FLAG[@]}" "${CONFIRM_FLAG[@]}"
 
 echo "-------------------------------------------------------------------------------------- ★★★★★★★[STEP7] MailBoxの容量チェック"
 echo "Maildir の削除"

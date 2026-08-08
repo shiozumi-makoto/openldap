@@ -6,10 +6,7 @@
 # =====================================================================
 
 # --- 基本ホスト情報 ---------------------------------------------------
-# myhostname = ovs-009.esmile-holdings.com
-
-myhostname = mail2.esmile-holdings.com
-
+myhostname = ovs-009.esmile-holdings.com
 mydomain   = esmile-holdings.com
 myorigin   = $mydomain
 
@@ -95,8 +92,8 @@ smtpd_use_tls = yes
 # smtpd_tls_cert_file = /etc/postfix/tls/postfix.crt
 # smtpd_tls_key_file  = /etc/postfix/tls/postfix.key
 smtpd_tls_cert_file = /etc/postfix/tls/esmile-holdings.crt
-smtpd_tls_key_file = /etc/postfix/tls/esmile-holdings.key
-smtpd_tls_CAfile = /etc/postfix/tls/ca.crt
+smtpd_tls_key_file  = /etc/postfix/tls/esmile-holdings.key
+smtpd_tls_CAfile    = /etc/postfix/tls/ca.crt
 
 
 smtp_tls_security_level = encrypt
@@ -107,8 +104,9 @@ smtpd_tls_loglevel         = 1
 smtpd_tls_received_header  = yes
 
 # --- 送信時TLS ---------------------------------------------------------
+smtp_tls_security_level = encrypt
 smtp_tls_loglevel       = 1
-smtp_tls_CAfile = /etc/pki/tls/certs/ca-bundle.crt
+smtp_tls_CAfile         = /etc/postfix/tls/ca.crt
 
 # --- ログ/便利設定 ----------------------------------------------------
 disable_vrfy_command = yes
@@ -183,9 +181,3 @@ tls_random_source = dev:/dev/urandom
 postscreen_dnsbl_action = enforce
 postscreen_dnsbl_sites = zen.spamhaus.org*3 b.barracudacentral.org*2
 postscreen_dnsbl_threshold = 3
-smtp_tls_protocols = !SSLv2,!SSLv3
-smtp_tls_mandatory_protocols = !SSLv2,!SSLv3
-smtp_tls_ciphers = high
-smtp_tls_mandatory_ciphers = high
-smtp_tls_exclude_ciphers = aNULL, eNULL, EXPORT, DES, 3DES, RC4, MD5
-smtp_tls_policy_maps = hash:/etc/postfix/tls_policy

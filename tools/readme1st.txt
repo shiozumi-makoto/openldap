@@ -11,7 +11,7 @@ bc3d989 2025-11-11 root 2025.11.11
 
 git status
 git add -A
-git commit -m "更新内容を簡単に書く"
+git commit -m "11.12 ldap_level_groups_sync.php の --bind-dn 未設定解消"
 git push origin main
 
 

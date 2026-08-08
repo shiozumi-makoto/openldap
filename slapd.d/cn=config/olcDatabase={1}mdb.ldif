@@ -1,5 +1,5 @@
 # AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
-# CRC32 24c1b983
+# CRC32 71528898
 dn: olcDatabase={1}mdb
 objectClass: olcDatabaseConfig
 objectClass: olcMdbConfig
@@ -40,28 +40,32 @@ structuralObjectClass: olcMdbConfig
 entryUUID: 0eff1360-4c15-1040-8d0d-e34e22dcb487
 creatorsName: cn=config
 createTimestamp: 20251102085251Z
-olcSyncrepl: {0}rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
- e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
- e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
- 1 interval=00:00:05:00
-olcSyncrepl: {1}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
- e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
- e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
- 1 interval=00:00:05:00
-olcSyncrepl: {2}rid=025 provider=ldap://ovs-025.e-smile.local bindmethod=simpl
- e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
- e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
- 1 interval=00:00:05:00
-olcSyncrepl: {3}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
- e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials=es0356525566 searchbas
- e="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="30 5 300 3" timeout=
- 1 interval=00:00:05:00
-olcMultiProvider: TRUE
 olcSizeLimit: 50000
 olcLimits: {0}dn.exact="cn=Admin,dc=e-smile,dc=ne,dc=jp" size=unlimited time=u
  nlimited
 olcLimits: {1}dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=aut
  h" size=unlimited time=unlimited
-entryCSN: 20251105054351.504216Z#000000#00c#000000
+olcMultiProvider: TRUE
+olcSyncrepl: {0}rid=002 provider=ldap://ovs-002.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="es0356525566" searchb
+ ase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 ne
+ twork-timeout=5 schemachecking=on scope=sub attrs="*,+"
+olcSyncrepl: {1}rid=018 provider=ldap://ovs-018.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="es0356525566" searchb
+ ase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 ne
+ twork-timeout=5 schemachecking=on scope=sub attrs="*,+"
+olcSyncrepl: {2}rid=024 provider=ldap://ovs-024.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="es0356525566" searchb
+ ase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 ne
+ twork-timeout=5 schemachecking=on scope=sub attrs="*,+"
+olcSyncrepl: {3}rid=025 provider=ldap://ovs-025.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="es0356525566" searchb
+ ase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 ne
+ twork-timeout=5 schemachecking=on scope=sub attrs="*,+"
+olcSyncrepl: {4}rid=026 provider=ldap://ovs-026.e-smile.local bindmethod=simpl
+ e binddn="cn=Admin,dc=e-smile,dc=ne,dc=jp" credentials="es0356525566" searchb
+ ase="dc=e-smile,dc=ne,dc=jp" type=refreshAndPersist retry="60 +" timeout=1 ne
+ twork-timeout=5 schemachecking=on scope=sub attrs="*,+"
+entryCSN: 20251122041426.409278Z#000000#00c#000000
 modifiersName: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth
-modifyTimestamp: 20251105054351Z
+modifyTimestamp: 20251122041426Z

@@ -1,0 +1,254 @@
+# =========================
+# ovs-018 (WINS Client)
+# =========================
+[global]
+    workgroup = E-SMILE
+    server string = ovs-018 ( 192.168.61.18 )
+    netbios name = ovs-018
+
+    # --- セキュリティ/プロトコル ---
+    security = user
+    server min protocol = SMB2_10
+    server max protocol = SMB3_11
+    client min protocol = SMB2_10
+    client max protocol = SMB3_11
+    smb encrypt = desired
+    map to guest = Bad User
+    # ntlm auth = ntlmv2-only
+
+    # ここを tdbsam にする
+    passdb backend = tdbsam
+
+
+    # --- LDAP(passdb) - 自ホストへ StartTLS で ---
+#    passdb backend = ldapsam:ldap://ovs-012.e-smile.local/
+#    ldap admin dn = cn=admin,dc=e-smile,dc=ne,dc=jp
+#    ldap suffix = dc=e-smile,dc=ne,dc=jp
+#    ldap user suffix = ou=Users
+#    ldap group suffix = ou=Groups
+#    ldap machine suffix = ou=Computers
+#    ldap passwd sync = yes
+#    ldap ssl = start_tls
+#    tls cafile = /usr/local/etc/openldap/certs/cacert.crt
+    client ldap sasl wrapping = sign
+
+    # --- WINS / Browser 役割（Client）---
+    wins support = no
+    wins server  = 192.168.61.2
+    name resolve order = wins host bcast
+    domain master = no
+    local master = no
+    preferred master = no
+    os level = 20
+
+    # --- ネットワーク制限 ---
+    interfaces = 192.168.61.18/24 127.0.0.1
+    bind interfaces only = yes
+    hosts allow = 127.0.0.0/8 192.168.61.0/24 192.168.62.0/24 172.16.0.0/12
+    hosts deny  = all
+
+    # --- ログ ---
+    log file = /var/log/samba/%m.log
+    max log size = 1000
+
+    # --- 印刷（必要なら） ---
+    printing = cups
+    printcap name = cups
+    load printers = yes
+    cups options = raw
+
+    # --- 見え方/列挙 ---
+    browseable = yes
+    access based share enum = yes
+
+    # ---- ファイル名の同期 ----       
+    change notify = yes
+    kernel change notify = yes
+    notify:inotify = yes
+
+    # --- リアルタイム更新系のチューニング ---
+    kernel oplocks = yes
+    oplocks = yes
+    level2 oplocks = yes
+
+    # ディレクトリ・ファイル情報キャッシュを弱めて即時性を優先
+    # directory name cache size = 0
+    getwd cache = no
+    stat cache = no
+
+
+# ==========================================
+# 各ユーザーのホーム共有
+# ==========================================
+
+[homes]
+        comment = Home Directories
+        valid users = %S, %D%w%S
+        browseable = yes
+        read only = No
+        inherit acls = Yes
+        create mask = 0700
+        directory mask = 0700
+        force user = %U
+
+[printers]
+        comment = All Printers
+        path = /var/tmp
+        printable = Yes
+        create mask = 0600
+        browseable = No
+
+[print$]
+        comment = Printer Drivers
+        path = /var/lib/samba/drivers
+        write list = @printadmin root
+        force group = @printadmin
+        create mask = 0664
+        directory mask = 0775
+
+# ==========================================
+# 開発関連
+# ==========================================
+
+[www]
+        comment = ovs-018 www
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /var/www/
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[Pear]
+        comment = ovs-018 Pear
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /usr/share/pear
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[httpd]
+        comment = ovs-018 httpd
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /etc/httpd
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[ssl_pki]
+        comment = ovs-018 ssl pki
+        browseable = yes
+        invalid users = %S
+        valid users = shiozumi shiozumi-makoto
+        force group = shiozumi
+        read only = No
+        writable = yes
+        path = /etc/pki/
+        create mask = 0775
+        force create mode = 0775
+        directory mask = 0775
+
+[openldap]
+
+        comment = ovs-018 openldap
+        browseable = yes
+        invalid users = %S
+        path = /usr/local/etc/openldap/
+        valid users = shiozumi shiozumi-makoto
+        force user  = shiozumi
+        force group = shiozumi
+        read only = no
+        create mask = 0664
+        force create mode = 0664
+        directory mask = 2775
+        inherit permissions = yes
+        map acl inherit = yes
+        dos filemode = yes
+
+[usr_local_src]
+
+        comment = ovs-018 /usr/local/src
+        path = /usr/local/src
+        valid users = shiozumi shiozumi-makoto
+        force user    = shiozumi
+        force group = shiozumi
+        browseable = yes
+        read only = no
+        writable = yes  
+        create mask = 0664
+        directory mask = 2775
+
+
+[home_shiozumi]
+
+         comment = ovs-018 shiozumi [org]
+         path = /home/shiozumi/
+         browseable = yes
+         writable = yes
+         valid users = shiozumi shiozumi-makoto
+         force user = shiozumi
+         force group = shiozumi
+         create mask = 0775
+         directory mask = 2775
+         inherit permissions = yes
+         dos filemode = yes
+
+[pgsql]
+
+         comment = ovs-018 pgsql
+         browseable = yes
+         invalid users = %S
+         valid users = shiozumi shiozumi-makoto
+         force user  = postgres
+         force group = postgres
+         read only = No
+         writable = yes
+         path = /var/lib/pgsql/
+         create mask = 0775
+         force create mode = 0775
+         directory mask = 0775
+
+[root_logs]
+
+         comment       = ovs018 ovs-logs
+         path          = /var/logs_share
+         browseable    = Yes
+         writable      = Yes
+         read only     = No
+         valid users   = shiozumi shiozumi-makoto
+         force user    = shiozumi
+         force group   = shiozumi
+         create mask   = 0664
+         directory mask= 2775
+
+[root_bin]
+
+          comment       = root bin tools
+          path          = /root/bin
+          browseable    = Yes
+          writable      = Yes
+          read only     = No
+          valid users   = shiozumi shiozumi-makoto
+          force user    = shiozumi
+          force group   = shiozumi
+          create mask   = 0664
+          directory mask= 2775
+
+

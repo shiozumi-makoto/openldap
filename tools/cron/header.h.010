@@ -1,0 +1,55 @@
+<?PHP
+$gb_database	= '127.0.0.1';			//	読み込みは、自分自身
+$wr_database	= '192.168.61.10';		//　書き込みは、Masterなら自分自身、SlaveならマスターＤＢに書き込む。
+$db_master		= 1;					//　1=Master 0=Slave
+$db_debug_on	= 0;					//　1=db debug mode
+$pg_debug_on	= 0;					//　1=php debug mode
+$js_debug_on	= true;					//　true = Javascript debug mode
+$ky_debug_on	= false;				//　true = 給与台帳メール送信
+$multi_login    = true;					//	複数の会社にログイン可能
+$gb_session_test= 1;					//	セッション情報の表示、フッターも
+$gb_session_name = 'PHPSESSID';		//	当たり前のデフォルト
+
+$gb_serv_adr	= '192.168.61.10';		//	ovs-010(main)
+$gb_serv_adr_sub= '192.168.10.10';		//	ovs-010-dmz(sub)
+
+$gb_perl_exe	= 0;
+$root_dir_bs	= '/var/www/happy/htdocs/ver401/';
+
+$ldapserver = '192.168.61.10';	       // ldap server ip address
+$ldas_srv   = 'ovs-010.e-smile.local'; // ldap server domain
+$ldappass   = 'es0356525566';
+$ldapuser   = 'cn=Admin,dc=e-smile,dc=ne,dc=jp';
+$ldapbase   = 'ou=Users,dc=e-smile,dc=ne,dc=jp';
+$ca_file    = '/usr/local/etc/openldap/certs/cacert.crt';  // ← 自社CA（発行者: ESMILE SOLTRIBE GROUP CA）
+
+
+$enctype	= 'UTF8';		//	出力文字コード SJIS or EUC or UTF8
+$encoding	= 'UTF8';		//	出力（output header 用）
+$charset	= 'UTF-8';		//	出力（META タグ用)
+$src_char   = 'UTF-8';		//	入力（php, html, txt などのソース文字コード）
+$db_char    = 'UTF-8';		//	データーベースの文字コード
+$consol_char= 'UTF-8';		//	コマンド出力用の文字コード
+$zengin_char= 'SJIS';		//	全銀データーは、SJISのみ（半角カタカナを使用）
+$enc_mobile = 'UTF8';		//	2020.8.9 仕方ないので追加
+
+$src_char_cv= 1;			//	mb_convert_encoding しない場合は、０、する場合は、１
+$db_char_cv = 1;			//	mb_convert_encoding しない場合は、０、する場合は、１
+
+$folder_sep = '/';			//	\\ = windows or  / = linux
+$sql_dump = 'pg_dump';
+$sql_psql = 'psql';
+$su_cmd   = 'su - postgres -c';
+
+$cmd_null  = '/dev/null 2>&1';	//	linux
+// $cmd_null  = 'nul 2>&1';		//	indows
+
+if($pg_debug_on) {
+	ini_set('error_reporting', E_ALL & ~E_NOTICE );
+	ini_set('display_errors' , 1);
+	$cmd_null = '';
+} else {
+	error_reporting(0);
+	ini_set('display_errors', 0);
+}
+?>

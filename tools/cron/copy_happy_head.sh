@@ -4,7 +4,7 @@ set -eux
 # === 設定 ===
 SSH_USER="root"
 DEST_DIR="."   # 保存先
-SRC_PATH="/var/spool/cron/root"
+SRC_PATH="/var/www/happy/htdocs/ver401/inc/header.h"
 
 # === 対象ホスト ===
 HOSTS=(
@@ -14,15 +14,13 @@ HOSTS=(
   ovs-024
   ovs-025
   ovs-026
-  ovs-002
   ovs-012
-  ovs-018
 )
 
 # === コピー処理 ===
 for host in "${HOSTS[@]}"; do
   suffix="${host##*-}"                # 例: ovs-009 → 009
-  dest_file="${DEST_DIR}/root.${suffix}"
+  dest_file="${DEST_DIR}/header.h.${suffix}"
   echo "[INFO] copy ${SRC_PATH} from ${host} → ${dest_file}"
   scp "${SSH_USER}@${host}:${SRC_PATH}" "${dest_file}"
   chmod 775 ${dest_file}
