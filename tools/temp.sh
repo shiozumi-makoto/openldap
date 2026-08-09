@@ -61,6 +61,14 @@ unset PGHOST
 # 島津諒
 # php ldap_id_pass_from_postgres_set.php --ldapi --ldap --confirm --cmps=12 --users=213
 # php "${BASE_DIR}/ldap_id_pass_from_postgres_set.php" --ldapi --ldap --confirm --cmps=12 --users=213
+# php "${BASE_DIR}/ldap_id_pass_from_postgres_set.php" --ldapi --ldap --home --cmps=12 --users=213 --verbose
+#
+# 2026.8.9 shiozumi
+# ホームディレクトリのみの作成！
+# php "${BASE_DIR}/ldap_id_pass_from_postgres_set_home_only.php" --home-only   --home-root=/home --confirm
+# php "${BASE_DIR}/ldap_id_pass_from_postgres_set_home_only.php" --home-only   --home-root=/home --cmps=12 --users=211 --confirm
+#
+#
 
 php "${BASE_DIR}/ldap_id_pass_from_postgres_set.php" --ldapi --ldap --confirm
 

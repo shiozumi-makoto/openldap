@@ -39,8 +39,9 @@ $schema = [
     'verbose'    => ['cli'=>'verbose','type'=>'bool','default'=>false,'desc'=>'詳細ログ'],
     'init'       => ['cli'=>'init','type'=>'bool','default'=>false,'desc'=>'初期化モード（DB samba_id を NULL、--ldap時は uid を削除）'],
 
-	// Maildir専用
+	// HOME / Maildir 専用
 	'maildir-only'=> ['cli'=>'maildir-only','type'=>'bool','default'=>false,'desc'=>'Maildir のみ作成（home/link整備はスキップ）'],
+	'home-only'   => ['cli'=>'home-only','type'=>'bool','default'=>false,'desc'=>'HOMEのみ同期（LDAP/DB更新は行わない。新規HOME時はMaildir/Sieveも作成）'],
 
     // LDAP
     'uri'        => ['cli'=>'uri','type'=>'string','env'=>'LDAP_URI','default'=>null,'desc'=>'ldap[s]/ldapi URI'],
@@ -83,16 +84,24 @@ $cfg = Config::loadWithFile($argv, $schema, __DIR__ . '/inc/tools.conf');
 if (!empty($cfg['help'])) {
     $prog = basename($_SERVER['argv'][0] ?? 'ldap_id_pass_from_postgres_set.php');
     echo CliUtil::buildHelp($schema, $prog, [
-        'DRY-RUN' => "php {$prog} --ldapi --ldap --verbose",
-        '実行'    => "php {$prog} --ldapi --ldap --confirm",
-        '初期化'  => "php {$prog} --init --ldap --ldapi --confirm",
+        'DRY-RUN'   => "php {$prog} --ldapi --ldap --verbose",
+        '実行'      => "php {$prog} --ldapi --ldap --confirm",
+        'HOMEのみ'  => "php {$prog} --home-only --home-root=/home --cmps=12 --verbose",
+        '初期化'    => "php {$prog} --init --ldap --ldapi --confirm",
     ]);
     exit(0);
 }
 
-$APPLY = !empty($cfg['confirm']);
-$VERB  = !empty($cfg['verbose']);
-$INIT  = !empty($cfg['init']);
+$APPLY     = !empty($cfg['confirm']);
+$VERB      = !empty($cfg['verbose']);
+$INIT      = !empty($cfg['init']);
+$HOME_ONLY = !empty($cfg['home-only']);
+
+// --home-only は HOME 作成を有効化し、LDAP/DB 更新は抑止する
+if ($HOME_ONLY) {
+    $cfg['home'] = true;
+    $cfg['ldap'] = false;
+}
 $DBG   = fn(string $m) => $VERB && print("[DBG] {$m}\n");
 
 $ERR_LOG = __DIR__ . '/ldap_uid_errors.log';
@@ -130,7 +139,7 @@ $ldapMode = 'off';
 $ldapStatus = '-';
 $ldapProto = 'v3';
 
-if ($cfg['ldap'] || $cfg['home'] || $INIT) {
+if (($cfg['ldap'] || ($cfg['home'] && !$HOME_ONLY) || $INIT)) {
 //	print_r($cfg);
 //	exit;
     [$ds, $baseDn, /*$groupsDn*/, $uri] = LdapConnector::connect($cfg, $DBG);
@@ -162,6 +171,7 @@ printf("SKEL      : %s\n", $skel);
 printf("MODE      : %04o (%d)\n", $modeNum, $modeNum);
 printf("CONFIRM   : %s\n", $APPLY ? "YES (execute)" : "NO  (dry-run)");
 printf("LDAP      : %s\n", ($cfg['ldap']?'enabled':'disabled'));
+printf("HOME_ONLY : %s\n", ($HOME_ONLY?'enabled':'disabled'));
 printf("log file  : %s\n", basename($ERR_LOG));
 printf("local uid : %s\n", function_exists('posix_getuid')? (string)posix_getuid() : '-');
 echo "----------------------------------------------\n";
@@ -274,18 +284,21 @@ echo "[INFO] DB rows (post-filter): " . count($rows) . "\n";
 //exit;
 
 
-$domain_sid = LdapUtil::inferDomainSid($ds, $baseDn);
+$domain_sid = null;
+if (!$HOME_ONLY) {
+    $domain_sid = LdapUtil::inferDomainSid($ds, $baseDn);
 
-if (!$domain_sid) {
-    echo "DomainSID を取得できませんでした。sambaDomain の有無や 'net getlocalsid' を確認してください。";
-    exit(4);
+    if (!$domain_sid) {
+        echo "DomainSID を取得できませんでした。sambaDomain の有無や 'net getlocalsid' を確認してください。";
+        exit(4);
+    }
+    echo "SID! 取得したドメインSID: $domain_sid\n";
 }
-echo "SID! 取得したドメインSID: $domain_sid\n";
 
 //============================================================
 // LDAP 付帯情報
 //============================================================
-if ($cfg['ldap'] || $cfg['home'] || $INIT) {
+if (!$HOME_ONLY && ($cfg['ldap'] || $cfg['home'] || $INIT)) {
     if (!$baseDn) {
         $baseDn = Env::str('LDAP_BASE_DN', 'dc=e-smile,dc=ne,dc=jp');
         if ($baseDn) echo "[INFO] base-dn 未指定のため既定値を使用: {$baseDn}\n";
@@ -473,16 +486,23 @@ foreach ($rows as $r) {
     $givenName  = sprintf('%s',    $r['名']);
     $homeLink 	= sprintf('/home/%02d-%03d-%s', $cmp, $uidn, $login);
 //  $homeOld 	= sprintf('/home/%02d-%03d-%s', $cmp, $uidn, $r['login_id']);
-    $sambaSID	= $domain_sid . "-" . $uidNumber;
-    $sambaPrimaryGroupSID = $domain_sid . "-" . $gidNumber;
-    $salt		= random_bytes(4);
-    $ssha		= normalize_password($pwd);
-    $ntlm		= ntlm_hash($pwd);
-    $pwdLastSet = time();
+    $sambaSID = null;
+    $sambaPrimaryGroupSID = null;
+    $ssha = null;
+    $ntlm = null;
+    $pwdLastSet = null;
 
-    if (!preg_match('/^[0-9A-F]+$/', $ntlm)) {
-        echo "Err! [$uid] NTLM hash の作成失敗\n";
-        continue;
+    if (!$HOME_ONLY) {
+        $sambaSID = $domain_sid . "-" . $uidNumber;
+        $sambaPrimaryGroupSID = $domain_sid . "-" . $gidNumber;
+        $ssha = normalize_password($pwd);
+        $ntlm = ntlm_hash($pwd);
+        $pwdLastSet = time();
+
+        if (!preg_match('/^[0-9A-F]+$/', $ntlm)) {
+            echo "Err! [{$login}] NTLM hash の作成失敗\n";
+            continue;
+        }
     }
 
 	$primaryDomain	 = Env::str('MAIL_PRIMARY_DOMAIN', 'esmile-holdings.com');
@@ -615,7 +635,7 @@ exit;
 
 
     // LDAP upsert（進捗の [MOD]/[ADD] 行は出さない）
-    if (!empty($cfg['ldap'])) {
+    if (!empty($cfg['ldap']) && !$HOME_ONLY) {
 
         $entry = ldap_find_by_uid($ds, (string)$baseDn, $login, $DBG);
         if ($entry) {
@@ -763,7 +783,7 @@ exit;
     //============================================================
     // Thunderbird AddressBook 自動生成（ou=AddressBook）
     //============================================================
-    if (!empty($cfg['ldap']) && $ds && !empty($mailAlternateAddress)) {
+    if (!empty($cfg['ldap']) && !$HOME_ONLY && $ds && !empty($mailAlternateAddress)) {
         $baseAB = 'ou=AddressBook,dc=e-smile,dc=ne,dc=jp';
         $chk = @ldap_search($ds, 'dc=e-smile,dc=ne,dc=jp', '(ou=AddressBook)');
         if (!$chk || ldap_count_entries($ds, $chk) === 0) {
@@ -865,8 +885,8 @@ exit;
 		}
     }
 
-    // DB: samba_id 更新
-    if ($APPLY) {
+    // DB: samba_id 更新（--home-only では更新しない）
+    if ($APPLY && !$HOME_ONLY) {
         $psUpd->execute([':sid'=>$login, ':cmp'=>$cmp, ':uid'=>$uidn]);
         $updCount += $psUpd->rowCount();
     }
@@ -888,11 +908,17 @@ $APPLY ? $pdo->commit() : $pdo->rollBack();
 //============================================================
 // フッター（旧式スタイル）
 //============================================================
-echo "\nLDAP 更新対象: " . count($rows) . " 件\n";
-echo "[INFO] SQL OK: passwd_tnas.samba_id 補完 => {$updCount} 件\n\n";
-echo "★ 完了: LDAP/HOME 同期 (" . ($APPLY ? "EXECUTE" : "DRY-RUN") . ") / 対象 " . count($rows) . " 件\n";
+if ($HOME_ONLY) {
+    echo "\nHOME 更新対象: " . count($rows) . " 件\n";
+    echo "[INFO] --home-only: LDAP/DB 更新はスキップ\n\n";
+    echo "★ 完了: HOME同期 (" . ($APPLY ? "EXECUTE" : "DRY-RUN") . ") / 対象 " . count($rows) . " 件\n";
+} else {
+    echo "\nLDAP 更新対象: " . count($rows) . " 件\n";
+    echo "[INFO] SQL OK: passwd_tnas.samba_id 補完 => {$updCount} 件\n\n";
+    echo "★ 完了: LDAP/HOME 同期 (" . ($APPLY ? "EXECUTE" : "DRY-RUN") . ") / 対象 " . count($rows) . " 件\n";
+}
 echo "★ 例: 検索確認\n";
-if ($uri) {
+if ($uri && !$HOME_ONLY) {
     $bindDn = $cfg['bind_dn'] ?? 'cn=Admin,' . ($baseDn ?? '');
     $masked = '********';
     $ou = infer_people_ou($ds, (string)$baseDn, $DBG) ?: "ou=Users,{$baseDn}";
